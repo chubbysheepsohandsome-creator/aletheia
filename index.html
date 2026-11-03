@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ALETHEIA — See beyond the words.</title>
+<meta name="description" content="ALETHEIA is an AI writing intelligence platform. It examines the patterns behind written language and reports the evidence, never a verdict.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI5IiBmaWxsPSIjMTAxMTE0Ii8+PHBhdGggZD0iTTIxLjQgNC41IEw5Ljk0NyAzMC41IEwyMS40IDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik04LjgwMiAzMy4xIEw0IDQ0IEwyMS40IDQ0IEwyMS40IDMzLjEgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0yNi42MDAgNC41IEwzOC4wNTMgMzAuNSBMMjYuNjAwIDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0zOS4xOTggMzMuMSBMNDQuMDAwIDQ0IEwyNi42MDAgNDQgTDI2LjYwMCAzMy4xIFoiIGZpbGw9IiNGMkYwRTkiLz48cmVjdCB4PSIyMi41IiB5PSI5IiB3aWR0aD0iMy4wIiBoZWlnaHQ9IjM1IiBmaWxsPSIjQjk5QTVCIi8+PC9zdmc+Cg==">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --obsidian:#101114;--charcoal:#181A20;--graphite:#252832;--ivory:#F2F0E9;--softwhite:#FAFAF7;--champagne:#C9B98D;--gold:#B99A5B;
+  --serif:"Cormorant Garamond","Iowan Old Style",Georgia,serif;--sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+[data-theme="dark"]{
+  --bg:var(--obsidian);--bg-2:var(--charcoal);--bg-3:var(--graphite);--fg:var(--ivory);--fg-2:#B9B6AC;--fg-3:#86847D;
+  --line:rgba(242,240,233,.10);--line-2:rgba(242,240,233,.18);--accent:var(--champagne);--beam:var(--gold);--track:#2c2f39;
+  --hl-strong:rgba(206,104,86,.34);--hl-moderate:rgba(201,170,96,.30);--hl-human:rgba(120,170,130,.26);--btn-fg:#101114;
+}
+[data-theme="light"]{
+  --bg:var(--softwhite);--bg-2:var(--ivory);--bg-3:#E6E3D8;--fg:var(--graphite);--fg-2:#4A4E5A;--fg-3:#7C7F88;
+  --line:rgba(37,40,50,.12);--line-2:rgba(37,40,50,.22);--accent:#8F7440;--beam:#8F7440;--track:#E6E3D8;
+  --hl-strong:rgba(206,104,86,.26);--hl-moderate:rgba(201,160,70,.30);--hl-human:rgba(110,160,120,.24);--btn-fg:#FAFAF7;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:15.5px/1.6 var(--sans);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+button{font-family:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono)}
+.eyebrow{font:500 11.5px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 22px}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;margin:0}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+/* Header */
+header.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:36px;height:68px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg)}
+.brand svg{width:26px;height:26px;color:var(--fg)}
+.brand span{font:600 19px/1 var(--serif);letter-spacing:.3em;padding-left:2px}
+nav.links{display:flex;gap:26px;margin-left:auto}
+nav.links a{color:var(--fg-2);text-decoration:none;font-size:13.5px;letter-spacing:.02em;padding:6px 0;border-bottom:1px solid transparent}
+nav.links a:hover{color:var(--fg)} nav.links a.on{color:var(--fg);border-bottom-color:var(--accent)}
+.iconbtn{background:none;border:1px solid var(--line-2);color:var(--fg-2);width:34px;height:34px;display:grid;place-items:center;cursor:pointer;border-radius:2px}
+.iconbtn:hover{color:var(--fg);border-color:var(--fg-3)}
+.btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line-2);background:transparent;color:var(--fg);padding:11px 20px;font-size:13.5px;font-weight:500;letter-spacing:.02em;cursor:pointer;text-decoration:none;border-radius:2px;transition:.2s}
+.btn:hover{border-color:var(--fg-2)}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:var(--btn-fg)}
+.btn.small{padding:7px 13px;font-size:12.5px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn .arr{font-family:var(--mono);transition:transform .2s} .btn:hover .arr{transform:translateX(3px)}
+.mobile-nav{display:none;gap:18px;overflow-x:auto;padding:10px 32px;border-bottom:1px solid var(--line)}
+.mobile-nav a{white-space:nowrap;color:var(--fg-2);text-decoration:none;font-size:13.5px}
+.mobile-nav a.on{color:var(--fg)}
+.page{display:none}.page.on{display:block}
+/* ---------- HOME ---------- */
+.hero{position:relative;min-height:calc(100vh - 68px);display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:40px;padding:60px 0 70px}
+.hero h1{font-size:clamp(52px,7.4vw,104px);line-height:.95;font-weight:500;letter-spacing:-.025em;margin-bottom:28px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero .lede{font-size:18px;color:var(--fg-2);max-width:470px;margin:0 0 36px;line-height:1.65}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero .meta{margin-top:56px;display:flex;gap:34px;font:12px var(--mono);color:var(--fg-3);letter-spacing:.04em}
+.hero .meta b{display:block;color:var(--fg);font:500 15px var(--mono);margin-bottom:2px}
+/* revelation visual */
+.reveal{position:relative;height:520px;border-left:1px solid var(--line);border-right:1px solid var(--line);overflow:hidden;
+  mask-image:linear-gradient(transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(transparent,#000 12%,#000 88%,transparent)}
+.reveal .grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% 40px;opacity:.6}
+.reveal .txt{position:absolute;inset:20px 28px;font:500 23px/40px var(--serif);color:var(--fg);text-align:justify;hyphens:auto}
+.reveal .txt.blur{filter:blur(3.2px);opacity:.28}
+.reveal .txt.clear{clip-path:inset(0 52% 0 30%);animation:sweep 16s ease-in-out infinite alternate}
+.reveal .txt.clear mark{background:none;color:var(--accent);border-bottom:1px solid var(--accent)}
+.reveal .beam{position:absolute;top:0;bottom:0;left:30%;width:18%;border-left:1px solid var(--beam);border-right:1px solid var(--beam);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--beam) 10%,transparent),transparent 40%,transparent 60%,color-mix(in srgb,var(--beam) 10%,transparent));animation:sweepbeam 16s ease-in-out infinite alternate}
+@keyframes sweep{to{clip-path:inset(0 18% 0 64%)}}
+@keyframes sweepbeam{to{left:64%}}
+.reveal .pt{position:absolute;font:11px var(--mono);color:var(--fg-3);letter-spacing:.04em;white-space:nowrap;background:var(--bg);padding:3px 8px 3px 4px;z-index:2}
+.reveal .pt i{display:inline-block;width:5px;height:5px;border:1px solid var(--accent);border-radius:50%;margin-right:8px;vertical-align:1px}
+.reveal .pt::after{content:"";position:absolute;left:7px;top:19px;width:1px;height:26px;background:var(--line-2)}
+@media (prefers-reduced-motion:reduce){.reveal .txt.clear,.reveal .beam{animation:none}}
+.section{padding:120px 0;border-top:1px solid var(--line)}
+.split{display:grid;grid-template-columns:5fr 7fr;gap:80px}
+.big-quote{font:500 clamp(34px,3.8vw,52px)/1.12 var(--serif);letter-spacing:-.015em}
+.big-quote em{color:var(--accent)}
+.body-lg{font-size:17px;color:var(--fg-2);line-height:1.75;max-width:620px}
+.body-lg p{margin:0 0 20px}
+.statements{list-style:none;padding:0;margin:40px 0 0;border-top:1px solid var(--line)}
+.statements li{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line);font:500 22px var(--serif)}
+.statements li span{font:11px var(--mono);color:var(--fg-3);letter-spacing:.1em}
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:56px}
+.tech{padding:30px 26px 34px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:230px;transition:background .25s}
+.tech:hover{background:var(--bg-2)}
+.tech .n{font:11px var(--mono);color:var(--accent);letter-spacing:.12em}
+.tech h3{font-size:25px;margin:34px 0 10px;line-height:1.1}
+.tech p{margin:0;color:var(--fg-2);font-size:14px;line-height:1.6}
+.tech.note{background:var(--bg-2)} .tech.note h3{font-style:italic;color:var(--accent)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(38px,4.4vw,60px);line-height:1.02;max-width:760px}
+.sec-head p{max-width:420px;color:var(--fg-2);margin:0}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:56px;border:1px solid var(--line)}
+.product{padding:44px 40px 40px;position:relative;min-height:340px;display:flex;flex-direction:column}
+.product+.product{border-left:1px solid var(--line)}
+.product .tag{font:11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.product .tag.muted{color:var(--fg-3)}
+.product h3{font-size:44px;margin:26px 0 6px;line-height:1}
+.product h3 small{display:block;font:12px var(--mono);color:var(--fg-3);letter-spacing:.06em;margin-top:10px}
+.product p{color:var(--fg-2);margin:18px 0 26px;max-width:440px}
+.product ul{list-style:none;padding:0;margin:0 0 28px;columns:2;font-size:13.5px;color:var(--fg-2)}
+.product ul li{padding:4px 0 4px 16px;position:relative;break-inside:avoid}
+.product ul li::before{content:"";position:absolute;left:0;top:13px;width:7px;height:1px;background:var(--accent)}
+.product .bottom{margin-top:auto}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;border-top:1px solid var(--line)}
+.stat{padding:30px 24px 26px 0}
+.stat .v{font:500 54px/1 var(--serif);letter-spacing:-.02em}
+.stat .v small{font-size:22px;color:var(--fg-3)}
+.stat .l{font-size:13px;color:var(--fg-2);margin-top:10px;max-width:220px}
+.stat .c{font:11px var(--mono);color:var(--fg-3);margin-top:6px}
+.callout{margin-top:40px;border-left:1px solid var(--beam);padding:4px 0 4px 22px;color:var(--fg-2);max-width:820px;font-size:14.5px}
+.final{text-align:center;padding:150px 0 160px;border-top:1px solid var(--line);position:relative;overflow:hidden}
+.final h2{font-size:clamp(44px,6vw,84px);line-height:1;margin:0 auto 40px;max-width:900px}
+.final h2 em{color:var(--accent)}
+.final::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:linear-gradient(transparent,var(--beam),transparent);opacity:.5}
+/* ---------- DETECT ---------- */
+.page-head{padding:64px 0 34px;border-bottom:1px solid var(--line)}
+.page-head h1{font-size:clamp(42px,5vw,68px);line-height:1}
+.page-head p{color:var(--fg-2);max-width:640px;margin:16px 0 0;font-size:16px}
+.workbench{border:1px solid var(--line);margin-top:34px;background:var(--bg-2)}
+.tabs{display:flex;border-bottom:1px solid var(--line);align-items:center;flex-wrap:wrap}
+.tabs button{border:0;background:none;padding:14px 20px;font-size:13px;color:var(--fg-3);cursor:pointer;border-bottom:1px solid transparent;margin-bottom:-1px;letter-spacing:.02em}
+.tabs button.on{color:var(--fg);border-bottom-color:var(--accent)}
+.tabs .spacer{flex:1}
+.tabs select{margin:0 14px;border:1px solid var(--line-2);border-radius:2px;padding:6px 8px;font:12.5px var(--sans);color:var(--fg-2);background:var(--bg)}
+textarea#input{display:block;width:100%;min-height:320px;border:0;padding:26px 28px;font:400 20px/1.65 var(--serif);color:var(--fg);background:var(--bg);resize:vertical;outline:none}
+textarea#input::placeholder{color:var(--fg-3)}
+.drop{margin:24px;border:1px dashed var(--line-2);padding:60px 20px;text-align:center;color:var(--fg-2);cursor:pointer;transition:.2s;background:var(--bg)}
+.drop.over,.drop:hover{border-color:var(--accent)}
+.drop strong{display:block;font:500 26px var(--serif);color:var(--fg);margin-bottom:6px}
+.drop small{color:var(--fg-3);font-size:13px}
+.filechip{display:none;align-items:center;gap:10px;margin:14px 28px 0;font:12px var(--mono);color:var(--fg-2)}
+.filechip button{border:0;background:none;cursor:pointer;color:var(--fg-3);font-size:16px}
+.bar{display:flex;align-items:center;gap:16px;padding:14px 18px;border-top:1px solid var(--line);flex-wrap:wrap}
+.count{font:12px var(--mono);color:var(--fg-3)} .count b{color:var(--fg);font-weight:500}
+.bar .grow{flex:1}
+.msg{margin:14px 28px;padding:11px 14px;font-size:13.5px;display:none;border-left:2px solid var(--line-2)}
+.msg.err{display:block;color:#e4907f;border-color:#c0503f;background:rgba(192,80,63,.08)}
+.msg.info{display:block;color:var(--fg-2);border-color:var(--accent);background:var(--bg)}
+[data-theme="light"] .msg.err{color:#8f2518}
+#results{display:none;padding:40px 0 20px}
+.res-grid{display:grid;grid-template-columns:340px minmax(0,1fr);gap:28px;align-items:start}
+.res-grid>*{min-width:0}
+.panel{border:1px solid var(--line);background:var(--bg-2);padding:26px 28px;margin-bottom:24px}
+.panel h2{font-size:28px;margin-bottom:4px}
+.panel .sub{color:var(--fg-3);font-size:13px;margin:0 0 18px}
+.summary{position:sticky;top:88px;padding:26px}
+.gauge{display:block;margin:6px auto 0}
+.scoreline{text-align:center;margin-top:-8px}
+.scoreline .num{font:500 58px/1 var(--serif);letter-spacing:-.02em}
+.scoreline .unit{display:block;font:11px var(--mono);color:var(--fg-3);margin-top:8px;letter-spacing:.03em}
+.cat{margin:22px 0 6px;text-align:center;font:500 25px/1.15 var(--serif)}
+.catsub{text-align:center;font-size:13px;color:var(--fg-2);margin-bottom:16px}
+.pill{display:inline-block;margin:2px;font:11px var(--mono);padding:4px 8px;border:1px solid var(--line-2);color:var(--fg-2);letter-spacing:.03em}
+.meta{display:grid;grid-template-columns:1fr auto;gap:8px 12px;font-size:13px;border-top:1px solid var(--line);padding-top:16px;margin:8px 0 0}
+.meta dt{color:var(--fg-3)} .meta dd{margin:0;text-align:right;font:12px var(--mono)}
+.notes{margin:16px 0 0;padding:14px 16px;background:var(--bg);font-size:12.5px;color:var(--fg-2)}
+.notes ul{margin:0;padding-left:16px}.notes li{margin:4px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--fg-2);margin-bottom:16px;align-items:center}
+.legend span{display:flex;align-items:center;gap:7px}
+.sw{width:13px;height:13px;display:inline-block}
+.legend label{margin-left:auto;display:flex;gap:7px;align-items:center;cursor:pointer}
+.doc{font:400 19px/1.8 var(--serif);max-height:640px;overflow:auto;padding-right:8px}
+.doc p{margin:0 0 1em}
+.doc .blk-x{color:var(--fg-3);font:13.5px/1.6 var(--sans);border-left:1px solid var(--line-2);padding-left:12px}
+.doc .blk-x em{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-right:8px}
+.doc .blk-h{font:600 14px var(--sans);letter-spacing:.04em;color:var(--fg-2)}
+.s{padding:1px 0;cursor:pointer;transition:background .1s;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.s.strong{background:var(--hl-strong)} .s.moderate{background:var(--hl-moderate)} .showhuman .s.human{background:var(--hl-human)}
+.s:hover,.s.sel{outline:1px solid var(--accent);outline-offset:2px}
+.tip{position:fixed;z-index:50;max-width:340px;background:var(--fg);color:var(--bg);font-size:12.5px;line-height:1.5;padding:12px 14px;pointer-events:none;display:none}
+.tip b{font-family:var(--mono);font-weight:500}.tip ul{margin:6px 0 0;padding-left:16px}
+.detail{margin-top:16px;padding:14px 16px;border:1px solid var(--line);font-size:13.5px;display:none;background:var(--bg)}
+.pbars{display:flex;flex-direction:column;gap:8px}
+.prow{display:grid;grid-template-columns:36px 1fr 46px;gap:12px;align-items:center;font-size:12px;cursor:pointer}
+.prow .lab,.prow .val{font-family:var(--mono);color:var(--fg-3)} .prow .val{text-align:right;color:var(--fg-2)}
+.ptrack{height:10px;background:var(--track);overflow:hidden}
+.pfill{height:100%}
+.axis{display:grid;grid-template-columns:36px 1fr 46px;gap:12px;font:10.5px var(--mono);color:var(--fg-3);margin-top:6px}
+.axis div{display:flex;justify-content:space-between}
+table.ev,table.data{width:100%;border-collapse:collapse;font-size:13.5px}
+table.ev th,table.data th{text-align:left;font:10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);font-weight:400;padding:10px;border-bottom:1px solid var(--line-2)}
+table.ev td,table.data td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.ev td:first-child{width:46%}
+table.ev td.v{font:12px var(--mono);color:var(--fg-2)}
+table.ev .why{color:var(--fg-3);font-size:12.5px;margin-top:3px}
+table.data .n,table.data th.n{text-align:right;font-family:var(--mono)}
+table.data .ci{display:block;font:10.5px var(--mono);color:var(--fg-3)}
+table.data tr.ood td:first-child{font-style:italic;color:var(--fg-2)}
+.dir{display:inline-flex;align-items:center;gap:8px;font-size:12px;white-space:nowrap;color:var(--fg-2)}
+.dir .mini{width:70px;height:6px;background:var(--track);position:relative;overflow:hidden}
+.dir .mini i{position:absolute;top:0;bottom:0}
+.tag{font:10px var(--mono);padding:3px 6px;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--line-2);color:var(--fg-2)}
+.tag.strong{color:#e4907f;border-color:rgba(206,104,86,.5)}.tag.moderate{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 50%,transparent)}
+.tag.trained{color:var(--fg);border-color:var(--fg-3)}.tag.ineffective{color:var(--fg-3);border-style:dashed}
+[data-theme="light"] .tag.strong{color:#a33a28}
+.top-s{border-left:1px solid var(--beam);padding:6px 0 6px 16px;margin:0 0 16px;font:400 17px/1.6 var(--serif)}
+.top-s small{display:block;font:12px var(--sans);color:var(--fg-3);margin-top:4px}
+.disclaimer{font-size:13px;color:var(--fg-2);border:1px solid var(--line);padding:16px 18px}
+.state-card{padding:40px;text-align:center;border:1px solid var(--line);background:var(--bg-2)}
+.state-card h2{font-size:34px;margin-bottom:8px}
+.modebar{padding:14px 18px 4px;border-top:1px solid var(--line)}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line-2)}
+.modes button{background:none;border:0;border-right:1px solid var(--line-2);color:var(--fg-2);padding:10px 12px;cursor:pointer;text-align:left;font:500 13.5px var(--sans)}
+.modes button:last-child{border-right:0}
+.modes button small{display:block;font:11px var(--mono);color:var(--fg-3);margin-top:2px;font-weight:400}
+.modes button.on{background:var(--bg);color:var(--fg);box-shadow:inset 0 -2px 0 var(--accent)}
+.modes .gold{color:var(--beam)}
+#modeNote{margin:10px 0 6px;max-width:820px;line-height:1.5}
+.progress{padding:12px 18px 14px;border-top:1px solid var(--line)}
+.progress .ptop{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--fg-2);margin-bottom:8px}
+.progress .ptrack{height:6px;margin-bottom:10px}
+/* ---------- generic content pages ---------- */
+.content{max-width:860px;padding:20px 0 40px}
+.content h2{font-size:36px;margin:64px 0 14px;line-height:1.05}
+.content h3{font-size:24px;margin:34px 0 8px}
+.content p,.content li{color:var(--fg-2)}
+.pipeline{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:22px 0}
+.pipeline div{border:1px solid var(--line-2);padding:7px 11px;font:11.5px var(--mono);color:var(--fg-2)}
+.pipeline div.on{border-color:color-mix(in srgb,var(--accent) 60%,transparent);color:var(--fg)}
+.pipeline div.off{border-style:dashed;color:var(--fg-3)}
+.pipeline span{color:var(--fg-3);font-family:var(--mono)}
+table.sig{width:100%;border-collapse:collapse;font-size:13.5px;margin:16px 0}
+table.sig th,table.sig td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.sig th{font:10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);font-weight:400}
+.roadmap{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.roadmap li{display:grid;grid-template-columns:110px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--line);color:var(--fg-2)}
+.roadmap b{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);padding-top:3px}
+.kv{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin:22px 0}
+.kv div{padding:20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.kv b{display:block;font:500 34px/1 var(--serif);color:var(--fg);margin-bottom:6px}
+.kv span{font-size:12.5px;color:var(--fg-3)}
+.lic{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--line);margin:18px 0}
+.lic div{padding:14px 0;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--fg-2)}
+.lic div b{display:block;font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:4px;font-weight:400}
+.lic .ok b{color:var(--accent)}
+/* evaluate */
+.eval-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}
+.metric{background:var(--bg-2);padding:12px 14px}
+.metric .k{font-size:11.5px;color:var(--fg-3)} .metric .v{font:500 22px var(--serif)} .metric .ci{font:10.5px var(--mono);color:var(--fg-3)}
+table.cm{border-collapse:collapse;font:13px var(--mono)} table.cm td,table.cm th{border:1px solid var(--line-2);padding:8px 14px;text-align:center}
+table.cm th{font:10.5px var(--mono);color:var(--fg-3);font-weight:400}
+textarea.mono{width:100%;min-height:160px;font:12px var(--mono);border:1px solid var(--line-2);padding:12px;background:var(--bg);color:var(--fg)}
+input[type=file]{color:var(--fg-2);font-size:13px}
+input[type=range]{accent-color:var(--accent)}
+table.hist{width:100%;border-collapse:collapse;font-size:13.5px}
+table.hist td,table.hist th{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left}
+table.hist th{font:10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);font-weight:400}
+/* brand page */
+.swatches{display:grid;grid-template-columns:repeat(7,1fr);gap:0;border:1px solid var(--line);margin:18px 0}
+.swatch{height:130px;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;font:11px var(--mono)}
+.logos{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);margin:18px 0}
+.logos>div{height:190px;display:grid;place-items:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative}
+.logos>div small{position:absolute;left:12px;bottom:10px;font:10.5px var(--mono);color:var(--fg-3)}
+footer{border-top:1px solid var(--line);padding:56px 0 60px;color:var(--fg-3);font-size:12.5px}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+footer h4{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);margin:0 0 14px;font-weight:400}
+footer a{display:block;color:var(--fg-3);text-decoration:none;margin:6px 0} footer a:hover{color:var(--fg)}
+footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
+.spinner{width:14px;height:14px;border:1.5px solid color-mix(in srgb,var(--bg) 40%,transparent);border-top-color:var(--bg);border-radius:50%;display:inline-block;animation:spin .7s linear infinite;vertical-align:-2px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:1000px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding-top:50px}.reveal{height:340px}
+  .split{grid-template-columns:1fr;gap:34px}.tech-grid{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:1fr}.product+.product{border-left:0;border-top:1px solid var(--line)}
+  .stats{grid-template-columns:repeat(2,1fr)}.res-grid{grid-template-columns:minmax(0,1fr)}.summary{position:static}.eval-grid{grid-template-columns:1fr}
+  nav.links{display:none}.mobile-nav{display:flex}.kv{grid-template-columns:1fr 1fr}.swatches{grid-template-columns:repeat(4,1fr)}.logos{grid-template-columns:1fr 1fr}
+  footer .wrap{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  .wrap{padding:0 20px}.hero.wrap{padding:44px 20px 64px}.mobile-nav{padding:10px 20px}.tech-grid{grid-template-columns:1fr}.section{padding:80px 0}.product{padding:32px 24px}.product ul{columns:1}
+  .metric-grid{grid-template-columns:repeat(2,1fr)}.panel{padding:20px 18px}.hero .meta{flex-wrap:wrap;gap:20px}
+  table.ev td:first-child{min-width:170px}.tscroll{overflow-x:auto}
+  .hdr-cta{display:none!important}
+  .tabs .spacer{display:none}.tabs select{order:3;flex:1 0 calc(100% - 28px);margin:10px 14px;max-width:calc(100% - 28px)}
+  textarea#input{font-size:18px;padding:20px;min-height:260px}.hero h1{font-size:54px}.reveal .txt{font-size:19px}
+}
+@media print{header.top,.mobile-nav,footer,.actions,#inputSection,.page-head{display:none!important}.doc{max-height:none}.summary{position:static}.res-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span></a>
+    <nav class="links">
+      <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
+      <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
+    </nav>
+    <button class="iconbtn" id="themeBtn" aria-label="Switch light or dark theme" title="Switch theme">
+      <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg>
+    </button>
+    <a class="btn small primary hdr-cta" href="#detect">Analyze a Document</a>
+  </div>
+</header>
+<div class="mobile-nav"><a href="#home" data-p="home">Home</a><a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a></div>
+
+<!-- ================= HOME ================= -->
+<main class="page" id="p-home">
+  <section class="wrap hero">
+    <div>
+      <p class="eyebrow">AI Writing Intelligence</p>
+      <h1>See beyond<br>the <em>words.</em></h1>
+      <p class="lede">Understand the patterns behind written language through advanced AI writing analysis. ALETHEIA shows you the evidence, sentence by sentence. It never hands down a verdict.</p>
+      <div class="ctas"><a class="btn primary" href="#detect">Analyze a Document <span class="arr">→</span></a><a class="btn" href="#technology">Explore the Technology</a></div>
+      <div class="meta"><span><b>0.993</b>ROC-AUC, held-out test</span><span><b>0.3%</b>human texts flagged</span><span><b>0 bytes</b>uploaded</span></div>
+    </div>
+    <div class="reveal" aria-hidden="true">
+      <div class="grid"></div>
+      <div class="txt blur">In today's fast-paced world, the written word plays a crucial role in how we understand one another. A sentence can carry a voice, a hesitation, a habit of thought. Some writing wanders and corrects itself; some arrives already polished, evenly measured, each paragraph the same length as the last. Furthermore, it serves as a powerful testament to the patterns that shape a text, highlighting the importance of structure. Read closely and the surface gives way: rhythm, repetition, the quiet regularities of a process. Not every pattern is evidence. But every text has a story, and it is written in more than words.</div>
+      <div class="beam"></div>
+      <div class="txt clear"><mark>In today's fast-paced world</mark>, the written word <mark>plays a crucial role</mark> in how we understand one another. A sentence can carry a voice, a hesitation, a habit of thought. Some writing wanders and corrects itself; some arrives already polished, evenly measured, each paragraph the same length as the last. <mark>Furthermore</mark>, it <mark>serves as a powerful testament</mark> to the patterns that shape a text, <mark>highlighting the importance of structure</mark>. Read closely and the surface gives way: rhythm, repetition, the quiet regularities of a process. Not every pattern is evidence. But every text has a story, and it is written in more than words.</div>
+      <div class="pt" style="left:36px;top:52px"><i></i>sentence-length σ 0.18</div>
+      <div class="pt" style="right:34px;top:212px"><i></i>template density 2.4 / 100w</div>
+      <div class="pt" style="left:44px;bottom:84px"><i></i>model score 0.96 · evidence: limited</div>
+    </div>
+  </section>
+
+  <section class="section"><div class="wrap split">
+    <div><p class="eyebrow">01 — Our Philosophy</p><p class="big-quote">Language contains more information than <em>the words themselves.</em></p></div>
+    <div class="body-lg">
+      <p>Patterns, structure, consistency and linguistic characteristics can offer valuable insights into how a text may have been produced. ALETHEIA explores these signals through computational analysis.</p>
+      <p>The name comes from the ancient Greek <i>ἀλήθεια</i>, meaning truth, disclosure, the revealing of what is hidden. Truth is not always visible on the surface; it has to be discovered. That is also why we are careful: a signal is not a verdict, and a score is not proof.</p>
+      <ul class="statements">
+        <li>Truth, revealed through language.<span>I</span></li><li>Every text has a story.<span>II</span></li>
+        <li>Beyond detection. Towards understanding.<span>III</span></li><li>Discover the patterns behind the words.<span>IV</span></li>
+      </ul>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow">02 — Technology</p><h2>Seven independent lenses on a single text.</h2></div>
+      <p>Each layer sees something different. They are combined with capped weights, so no single signal, and no pile of weak ones, can decide the result.</p></div>
+    <div class="tech-grid">
+      <div class="tech"><div class="n">01</div><h3>Linguistic analysis</h3><p>Segmentation into prose, quotations, references, headings and lists, so only the author's own running prose is assessed.</p></div>
+      <div class="tech"><div class="n">02</div><h3>Statistical text analysis</h3><p>Sentence-length variation, paragraph uniformity, function-word ratios, punctuation habits and lexical diversity.</p></div>
+      <div class="tech"><div class="n">03</div><h3>Machine-learning classification</h3><p>A gradient-boosted model trained on licensed, labelled data and evaluated on held-out writers and prompts.</p></div>
+      <div class="tech"><div class="n">04</div><h3>Multi-model evaluation</h3><p>Benchmarks across generator families, with whole models held out to test generalisation to systems never seen in training.</p></div>
+      <div class="tech"><div class="n">05</div><h3>Writing-style analysis</h3><p>Template phrases, inflated significance and chatbot artefacts, weighed against signals of genuine human writing.</p></div>
+      <div class="tech"><div class="n">06</div><h3>Hybrid authorship analysis</h3><p>Sentence- and paragraph-level evidence that separates sections, so mixed or edited documents are shown as mixed.</p></div>
+      <div class="tech"><div class="n">07</div><h3>Confidence calibration</h3><p>Thresholds set on validation data so that at most 1% of human texts per writer group are flagged; low evidence is stated plainly.</p></div>
+      <div class="tech note"><div class="n">—</div><h3>A note on certainty</h3><p>No single method, and no score, can conclusively establish who wrote a document. ALETHEIA reports patterns and their strength, never proof.</p></div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow">03 — Product Ecosystem</p><h2>One philosophy. A family of instruments.</h2></div></div>
+    <div class="products">
+      <div class="product">
+        <span class="tag">Available · Free beta</span>
+        <h3>ALETHEIA Detect<small>/detect</small></h3>
+        <p>Analyse written text and estimate whether it shows characteristics associated with human writing, AI generation or mixed authorship, with the evidence laid out sentence by sentence.</p>
+        <ul><li>Paste or upload</li><li>DOCX, PDF, TXT</li><li>Paragraph-level analysis</li><li>Sentence-level indicators</li><li>Detailed report</li><li>Confidence & uncertainty</li></ul>
+        <div class="bottom"><a class="btn primary" href="#detect">Open Detect <span class="arr">→</span></a></div>
+      </div>
+      <div class="product">
+        <span class="tag muted">In development</span>
+        <h3>ALETHEIA Trace</h3>
+        <p>The next instrument in the ALETHEIA family. Its scope is being defined, and details will be published when it is ready.</p>
+        <div class="bottom"><a class="btn" href="#research">Follow the research</a></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow">04 — Research &amp; Development</p><h2>Measured, gated, and published with its limits.</h2></div>
+      <p>Every model is evaluated on data it has never seen. A new version replaces the old one only if it does not wrongly flag more human writers in any group.</p></div>
+    <div class="stats">
+      <div class="stat"><div class="v">83.2<small>%</small></div><div class="l">of AI-generated texts detected on the held-out benchmark</div><div class="c">95% CI 81.7–84.6</div></div>
+      <div class="stat"><div class="v">0.3<small>%</small></div><div class="l">of human texts wrongly flagged on the same benchmark</div><div class="c">95% CI 0.1–0.9</div></div>
+      <div class="stat"><div class="v">23</div><div class="l">dataset sources reviewed for licensing; 11 approved, 12 refused</div><div class="c">review 2026-11-02</div></div>
+      <div class="stat"><div class="v">21</div><div class="l">automated leakage checks every training release must pass</div><div class="c">release r20261102-7d8acc5e</div></div>
+    </div>
+    <p class="callout">Benchmark AI text comes from 2023-era models. Performance on newer systems has not yet been measured and is likely lower, and results on unseen sources are clearly weaker. The latest candidate model was <b>rejected</b> by our promotion gate because 1.36% of human texts were flagged, above our 1% limit. <a href="#research">Read the research notes →</a></p>
+  </div></section>
+
+  <section class="final"><div class="wrap">
+    <p class="eyebrow">See beyond the words.</p>
+    <h2>Discover what lies <em>beneath</em> the words.</h2>
+    <a class="btn primary" href="#detect">Start Analyzing <span class="arr">→</span></a>
+  </div></section>
+</main>
+
+<!-- ================= DETECT ================= -->
+<main class="page" id="p-detect">
+  <div class="wrap">
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · Free beta</p><h1>Analyze a document.</h1>
+      <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
+    <section id="inputSection">
+      <div class="workbench">
+        <div class="tabs" role="tablist">
+          <button class="on" data-tab="paste" role="tab">Paste text</button><button data-tab="upload" role="tab">Upload file</button>
+          <div class="spacer"></div>
+          <select id="sample" aria-label="Load a sample">
+            <option value="">Load a demo sample…</option><option value="ai">Demo: assistant-style essay</option><option value="human">Demo: casual personal writing</option>
+            <option value="formal">Demo: plain lab report</option><option value="mixed">Demo: mixed document</option>
+          </select>
+        </div>
+        <div id="tab-paste">
+          <div class="filechip" id="filechip"><span id="filename"></span><button id="clearFile" title="Remove file" aria-label="Remove file">×</button></div>
+          <textarea id="input" placeholder="Paste the text you want to examine…"></textarea>
+        </div>
+        <div id="tab-upload" style="display:none">
+          <div class="drop" id="drop" tabindex="0"><strong>Drop a document here</strong><small>or click to choose · .docx, .pdf or .txt · up to 10 MB · text is extracted on your device and shown for review</small></div>
+          <input type="file" id="file" accept=".txt,.docx,.pdf,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
+        </div>
+        <div class="msg" id="msg"></div>
+        <div class="modebar">
+          <div class="modes" role="radiogroup" aria-label="Analysis depth">
+            <button class="on" data-mode="standard" role="radio" aria-checked="true">Standard<small>~1 second</small></button>
+            <button data-mode="deep" role="radio" aria-checked="false">Deep Scan<small>higher accuracy</small></button>
+            <button data-mode="supreme" role="radio" aria-checked="false"><span class="gold">◆</span> Supreme<small>full analysis + PDF</small></button>
+          </div>
+          <p class="count" id="modeNote">Fast check with the standard engine. Results in about a second.</p>
+        </div>
+        <div class="progress" id="deepProg" hidden><div class="ptop"><span id="deepStage">Starting…</span><span class="mono" id="deepTime">0.0 s</span></div><div class="ptrack"><div class="pfill" id="deepBar" style="width:1%;background:var(--beam)"></div></div><button class="btn small" id="deepCancel">Cancel</button></div>
+        <div class="bar"><span class="count"><b id="wc">0</b> words</span><span class="count" id="wchint"></span><span class="grow"></span>
+          <button class="btn small" id="clear">Clear</button><button class="btn primary" id="go" disabled>Analyse text</button></div>
+      </div>
+    </section>
+    <section id="results">
+      <div id="resState"></div>
+      <div class="res-grid" id="resGrid">
+        <aside class="panel summary" id="summary"></aside>
+        <div>
+          <div class="panel" id="deepPanel" style="display:none;border-color:color-mix(in srgb,var(--beam) 45%,transparent)"></div>
+          <div class="panel"><h2>Highlighted document</h2><p class="sub">Hover or tap a sentence to see its signals. Highlights show patterns, not proof of authorship.</p>
+            <div class="legend"><span><i class="sw" style="background:var(--hl-strong)"></i>Strong AI-like signals</span><span><i class="sw" style="background:var(--hl-moderate)"></i>Moderate</span><span><i class="sw" style="background:var(--hl-human)"></i>Human-like</span><span><i class="sw" style="border:1px solid var(--line-2)"></i>Inconclusive</span><label><input type="checkbox" id="showHuman"> Show human-like</label></div>
+            <div class="doc" id="doc"></div><div class="detail" id="detail"></div></div>
+          <div class="panel"><h2>Distribution by paragraph</h2><p class="sub">Each prose paragraph's own AI-like signal level. Click a bar to jump to it.</p>
+            <div class="pbars" id="pbars"></div><div class="axis"><span></span><div><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><span></span></div></div>
+          <div class="panel"><h2>Evidence</h2><p class="sub">The first row is the trained model that decides the result; the others are the interpretable signals it is built on.</p><div class="tscroll"><table class="ev" id="ev"></table></div></div>
+          <div class="panel" id="topPanel"><h2>Passages driving the result</h2><p class="sub">The sentences with the strongest AI-like signals.</p><div id="tops"></div></div>
+          <div class="disclaimer"><b>How to read this report.</b> ALETHEIA measures patterns, not authorship. Formal, technical, template-based and non-native English writing can show AI-like patterns, and edited AI text can look human. Never use this score alone to accuse anyone of misconduct. Treat it as the start of a conversation, alongside drafts, notes and version history.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ================= TECHNOLOGY ================= -->
+<main class="page" id="p-technology"><div class="wrap">
+  <div class="page-head"><p class="eyebrow">Technology</p><h1>How ALETHEIA reads a text.</h1><p>An independent detection engine (<span class="mono" id="ver1"></span>) that combines a transparent feature extractor with a small trained classifier, all running in your browser.</p></div>
+  <div class="content">
+    <h2>The analysis pipeline</h2>
+    <div class="pipeline"><div class="on">Preprocessing</div><span>→</span><div class="on">Document</div><span>→</span><div class="on">Paragraph</div><span>→</span><div class="on">Sentence</div><span>→</span><div class="on">Statistical layer</div><span>→</span><div class="on">Stylistic layer</div><span>→</span><div class="on">Trained classifier</div><span>→</span><div class="on">FPR-constrained thresholds</div><span>→</span><div class="off">Language-model layer (planned)</div><span>→</span><div class="on">Report</div></div>
+    <p><b>Preprocessing</b> separates qualifying prose from headings, lists, tables, mathematical lines, block quotes and reference sections. It removes quotations of six or more words, splits sentences with care for abbreviations and decimals, and checks the language.</p>
+    <p><b>Scoring.</b> The engine measures 23 document features. A gradient-boosted tree model trained on licensed, labelled data turns them into a model score. Two thresholds are set on a validation split: the <b>flagging threshold</b> keeps false positives at or below 1% in every human writer group, and the <b>review threshold</b> marks the inconclusive band. Paragraph comparisons use local evidence only, so mixed documents appear mixed.</p>
+    <h2>Signals, and how much we trust them</h2>
+    <p>Stylistic signals draw on editorial observations such as Wikipedia's <a href="https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing" target="_blank" rel="noopener">Signs of AI writing</a>. We treat them as hypotheses to be measured, not rules.</p>
+    <table class="sig">
+      <tr><th>Signal</th><th>Layer</th><th>Rating</th><th>Notes</th></tr>
+      <tr><td>Chatbot artefacts (“I hope this helps”, oaicite markers)</td><td>Stylistic</td><td><span class="tag strong">Strong</span></td><td>Rarely written by people unless quoted.</td></tr>
+      <tr><td>Formulaic templates (“plays a crucial role”, “not just X, it’s Y”)</td><td>Stylistic</td><td><span class="tag moderate">Moderate</span></td><td>Density matters more than any single phrase.</td></tr>
+      <tr><td>AI-associated vocabulary (“delve”, “tapestry”, “underscores”)</td><td>Stylistic</td><td><span class="tag moderate">Moderate</span></td><td>Drifts as models change, so the list needs regular updates.</td></tr>
+      <tr><td>Sentence-length uniformity (low burstiness)</td><td>Statistical</td><td><span class="tag moderate">Moderate</span></td><td>Careful formal writers can be uniform too.</td></tr>
+      <tr><td>Human-writing signals (slips, informal words, lowercase “i”)</td><td>Stylistic</td><td><span class="tag moderate">Moderate</span></td><td>Only ever push toward “human”; their absence is never evidence of AI.</td></tr>
+      <tr><td>Word length, function words, punctuation, lexical diversity</td><td>Statistical</td><td><span class="tag">Weak alone</span></td><td>Used only in combination, with per-group false-positive checks.</td></tr>
+      <tr><td>Perfect grammar, curly quotes, “sounds formal”</td><td>—</td><td><span class="tag ineffective">Not used</span></td><td>Unfair to proficient and non-native writers.</td></tr>
+    </table>
+    <h2>What we do not claim</h2>
+    <p>ALETHEIA does not and cannot prove who wrote a document. Its scores are signal strengths on a calibrated scale, not the probability that a particular person used AI. They should never be the only basis for an academic or employment decision.</p>
+  </div>
+</div></main>
+
+<!-- ================= RESEARCH ================= -->
+<main class="page" id="p-research"><div class="wrap">
+  <div class="page-head"><p class="eyebrow">Research &amp; Development</p><h1>Research notes.</h1><p>How we measure ALETHEIA, where the data comes from, and what we refuse to use.</p></div>
+  <div class="content">
+    <h2>Benchmark: engine 0.2.0</h2>
+    <p>Measured once on a held-out test split separated by prompt and by author. Rows in italics come from sources excluded from training entirely. Small grey figures are 95% confidence intervals.</p>
+    <div class="tscroll"><table class='data'><thead><tr><th>Held-out set</th><th class='n'>n</th><th class='n'>AI detected</th><th class='n'>Humans flagged</th><th class='n'>ROC-AUC</th></tr></thead><tbody><tr><td>All held-out test documents</td><td class='n'>3482</td><td class='n'>83.2%<span class='ci'>81.7–84.6</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.993</td></tr><tr><td>Student essays</td><td class='n'>956</td><td class='n'>91.2%<span class='ci'>89.1–93.0</span></td><td class='n'>2.2%<span class='ci'>0.8–6.3</span></td><td class='n'>0.990</td></tr><tr><td>News (author-held-out)</td><td class='n'>847</td><td class='n'>79.5%<span class='ci'>76.4–82.3</span></td><td class='n'>0.0%<span class='ci'>0.0–3.1</span></td><td class='n'>0.988</td></tr><tr><td>Creative writing</td><td class='n'>1108</td><td class='n'>79.1%<span class='ci'>76.4–81.6</span></td><td class='n'>0.0%<span class='ci'>0.0–2.4</span></td><td class='n'>0.988</td></tr><tr><td>Claude (2023) vs human</td><td class='n'>1400</td><td class='n'>51.3%<span class='ci'>46.5–56.1</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.981</td></tr><tr><td>ChatGPT, plain prompt vs human</td><td class='n'>1401</td><td class='n'>74.4%<span class='ci'>70.0–78.4</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.987</td></tr><tr class='ood'><td>Humanizer-paraphrased AI (unseen source)</td><td class='n'>100</td><td class='n'>50.0%<span class='ci'>40.4–59.6</span></td><td class='n'>—</td><td class='n'>—</td></tr><tr class='ood'><td>GPTZero sample set (unseen source)</td><td class='n'>66</td><td class='n'>16.1%<span class='ci'>7.1–32.6</span></td><td class='n'>0.0%<span class='ci'>0.0–9.9</span></td><td class='n'>0.716</td></tr></tbody></table></div>
+    <p>For comparison, the hand-tuned v0.1 rules caught 46.5% of AI texts while flagging 3.7% of human texts, including 17.8% of human student essays.</p>
+    <p><b>Limitations.</b> Benchmark AI text was produced in 2023 by GPT-3.5 and Claude. Performance on GPT-4o/5, Claude 3+, Gemini, DeepSeek and Llama has not yet been measured. Generalisation to unseen sources is weak. An earlier non-native-writer figure relied on corpora with restrictive licences, so it has been withdrawn until we have a commercially licensed evaluation set.</p>
+    <h2>Deep Scan (deep-0.4.0)</h2>
+    <p>Deep and Supreme scans combine a character- and word-level n-gram model with the standard document model. Version 0.4 adds training text from <b>120+ language models released between 2023 and 2026</b> (short fiction from public creative-writing benchmarks, including GPT-5.x, Claude 4–5, Gemini 2.5–4, DeepSeek, Kimi, Qwen, Grok, Llama and Mistral), DetectRL's adversarial set (paraphrasing, back-translation, character and word perturbation, prompt tricks), and public-domain fiction as literary human writing. A small genre model sorts each text into one of three registers, each with its own threshold: <b>academic abstracts</b> (strictest), <b>creative writing</b> (calibrated on human fiction) and <b>everything else</b> (conservative, because its human writing is the most varied). Every threshold was set on a calibration split so that at most 1% of human texts in any group are flagged.</p>
+    <div class="tscroll"><table class="data"><thead><tr><th>Held-out data, never used in training</th><th class="n">AI detected</th><th class="n">Humans flagged</th></tr></thead><tbody>
+      <tr class="ood"><td>10 newest models never seen in training (GPT-5.5, Claude Opus 4.8, Claude Fable 5.1, Gemini 3.1 Pro, DeepSeek V4 Pro, Kimi, GLM, Mistral, Seed)</td><td class="n">96.5%</td><td class="n">—</td></tr>
+      <tr><td>Fiction from 2023–26 models, held-out prompts</td><td class="n">82–99%</td><td class="n">—</td></tr>
+      <tr><td>Public-domain fiction by held-out authors (n = 600)</td><td class="n">—</td><td class="n">0.0%</td></tr>
+      <tr><td>Profiler (EMNLP 2025), all domains</td><td class="n">93.5%</td><td class="n">0.0%</td></tr>
+      <tr><td>Human academic abstracts (n = 585)</td><td class="n">30%</td><td class="n">1.5%</td></tr>
+      <tr><td>DetectRL adversarial attacks (paraphrase, perturbation, prompt tricks)</td><td class="n">32–81% (all: 55.6%)</td><td class="n">0.0%</td></tr>
+      <tr class="ood"><td>2024 AP / NYT-style news vs GPT-4o, Claude, o1-pro (held-out half, n = 110)</td><td class="n">74.5%</td><td class="n">1.8%</td></tr>
+      <tr class="ood"><td>&nbsp;&nbsp;same texts: Pangram / GPTZero (their published scores)</td><td class="n">98.2% / 81.8%</td><td class="n">3.6% / 0.0%</td></tr>
+    </tbody></table></div>
+    <p>For comparison, the standard 2023-era model found only 0–13% of modern AI fiction. The Standard mode now consults the n-gram model too: it gives an AI verdict when that model clears its register's threshold, and withholds one when it disagrees. Line-numbered texts (monologues, scripts) are now read as prose; previously their lines were excluded as list items.</p>
+    <p><b>Students learning English.</b> On 3,879 essays by English-language learners in grades 8–12 (ELLIPSE corpus, CC BY 4.0), neither the Standard nor the Deep mode gave a single AI verdict (95% upper bound about 0.1%).</p>
+    <p><b>Weak spot: expository writing.</b> On Wikipedia-style articles, how-to guides, forum answers and paper reviews (M4 benchmark), ALETHEIA flags almost no humans (0–0.3%) but catches only 0–35% of AI text, mostly from older models. A candidate model trained on that benchmark raised this to 30–43% but lost ground on GPT-5.5 fiction (85% → 72%), so it was not released. Fixing this needs expository text from current models.</p>
+    <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA gives an AI verdict on 9% of the human stories and poems and 16% of the human rewrites. These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
+    <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (32% for back-translation, 51% for DIPPER paraphrasing and 64% for humanized o1-pro articles, a sample of only 11), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
+    <h3>Earlier finding: academic abstracts</h3>
+    <p>deep-0.2.0 flagged 25.7% of 1,834 human academic abstracts in an independent corpus (Mendeley Data, 2025), and the 2023 standard model flagged 11.1%. Both were withdrawn for that register; it now has its own, much stricter threshold.</p>
+    <h2>How other detectors and "humanizers" work</h2>
+    <p><b>Turnitin</b> splits a submission into overlapping windows of a few hundred words, scores every sentence 0–1 with a fine-tuned transformer classifier built on an open-source foundation model, and averages the scores. It requires at least 300 words, shows scores of 1–19% only as an asterisk, and accepts missing up to about 15% of AI text to keep false positives below 1% on documents with more than 20% AI writing. A second model runs only on segments already flagged as AI and labels those that look AI-paraphrased (QuillBot and similar). Turnitin added "AI bypasser" detection for humanized text in 2025.</p>
+    <p><b>Humanizers</b> (HumanizeAI.pro, Undetectable AI, StealthGPT and many more) rewrite AI output to change its statistics. An audit of 19 such tools found synonym swaps, sentence splitting, shifts in reading level, deliberate grammar and punctuation errors, typos, inserted personal pronouns and nonsense insertions; HumanizeAI.pro was among the most fluent. Detectors that rely on perplexity alone lose most of their accuracy on such text, while detectors trained on humanized examples recover most of it, provided human text run through the same tools is also labelled human so the detector learns the authorship signal rather than the rewriting.</p>
+    <p><b>Our gap.</b> ALETHEIA runs entirely in your browser, with no transformer language model and no humanized training data from commercial tools. Closing that gap needs a server-side model and licensed humanizer data, which is on the roadmap below.</p>
+    <p><b>An honest note on time.</b> A longer scan is more accurate only because it runs more analysis, not because it waits. Deep and Supreme use the same stronger model. Supreme adds 2,000 bootstrap re-analyses, three window sizes and paragraph influence analysis, which make the uncertainty estimate and the section map more reliable, then writes a PDF. On a laptop this takes seconds to about a minute; on a phone or with very long documents, longer.</p>
+    <p><b>Caveats.</b> Human samples per group are small, so intervals are wide. Genres we have little human data for (personal essays, blogs, modern published fiction, student creative writing) use the conservative threshold, and their true false-positive rate is unmeasured. The Deep model was trained on research data whose upstream rights are still under review, so it must be retrained on commercially cleared data before a paid launch.</p>
+    <h2>Data, licensed or not at all</h2>
+    <div class="kv"><div><b>38</b><span>sources reviewed (incl. 16 from 2025–26)</span></div><div><b>6</b><span>approved for commercial training</span></div><div><b>17</b><span>quarantined pending source-rights review</span></div></div>
+    <div class="lic">
+      <div class="ok"><b>Approved commercial</b>Wikipedia · Stack Exchange · arXiv &amp; PMC (per-record CC licences) · AI Text Detection Benchmark 2026 · WasItAIGenerated 2026-09 (per row)</div>
+      <div><b>Source-rights review (quarantined)</b>RAID · HC3 · HC3-Chinese · TXD-22 · OpenLLMText · APT-Eval · Ghostbuster · Academic Text 2026 · ITAIS v2 · IndicTextFake · GRADTEX · DeHAT · Śmigiel · QuillBot Academic · AH&amp;AITD · Profiler · Human-AI Parallel</div>
+      <div><b>Non-commercial</b>AuTexTification · PERSUADE 2.0 · OUTFOX · unified_tell · ALHD · AIGTxt</div>
+      <div><b>Licence unknown</b>COLING-2025 MGT · M4 · ArguGPT · Ateeqq · AITDNA · EditLens · Napier parliamentary · two HF mirrors</div>
+    </div>
+    <p>A dataset's own licence is not enough: we also check where its human text came from. Datasets built from scraped news, reviews, essays or forum posts are kept in a quarantine area until their source rights are cleared, even when the dataset itself is MIT or CC BY. Every import re-checks the licence, records checksums and versions, keeps per-record attribution, and never turns an unknown label into "human" or "AI". Human-only corpora are limited to text written before 30 November 2022.</p>
+    <h2>The promotion gate</h2>
+    <p>A model is promoted only if none of its training texts appear in the evaluation data, at most 1% of human texts are flagged overall and at most 2% in any writer group, and nothing regresses against production.</p>
+    <table class="sig"><tr><th>Candidate</th><th>Decision</th><th>Why</th></tr>
+      <tr><td class="mono">v0.2.0</td><td><span class="tag strong">Rejected</span></td><td>864 evaluation texts overlapped its training data, so the evaluation would be inflated.</td></tr>
+      <tr><td class="mono">v0.3.0</td><td><span class="tag strong">Rejected</span></td><td>Human FPR 1.36% (3 of 220; 95% CI 0.46–3.93%) exceeds the 1% limit. Production is unchanged.</td></tr></table>
+    <h2>Roadmap</h2>
+    <ul class="roadmap">
+      <li><b>Now</b><span>Import the approved corpora at scale; generate in-house AI text from cleared prompts with current models; retrain on the commercial pool only.</span></li>
+      <li><b>Now</b><span>Request licences for the most valuable quarantined sets (GRADTEX, ITAIS, DeHAT, Profiler) and for PERSUADE 2.0 (student essays).</span></li>
+      <li><b>Next</b><span>Benchmark current models (GPT-4o/5, Claude, Gemini, DeepSeek, Llama), AI-edited human text and humanizer output.</span></li>
+      <li><b>Next</b><span>Server-side transformer classifier (sentence windows, like Turnitin) plus a language-model layer; humanizer-robust training in which humanized human text is labelled human.</span></li>
+      <li><b>Next</b><span>Human creative writing by students and modern authors under clear licences, to measure and protect the creative register.</span></li>
+      <li><b>Then</b><span>Accounts, saved reports and paid scans (USD $2), payment provider in test mode first.</span></li>
+    </ul>
+  </div>
+</div></main>
+
+<!-- ================= EVALUATE ================= -->
+<main class="page" id="p-evaluate"><div class="wrap">
+  <div class="page-head"><p class="eyebrow">Evaluate</p><h1>Test ALETHEIA on your own data.</h1><p>Upload labelled samples the detector has never seen. You'll get false-positive rate, recall, ROC-AUC and calibration with confidence intervals, all computed in your browser.</p></div>
+  <div class="eval-grid">
+    <div class="panel"><h2>1. Load samples</h2><p class="sub">CSV with <span class="mono">text,label</span> or JSON Lines <span class="mono">{"text": "...", "label": "ai"}</span>. Labels: human / ai (or 0/1). Optional <span class="mono">group</span> column for per-group false-positive rates.</p>
+      <input type="file" id="evFile" accept=".csv,.jsonl,.json,.txt"><p style="margin:12px 0 6px;font-size:13px;color:var(--fg-3)">…or paste:</p>
+      <textarea class="mono" id="evText" placeholder='{"text":"…","label":"human","group":"essay"}'></textarea>
+      <div style="display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap"><label style="font-size:13px">Threshold <input type="range" id="thr" min="0.2" max="0.99" step="0.01" value="0.93"> <span class="count" id="thrv">0.93</span></label><span style="flex:1"></span><button class="btn primary small" id="evGo">Run evaluation</button></div>
+      <div class="msg" id="evMsg"></div></div>
+    <div class="panel" id="evOut"><h2>2. Results</h2><p class="sub">No evaluation run yet.</p></div>
+  </div>
+</div></main>
+
+<!-- ================= HISTORY ================= -->
+<main class="page" id="p-history"><div class="wrap">
+  <div class="page-head"><p class="eyebrow">History</p><h1>Your scans.</h1><p>Only summaries (date, result, word count) are kept, and only in this browser. Document text is never stored.</p></div>
+  <div class="content" id="histBox" style="max-width:none"></div>
+</div></main>
+
+<!-- ================= PRIVACY ================= -->
+<main class="page" id="p-privacy"><div class="wrap">
+  <div class="page-head"><p class="eyebrow">Privacy</p><h1>Your writing stays yours.</h1></div>
+  <div class="content">
+    <ul>
+      <li><b>No upload.</b> Text extraction (TXT, DOCX, PDF) and analysis run on your device.</li>
+      <li><b>No training on your work.</b> Submitted text is never used to train or tune ALETHEIA.</li>
+      <li><b>Minimal history.</b> Scan summaries only, in your browser's local storage; clear them at any time.</li>
+      <li><b>No accounts or tracking</b> in the free beta.</li>
+      <li>Future server-side features will use encrypted transport, automatic deletion with configurable retention, and audit logs that never store document contents. They will be designed around the Australian Privacy Principles.</li>
+    </ul>
+    <h2>Fair use of results</h2>
+    <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
+  </div>
+</div></main>
+
+<!-- ================= BRAND ================= -->
+<main class="page" id="p-brand"><div class="wrap">
+  <div class="page-head"><p class="eyebrow">Brand</p><h1>The ALETHEIA identity.</h1><p>The symbol is an aperture shaped like an “A”: two dark blades with a narrow beam of light passing through, crossed by a line of text being uncovered.</p></div>
+  <div class="content" style="max-width:none">
+    <div class="logos">
+      <div style="background:#101114"><svg width="88" height="88" viewBox="0 0 48 48" style="color:#F2F0E9;--beam:#B99A5B"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><small>Symbol · dark</small></div>
+      <div style="background:#FAFAF7"><svg width="88" height="88" viewBox="0 0 48 48" style="color:#252832;--beam:#8F7440"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><small style="color:#7C7F88">Symbol · light</small></div>
+      <div style="background:var(--bg-2)"><svg width="88" height="88" viewBox="0 0 48 48" style="color:var(--fg);--beam:var(--fg)"><path d="M21.4 4.5 L9.947 30.5 L21.4 30.5 Z" fill="currentColor"/><path d="M8.802 33.1 L4 44 L21.4 44 L21.4 33.1 Z" fill="currentColor"/><path d="M26.600 4.5 L38.053 30.5 L26.600 30.5 Z" fill="currentColor"/><path d="M39.198 33.1 L44.000 44 L26.600 44 L26.600 33.1 Z" fill="currentColor"/><rect x="22.5" y="9" width="3.0" height="35" style="fill:var(--beam)"/></svg><small>Monochrome</small></div>
+      <div style="background:#101114;grid-column:span 2"><div style="display:flex;align-items:center;gap:18px;color:#F2F0E9;--beam:#B99A5B"><svg width="54" height="54" viewBox="0 0 48 48"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span style="font:600 40px var(--serif);letter-spacing:.3em">ALETHEIA</span></div><small>Wordmark · dark</small></div>
+      <div style="background:#101114"><div style="display:flex;gap:22px;align-items:end"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI5IiBmaWxsPSIjMTAxMTE0Ii8+PHBhdGggZD0iTTIxLjQgNC41IEw5Ljk0NyAzMC41IEwyMS40IDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik04LjgwMiAzMy4xIEw0IDQ0IEwyMS40IDQ0IEwyMS40IDMzLjEgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0yNi42MDAgNC41IEwzOC4wNTMgMzAuNSBMMjYuNjAwIDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0zOS4xOTggMzMuMSBMNDQuMDAwIDQ0IEwyNi42MDAgNDQgTDI2LjYwMCAzMy4xIFoiIGZpbGw9IiNGMkYwRTkiLz48cmVjdCB4PSIyMi41IiB5PSI5IiB3aWR0aD0iMy4wIiBoZWlnaHQ9IjM1IiBmaWxsPSIjQjk5QTVCIi8+PC9zdmc+Cg==" width="48" height="48" alt=""><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI5IiBmaWxsPSIjMTAxMTE0Ii8+PHBhdGggZD0iTTIxLjQgNC41IEw5Ljk0NyAzMC41IEwyMS40IDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik04LjgwMiAzMy4xIEw0IDQ0IEwyMS40IDQ0IEwyMS40IDMzLjEgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0yNi42MDAgNC41IEwzOC4wNTMgMzAuNSBMMjYuNjAwIDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0zOS4xOTggMzMuMSBMNDQuMDAwIDQ0IEwyNi42MDAgNDQgTDI2LjYwMCAzMy4xIFoiIGZpbGw9IiNGMkYwRTkiLz48cmVjdCB4PSIyMi41IiB5PSI5IiB3aWR0aD0iMy4wIiBoZWlnaHQ9IjM1IiBmaWxsPSIjQjk5QTVCIi8+PC9zdmc+Cg==" width="32" height="32" alt=""><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI5IiBmaWxsPSIjMTAxMTE0Ii8+PHBhdGggZD0iTTIxLjQgNC41IEw5Ljk0NyAzMC41IEwyMS40IDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik04LjgwMiAzMy4xIEw0IDQ0IEwyMS40IDQ0IEwyMS40IDMzLjEgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0yNi42MDAgNC41IEwzOC4wNTMgMzAuNSBMMjYuNjAwIDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0zOS4xOTggMzMuMSBMNDQuMDAwIDQ0IEwyNi42MDAgNDQgTDI2LjYwMCAzMy4xIFoiIGZpbGw9IiNGMkYwRTkiLz48cmVjdCB4PSIyMi41IiB5PSI5IiB3aWR0aD0iMy4wIiBoZWlnaHQ9IjM1IiBmaWxsPSIjQjk5QTVCIi8+PC9zdmc+Cg==" width="16" height="16" alt=""></div><small>Favicon 48 · 32 · 16</small></div>
+    </div>
+    <div class="swatches">
+      <div class="swatch" style="background:#101114;color:#F2F0E9">Obsidian<br>#101114</div><div class="swatch" style="background:#181A20;color:#F2F0E9">Charcoal<br>#181A20</div>
+      <div class="swatch" style="background:#252832;color:#F2F0E9">Graphite<br>#252832</div><div class="swatch" style="background:#F2F0E9;color:#252832">Ivory<br>#F2F0E9</div>
+      <div class="swatch" style="background:#FAFAF7;color:#252832">Soft White<br>#FAFAF7</div><div class="swatch" style="background:#C9B98D;color:#101114">Champagne<br>#C9B98D</div>
+      <div class="swatch" style="background:#B99A5B;color:#101114">Warm Gold<br>#B99A5B</div>
+    </div>
+    <div class="split" style="margin-top:40px"><div><p style="font:500 56px/1 var(--serif);margin:0">Aa</p><p class="mono" style="color:var(--fg-3);font-size:12px">Cormorant Garamond · editorial headings</p></div>
+      <div><p style="font:500 22px var(--sans);margin:0">Inter: interface &amp; body</p><p class="mono" style="font-size:16px;margin:8px 0 0">IBM Plex Mono: technical data 0.993</p></div></div>
+  </div>
+</div></main>
+
+<footer><div class="wrap">
+  <div><a class="brand" href="#home" style="display:flex"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span></a>
+    <div class="tag-line">See beyond the words.</div><div class="mono" style="font-size:11px;letter-spacing:.08em">Intelligence. Language. Authenticity.</div>
+    <p style="margin-top:22px;max-width:360px">ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship. Engine <span class="mono" id="ver2"></span>.</p></div>
+  <div><h4>Product</h4><a href="#detect">ALETHEIA Detect</a><a href="#home">ALETHEIA Trace</a><a href="#evaluate">Evaluate</a><a href="#history">History</a></div>
+  <div><h4>Research</h4><a href="#technology">Technology</a><a href="#research">Benchmarks</a><a href="#research">Data licensing</a></div>
+  <div><h4>Company</h4><a href="#privacy">Privacy</a><a href="#brand">Brand</a></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script src="model.js"></script>
+<script src="engine.js"></script>
+<script src="mammoth.browser.min.js" defer></script>
+<script>
+(function(){
+"use strict";
+const E = window.ProseLensEngine; // engine global kept for compatibility
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const esc = (s) => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const framed = (() => { try { return window.self !== window.top; } catch(e) { return true; } })();
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ return false; } }
+};
+$("#ver1").textContent = E.VERSION; $("#ver2").textContent = E.VERSION;
+
+// ---------- Routing ----------
+const PAGES = ["home","detect","technology","research","evaluate","history","privacy","brand"];
+const ALIAS = {"detector":"detect","how-it-works":"technology"};
+function route(){
+  let h = (location.hash || "").replace("#","");
+  if (ALIAS[h]) h = ALIAS[h];
+  const p = PAGES.includes(h) ? h : "home";
+  $$(".page").forEach(el => el.classList.toggle("on", el.id === "p-"+p));
+  $$("[data-p]").forEach(a => a.classList.toggle("on", a.dataset.p === p));
+  if (p === "history") renderHistory();
+  if (PAGES.includes(h)) window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", route); route();
+
+// ---------- Samples (written for this demo; illustrative only) ----------
+const SAMPLES = {
+ai: `In today's fast-paced world, social media plays a crucial role in shaping how young people understand themselves and others. It is important to note that these platforms offer both opportunities and challenges.
+
+Furthermore, social media serves as a powerful testament to the interconnected nature of modern society. It fosters a sense of community among users, highlighting the importance of digital connection. Additionally, it provides a unique perspective on global issues, enabling users to navigate the complexities of an ever-evolving landscape.
+
+However, it is not just a tool for connection — it is also a source of pressure. Moreover, the constant exposure to curated content can have a profound impact on mental well-being, underscoring the need for balance. By understanding these dynamics, individuals can make informed decisions about their online engagement.
+
+In conclusion, social media is a multifaceted phenomenon that continues to shape the rich tapestry of contemporary life. Whether you're a student, a parent, or an educator, it is essential to embrace its benefits while remaining mindful of its drawbacks. The future of digital communication looks bright, and its broader implications remain to be seen.`,
+human: `ok so i finally tried the new bus route to school this week and honestly it's kinda worse?? The 8:12 never shows up on time. Yesterday it came at 8:31 and I was late to chem again, which my teacher was not thrilled about.
+
+My mum reckons I should just ride my bike. Fair enough, but it rained twice on Tuesday and I'm not turning up to class soaked. Dad offered to drive me on Thursdays because he starts late that day.
+
+Anyway. I wrote down the times for a week: Monday 8:19, Tuesday 8:27, Wednesday 8:14, Thursday I got a lift, Friday 8:33. That's not a schedule, that's a lottery. I emailed the council about it. No reply yet, obviously.
+
+The weird thing is the old route was fine. Same driver, same bus, just a different street. I think the roadworks near the shops are the problem but I dunno.`,
+formal: `The experiment measured how the period of a pendulum changed with string length. We used five lengths between 0.20 m and 1.00 m and timed ten oscillations for each, repeating every trial three times. The stopwatch was started by hand, so reaction time added an uncertainty of roughly 0.2 s to each set of ten.
+
+Our results followed the expected square-root relationship closely. When we plotted period squared against length, the points lay near a straight line with a gradient of 4.05 s² m⁻¹, which gives g = 9.75 m s⁻². That is about half a percent below the accepted value. The longest string gave the most consistent times, probably because its slower swing was easier to follow by eye.
+
+Two problems stood out. The clamp slipped slightly during the 0.80 m trials, and we had to re-measure the length afterwards. Also, the amplitude was not controlled carefully; some swings started at about 10° and others nearer 20°. A larger angle lengthens the period a little, so this may explain the scatter at short lengths.
+
+Next time we would use a light gate instead of a stopwatch and mark a fixed release angle on the stand. Those two changes should cut the random error enough to test whether the small difference from 9.8 m s⁻² is real.`
+};
+SAMPLES.mixed = SAMPLES.formal.split("\n\n").slice(0,3).join("\n\n") + "\n\n" + SAMPLES.ai.split("\n\n").slice(1,4).join("\n\n");
+
+// ---------- Input handling ----------
+const input = $("#input"), go = $("#go"), msg = $("#msg");
+function wordCount(t){ return (t.match(/[A-Za-zÀ-ɏ㐀-鿿]+(?:['’-][A-Za-z]+)*/g) || []).length; }
+function updateCount(){
+  const n = wordCount(input.value);
+  $("#wc").textContent = n.toLocaleString();
+  $("#wchint").textContent = n === 0 ? "" : n < 80 ? `· need ${80-n} more` : n < 300 ? "· 300+ recommended" : "";
+  go.disabled = n === 0;
+}
+input.addEventListener("input", updateCount);
+function showMsg(text, kind="err"){ msg.className = "msg " + kind; msg.textContent = text; }
+function hideMsg(){ msg.className = "msg"; msg.textContent = ""; }
+$("#sample").addEventListener("change", e => { const k = e.target.value; if (!k) return; setTab("paste"); setFile(null); input.value = SAMPLES[k]; updateCount(); hideMsg(); e.target.value = ""; showMsg("Demo samples were written for this demonstration. They show how the report works and don't measure accuracy.", "info"); });
+$("#clear").addEventListener("click", () => { input.value=""; setFile(null); updateCount(); hideMsg(); $("#results").style.display="none"; });
+
+function setTab(t){
+  $$(".tabs [data-tab]").forEach(b => b.classList.toggle("on", b.dataset.tab === t));
+  $("#tab-paste").style.display = t === "paste" ? "" : "none";
+  $("#tab-upload").style.display = t === "upload" ? "" : "none";
+}
+$$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
+let currentFile = null;
+function setFile(name){ currentFile = name; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
+$("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
+
+const drop = $("#drop"), fileInput = $("#file");
+drop.addEventListener("click", () => fileInput.click());
+drop.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); }});
+["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => { const f = e.dataTransfer.files[0]; if (f) handleFile(f); });
+fileInput.addEventListener("change", () => { const f = fileInput.files[0]; if (f) handleFile(f); fileInput.value = ""; });
+// Allow dropping files onto the textarea too
+input.addEventListener("dragover", e => e.preventDefault());
+input.addEventListener("drop", e => { if (e.dataTransfer.files.length) { e.preventDefault(); handleFile(e.dataTransfer.files[0]); }});
+
+function loadScript(src){ return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("Could not load " + src)); document.head.appendChild(s); }); }
+let pdfReady = null;
+function ensurePdf(){
+  if (!pdfReady) pdfReady = (async () => {
+    // Load the worker script on the main thread (fake worker); works in sandboxed frames and from file://
+    await loadScript("pdf.worker.min.js");
+    await loadScript("pdf.min.js");
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = "pdf.worker.min.js";
+  })();
+  return pdfReady;
+}
+async function extractPdf(buf){
+  await ensurePdf();
+  const pdf = await window.pdfjsLib.getDocument({ data: buf, isEvalSupported: false, disableFontFace: true }).promise;
+  if (pdf.numPages > 200) throw new Error("PDFs over 200 pages aren't supported in the free version.");
+  let out = "";
+  for (let p = 1; p <= pdf.numPages; p++) {
+    const page = await pdf.getPage(p);
+    const tc = await page.getTextContent();
+    let lastY = null, lastH = 10, line = "";
+    const lines = [];
+    for (const it of tc.items) {
+      if (!("str" in it)) continue;
+      const y = it.transform[5], h = Math.abs(it.transform[3]) || it.height || lastH;
+      if (lastY !== null && Math.abs(y - lastY) > h * 0.5) {
+        lines.push({ text: line, gap: Math.abs(lastY - y), h: lastH }); line = "";
+      }
+      line += it.str; if (it.hasEOL) { lines.push({ text: line, gap: 0, h }); line = ""; lastY = null; lastH = h; continue; }
+      lastY = y; lastH = h;
+    }
+    if (line) lines.push({ text: line, gap: 0, h: lastH });
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i].text.trim();
+      if (!l) { out += "\n"; continue; }
+      if (/^\d{1,4}$/.test(l)) continue; // page numbers
+      out += l;
+      const big = lines[i].gap > lines[i].h * 1.7;
+      out += big ? "\n\n" : "\n";
+    }
+    out += "\n\n";
+  }
+  // de-hyphenate across line breaks; collapse single newlines inside paragraphs
+  out = out.replace(/(\w)-\n(\w)/g, "$1$2");
+  out = out.split(/\n\s*\n/).map(p => p.replace(/\n/g, " ").replace(/\s+/g, " ").trim()).filter(Boolean).join("\n\n");
+  return out;
+}
+
+async function handleFile(f){
+  hideMsg();
+  const name = f.name || "file", ext = (name.split(".").pop() || "").toLowerCase();
+  if (f.size > 10 * 1024 * 1024) return showMsg("That file is larger than 10 MB. Please upload a smaller file or paste the text.");
+  if (!["txt","docx","pdf","md"].includes(ext)) return showMsg(ext === "doc" ? "Old .doc files aren't supported. Please save as .docx or PDF." : "Unsupported file type. Use .txt, .docx or .pdf.");
+  showMsg("Extracting text from " + name + "…", "info");
+  try {
+    const buf = await f.arrayBuffer();
+    const head = new Uint8Array(buf.slice(0, 5));
+    let text = "";
+    if (ext === "pdf") {
+      if (String.fromCharCode(...head) !== "%PDF-") throw new Error("This doesn't look like a valid PDF.");
+      text = await extractPdf(buf);
+      if (wordCount(text) < 20) throw new Error("Almost no text was found. This PDF may be a scanned image. Scanned PDFs need OCR, which the free version doesn't do.");
+    } else if (ext === "docx") {
+      if (head[0] !== 0x50 || head[1] !== 0x4B) throw new Error("This doesn't look like a valid .docx file.");
+      if (!window.mammoth) await loadScript("mammoth.browser.min.js");
+      const r = await window.mammoth.extractRawText({ arrayBuffer: buf });
+      text = r.value;
+    } else {
+      text = new TextDecoder("utf-8").decode(buf);
+      if (/\u0000/.test(text.slice(0, 2000))) throw new Error("This file appears to be binary, not plain text.");
+    }
+    text = text.replace(/\n{3,}/g, "\n\n").trim();
+    input.value = text; setFile(name); setTab("paste"); updateCount();
+    showMsg(`Extracted ${wordCount(text).toLocaleString()} words. Review the text below, then press Analyse.`, "info");
+  } catch (err) {
+    showMsg(err.message || "Could not read that file.");
+  }
+}
+
+// ---------- Analyse ----------
+let last = null;
+const MODE_LABEL = { standard: "Analyse text", deep: "Run Deep Scan", supreme: "Run Supreme Scan" };
+let mode = "standard";
+$$(".modes [data-mode]").forEach(b => b.addEventListener("click", () => {
+  mode = b.dataset.mode;
+  $$(".modes [data-mode]").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-checked", x === b); });
+  go.textContent = MODE_LABEL[mode];
+  $("#modeNote").textContent = mode === "standard" ? "Fast check with the standard engine. Results in about a second."
+    : mode === "deep" ? "Adds the n-gram model trained on 120+ language models (2023–2026), window re-scoring and 300 bootstrap re-analyses. Thresholds differ for academic, creative and other writing; each was set to flag at most 1% of human texts."
+    : "Everything in Deep, plus 2,000 bootstrap re-analyses, three window sizes and paragraph influence analysis, then a full PDF report. Takes as long as the analysis needs: usually under a minute, longer on phones and long documents.";
+}));
+go.addEventListener("click", () => {
+  hideMsg();
+  if (mode !== "standard") return runDeep(mode);
+  go.disabled = true; go.innerHTML = '<span class="spinner"></span>Analysing…';
+  setTimeout(async () => {
+    try {
+      const r = E.analyze(input.value);
+      if (r.status === "ok") { try { await ensureDeep(false); applyGuard(r, window.AletheiaDeep.guard(r)); } catch (e) { console.warn("register guard unavailable", e); } }
+      last = r; lastDeep = null; render(r); $("#deepPanel").style.display = "none";
+      if (r.status === "ok") saveHistory(r);
+    } catch (e) {
+      console.error(e); showMsg("Something went wrong during analysis. Please try again or simplify the formatting.");
+    } finally { go.innerHTML = MODE_LABEL[mode]; updateCount(); }
+  }, 30);
+});
+
+// Academic-register guard for the Standard mode: in academic-abstract style the standard model over-flags human writing
+// (11% on an independent abstract corpus), so its AI verdicts are replaced by the separately calibrated decision.
+function applyGuard(r, g){
+  if (!g) return;
+  const aiCats = ["strong", "substantial", "ai-edited", "mixed-authorship"];
+  if (g.academic) r.notes.unshift("Academic-abstract writing style detected. Thresholds for this style are stricter because AI-rewritten abstracts are hard to tell apart from human ones.");
+  // An AI verdict needs the n-gram stack to agree: its decision threshold in academic style, at least its review threshold otherwise.
+  if (aiCats.includes(r.catKey) && g.deep < (g.academic ? g.high : g.low)) {
+    r.catKey = "inconclusive"; r.category = g.academic ? "Inconclusive (academic writing)" : "Inconclusive";
+    r.sentences.forEach(s => { if (s.cat === "strong" || s.cat === "moderate") s.cat = "mixed"; });
+    r.flaggedShare = 0; r.topSentences = [];
+    r.notes.unshift(g.academic ? "The standard model scored this text as AI-like, but in academic-abstract style that score is not reliable enough for an AI verdict."
+                               : "The standard model scored this text as AI-like, but the second (n-gram) model did not agree, so no AI verdict is given. Deep Scan gives a fuller picture.");
+    return;
+  }
+  // The standard model's features date from 2023-era text and miss most modern AI fiction; the n-gram stack was trained on
+  // 2023-2026 models. If the stack clears its register's decision threshold, report AI-like signals even when the standard model does not.
+  if (!aiCats.includes(r.catKey) && g.deep >= g.high) {
+    r.catKey = "substantial"; r.category = "Substantial AI-like signals";
+    r.notes.unshift(`The n-gram model (trained on text from 2023–2026 language models) found strong AI-like patterns (${Math.round(g.deep * 100)}/100, threshold ${Math.round(g.high * 100)} for ${g.name} writing) that the standard sentence model does not show. Run Deep Scan for a section-by-section view.`);
+  } else if ((r.catKey === "human" || r.catKey === "mostly-human") && g.deep >= g.low) {
+    r.catKey = "inconclusive"; r.category = "Inconclusive";
+    r.notes.unshift(`The standard model found human-like patterns, but the n-gram model scored ${Math.round(g.deep * 100)}/100, in the review range for ${g.name} writing. Treat this as unresolved; Deep Scan gives a fuller picture.`);
+  }
+  if (g.creative) r.notes.unshift("Creative-writing style detected (fiction, monologue or story). Thresholds were calibrated on human fiction.");
+}
+
+// ---------- Deep / Supreme scan ----------
+let lastDeep = null, deepAbort = null;
+async function ensureDeep(needPdf){
+  if (!window.AletheiaDeepModel) await loadScript("deep_model.js");
+  if (!window.AletheiaDeep) await loadScript("deep.js");
+  if (needPdf && !window.jspdf) await loadScript("jspdf.umd.min.js");
+}
+function adaptDeep(R){
+  const b = R.base;
+  b.sentences.forEach(s => { if (s.score !== null && s.deep != null) { s.std = s.score; s.score = s.deep; s.cat = s.deepCat; } });
+  const paragraphs = R.paragraphs.map(p => Object.assign({}, p, { local: p.deep }));
+  const fams = [{ id: "deep", name: `Deep Scan model (${R.modelVersion})`, layer: "ML", value: `${(R.deepScore*100).toFixed(1)} / 100`, contribution: Math.max(-2.5, Math.min(2.5, Math.log(Math.max(1e-6,R.deepScore)/Math.max(1e-6,1-R.deepScore)))),
+    detail: `Combines the standard document model (${(R.pGbm*100).toFixed(0)}) with the n-gram stylometric model (${(R.pNgram*100).toFixed(0)}). 90% bootstrap interval ${Math.round(R.ci[0]*100)}–${Math.round(R.ci[1]*100)}.`, strength: "trained" }]
+    .concat(b.families);
+  const tops = b.sentences.filter(s => s.score !== null).sort((a, c) => c.score - a.score).slice(0, 3).filter(s => s.score >= 0.6)
+    .map(s => ({ text: s.text, score: s.score, hits: s.f.hits.filter(h => h.kind !== "human").map(h => h.text) }));
+  const notes = [`${R.levelLabel}: verdict held in ${Math.round(R.stability*100)}% of ${R.bootstrap.full} bootstrap re-analyses (90% interval ${Math.round(R.ci[0]*100)}–${Math.round(R.ci[1]*100)}).`,
+    `Analysis took ${(R.elapsedMs/1000).toFixed(1)} s on this device.`].concat(b.notes);
+  return Object.assign({}, b, { score: R.deepScore, flaggedShare: R.flaggedShare, category: R.category, catKey: R.catKey, confidence: R.confidence,
+    families: fams, paragraphs, topSentences: tops, notes, thresholds: R.thresholds, version: `${b.version} + ${R.modelVersion}` });
+}
+async function saveBlob(blob, filename){
+  if (framed) {
+    const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
+    if (!dl) throw { code: "unavailable" };
+    return dl.save({ filename, data: blob });
+  }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = filename;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+  return { status: "saved" };
+}
+async function runDeep(level){
+  if (!input.value.trim()) return;
+  const prog = $("#deepProg"), bar = $("#deepBar"), st = $("#deepStage"), el = $("#deepTime");
+  go.disabled = true; prog.hidden = false; st.textContent = "Loading Deep Scan models…"; bar.style.width = "1%";
+  const t0 = Date.now(); const timer = setInterval(() => { el.textContent = ((Date.now() - t0) / 1000).toFixed(1) + " s"; }, 100);
+  deepAbort = new AbortController();
+  try {
+    await ensureDeep(level === "supreme");
+    const R = await window.AletheiaDeep.run(input.value, { level, signal: deepAbort.signal,
+      onProgress: (p) => { st.textContent = p.stage; bar.style.width = Math.max(1, Math.round(p.frac * 100)) + "%"; } });
+    if (R.status !== "ok") { render(R.base); return; }
+    const A = adaptDeep(R); last = A; lastDeep = R;
+    render(A); renderDeepPanel(R, level); saveHistory(Object.assign({}, A, { category: A.category + " · " + R.levelLabel }));
+    if (level === "supreme") await buildPdf(R);
+  } catch (e) {
+    if (e && e.message === "cancelled") showMsg("Deep Scan cancelled.", "info");
+    else { console.error(e); showMsg("Deep Scan could not finish: " + (e && e.message ? e.message : "unknown error") + ". Try the standard analysis."); }
+  } finally { clearInterval(timer); prog.hidden = true; go.disabled = false; go.textContent = MODE_LABEL[mode]; updateCount(); }
+}
+$("#deepCancel").addEventListener("click", () => deepAbort && deepAbort.abort());
+let pdfBlob = null;
+async function buildPdf(R){
+  const box = $("#pdfBox"); box.innerHTML = '<span class="count">Building PDF report…</span>';
+  await ensureDeep(true);
+  const when = new Date();
+  pdfBlob = window.AletheiaDeep.pdf(R, { date: when.toLocaleString(), file: currentFile || "" });
+  const name = "ALETHEIA-" + (R.level === "supreme" ? "Supreme" : "Deep") + "-Report-" + when.toISOString().slice(0, 16).replace(/[:T]/g, "-") + ".pdf";
+  box.innerHTML = `<button class="btn primary" id="pdfSave">Download PDF report <span class="arr">↓</span></button> <span class="count">${(pdfBlob.size / 1024).toFixed(0)} KB · ready</span><div class="count" id="pdfMsg" style="margin-top:8px"></div>`;
+  $("#pdfSave").onclick = async () => {
+    try { const r = await saveBlob(pdfBlob, name); $("#pdfMsg").textContent = r.status === "saved" ? "Saved." : "Sent."; }
+    catch (e) { $("#pdfMsg").textContent = e && e.code === "declined" ? "Download cancelled." : "Downloads aren't available in this view. Open the site in your browser to save the PDF."; }
+  };
+}
+function renderDeepPanel(R, level){
+  const P = $("#deepPanel"); P.style.display = "";
+  const pct = (x) => (x * 100).toFixed(1);
+  const infl = R.influence.slice(0, 4).map(x => `<tr><td class="mono">P${x.para + 1}</td><td class="mono">${x.delta >= 0 ? "+" : ""}${(x.delta * 100).toFixed(1)}</td><td>${esc(x.preview)}…</td></tr>`).join("");
+  P.innerHTML = `<p class="eyebrow">${esc(R.levelLabel)}</p><h2>Deep score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
+    <p class="sub">90% bootstrap interval ${Math.round(R.ci[0] * 100)}–${Math.round(R.ci[1] * 100)} · verdict stable in ${Math.round(R.stability * 100)}% of ${R.bootstrap.full} re-analyses · ${(R.elapsedMs / 1000).toFixed(1)} s</p>
+    <div class="metric-grid"><div class="metric"><div class="k">Standard model</div><div class="v">${pct(R.pGbm)}</div></div><div class="metric"><div class="k">n-gram model</div><div class="v">${pct(R.pNgram)}</div></div>
+    <div class="metric"><div class="k">Combined</div><div class="v">${pct(R.deepScore)}</div></div><div class="metric"><div class="k">Flag threshold</div><div class="v">${pct(R.thresholds.high)}</div></div></div>
+    ${infl ? `<h3 style="font:500 18px var(--serif);margin:16px 0 6px">Paragraphs that move the result most</h3><table class="data"><tr><th>Para</th><th>Δ score</th><th>Opening</th></tr>${infl}</table>` : ""}
+    <div id="pdfBox" style="margin-top:16px">${level === "supreme" ? "" : '<button class="btn small" id="mkPdf">Create PDF report</button>'}</div>`;
+  const mk = $("#mkPdf"); if (mk) mk.onclick = () => buildPdf(R);
+}
+
+function scoreColor(s){ return s >= 0.75 ? "#c4614f" : s >= 0.58 ? "#c9a14a" : s <= 0.3 ? "#6f9f78" : "#8a8f9a"; }
+const CAT_COLOR = { human: "#6f9f78", "mostly-human": "#8fae7a", inconclusive: "#8a8f9a", "mixed-authorship": "#c9a14a", "ai-edited": "#c9a14a", substantial: "#c4614f", strong: "#b0473a" };
+function gauge(score, color){
+  const r = 82, cx = 100, cy = 100, a0 = Math.PI, a1 = Math.PI * (1 - score);
+  const p = (a) => [cx + r * Math.cos(a), cy - r * Math.sin(a)];
+  const [x0,y0] = p(a0), [x1,y1] = p(a1), [xe,ye] = p(0);
+  return `<svg class="gauge" width="220" height="122" viewBox="0 0 200 112" role="img" aria-label="AI-like signal ${Math.round(score*100)} out of 100">
+    <path d="M${x0} ${y0} A${r} ${r} 0 0 1 ${xe} ${ye}" fill="none" style="stroke:var(--track)" stroke-width="16" stroke-linecap="round"/>
+    <path d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)}" fill="none" stroke="${color || scoreColor(score)}" stroke-width="16" stroke-linecap="round"/>
+    <text x="18" y="110" font-size="10" style="fill:var(--fg-3)" font-family="IBM Plex Mono">0</text><text x="172" y="110" font-size="10" style="fill:var(--fg-3)" font-family="IBM Plex Mono">100</text></svg>`;
+}
+const CAT_SUB = {
+  "human": "Few AI-like patterns were found.",
+  "mostly-human": "Mostly human-like, with a few AI-associated patterns.",
+  "inconclusive": "The evidence does not support a reliable conclusion either way.",
+  "ai-edited": "AI-associated wording, but human-like sentence structure. This may be edited AI text, or human text in a formal style.",
+  "substantial": "Many AI-associated patterns across the document.",
+  "strong": "Dense, consistent AI-associated patterns, possibly including chatbot artefacts.",
+  "mixed-authorship": "Some sections show strong AI-like signals while others look human-like. Review section by section."
+};
+
+function render(r){
+  $("#results").style.display = "block";
+  const grid = $("#resGrid"), state = $("#resState");
+  if (r.status !== "ok") {
+    grid.style.display = "none";
+    state.innerHTML = `<div class="card state-card"><p class="eyebrow">${r.status === "insufficient" ? "Insufficient evidence" : "Unsupported language"}</p><h2>${r.status === "insufficient" ? "Not enough prose to assess" : "This text can't be assessed yet"}</h2><p style="color:var(--ink-2);max-width:620px;margin:8px auto 0">${esc(r.message)}</p>${r.excludedWords ? `<p style="color:var(--ink-3);font-size:14px">${r.excludedWords} words were set aside as headings, lists, tables or references.</p>` : ""}</div>`;
+    state.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+  state.innerHTML = ""; grid.style.display = "";
+  const pct = Math.round(r.score * 100), share = Math.round(r.flaggedShare * 100);
+  const when = new Date(r.analyzedAt);
+  $("#summary").innerHTML = `
+    <p class="eyebrow">Prose with AI-like signals</p>
+    ${gauge(r.flaggedShare, CAT_COLOR[r.catKey])}
+    <div class="scoreline"><span class="num">${share}%</span><span class="unit">of qualifying prose highlighted · not a probability</span></div>
+    <div class="cat">${esc(r.category)}</div>
+    <div class="catsub">${esc(CAT_SUB[r.catKey] || "")}</div>
+    <div style="text-align:center;margin-bottom:10px"><span class="pill">Confidence: ${esc(r.confidence)}</span> <span class="pill">Evidence: ${esc(r.evidence)}</span></div>
+    <dl class="meta">
+      <dt>Model score</dt><dd>${pct}/100${r.thresholds ? ` (flag ≥ ${Math.round(r.thresholds.high*100)})` : ""}</dd>
+      <dt>Total words</dt><dd>${r.totalWords.toLocaleString()}</dd>
+      <dt>Qualifying prose</dt><dd>${r.qualifyingWords.toLocaleString()}</dd>
+      <dt>Excluded (refs, headings, lists)</dt><dd>${r.excludedWords.toLocaleString()}</dd>
+      <dt>Quoted words excluded</dt><dd>${r.quotedWords.toLocaleString()}</dd>
+      <dt>Sentences</dt><dd>${r.stats.sentences}</dd>
+      <dt>Language</dt><dd>${esc(r.language.name)}</dd>
+      <dt>Engine version</dt><dd>${esc(r.version)}</dd>
+      <dt>Analysed</dt><dd>${when.toLocaleDateString()} ${when.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}</dd>
+      ${currentFile ? `<dt>File</dt><dd title="${esc(currentFile)}">${esc(currentFile.length > 22 ? currentFile.slice(0,20)+"…" : currentFile)}</dd>` : ""}
+    </dl>
+    <div class="notes"><ul>${r.notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul></div>
+    <div class="actions">
+      <button class="btn small" id="copyRep">Copy report</button>
+      ${framed ? "" : '<button class="btn small" id="dlRep">Download report</button><button class="btn small" id="printRep">Print / PDF</button>'}
+      <button class="btn small" id="newScan">New scan</button>
+    </div>
+    <div class="count" id="copyMsg" style="margin-top:8px"></div>`;
+  $("#copyRep").onclick = async () => { try { await navigator.clipboard.writeText(reportText(r)); $("#copyMsg").textContent = "Report copied to clipboard."; } catch(e) { $("#copyMsg").textContent = "Copy was blocked by the browser. Select the report text manually."; } };
+  if (!framed) { $("#dlRep").onclick = () => downloadReport(r); $("#printRep").onclick = () => window.print(); }
+  $("#newScan").onclick = () => { input.value = ""; setFile(null); updateCount(); $("#results").style.display = "none"; window.scrollTo({ top: 0, behavior: "smooth" }); input.focus(); };
+
+  $("#doc").innerHTML = docHtml(r);
+  bindSentences(r);
+
+  // Paragraph bars
+  $("#pbars").innerHTML = r.paragraphs.map((p, i) => {
+    if (p.local === null) return "";
+    const v = p.local, w = Math.max(2, v * 100);
+    return `<div class="prow" data-block="${p.block}" title="${esc(p.preview)}…"><span class="lab">P${i+1}</span><div class="ptrack"><div class="pfill" style="width:${w}%;background:${scoreColor(v)}"></div></div><span class="val">${Math.round(v*100)}</span></div>`;
+  }).join("");
+  $$("#pbars .prow").forEach(row => row.onclick = () => { const el = $(`#doc [data-b="${row.dataset.block}"]`); if (el) { el.scrollIntoView({ behavior: "smooth", block: "center" }); el.animate([{ background: "#e3f0f1" }, { background: "transparent" }], { duration: 1400 }); } });
+
+  // Evidence table
+  const maxAbs = 2.5;
+  $("#ev").innerHTML = `<tr><th>Signal family</th><th>Measured</th><th>Effect on score</th><th>Strength</th></tr>` + r.families.map(f => {
+    const c = f.contribution, w = Math.min(50, Math.abs(c) / maxAbs * 50);
+    const bar = c >= 0 ? `<i style="left:50%;width:${w}%;background:#c4614f"></i>` : `<i style="right:50%;width:${w}%;background:#6f9f78"></i>`;
+    const lab = Math.abs(c) < 0.05 ? "Neutral" : c > 0 ? "Toward AI-like" : "Toward human-like";
+    return `<tr><td><b style="font-weight:500">${esc(f.name)}</b><div class="why">${esc(f.detail)}</div></td><td class="v">${esc(f.value)}</td><td><span class="dir"><span class="mini"><i style="left:50%;width:1px;background:#9aa3ae"></i>${bar}</span>${lab}</span></td><td><span class="tag ${f.strength}">${f.strength === "ineffective" ? "Info only" : f.strength === "trained" ? "Measured" : f.strength}</span></td></tr>`;
+  }).join("");
+
+  // Top passages
+  $("#topPanel").style.display = r.topSentences.length ? "" : "none";
+  $("#tops").innerHTML = r.topSentences.map(s => `<div class="top-s">${esc(s.text)}<small>Signal ${Math.round(s.score*100)} · ${s.hits.length ? esc([...new Set(s.hits)].slice(0,5).join(" · ")) : "structural pattern (uniform sentence rhythm)"}</small></div>`).join("");
+
+  $("#results").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+const TYPE_LABEL = { heading: "Heading", list: "List item · excluded", reference: "Reference · excluded", table: "Table · excluded", quote: "Block quote · excluded", math: "Maths · excluded" };
+function docHtml(r){
+  const bySent = new Map();
+  r.sentences.forEach((s, idx) => { if (!bySent.has(s.block)) bySent.set(s.block, []); bySent.get(s.block).push({ s, idx }); });
+  return r.blocks.map(b => {
+    if (b.type === "prose" || b.type === "list-prose") {
+      const ss = bySent.get(b.i) || [];
+      return `<p data-b="${b.i}">` + ss.map(({ s, idx }) => `<span class="s ${s.cat}" data-i="${idx}">${esc(s.text)}</span>`).join(" ") + `</p>`;
+    }
+    if (b.type === "heading") return `<p class="blk-h" data-b="${b.i}">${esc(b.text.replace(/^#+\s*/, ""))}</p>`;
+    return `<p class="blk-x" data-b="${b.i}"><em>${TYPE_LABEL[b.type] || "Excluded"}</em>${esc(b.text)}</p>`;
+  }).join("");
+}
+function sentenceExplain(s){
+  const f = s.f;
+  const ai = f.hits.filter(h => h.kind !== "human").map(h => h.kind === "vocab" ? `word “${h.text}”` : h.text);
+  const hu = f.hits.filter(h => h.kind === "human").map(h => h.label + (h.text ? `: ${h.text}` : ""));
+  const label = { strong: "Strong AI-like signals", moderate: "Moderate AI-like signals", mixed: "Inconclusive", human: "Human-like signals", excluded: "Too short to score" }[s.cat];
+  let h = `<b>${s.score === null ? "—" : Math.round(s.score*100)}</b> · ${label}`;
+  if (ai.length) h += `<ul>${[...new Set(ai)].slice(0,6).map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  if (hu.length) h += `<div style="margin-top:6px;opacity:.85">Human-like: ${esc([...new Set(hu)].slice(0,4).join("; "))}</div>`;
+  if (!ai.length && !hu.length && s.score !== null) h += `<div style="margin-top:6px;opacity:.85">No specific markers. The score reflects local sentence rhythm and the document-level pattern.</div>`;
+  if (f.transition) h += `<div style="margin-top:4px;opacity:.85">Opens with a formal transition word.</div>`;
+  return h;
+}
+const tip = $("#tip");
+function bindSentences(r){
+  $("#doc").onmousemove = (e) => {
+    const el = e.target.closest(".s"); if (!el) { tip.style.display = "none"; return; }
+    const s = r.sentences[+el.dataset.i]; tip.innerHTML = sentenceExplain(s); tip.style.display = "block";
+    const x = Math.min(e.clientX + 14, window.innerWidth - 345), y = e.clientY + 18;
+    tip.style.left = x + "px"; tip.style.top = (y + tip.offsetHeight > window.innerHeight ? e.clientY - tip.offsetHeight - 12 : y) + "px";
+  };
+  $("#doc").onmouseleave = () => tip.style.display = "none";
+  $("#doc").onclick = (e) => {
+    const el = e.target.closest(".s"); if (!el) return;
+    $$("#doc .s.sel").forEach(x => x.classList.remove("sel")); el.classList.add("sel");
+    const d = $("#detail"); d.style.display = "block"; d.innerHTML = `<div style="font-family:var(--serif);margin-bottom:6px">“${esc(r.sentences[+el.dataset.i].text)}”</div>` + sentenceExplain(r.sentences[+el.dataset.i]);
+  };
+}
+$("#showHuman").addEventListener("change", e => $("#doc").classList.toggle("showhuman", e.target.checked));
+
+// ---------- Report export ----------
+function reportText(r){
+  const L = [];
+  L.push("ALETHEIA Detect report");
+  L.push("Engine: " + r.version + " | Analysed: " + new Date(r.analyzedAt).toLocaleString());
+  if (currentFile) L.push("File: " + currentFile);
+  L.push("");
+  L.push(`Prose with AI-like signals: ${Math.round(r.flaggedShare*100)}% of qualifying prose (not a probability)`);
+  L.push(`Model score: ${Math.round(r.score*100)}/100` + (r.thresholds ? ` (flagging threshold ${Math.round(r.thresholds.high*100)})` : ""));
+  L.push("Assessment: " + r.category + " — " + (CAT_SUB[r.catKey] || ""));
+  L.push(`Confidence: ${r.confidence} | Evidence: ${r.evidence}`);
+  L.push(`Words: ${r.totalWords} total, ${r.qualifyingWords} qualifying prose, ${r.excludedWords} excluded, ${r.quotedWords} quoted`);
+  L.push("");
+  L.push("Evidence:");
+  r.families.forEach(f => L.push(` - ${f.name}: ${f.value} (${f.contribution > 0.05 ? "toward AI-like" : f.contribution < -0.05 ? "toward human-like" : "neutral"}; ${f.strength})`));
+  L.push("");
+  L.push("Paragraphs (local signal 0–100): " + r.paragraphs.filter(p => p.local !== null).map((p, i) => `P${i+1}=${Math.round(p.local*100)}`).join(", "));
+  if (r.topSentences.length) { L.push(""); L.push("Passages driving the result:"); r.topSentences.forEach(s => L.push(` • [${Math.round(s.score*100)}] ${s.text}`)); }
+  L.push(""); L.push("Notes:"); r.notes.forEach(n => L.push(" - " + n));
+  L.push(""); L.push("A detector score is not proof of who wrote a document. Do not use it as the sole basis for any decision.");
+  return L.join("\n");
+}
+function downloadReport(r){
+  const css = [...document.querySelectorAll("style")].map(s => s.textContent).join("\n");
+  const html = `<!DOCTYPE html><html data-theme="${document.documentElement.dataset.theme}"><head><meta charset="utf-8"><title>ALETHEIA report</title><style>${css} body{padding:30px} .s{cursor:default}</style></head><body class="wrap">
+  <h1 style="font-family:var(--serif)">ALETHEIA Detect report</h1>
+  <div class="res-grid"><aside class="card summary" style="position:static">${$("#summary").innerHTML.replace(/<div class="actions">[\s\S]*?<\/div>\s*<div class="count" id="copyMsg"[^>]*><\/div>/, "")}</aside>
+  <div><div class="card panel"><h2>Highlighted document</h2><div class="doc" style="max-height:none">${$("#doc").innerHTML}</div></div>
+  <div class="card panel"><h2>Evidence</h2><table class="ev">${$("#ev").innerHTML}</table></div>
+  <div class="disclaimer">A detector score is not proof of who wrote a document. Do not use it as the sole basis for any decision.</div></div></div></body></html>`;
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
+  a.download = "aletheia-report-" + new Date(r.analyzedAt).toISOString().slice(0,16).replace(/[:T]/g, "-") + ".html";
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+
+// ---------- History ----------
+function saveHistory(r){
+  const h = (store.get("aletheia.history", null) || store.get("proselens.history", []));
+  h.unshift({ at: r.analyzedAt, score: r.flaggedShare, category: r.category, words: r.qualifyingWords, file: currentFile || null, version: r.version });
+  store.set("aletheia.history", h.slice(0, 50));
+}
+function renderHistory(){
+  const h = (store.get("aletheia.history", null) || store.get("proselens.history", []));
+  const box = $("#histBox");
+  if (!h.length) { box.innerHTML = `<div class="card panel"><p style="margin:0;color:var(--ink-2)">No scans yet. <a href="#detect">Run your first scan.</a></p></div>`; return; }
+  box.innerHTML = `<div class="card panel"><table class="hist"><tr><th>Date</th><th>Source</th><th>Words</th><th>AI-like prose</th><th>Assessment</th></tr>${h.map(x => `<tr><td>${esc(new Date(x.at).toLocaleString())}</td><td>${esc(x.file || "Pasted text")}</td><td class="count">${x.words}</td><td><span class="count" style="color:var(--ink)">${Math.round(x.score*100)}%</span></td><td>${esc(x.category)}</td></tr>`).join("")}</table><div style="margin-top:14px"><button class="btn small" id="clrHist">Clear history</button></div></div>`;
+  $("#clrHist").onclick = () => { store.set("aletheia.history", []); renderHistory(); };
+}
+
+// ---------- Evaluation ----------
+$("#thr").addEventListener("input", e => $("#thrv").textContent = (+e.target.value).toFixed(2));
+$("#evFile").addEventListener("change", async e => { const f = e.target.files[0]; if (!f) return; $("#evText").value = await f.text(); });
+function parseCSV(t){
+  const rows = []; let row = [], cur = "", q = false;
+  for (let i = 0; i < t.length; i++) {
+    const c = t[i];
+    if (q) { if (c === '"') { if (t[i+1] === '"') { cur += '"'; i++; } else q = false; } else cur += c; }
+    else if (c === '"') q = true;
+    else if (c === ",") { row.push(cur); cur = ""; }
+    else if (c === "\n" || c === "\r") { if (c === "\r" && t[i+1] === "\n") i++; row.push(cur); rows.push(row); row = []; cur = ""; }
+    else cur += c;
+  }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  const head = rows.shift().map(h => h.trim().toLowerCase());
+  const ti = head.indexOf("text"), li = head.indexOf("label"), gi = head.indexOf("group");
+  if (ti < 0 || li < 0) throw new Error("CSV needs 'text' and 'label' columns.");
+  return rows.filter(r => r.length > Math.max(ti, li)).map(r => ({ text: r[ti], label: r[li], group: gi >= 0 ? r[gi] : "" }));
+}
+function parseData(t){
+  t = t.trim(); if (!t) throw new Error("No data provided.");
+  let items;
+  if (t[0] === "[") items = JSON.parse(t);
+  else if (t[0] === "{") items = t.split(/\n+/).filter(l => l.trim()).map((l, i) => { try { return JSON.parse(l); } catch(e) { throw new Error("Line " + (i+1) + " is not valid JSON."); } });
+  else items = parseCSV(t);
+  return items.map(x => {
+    const l = String(x.label).trim().toLowerCase();
+    const y = ["ai","1","machine","generated","llm","true"].includes(l) ? 1 : ["human","0","false","real"].includes(l) ? 0 : null;
+    return { text: String(x.text || ""), y, group: x.group ? String(x.group) : "" };
+  }).filter(x => x.y !== null && x.text.trim());
+}
+function wilson(k, n){ if (!n) return [0, 0]; const z = 1.96, p = k/n, d = 1 + z*z/n, c = p + z*z/(2*n), m = z*Math.sqrt(p*(1-p)/n + z*z/(4*n*n)); return [Math.max(0,(c-m)/d), Math.min(1,(c+m)/d)]; }
+function auc(pos, neg){ if (!pos.length || !neg.length) return null; let s = 0; for (const p of pos) for (const n of neg) s += p > n ? 1 : p === n ? 0.5 : 0; return s / (pos.length * neg.length); }
+function avgPrecision(items){ const s = [...items].sort((a,b) => b.p - a.p); const P = s.filter(x => x.y).length; if (!P) return null; let tp = 0, ap = 0; s.forEach((x, i) => { if (x.y) { tp++; ap += tp/(i+1); } }); return ap / P; }
+function bootstrapAUC(items, B = 300){
+  const vals = [];
+  for (let b = 0; b < B; b++) { const smp = items.map(() => items[Math.floor(Math.random()*items.length)]); const a = auc(smp.filter(x=>x.y).map(x=>x.p), smp.filter(x=>!x.y).map(x=>x.p)); if (a !== null) vals.push(a); }
+  vals.sort((a,b)=>a-b); return vals.length ? [vals[Math.floor(vals.length*0.025)], vals[Math.floor(vals.length*0.975)]] : null;
+}
+$("#evGo").addEventListener("click", () => {
+  const em = $("#evMsg"); em.className = "msg"; em.textContent = "";
+  let data;
+  try { data = parseData($("#evText").value); } catch (e) { em.className = "msg err"; em.textContent = e.message; return; }
+  if (data.length < 2) { em.className = "msg err"; em.textContent = "Need at least two labelled samples."; return; }
+  const thr = +$("#thr").value;
+  const scored = [], skipped = [];
+  data.forEach(d => { const r = E.analyze(d.text); if (r.status === "ok") scored.push({ y: d.y, p: r.score, group: d.group }); else skipped.push({ y: d.y, status: r.status }); });
+  const pos = scored.filter(x => x.y), neg = scored.filter(x => !x.y);
+  const TP = pos.filter(x => x.p >= thr).length, FN = pos.length - TP, FP = neg.filter(x => x.p >= thr).length, TN = neg.length - FP;
+  const prec = TP + FP ? TP/(TP+FP) : null, rec = pos.length ? TP/pos.length : null, fpr = neg.length ? FP/neg.length : null;
+  const f1 = prec && rec ? 2*prec*rec/(prec+rec) : null;
+  const A = auc(pos.map(x=>x.p), neg.map(x=>x.p)), Aci = A !== null && scored.length >= 10 ? bootstrapAUC(scored) : null;
+  const AP = avgPrecision(scored);
+  const brier = scored.length ? scored.reduce((a,x)=>a+(x.p-x.y)**2,0)/scored.length : null;
+  const fmt = (v, pct=true) => v === null ? "—" : pct ? (v*100).toFixed(1) + "%" : v.toFixed(3);
+  const ciS = (k, n) => { if (!n) return ""; const [a,b] = wilson(k,n); return `95% CI ${(a*100).toFixed(1)}–${(b*100).toFixed(1)}%`; };
+  // calibration buckets
+  const bins = [0,0.2,0.4,0.6,0.8,1.0001].slice(0,-1).map((lo, i, arr) => { const hi = [0.2,0.4,0.6,0.8,1.0001][i]; const inb = scored.filter(x => x.p >= lo && x.p < hi); return { lo, hi: Math.min(1,hi), n: inb.length, rate: inb.length ? inb.filter(x=>x.y).length/inb.length : null }; });
+  // per-group FPR
+  const groups = [...new Set(neg.map(x => x.group).filter(Boolean))];
+  const gRows = groups.map(g => { const gn = neg.filter(x => x.group === g); const gfp = gn.filter(x => x.p >= thr).length; return `<tr><td>${esc(g)}</td><td>${gn.length}</td><td>${fmt(gn.length ? gfp/gn.length : null)}</td><td class="count">${ciS(gfp, gn.length)}</td></tr>`; }).join("");
+  const small = scored.length < 200 ? `<div class="msg info" style="display:block;margin:0 0 12px">Only ${scored.length} scored samples. Confidence intervals are wide, so don't treat these numbers as an established accuracy figure.</div>` : "";
+  $("#evOut").innerHTML = `<h2>2. Results</h2><p class="sub">${scored.length} scored (${pos.length} AI, ${neg.length} human) · ${skipped.length} skipped as too short or unsupported · threshold ${thr.toFixed(2)} · engine ${E.VERSION}</p>${small}
+    <div class="metric-grid">
+      <div class="metric"><div class="k">False-positive rate</div><div class="v">${fmt(fpr)}</div><div class="ci">${ciS(FP, neg.length)}</div></div>
+      <div class="metric"><div class="k">Recall (TPR)</div><div class="v">${fmt(rec)}</div><div class="ci">${ciS(TP, pos.length)}</div></div>
+      <div class="metric"><div class="k">Precision</div><div class="v">${fmt(prec)}</div><div class="ci">${TP+FP ? ciS(TP, TP+FP) : ""}</div></div>
+      <div class="metric"><div class="k">F1</div><div class="v">${fmt(f1, false)}</div></div>
+      <div class="metric"><div class="k">ROC-AUC</div><div class="v">${fmt(A, false)}</div><div class="ci">${Aci ? "95% CI " + Aci[0].toFixed(3) + "–" + Aci[1].toFixed(3) : ""}</div></div>
+      <div class="metric"><div class="k">PR-AUC (AP)</div><div class="v">${fmt(AP, false)}</div></div>
+      <div class="metric"><div class="k">Brier score</div><div class="v">${fmt(brier, false)}</div><div class="ci">lower is better</div></div>
+      <div class="metric"><div class="k">False-negative rate</div><div class="v">${fmt(rec === null ? null : 1 - rec)}</div></div>
+    </div>
+    <h3 style="font-size:15px;margin:16px 0 8px">Confusion matrix</h3>
+    <table class="cm"><tr><th></th><th>Flagged AI-like</th><th>Not flagged</th></tr><tr><th>Actually AI</th><td>${TP}</td><td>${FN}</td></tr><tr><th>Actually human</th><td style="background:${FP ? "#fde2de" : ""}">${FP}</td><td>${TN}</td></tr></table>
+    <h3 style="font-size:15px;margin:18px 0 8px">Calibration (share actually AI, per score band)</h3>
+    <table class="cm"><tr><th>Score band</th>${bins.map(b => `<th>${Math.round(b.lo*100)}–${Math.round(b.hi*100)}</th>`).join("")}</tr><tr><th>n</th>${bins.map(b => `<td>${b.n}</td>`).join("")}</tr><tr><th>% AI</th>${bins.map(b => `<td>${b.rate === null ? "—" : Math.round(b.rate*100) + "%"}</td>`).join("")}</tr></table>
+    ${groups.length ? `<h3 style="font-size:15px;margin:18px 0 8px">False-positive rate by group (human samples)</h3><table class="hist"><tr><th>Group</th><th>n</th><th>FPR</th><th></th></tr>${gRows}</table>` : ""}`;
+});
+
+updateCount();
+})();
+</script>
+<script>
+document.getElementById("themeBtn").addEventListener("click",function(){var d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("aletheia.theme",n);}catch(e){}});
+</script>
+</body>
+</html>
