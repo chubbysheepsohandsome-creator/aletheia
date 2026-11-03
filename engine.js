@@ -539,7 +539,7 @@
     const notes = [];
     if (evidence === "Limited") notes.push(`Short text (${qualifyingWords} words of prose). Results on short texts are much less reliable; treat as indicative only.`);
     if (disagreement) notes.push(modelUsed ? "The trained model and the rule-based signals disagree, so confidence is reduced." : "Statistical and stylistic layers disagree, so confidence is reduced.");
-    if (modelUsed) notes.push("The trained model was benchmarked on 2023-era ChatGPT and Claude text. Newer models (GPT-4o/5, Claude 3+, Gemini, DeepSeek, Llama) are not yet in its test set.");
+    if (modelUsed) notes.push("The standard sentence model was trained on 2023-era ChatGPT and Claude text; the n-gram model that cross-checks it (and powers Deep Scan) was trained on text from 120+ models released 2023–2026.");
     if (quotedWords > 0) notes.push(`${quotedWords} words inside quotation marks were excluded from scoring.`);
     if (tricks.invisible + tricks.lookalike > 0) notes.push(`${tricks.invisible} invisible and ${tricks.lookalike} look-alike characters (e.g. Cyrillic letters inside English words) were found and normalised before analysis. Such characters are a known trick of some AI "humanizer" tools, but they can also come from copy-pasting; they are not counted as evidence on their own.`);
     if (un.numbered) notes.push(`${un.numbered} numbered lines were read as running prose; the line numbers were ignored.`);

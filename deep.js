@@ -32,7 +32,7 @@
     return h | 0;
   }
 
-  let M = null, IDF = null, COEF = null, RCOEF = null, CCOEF = null, TOKRE = null;
+  let M = null, IDF = null, COEF = null, RCOEF = null, CCOEF = null, GCOEF = null, TOKRE = null;
   function model() {
     if (M) return M;
     M = root.AletheiaDeepModel || (typeof require === "function" ? require("./deep_model.js") : null);
@@ -41,6 +41,7 @@
     IDF = b64(M.idf_b64); COEF = new Int8Array(b64(M.coef_b64).buffer);
     RCOEF = M.register ? new Int8Array(b64(M.register.coef_b64).buffer) : null;
     CCOEF = M.register && M.register.creative ? new Int8Array(b64(M.register.creative.coef_b64).buffer) : null;
+    GCOEF = M.general_head ? new Int8Array(b64(M.general_head.coef_b64).buffer) : null;
     TOKRE = new RegExp(M.token_pattern, "g");
     return M;
   }
@@ -59,15 +60,17 @@
     return out;
   }
   function scoresFromCounts(c) { // → {ai, academic, creative}: same normalized TF-IDF vector, three linear heads
-    const m = model(); let dot = 0, rdot = 0, cdot = 0, nrm = 0;
+    const m = model(); let dot = 0, rdot = 0, cdot = 0, gdot = 0, nrm = 0;
     for (const [idx, v] of c) {
       const tf = (1 + Math.log(v)) * IDF[idx] * m.idf_scale; nrm += tf * tf; dot += tf * COEF[idx] * m.coef_scale;
       if (RCOEF) rdot += tf * RCOEF[idx] * m.register.coef_scale;
       if (CCOEF) cdot += tf * CCOEF[idx] * m.register.creative.coef_scale;
+      if (GCOEF) gdot += tf * GCOEF[idx] * m.general_head.coef_scale;
     }
     const n = nrm > 0 ? Math.sqrt(nrm) : 1, sig = (x) => 1 / (1 + Math.exp(-x));
     return { ai: sig(dot / n + m.intercept), academic: RCOEF ? sig(rdot / n + m.register.intercept) : 0,
-             creative: CCOEF ? sig(cdot / n + m.register.creative.intercept) : 0 };
+             creative: CCOEF ? sig(cdot / n + m.register.creative.intercept) : 0,
+             gen: GCOEF ? sig(gdot / n + m.general_head.intercept) : null };
   }
   const probFromCounts = (c) => scoresFromCounts(c).ai;
   // Register-specific thresholds: academic-abstract style is calibrated separately (≤1% human FPR in each register).
@@ -86,13 +89,26 @@
     if (!base || base.status !== "ok") return null;
     const prose = base.blocks.filter((b) => b.type === "prose" || b.type === "list-prose").map((b) => b.text).join("\n\n");
     const sc = scoresFromCounts(counts(prose));
-    return Object.assign(thresholdsFor(sc.academic, sc.creative), { deep: stack(base.score, sc.ai), pNgram: sc.ai });
+    const T = thresholdsFor(sc.academic, sc.creative);
+    return Object.assign(T, { deep: deepOf(base.score, sc, T), pNgram: sc.ai, pGeneral: sc.gen });
   }
   const ngramProb = (text) => probFromCounts(counts(text));
   const lg = (p) => { p = Math.min(1 - 1e-6, Math.max(1e-6, p)); return Math.log(p / (1 - p)); };
   function stack(pg, pn) {
     const s = model().stack, a = lg(pg == null ? 0.5 : pg), b = lg(pn);
     return 1 / (1 + Math.exp(-(s.w[0] * a + s.w[1] * b + s.w[2] * Math.min(a, b) + s.b)));
+  }
+  // General register (not academic, not creative): the deep-0.4 stack and the general-writing head are each measured
+  // against their own threshold and the larger margin wins; the result is calibrated so 0.5 sits at the decision threshold.
+  function stackG(pg, pn) {
+    const s = model().stack_general, a = lg(pg == null ? 0.5 : pg), b = lg(pn);
+    return 1 / (1 + Math.exp(-(s.w[0] * a + s.w[1] * b + s.w[2] * Math.min(a, b) + s.b)));
+  }
+  function deepOf(pg, sc, reg) {
+    const m = model(), d4 = stack(pg, sc.ai);
+    if (!reg || reg.name !== "general" || sc.gen == null || !m.stack_general) return d4;
+    const c = m.stack_general.combine, d7 = stackG(pg, sc.gen);
+    return 1 / (1 + Math.exp(-Math.max(lg(d4) - lg(c.t_base), lg(d7) - lg(c.t_general))));
   }
   const merge = (maps) => { const o = new Map(); for (const mp of maps) for (const [k, v] of mp) o.set(k, (o.get(k) || 0) + v); return o; };
   const quant = (a, q) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]; };
@@ -123,7 +139,9 @@
     await stage("n-gram stylometric model and register analysis on the full document", 0.06);
     const docSc = scoresFromCounts(counts(proseText)); const pDoc = docSc.ai; const REG = thresholdsFor(docSc.academic, docSc.creative);
     const pGbm = base.score;
-    const deepScore = stack(pGbm, pDoc);
+    const deepScore = deepOf(pGbm, docSc, REG);
+    const useGen = REG.name === "general" && docSc.gen != null;
+    const winP = (c) => scoresFromCounts(c).ai;  // sentence/paragraph maps keep the deep-0.4 n-gram head (validated for section-level use)
 
     await stage("Sentence counts for window and bootstrap analysis", 0.1);
     const sc = prose.map((s) => counts(s.text));
@@ -134,7 +152,7 @@
       const h = Math.floor(w / 2);
       for (let i = 0; i < prose.length; i++) {
         const lo = Math.max(0, i - h), hi = Math.min(prose.length, i + h + 1);
-        winProb[i].push(probFromCounts(merge(sc.slice(lo, hi))));
+        winProb[i].push(winP(merge(sc.slice(lo, hi))));
       }
       await tick();
     }
@@ -147,7 +165,7 @@
     await stage("Paragraph-level n-gram scoring", 0.2);
     const paras = base.paragraphs.map((p) => {
       const ss = prose.filter((s) => s.para === p.index);
-      const pn = ss.length ? probFromCounts(merge(ss.map((s) => sc[prose.indexOf(s)]))) : null;
+      const pn = ss.length ? winP(merge(ss.map((s) => sc[prose.indexOf(s)]))) : null;
       return Object.assign({}, p, { ngram: pn, deep: pn == null ? null : (ss.reduce((a, s) => a + s.deep * s.f.wc, 0) / Math.max(1, ss.reduce((a, s) => a + s.f.wc, 0))) });
     });
 
@@ -156,19 +174,24 @@
     const rnd = (() => { let x = 2463534242; return () => { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return ((x >>> 0) % 1e9) / 1e9; }; })();
     for (let b = 0; b < L.ngramBoot; b++) {
       const pick = Array.from({ length: n }, () => Math.floor(rnd() * n));
-      ngB.push(probFromCounts(merge(pick.map((i) => sc[i]))));
+      ngB.push(scoresFromCounts(merge(pick.map((i) => sc[i]))));
       if (b % 25 === 0) await stage(`Bootstrap resampling, n-gram model (${b}/${L.ngramBoot})`, 0.22 + 0.33 * b / L.ngramBoot);
     }
     for (let b = 0; b < L.gbmBoot; b++) {
       const pick = Array.from({ length: n }, () => Math.floor(rnd() * n));
       const paraTexts = []; for (let i = 0; i < pick.length; i += 5) paraTexts.push(pick.slice(i, i + 5).map((k) => prose[k].text).join(" "));
       const r = E.analyze(paraTexts.join("\n\n"));
-      if (r.status === "ok") { gbB.push(r.score); dB.push(stack(r.score, ngB[b % ngB.length])); }
+      if (r.status === "ok") { gbB.push(r.score); dB.push(deepOf(r.score, ngB[b % ngB.length], REG)); }
       if (b % 5 === 0) await stage(`Bootstrap resampling, full engine (${b}/${L.gbmBoot})`, 0.55 + 0.33 * b / L.gbmBoot);
     }
     const M_ = model();
-    const ci = dB.length ? [quant(dB, 0.05), quant(dB, 0.95)] : [deepScore, deepScore];
-    const stability = dB.length ? dB.filter((x) => (x >= REG.high) === (deepScore >= REG.high)).length / dB.length : 1;
+    // Resampled documents lose their paragraph structure, which shifts their scores; the bootstrap spread is therefore
+    // re-centred on the actual document's score in logit space (its width is kept, its offset removed).
+    const sig_ = (x) => 1 / (1 + Math.exp(-x));
+    const medB = dB.length ? quant(dB, 0.5) : deepScore, shift = lg(deepScore) - lg(medB);
+    const dC = dB.map((x) => sig_(lg(x) + shift));
+    const ci = dC.length ? [quant(dC, 0.05), quant(dC, 0.95)] : [deepScore, deepScore];
+    const stability = dC.length ? dC.filter((x) => (x >= REG.high) === (deepScore >= REG.high)).length / dC.length : 1;
 
     // ---- leave-one-paragraph-out influence (Supreme)
     let influence = [];
@@ -180,7 +203,7 @@
         if (!keep.length) continue;
         const txt = base.blocks.filter((b) => (b.type === "prose" || b.type === "list-prose") && b.i !== p.block).map((b) => b.text).join("\n\n");
         const r = E.analyze(txt);
-        const without = stack(r.status === "ok" ? r.score : pGbm, probFromCounts(merge(keep.map((i) => sc[i]))));
+        const without = deepOf(r.status === "ok" ? r.score : pGbm, scoresFromCounts(merge(keep.map((i) => sc[i]))), REG);
         influence.push({ para: p.index, block: p.block, delta: deepScore - without, preview: p.preview });
         await tick();
       }
@@ -204,7 +227,7 @@
     if (catKey === "inconclusive" || catKey === "mixed-authorship") confidence = confidence === "High" ? "Medium" : confidence;
     const flagged = prose.filter((s) => s.deepCat === "strong" || s.deepCat === "moderate").reduce((a, s) => a + s.f.wc, 0) / Math.max(1, base.qualifyingWords);
     prog({ stage: "Done", frac: 1 });
-    return { status: "ok", level: opts.level || "deep", levelLabel: L.label, base, deepScore, pGbm, pNgram: pDoc, ci, stability, catKey, category, confidence,
+    return { status: "ok", level: opts.level || "deep", levelLabel: L.label, base, deepScore, pGbm, pNgram: pDoc, pGeneral: useGen ? docSc.gen : null, ci, stability, catKey, category, confidence,
              flaggedShare: flagged, paragraphs: paras, influence, thresholds: { high: tH, low: tL }, bootstrap: { ngram: ngB.length, full: dB.length },
              stages, elapsedMs: Date.now() - t0, modelVersion: M_.version, modelPool: M_.pool, windows: L.windows, register: REG };
   }
@@ -263,7 +286,7 @@
     kv([["Total words", String(R.base.totalWords)], ["Qualifying prose (words)", String(R.base.qualifyingWords)], ["Excluded: headings, lists, tables, references", String(R.base.excludedWords)],
         ["Quoted words excluded", String(R.base.quotedWords)], ["Sentences", String(R.base.stats.sentences)], ["Language", R.base.language.name], ["Evidence amount", R.base.evidence]]);
     h2("How the result was reached");
-    kv([["Standard engine (GBM document model)", `${(R.pGbm * 100).toFixed(1)} / 100`], ["n-gram stylometric model", `${(R.pNgram * 100).toFixed(1)} / 100`],
+    kv([["Standard engine (GBM document model)", `${(R.pGbm * 100).toFixed(1)} / 100`], ["n-gram stylometric model", `${(R.pNgram * 100).toFixed(1)} / 100`], ...(R.pGeneral != null ? [["General-writing n-gram model", `${(R.pGeneral * 100).toFixed(1)} / 100`]] : []),
         ["Combined deep score", `${(R.deepScore * 100).toFixed(1)} / 100`], ["Bootstrap re-analyses (n-gram / full engine)", `${R.bootstrap.ngram} / ${R.bootstrap.full}`],
         ["Window sizes (sentences)", R.windows.join(", ")], ["Writing register", R.register.academic ? `academic abstract (p=${R.register.pAcademic.toFixed(2)}): strictest threshold` : R.register.creative ? `creative writing (p=${R.register.pCreative.toFixed(2)}): threshold calibrated on human fiction` : `general (academic p=${R.register.pAcademic.toFixed(2)}, creative p=${R.register.pCreative.toFixed(2)}): conservative threshold`],
         ["Engine / Deep model", `${R.base.version} / ${R.modelVersion}`]]);
@@ -302,7 +325,7 @@
     h2("Limitations and fair use");
     para("ALETHEIA measures statistical and stylistic patterns associated with AI-generated text. It cannot prove who wrote a document, and its scores are not the probability that a particular person used AI. Formal, technical, template-based and non-native English writing can show AI-like patterns; edited or paraphrased AI text can look human. Do not use this report as the sole basis for any academic or employment decision; consider drafts, notes, version history and a conversation with the writer.", 9);
     y += 6;
-    para(`Model provenance: the deep model (${R.modelVersion}) was trained and calibrated on research datasets (Ghostbuster; Profiler, EMNLP 2025; DetectRL; a human / ChatGPT / QuillBot academic-abstract corpus; short fiction from 120+ language models, 2023-2026, from public creative-writing benchmarks; public-domain fiction) whose upstream rights are under review. Thresholds are calibrated separately for three writing registers (academic abstracts, creative writing, everything else) so that at most 1% of human texts in each calibration group are flagged. On held-out data it flagged 0.2% of human texts overall, 0% of held-out human fiction, 1.5% of human academic abstracts and 1.8% of 2024 human news articles. Performance on other genres and on humanizer-rewritten text is lower.`, 8, C.mute);
+    para(`Model provenance: the deep model (${R.modelVersion}) was trained and calibrated on research datasets (Ghostbuster; Profiler, EMNLP 2025; DetectRL; a human / ChatGPT / QuillBot academic-abstract corpus; short fiction from 120+ language models, 2023-2026, from public creative-writing benchmarks; DACTYL, WildChat, HC3, RAID, Cosmopedia; public-domain fiction, Wikipedia and learner essays) whose upstream rights are under review. Thresholds are calibrated separately for three writing registers (academic abstracts, creative writing, everything else) so that at most 1% of human texts in each calibration group are flagged. On held-out data it flagged 0.14% of human texts overall, 0% of held-out human fiction and of 3,879 essays by English learners, 1.7% of human academic abstracts and 1.8% of 2024 human news articles. Performance on other genres and on humanizer-rewritten text is lower.`, 8, C.mute);
     if (R.register.academic) { y += 4; para("This document was recognised as academic-abstract style. ALETHEIA cannot reliably separate AI-rewritten abstracts from human ones, so a high score here is reported as inconclusive unless the evidence is exceptionally strong.", 8.5, C.ink, "helvetica", "bold"); }
     footer();
     return doc.output("blob");

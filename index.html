@@ -6,8 +6,11 @@
 <title>ALETHEIA — See beyond the words.</title>
 <meta name="description" content="ALETHEIA is an AI writing intelligence platform. It examines the patterns behind written language and reports the evidence, never a verdict.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI5IiBmaWxsPSIjMTAxMTE0Ii8+PHBhdGggZD0iTTIxLjQgNC41IEw5Ljk0NyAzMC41IEwyMS40IDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik04LjgwMiAzMy4xIEw0IDQ0IEwyMS40IDQ0IEwyMS40IDMzLjEgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0yNi42MDAgNC41IEwzOC4wNTMgMzAuNSBMMjYuNjAwIDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0zOS4xOTggMzMuMSBMNDQuMDAwIDQ0IEwyNi42MDAgNDQgTDI2LjYwMCAzMy4xIFoiIGZpbGw9IiNGMkYwRTkiLz48cmVjdCB4PSIyMi41IiB5PSI5IiB3aWR0aD0iMy4wIiBoZWlnaHQ9IjM1IiBmaWxsPSIjQjk5QTVCIi8+PC9zdmc+Cg==">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta property="og:title" content="ALETHEIA — See beyond the words.">
+<meta property="og:description" content="Free AI-writing analysis that runs entirely in your browser. Evidence, not verdicts.">
+<meta property="og:type" content="website"><meta property="og:url" content="https://chubbysheepsohandsome-creator.github.io/aletheia/">
+<link rel="canonical" href="https://chubbysheepsohandsome-creator.github.io/aletheia/">
+<style>@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-italic.woff2") format("woff2");font-weight:500;font-style:italic;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}</style>
 <style>
 :root{
   --obsidian:#101114;--charcoal:#181A20;--graphite:#252832;--ivory:#F2F0E9;--softwhite:#FAFAF7;--champagne:#C9B98D;--gold:#B99A5B;
@@ -261,6 +264,7 @@ table.hist th{font:10.5px var(--mono);letter-spacing:.12em;text-transform:upperc
 .logos{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);margin:18px 0}
 .logos>div{height:190px;display:grid;place-items:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative}
 .logos>div small{position:absolute;left:12px;bottom:10px;font:10.5px var(--mono);color:var(--fg-3)}
+.vbadge{font:500 9.5px/1 var(--mono);letter-spacing:.12em;color:var(--accent);border:1px solid var(--line);border-radius:999px;padding:3px 6px;margin-left:8px;align-self:center}
 footer{border-top:1px solid var(--line);padding:56px 0 60px;color:var(--fg-3);font-size:12.5px}
 footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
 footer h4{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);margin:0 0 14px;font-weight:400}
@@ -289,7 +293,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.0</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
       <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
@@ -310,7 +314,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
       <h1>See beyond<br>the <em>words.</em></h1>
       <p class="lede">Understand the patterns behind written language through advanced AI writing analysis. ALETHEIA shows you the evidence, sentence by sentence. It never hands down a verdict.</p>
       <div class="ctas"><a class="btn primary" href="#detect">Analyze a Document <span class="arr">→</span></a><a class="btn" href="#technology">Explore the Technology</a></div>
-      <div class="meta"><span><b>0.993</b>ROC-AUC, held-out test</span><span><b>0.3%</b>human texts flagged</span><span><b>0 bytes</b>uploaded</span></div>
+      <div class="meta"><span><b>96.5%</b>fiction by unseen 2025–26 models found (Deep Scan)</span><span><b>0 / 3,879</b>essays by English learners flagged</span><span><b>0 bytes</b>uploaded</span></div>
     </div>
     <div class="reveal" aria-hidden="true">
       <div class="grid"></div>
@@ -391,7 +395,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · Free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.0 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -479,23 +483,27 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <div class="tscroll"><table class='data'><thead><tr><th>Held-out set</th><th class='n'>n</th><th class='n'>AI detected</th><th class='n'>Humans flagged</th><th class='n'>ROC-AUC</th></tr></thead><tbody><tr><td>All held-out test documents</td><td class='n'>3482</td><td class='n'>83.2%<span class='ci'>81.7–84.6</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.993</td></tr><tr><td>Student essays</td><td class='n'>956</td><td class='n'>91.2%<span class='ci'>89.1–93.0</span></td><td class='n'>2.2%<span class='ci'>0.8–6.3</span></td><td class='n'>0.990</td></tr><tr><td>News (author-held-out)</td><td class='n'>847</td><td class='n'>79.5%<span class='ci'>76.4–82.3</span></td><td class='n'>0.0%<span class='ci'>0.0–3.1</span></td><td class='n'>0.988</td></tr><tr><td>Creative writing</td><td class='n'>1108</td><td class='n'>79.1%<span class='ci'>76.4–81.6</span></td><td class='n'>0.0%<span class='ci'>0.0–2.4</span></td><td class='n'>0.988</td></tr><tr><td>Claude (2023) vs human</td><td class='n'>1400</td><td class='n'>51.3%<span class='ci'>46.5–56.1</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.981</td></tr><tr><td>ChatGPT, plain prompt vs human</td><td class='n'>1401</td><td class='n'>74.4%<span class='ci'>70.0–78.4</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.987</td></tr><tr class='ood'><td>Humanizer-paraphrased AI (unseen source)</td><td class='n'>100</td><td class='n'>50.0%<span class='ci'>40.4–59.6</span></td><td class='n'>—</td><td class='n'>—</td></tr><tr class='ood'><td>GPTZero sample set (unseen source)</td><td class='n'>66</td><td class='n'>16.1%<span class='ci'>7.1–32.6</span></td><td class='n'>0.0%<span class='ci'>0.0–9.9</span></td><td class='n'>0.716</td></tr></tbody></table></div>
     <p>For comparison, the hand-tuned v0.1 rules caught 46.5% of AI texts while flagging 3.7% of human texts, including 17.8% of human student essays.</p>
     <p><b>Limitations.</b> Benchmark AI text was produced in 2023 by GPT-3.5 and Claude. Performance on GPT-4o/5, Claude 3+, Gemini, DeepSeek and Llama has not yet been measured. Generalisation to unseen sources is weak. An earlier non-native-writer figure relied on corpora with restrictive licences, so it has been withdrawn until we have a commercially licensed evaluation set.</p>
-    <h2>Deep Scan (deep-0.4.0)</h2>
-    <p>Deep and Supreme scans combine a character- and word-level n-gram model with the standard document model. Version 0.4 adds training text from <b>120+ language models released between 2023 and 2026</b> (short fiction from public creative-writing benchmarks, including GPT-5.x, Claude 4–5, Gemini 2.5–4, DeepSeek, Kimi, Qwen, Grok, Llama and Mistral), DetectRL's adversarial set (paraphrasing, back-translation, character and word perturbation, prompt tricks), and public-domain fiction as literary human writing. A small genre model sorts each text into one of three registers, each with its own threshold: <b>academic abstracts</b> (strictest), <b>creative writing</b> (calibrated on human fiction) and <b>everything else</b> (conservative, because its human writing is the most varied). Every threshold was set on a calibration split so that at most 1% of human texts in any group are flagged.</p>
+    <h2>Deep Scan (deep-0.7.0, ALETHEIA V1.0)</h2>
+    <p>Deep and Supreme scans combine a character- and word-level n-gram model with the standard document model. Training text comes from <b>120+ language models released between 2023 and 2026</b> (short fiction from public creative-writing benchmarks, including GPT-5.x, Claude 4–5, Gemini 2.5–4, DeepSeek, Kimi, Qwen, Grok, Llama and Mistral), real ChatGPT answers (WildChat), current-model essays, news and abstracts (DACTYL), Q&amp;A (HC3), synthetic textbooks and guides (Cosmopedia), adversarial sets (DetectRL, RAID: paraphrasing, back-translation, synonym swaps, misspellings) and human writing from public-domain fiction, Wikipedia, learner essays and news. A small genre model sorts each text into one of three registers, each with its own threshold: <b>academic abstracts</b> (strictest), <b>creative writing</b> (calibrated on human fiction) and <b>everything else</b>. In V1.0 the third register gets a second model trained only on non-fiction writing; the two models vote, and the combined score was calibrated again. Every threshold was set on a calibration split so that at most 1% of human texts in any group are flagged.</p>
     <div class="tscroll"><table class="data"><thead><tr><th>Held-out data, never used in training</th><th class="n">AI detected</th><th class="n">Humans flagged</th></tr></thead><tbody>
       <tr class="ood"><td>10 newest models never seen in training (GPT-5.5, Claude Opus 4.8, Claude Fable 5.1, Gemini 3.1 Pro, DeepSeek V4 Pro, Kimi, GLM, Mistral, Seed)</td><td class="n">96.5%</td><td class="n">—</td></tr>
       <tr><td>Fiction from 2023–26 models, held-out prompts</td><td class="n">82–99%</td><td class="n">—</td></tr>
-      <tr><td>Public-domain fiction by held-out authors (n = 600)</td><td class="n">—</td><td class="n">0.0%</td></tr>
-      <tr><td>Profiler (EMNLP 2025), all domains</td><td class="n">93.5%</td><td class="n">0.0%</td></tr>
-      <tr><td>Human academic abstracts (n = 585)</td><td class="n">30%</td><td class="n">1.5%</td></tr>
-      <tr><td>DetectRL adversarial attacks (paraphrase, perturbation, prompt tricks)</td><td class="n">32–81% (all: 55.6%)</td><td class="n">0.0%</td></tr>
-      <tr class="ood"><td>2024 AP / NYT-style news vs GPT-4o, Claude, o1-pro (held-out half, n = 110)</td><td class="n">74.5%</td><td class="n">1.8%</td></tr>
+      <tr><td>Public-domain fiction by held-out authors (n = 600) · Wikipedia (n = 600)</td><td class="n">—</td><td class="n">0.0% · 0.0%</td></tr>
+      <tr><td>Essays by English learners, grades 8–12 (n = 3,879)</td><td class="n">—</td><td class="n">0.0%</td></tr>
+      <tr><td>Profiler (EMNLP 2025), all domains</td><td class="n">94.0%</td><td class="n">0.0%</td></tr>
+      <tr><td>DACTYL (2025 models: GPT-4o, Claude 3.5, Gemini 1.5, DeepSeek-V3, Llama 3)</td><td class="n">60.9%</td><td class="n">0.2%</td></tr>
+      <tr><td>Real ChatGPT answers (WildChat) · synthetic guides and stories (Cosmopedia)</td><td class="n">55.5% · 89.3%</td><td class="n">—</td></tr>
+      <tr><td>Questions answered by people vs ChatGPT (HC3)</td><td class="n">42.7%</td><td class="n">0.0%</td></tr>
+      <tr><td>Human academic abstracts (n = 585)</td><td class="n">30%</td><td class="n">1.7%</td></tr>
+      <tr><td>Adversarial attacks (DetectRL · RAID)</td><td class="n">57.2% · 56.8%</td><td class="n">0.0% · 0.0%</td></tr>
+      <tr class="ood"><td>2024 AP / NYT-style news vs GPT-4o, Claude, o1-pro (held-out half, n = 110)</td><td class="n">76.4%</td><td class="n">1.8%</td></tr>
       <tr class="ood"><td>&nbsp;&nbsp;same texts: Pangram / GPTZero (their published scores)</td><td class="n">98.2% / 81.8%</td><td class="n">3.6% / 0.0%</td></tr>
     </tbody></table></div>
+    <p>Compared with deep-0.4.0, V1.0 finds more AI text in every held-out group (questions and answers 1.6% → 42.7%, real ChatGPT answers 46.6% → 55.5%, current-model news 41.5% → 56.8%) and leaves fiction and academic abstracts unchanged. Two earlier candidates that retrained a single model on all genres lost ground on GPT-5.5 fiction and were not released.</p>
     <p>For comparison, the standard 2023-era model found only 0–13% of modern AI fiction. The Standard mode now consults the n-gram model too: it gives an AI verdict when that model clears its register's threshold, and withholds one when it disagrees. Line-numbered texts (monologues, scripts) are now read as prose; previously their lines were excluded as list items.</p>
-    <p><b>Students learning English.</b> On 3,879 essays by English-language learners in grades 8–12 (ELLIPSE corpus, CC BY 4.0), neither the Standard nor the Deep mode gave a single AI verdict (95% upper bound about 0.1%).</p>
-    <p><b>Weak spot: expository writing.</b> On Wikipedia-style articles, how-to guides, forum answers and paper reviews (M4 benchmark), ALETHEIA flags almost no humans (0–0.3%) but catches only 0–35% of AI text, mostly from older models. A candidate model trained on that benchmark raised this to 30–43% but lost ground on GPT-5.5 fiction (85% → 72%), so it was not released. Fixing this needs expository text from current models.</p>
-    <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA gives an AI verdict on 9% of the human stories and poems and 16% of the human rewrites. These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
-    <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (32% for back-translation, 51% for DIPPER paraphrasing and 64% for humanized o1-pro articles, a sample of only 11), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
+        <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
+    <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
+    <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
     <h3>Earlier finding: academic abstracts</h3>
     <p>deep-0.2.0 flagged 25.7% of 1,834 human academic abstracts in an independent corpus (Mendeley Data, 2025), and the 2023 standard model flagged 11.1%. Both were withdrawn for that register; it now has its own, much stricter threshold.</p>
     <h2>How other detectors and "humanizers" work</h2>
@@ -551,17 +559,31 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 
 <!-- ================= PRIVACY ================= -->
 <main class="page" id="p-privacy"><div class="wrap">
-  <div class="page-head"><p class="eyebrow">Privacy</p><h1>Your writing stays yours.</h1></div>
+  <div class="page-head"><p class="eyebrow">Privacy</p><h1>Your writing stays yours.</h1><p>Privacy, terms of use and frequently asked questions.</p></div>
   <div class="content">
     <ul>
       <li><b>No upload.</b> Text extraction (TXT, DOCX, PDF) and analysis run on your device.</li>
       <li><b>No training on your work.</b> Submitted text is never used to train or tune ALETHEIA.</li>
       <li><b>Minimal history.</b> Scan summaries only, in your browser's local storage; clear them at any time.</li>
-      <li><b>No accounts or tracking</b> in the free beta.</li>
+      <li><b>No accounts, cookies, analytics or third-party requests</b> in the free beta. Fonts and libraries are served from this site.</li>
+      <li><b>Hosting.</b> The site is hosted on GitHub Pages. Like any web host, GitHub receives standard request logs (such as IP address and browser) when a page is loaded; it never receives the text you analyse.</li>
       <li>Future server-side features will use encrypted transport, automatic deletion with configurable retention, and audit logs that never store document contents. They will be designed around the Australian Privacy Principles.</li>
     </ul>
     <h2>Fair use of results</h2>
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
+    <h2>Terms of use (free beta)</h2>
+    <ul>
+      <li>ALETHEIA V1.0 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
+      <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
+      <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
+    </ul>
+    <h2>Questions</h2>
+    <p><b>Is 100/100 proof that AI wrote it?</b> No. Scores describe how closely the writing resembles AI-generated text the models have seen. Human writing in some styles (formal, formulaic, prompt-following) can score high.</p>
+    <p><b>Why does it say "Inconclusive"?</b> Because the evidence is not strong enough either way, or because the writing style (for example academic abstracts) is one where AI and human text are hard to tell apart. We prefer saying so to guessing.</p>
+    <p><b>Can AI "humanizers" fool it?</b> Often, yes. Paraphrased and humanized AI text is detected far less reliably (see Research). ALETHEIA does undo invisible characters and look-alike letters that some tools insert.</p>
+    <p><b>Which languages work?</b> English prose only, at least 80 words; 300+ words gives more reliable results.</p>
+    <p><b>Why are Standard and Deep results different?</b> Deep Scan uses a second, stronger model and re-analyses the text hundreds of times; when they disagree, trust Deep Scan more and treat the result as uncertain.</p>
   </div>
 </div></main>
 
@@ -590,10 +612,10 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <footer><div class="wrap">
   <div><a class="brand" href="#home" style="display:flex"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span></a>
     <div class="tag-line">See beyond the words.</div><div class="mono" style="font-size:11px;letter-spacing:.08em">Intelligence. Language. Authenticity.</div>
-    <p style="margin-top:22px;max-width:360px">ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship. Engine <span class="mono" id="ver2"></span>.</p></div>
+    <p style="margin-top:22px;max-width:360px">ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship. <span class="mono">ALETHEIA V1.0</span> · engine <span class="mono" id="ver2"></span> · free beta.</p></div>
   <div><h4>Product</h4><a href="#detect">ALETHEIA Detect</a><a href="#home">ALETHEIA Trace</a><a href="#evaluate">Evaluate</a><a href="#history">History</a></div>
   <div><h4>Research</h4><a href="#technology">Technology</a><a href="#research">Benchmarks</a><a href="#research">Data licensing</a></div>
-  <div><h4>Company</h4><a href="#privacy">Privacy</a><a href="#brand">Brand</a></div>
+  <div><h4>Company</h4><a href="#privacy">Privacy &amp; terms</a><a href="#privacy">FAQ</a><a href="#brand">Brand</a><a href="https://github.com/chubbysheepsohandsome-creator/aletheia" rel="noopener">Source files</a></div>
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
@@ -893,7 +915,7 @@ function renderDeepPanel(R, level){
   const infl = R.influence.slice(0, 4).map(x => `<tr><td class="mono">P${x.para + 1}</td><td class="mono">${x.delta >= 0 ? "+" : ""}${(x.delta * 100).toFixed(1)}</td><td>${esc(x.preview)}…</td></tr>`).join("");
   P.innerHTML = `<p class="eyebrow">${esc(R.levelLabel)}</p><h2>Deep score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
     <p class="sub">90% bootstrap interval ${Math.round(R.ci[0] * 100)}–${Math.round(R.ci[1] * 100)} · verdict stable in ${Math.round(R.stability * 100)}% of ${R.bootstrap.full} re-analyses · ${(R.elapsedMs / 1000).toFixed(1)} s</p>
-    <div class="metric-grid"><div class="metric"><div class="k">Standard model</div><div class="v">${pct(R.pGbm)}</div></div><div class="metric"><div class="k">n-gram model</div><div class="v">${pct(R.pNgram)}</div></div>
+    <div class="metric-grid"><div class="metric"><div class="k">Standard model</div><div class="v">${pct(R.pGbm)}</div></div><div class="metric"><div class="k">n-gram model</div><div class="v">${pct(R.pNgram)}</div></div>${R.pGeneral != null ? `<div class="metric"><div class="k">General-writing model</div><div class="v">${pct(R.pGeneral)}</div></div>` : ""}
     <div class="metric"><div class="k">Combined</div><div class="v">${pct(R.deepScore)}</div></div><div class="metric"><div class="k">Flag threshold</div><div class="v">${pct(R.thresholds.high)}</div></div></div>
     ${infl ? `<h3 style="font:500 18px var(--serif);margin:16px 0 6px">Paragraphs that move the result most</h3><table class="data"><tr><th>Para</th><th>Δ score</th><th>Opening</th></tr>${infl}</table>` : ""}
     <div id="pdfBox" style="margin-top:16px">${level === "supreme" ? "" : '<button class="btn small" id="mkPdf">Create PDF report</button>'}</div>`;
