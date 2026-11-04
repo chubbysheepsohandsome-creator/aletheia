@@ -93,7 +93,9 @@
     const prose = base.blocks.filter((b) => b.type === "prose" || b.type === "list-prose").map((b) => b.text).join("\n\n");
     const sc = scoresFromCounts(counts(prose));
     const T = thresholdsFor(sc.academic, sc.creative);
-    return Object.assign(T, { deep: deepOf(base.score, sc, T), pNgram: sc.ai, pGeneral: sc.gen });
+    const ps = base.sentences.filter((s) => s.score !== null);
+    const cov = model().segment ? coverage(ps.map((s) => Object.assign({}, s)), ps.map((s) => counts(s.text)), T.name) : null;
+    return Object.assign(T, { deep: deepOf(base.score, sc, T), pNgram: sc.ai, pGeneral: sc.gen, coverage: cov, union: (model().segment || {}).union_coverage || null });
   }
   const ngramProb = (text) => probFromCounts(counts(text));
   const lg = (p) => { p = Math.min(1 - 1e-6, Math.max(1e-6, p)); return Math.log(p / (1 - p)); };
@@ -263,13 +265,18 @@
     } else if (deepScore >= tL) { catKey = "inconclusive"; category = "Inconclusive"; }
     else if (deepScore >= 0.12) { catKey = "mostly-human"; category = "Mostly human-like, some AI-like signals"; }
     else { catKey = "human"; category = "Predominantly human-like"; }
+    // V1.2: a document whose AI percentage reaches the calibrated union level gets an AI verdict even when the
+    // whole-document score stays below its threshold (sections written by a 2026 model often dilute the document score).
+    const UC = M_.segment && M_.segment.union_coverage;
+    let byCoverage = false;
+    if (UC && cov && cov.reportable && cov.pct >= UC && !(catKey === "strong" || catKey === "substantial")) { catKey = "substantial"; category = "Substantial AI-like signals"; byCoverage = true; }
     let confidence = base.evidence === "Limited" ? "Low" : stability >= 0.95 ? "High" : stability >= 0.8 ? "Medium" : "Low";
     if (catKey === "inconclusive" || catKey === "mixed-authorship") confidence = confidence === "High" ? "Medium" : confidence;
     const flagged = prose.filter((s) => s.deepCat === "strong" || s.deepCat === "moderate").reduce((a, s) => a + s.f.wc, 0) / Math.max(1, base.qualifyingWords);
     prog({ stage: "Done", frac: 1 });
     return { status: "ok", level: opts.level || "deep", levelLabel: L.label, base, deepScore, pGbm, pNgram: pDoc, pGeneral: useGen ? docSc.gen : null, ci, stability, catKey, category, confidence,
              flaggedShare: flagged, paragraphs: paras, influence, thresholds: { high: tH, low: tL }, bootstrap: { ngram: ngB.length, full: dB.length },
-             stages, elapsedMs: Date.now() - t0, modelVersion: M_.version, modelPool: M_.pool, windows: L.windows, register: REG, coverage: cov };
+             stages, elapsedMs: Date.now() - t0, modelVersion: M_.version, modelPool: M_.pool, windows: L.windows, register: REG, coverage: cov, byCoverage };
   }
 
   // ---------------------------------------------------------------- PDF report (jsPDF)
@@ -332,7 +339,7 @@
     y = 150;
     setF("normal", 9, C.mute); doc.text("AI WRITING REPORT", MX, y); y += 26;
     setF("bold", 24); doc.splitTextToSize(clean(title), W - 2 * MX).slice(0, 3).forEach((l) => { doc.text(l, MX, y); y += 28; });
-    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.1`), MX, y); y += 40;
+    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.2`), MX, y); y += 40;
     setF("bold", 12); doc.text("Document details", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
     const pages = meta.pages ? String(meta.pages) : `${Math.max(1, Math.round(b.totalWords / 450))} (estimated)`;
     kv([["Scan ID", scanId], ["Scan date", meta.date || ""], ["File name", meta.file || "(pasted text)"], ["File size", fmtBytes(meta.fileSize)],
@@ -369,7 +376,7 @@
       grow(C.hlMark, String(cov.runs.length), cov.runs.length === 1 ? "AI-generated segment" : "AI-generated segments", cov.display,
            "Text with patterns of large-language-model output. Includes AI text that was lightly edited by a person or a tool.");
       grow([170, 170, 178], "—", "AI-generated, then paraphrased or humanized", "not separated",
-           "ALETHEIA V1.1 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
+           "ALETHEIA V1.2 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
     } else grow([170, 170, 178], "—", "No AI percentage for this document", "--", "See the note above.");
     // whole-document assessment (ALETHEIA's own measure)
     y += 4; setF("bold", 12); doc.text("Whole-document assessment", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 20;
@@ -512,7 +519,7 @@
     h2("Limitations and fair use");
     para("ALETHEIA measures statistical and stylistic patterns associated with AI-generated text. It cannot prove who wrote a document, and its scores are not the probability that a particular person used AI. Formal, technical, template-based and non-native English writing can show AI-like patterns; edited or paraphrased AI text can look human. Do not use this report as the sole basis for any academic or employment decision; consider drafts, notes, version history and a conversation with the writer.", 9);
     y += 6;
-    para(`Model provenance: the deep model (${R.modelVersion}) and the segment model (${cov ? cov.version : "n/a"}) were trained and calibrated on research datasets (Ghostbuster; Profiler, EMNLP 2025; DetectRL; a human / ChatGPT / QuillBot academic-abstract corpus; short fiction from 120+ language models, 2023-2026, from public creative-writing benchmarks; DACTYL, WildChat, HC3, RAID, Cosmopedia, M4; OUTFOX student essays; public-domain fiction, Wikipedia and learner essays) whose upstream rights are under review. Whole-document thresholds are calibrated separately for three writing registers (academic, creative, everything else) so that at most 1% of human texts in each calibration group are flagged; on held-out data the deep score flagged 0.14% of human texts overall. The AI percentage is calibrated so that at most 1% of human documents in each group reach 20%. Performance on genres outside the training data and on humanizer-rewritten text is lower.`, 8, C.mute);
+    para(`Model provenance: the deep model (${R.modelVersion}) and the segment model (${cov ? cov.version : "n/a"}) were trained and calibrated on research datasets (Ghostbuster; Profiler, EMNLP 2025; DetectRL; a human / ChatGPT / QuillBot academic-abstract corpus; short fiction from 120+ language models, 2023-2026, from public creative-writing benchmarks; DACTYL, WildChat, HC3, RAID, Cosmopedia, M4; OUTFOX and GEDE student essays; 2026 text from 33 generators and 12 humanizers (wasitaigenerated and AI Humanizer benchmarks); public-domain fiction, Wikipedia and learner essays) whose upstream rights are under review. Whole-document thresholds are calibrated separately for three writing registers (academic, creative, everything else) so that at most 1% of human texts in each calibration group are flagged; on held-out data the deep score flagged 0.14% of human texts overall. The AI percentage is calibrated so that at most 1% of human documents in each group reach 20%. Performance on genres outside the training data and on humanizer-rewritten text is lower.`, 8, C.mute);
 
     // headers and footers on every page except the cover's header
     const N = doc.getNumberOfPages();

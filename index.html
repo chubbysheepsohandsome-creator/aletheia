@@ -296,7 +296,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.1</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.2</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
       <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
@@ -398,7 +398,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.1 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.2 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -507,16 +507,20 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
         <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
-    <h2>AI percentage and highlighted segments (seg-0.1, ALETHEIA V1.1)</h2>
-    <p>Deep and Supreme scans now also report an <b>AI percentage</b>: the share of qualifying words in sections that look AI-generated, the measure Turnitin popularised. The document is cut into overlapping segments of about 250 words (half-segment steps); a segment model trained on 50–280-word windows scores each one, and each sentence takes the average of the segments it belongs to. Values from 1% to 19% are shown as <span class="mono">*%</span>, as Turnitin does, because false positives are more likely in that range. The whole-document deep score is still shown; the two answer different questions.</p>
-    <table class="data"><tr><th>Held-out test (never used for any choice)</th><th>Result</th></tr>
-      <tr><td>Human documents reaching 20% AI, all groups</td><td class="mono">0.8% of 9,008 (0.1% without Beemo)</td></tr>
-      <tr><td>Human student essays, grades 6–12 (OUTFOX / PERSUADE) and English-learner essays (ELLIPSE)</td><td class="mono">0.3% of 307 · 0% of 492</td></tr>
-      <tr><td>2024 human news articles</td><td class="mono">2.7% of 150</td></tr>
-      <tr><td>AI-generated documents reaching 20%</td><td class="mono">66.5% of 11,637 (mean coverage 58%)</td></tr>
-      <tr><td>Part-human, part-AI documents: highlighted words that really were AI</td><td class="mono">88% (but only 24% of the AI words were found)</td></tr>
+    <h2>AI percentage and highlighted segments (seg-0.2, ALETHEIA V1.2)</h2>
+    <p>Deep and Supreme scans report an <b>AI percentage</b>: the share of qualifying words in sections that look AI-generated, the measure Turnitin popularised. The document is cut into overlapping segments of about 250 words; a segment model scores each one, and each sentence takes the average of the segments it belongs to. Values from 1% to 19% are shown as <span class="mono">*%</span>, as Turnitin does, because false positives are more likely in that range. The whole-document deep score is still shown; the two answer different questions.</p>
+    <p>V1.2 retrains the segment model with 2026 material: texts from 33 generators released up to late 2026 (wasitaigenerated benchmark), the output of 12 commercial "humanizers" (AI Humanizer Benchmark, September and October 2026), and student essays at eight levels of AI involvement (GEDE). Every test below uses generators, humanizer cycles or essay prompts the model never saw.</p>
+    <table class="data"><tr><th>Held-out test</th><th>V1.1</th><th>V1.2</th></tr>
+      <tr><td>2026 AI text from unseen generators (GPT-6, Claude Opus 5.5, Gemini 3.7 …) reaching 20% AI</td><td class="mono">22%</td><td class="mono">29%</td></tr>
+      <tr><td>Humanizer output, unseen November 2026 cycle</td><td class="mono">27%</td><td class="mono">51%</td></tr>
+      <tr><td>Student essays run through a paraphrasing "humanizer" (DIPPER)</td><td class="mono">26%</td><td class="mono">41%</td></tr>
+      <tr><td>Human documents reaching 20% AI, 9,008 texts in 14 groups</td><td class="mono">0.80%</td><td class="mono">0.71% (0.11% without Beemo)</td></tr>
+      <tr><td>Human student essays (OUTFOX/PERSUADE, ELLIPSE, GEDE/BAWE) and 2026 human texts</td><td class="mono">0–1.0%</td><td class="mono">0–0.6%</td></tr>
+      <tr><td>Part-human, part-AI documents: highlighted words that really were AI</td><td class="mono">88%</td><td class="mono">91% (20% of AI words found)</td></tr>
+      <tr><td>Older (2023–24) AI test sets reaching 20%</td><td class="mono">66.5%</td><td class="mono">62.4%</td></tr>
     </table>
-    <p>The segment model is cautious by design. On part-AI documents it finds about a quarter of the AI words, and it rarely highlights human ones. Lowering its threshold far enough to match Turnitin on borderline school reports would make 15% of human 2024 news articles and 1–5% of other human writing reach 20%, so we have not done that. Word documents are now read with their equations, tables and headings intact (previously equations were dropped).</p>
+    <p>V1.2 trades a few points on older AI text for large gains on current models and humanizers. It flags fewer human texts overall (12 of 8,425 outside Beemo with V1.1, 9 with V1.2); one group got slightly worse (M4 human answers: 3 → 5 of 1,697). Thresholds were calibrated on human writing (at most 1% of documents in any group reaching 20%), then raised by a small fixed margin after one human résumé crossed the line in testing.</p>
+    <p><b>Where we stand.</b> On short texts from the newest frontier models, independent 2026 benchmarks report Pangram and GPTZero catching about 80% at near-zero false positives, while ALETHEIA's whole-document verdict catches about 21% and its AI percentage flags 29%. Against humanizers no detector is reliable: on the same outputs GPTZero, Originality and Copyleaks range from 0% to 88% depending on the tool. ALETHEIA runs small statistical models in your browser and never sees your text on a server; closing the gap on frontier models needs a larger server-side model, which is planned. Until then, a low score on a short text is weak evidence of human authorship.</p>
     <h3>Earlier finding: academic abstracts</h3>
     <p>deep-0.2.0 flagged 25.7% of 1,834 human academic abstracts in an independent corpus (Mendeley Data, 2025), and the 2023 standard model flagged 11.1%. Both were withdrawn for that register; it now has its own, much stricter threshold.</p>
     <h2>How other detectors and "humanizers" work</h2>
@@ -586,7 +590,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.1 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.2 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -625,15 +629,15 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <footer><div class="wrap">
   <div><a class="brand" href="#home" style="display:flex"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span></a>
     <div class="tag-line">See beyond the words.</div><div class="mono" style="font-size:11px;letter-spacing:.08em">Intelligence. Language. Authenticity.</div>
-    <p style="margin-top:22px;max-width:360px">ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship. <span class="mono">ALETHEIA V1.1</span> · engine <span class="mono" id="ver2"></span> · free beta.</p></div>
+    <p style="margin-top:22px;max-width:360px">ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship. <span class="mono">ALETHEIA V1.2</span> · engine <span class="mono" id="ver2"></span> · free beta.</p></div>
   <div><h4>Product</h4><a href="#detect">ALETHEIA Detect</a><a href="#home">ALETHEIA Trace</a><a href="#evaluate">Evaluate</a><a href="#history">History</a></div>
   <div><h4>Research</h4><a href="#technology">Technology</a><a href="#research">Benchmarks</a><a href="#research">Data licensing</a></div>
   <div><h4>Company</h4><a href="#privacy">Privacy &amp; terms</a><a href="#privacy">FAQ</a><a href="#brand">Brand</a><a href="https://github.com/chubbysheepsohandsome-creator/aletheia" rel="noopener">Source files</a></div>
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.1.0"></script>
-<script src="engine.js?v=1.1.0"></script>
+<script src="model.js?v=1.2.0"></script>
+<script src="engine.js?v=1.2.0"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -711,7 +715,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.1.0"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.2.0"; // appended to script URLs so browsers fetch new models after an update
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
 
@@ -866,6 +870,11 @@ function applyGuard(r, g){
     r.catKey = "inconclusive"; r.category = "Inconclusive";
     r.notes.unshift(`The standard model found human-like patterns, but the n-gram model scored ${Math.round(g.deep * 100)}/100, in the review range for ${g.name} writing. Treat this as unresolved; Deep Scan gives a fuller picture.`);
   }
+  // V1.2: AI percentage at or above the calibrated union level also gives an AI verdict
+  if (!aiCats.includes(r.catKey) && g.union && g.coverage && g.coverage.reportable && g.coverage.pct >= g.union) {
+    r.catKey = "substantial"; r.category = "Substantial AI-like signals";
+    r.notes.unshift(`${Math.round(g.coverage.pct * 100)}% of the qualifying text is in segments the segment model scores as AI-generated (at least ${Math.round(g.union * 100)}% is needed for an AI verdict on this basis). Run Deep Scan to see the highlighted segments.`);
+  }
   if (g.creative) r.notes.unshift("Creative-writing style detected (fiction, monologue or story). Thresholds were calibrated on human fiction.");
 }
 
@@ -886,7 +895,7 @@ function adaptDeep(R){
     .concat(b.families);
   const tops = b.sentences.filter(s => s.score !== null).sort((a, c) => c.score - a.score).slice(0, 3).filter(s => s.score >= 0.6)
     .map(s => ({ text: s.text, score: s.score, hits: s.f.hits.filter(h => h.kind !== "human").map(h => h.text) }));
-  const notes = [...(R.coverage && R.coverage.reportable ? [`AI percentage: ${R.coverage.display} of qualifying text in ${R.coverage.runs.length} highlighted segment${R.coverage.runs.length === 1 ? "" : "s"} (teal underline). This is a separate, section-level measure; the score above is for the whole document.`] : []),
+  const notes = [...(R.byCoverage ? [`AI verdict from the AI percentage (${R.coverage.display}): the whole-document score alone (${Math.round(R.deepScore * 100)}) is below its threshold, but enough of the text is in AI-like segments.`] : []), ...(R.coverage && R.coverage.reportable ? [`AI percentage: ${R.coverage.display} of qualifying text in ${R.coverage.runs.length} highlighted segment${R.coverage.runs.length === 1 ? "" : "s"} (teal underline). This is a separate, section-level measure; the score above is for the whole document.`] : []),
     `${R.levelLabel}: verdict held in ${Math.round(R.stability*100)}% of ${R.bootstrap.full} bootstrap re-analyses (90% interval ${Math.round(R.ci[0]*100)}–${Math.round(R.ci[1]*100)}).`,
     `Analysis took ${(R.elapsedMs/1000).toFixed(1)} s on this device.`].concat(b.notes);
   return Object.assign({}, b, { score: R.deepScore, flaggedShare: R.flaggedShare, category: R.category, catKey: R.catKey, confidence: R.confidence,
