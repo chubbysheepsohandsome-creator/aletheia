@@ -1,4 +1,4 @@
-# ALETHEIA V1.2
+# ALETHEIA V1.3
 
 ALETHEIA analyses English prose for statistical and stylistic patterns associated with AI-generated text.
 Everything runs in your browser: documents are never uploaded, and the site makes no third-party requests.

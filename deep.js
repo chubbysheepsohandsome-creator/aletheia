@@ -339,7 +339,7 @@
     y = 150;
     setF("normal", 9, C.mute); doc.text("AI WRITING REPORT", MX, y); y += 26;
     setF("bold", 24); doc.splitTextToSize(clean(title), W - 2 * MX).slice(0, 3).forEach((l) => { doc.text(l, MX, y); y += 28; });
-    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.2`), MX, y); y += 40;
+    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.3`), MX, y); y += 40;
     setF("bold", 12); doc.text("Document details", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
     const pages = meta.pages ? String(meta.pages) : `${Math.max(1, Math.round(b.totalWords / 450))} (estimated)`;
     kv([["Scan ID", scanId], ["Scan date", meta.date || ""], ["File name", meta.file || "(pasted text)"], ["File size", fmtBytes(meta.fileSize)],
@@ -376,7 +376,7 @@
       grow(C.hlMark, String(cov.runs.length), cov.runs.length === 1 ? "AI-generated segment" : "AI-generated segments", cov.display,
            "Text with patterns of large-language-model output. Includes AI text that was lightly edited by a person or a tool.");
       grow([170, 170, 178], "—", "AI-generated, then paraphrased or humanized", "not separated",
-           "ALETHEIA V1.2 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
+           "ALETHEIA V1.3 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
     } else grow([170, 170, 178], "—", "No AI percentage for this document", "--", "See the note above.");
     // whole-document assessment (ALETHEIA's own measure)
     y += 4; setF("bold", 12); doc.text("Whole-document assessment", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 20;
@@ -519,7 +519,7 @@
     h2("Limitations and fair use");
     para("ALETHEIA measures statistical and stylistic patterns associated with AI-generated text. It cannot prove who wrote a document, and its scores are not the probability that a particular person used AI. Formal, technical, template-based and non-native English writing can show AI-like patterns; edited or paraphrased AI text can look human. Do not use this report as the sole basis for any academic or employment decision; consider drafts, notes, version history and a conversation with the writer.", 9);
     y += 6;
-    para(`Model provenance: the deep model (${R.modelVersion}) and the segment model (${cov ? cov.version : "n/a"}) were trained and calibrated on research datasets (Ghostbuster; Profiler, EMNLP 2025; DetectRL; a human / ChatGPT / QuillBot academic-abstract corpus; short fiction from 120+ language models, 2023-2026, from public creative-writing benchmarks; DACTYL, WildChat, HC3, RAID, Cosmopedia, M4; OUTFOX and GEDE student essays; 2026 text from 33 generators and 12 humanizers (wasitaigenerated and AI Humanizer benchmarks); public-domain fiction, Wikipedia and learner essays) whose upstream rights are under review. Whole-document thresholds are calibrated separately for three writing registers (academic, creative, everything else) so that at most 1% of human texts in each calibration group are flagged; on held-out data the deep score flagged 0.14% of human texts overall. The AI percentage is calibrated so that at most 1% of human documents in each group reach 20%. Performance on genres outside the training data and on humanizer-rewritten text is lower.`, 8, C.mute);
+    para(`Model provenance: the deep model (${R.modelVersion}) and the segment model (${cov ? cov.version : "n/a"}) were trained and calibrated on research datasets (Ghostbuster; Profiler, EMNLP 2025; DetectRL; a human / ChatGPT / QuillBot academic-abstract corpus; short fiction from 120+ language models, 2023-2026, from public creative-writing benchmarks; DACTYL, WildChat, HC3, RAID, Cosmopedia, M4; OUTFOX and GEDE student essays; 2026 text from 33 generators and 12 humanizers (wasitaigenerated and AI Humanizer benchmarks); 2026 text from about 60 further models (arena-prose, ELI5, research-paper and OpAI-Bench sets, incl. GPT-6, Claude Opus 5.5, Gemini 3.7); public-domain fiction, Wikipedia, learner essays and pre-2022 openly licensed news and textbooks) whose upstream rights are under review. Whole-document thresholds are calibrated separately for three writing registers (academic, creative, everything else) so that at most 1% of human texts in each calibration group are flagged; on held-out data the deep score flagged 0.14% of human texts overall. The AI percentage is calibrated so that at most 1% of human documents in each group reach 20%, and no calibration group is flagged more often than with the previous version. Performance on genres outside the training data and on humanizer-rewritten text is lower.`, 8, C.mute);
 
     // headers and footers on every page except the cover's header
     const N = doc.getNumberOfPages();
