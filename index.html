@@ -10,7 +10,7 @@
 <meta property="og:description" content="Free AI-writing analysis that runs entirely in your browser. Evidence, not verdicts.">
 <meta property="og:type" content="website"><meta property="og:url" content="https://aletheiadetect.com/">
 <link rel="canonical" href="https://aletheiadetect.com/">
-<style>@font-face{font-family:"Cormorant Garamond";src:url("fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2");font-weight:500;font-style:italic;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("fonts/inter-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("fonts/inter-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("fonts/inter-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}</style>
+<style>@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-italic.woff2") format("woff2");font-weight:500;font-style:italic;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}</style>
 <style>
 :root{
   --obsidian:#101114;--charcoal:#181A20;--graphite:#252832;--ivory:#F2F0E9;--softwhite:#FAFAF7;--champagne:#C9B98D;--gold:#B99A5B;
@@ -639,7 +639,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <script src="model.js?v=1.2.0"></script>
 <script src="engine.js?v=1.2.0"></script>
-<script src="vendor/mammoth.browser.min.js" defer></script>
+<script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
 "use strict";
@@ -736,9 +736,9 @@ let pdfReady = null;
 function ensurePdf(){
   if (!pdfReady) pdfReady = (async () => {
     // Load the worker script on the main thread (fake worker); works in sandboxed frames and from file://
-    await loadScript("vendor/pdf.worker.min.js");
-    await loadScript("vendor/pdf.min.js");
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc = "vendor/pdf.worker.min.js";
+    await loadScript("pdf.worker.min.js");
+    await loadScript("pdf.min.js");
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = "pdf.worker.min.js";
   })();
   return pdfReady;
 }
@@ -803,7 +803,7 @@ async function handleFile(f){
         if (wordCount(text) < 5) throw new Error("empty");
       } catch (e) {
         console.warn("docx reader fell back to mammoth", e);
-        if (!window.mammoth) await loadScript("vendor/mammoth.browser.min.js");
+        if (!window.mammoth) await loadScript("mammoth.browser.min.js");
         const r = await window.mammoth.extractRawText({ arrayBuffer: buf });
         text = r.value;
       }
@@ -884,7 +884,7 @@ let lastDeep = null, deepAbort = null;
 async function ensureDeep(needPdf){
   if (!window.AletheiaDeepModel) await loadScript("deep_model.js?v=" + BUILD);
   if (!window.AletheiaDeep) await loadScript("deep.js?v=" + BUILD);
-  if (needPdf && !window.jspdf) await loadScript("vendor/jspdf.umd.min.js");
+  if (needPdf && !window.jspdf) await loadScript("jspdf.umd.min.js");
   if (needPdf && !window.AletheiaReportFonts) { try { await loadScript("report_fonts.js?v=" + BUILD); } catch (e) { console.warn("report fonts unavailable; using built-in fonts", e); } }
 }
 function adaptDeep(R){
