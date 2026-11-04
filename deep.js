@@ -88,13 +88,13 @@
              high: r ? r.t_high[key] : m.t_high, low: r ? r.t_low[key] : m.t_low };
   }
   // Quick check used by the Standard mode: academic register + deep score, no bootstrap.
-  function guard(base) {
+  function guard(base, opts = {}) {
     if (!base || base.status !== "ok") return null;
     const prose = base.blocks.filter((b) => b.type === "prose" || b.type === "list-prose").map((b) => b.text).join("\n\n");
     const sc = scoresFromCounts(counts(prose));
     const T = thresholdsFor(sc.academic, sc.creative);
     const ps = base.sentences.filter((s) => s.score !== null);
-    const cov = model().segment ? coverage(ps.map((s) => Object.assign({}, s)), ps.map((s) => counts(s.text)), T.name) : null;
+    const cov = model().segment ? coverage(ps.map((s) => Object.assign({}, s)), ps.map((s) => counts(s.text)), T.name, opts.student) : null;
     return Object.assign(T, { deep: deepOf(base.score, sc, T), pNgram: sc.ai, pGeneral: sc.gen, coverage: cov, union: (model().segment || {}).union_coverage || null });
   }
   const ngramProb = (text) => probFromCounts(counts(text));
@@ -131,12 +131,17 @@
     }
     return win;
   }
-  function coverage(prose, sc, regName) {
+  // Student-assignment mode: thresholds calibrated on human student essays only (>= student_min_words prose words);
+  // used only when the user says the text is a student assignment. Outside that scope the standard thresholds apply.
+  function coverage(prose, sc, regName, student) {
     const m = model(), S = m.segment;
     if (!S || !SCOEF || !prose.length) return null;
     const wc = prose.map((s) => s.f.wc), wins = segWindows(wc, S.W), acc = prose.map(() => [0, 0]);
     for (const [a, b] of wins) { const l = lg(scoresFromCounts(merge(sc.slice(a, b)))[S.head]); for (let i = a; i < b; i++) { acc[i][0] += l; acc[i][1]++; } }
-    const t = S.t[regName] ?? S.t.general, lgS = acc.map(([x, k]) => x / Math.max(1, k));
+    const qWords = wc.reduce((x, w) => x + (w >= 3 ? w : 0), 0);
+    const stu = !!(student && S.t_student && qWords >= (S.student_min_words || 300));
+    const TT = stu ? S.t_student : S.t;
+    const t = TT[regName] ?? TT.general, lgS = acc.map(([x, k]) => x / Math.max(1, k));
     let total = 0, flagged = 0; const runs = []; let cur = null;
     prose.forEach((s, i) => {
       s.seg = 1 / (1 + Math.exp(-lgS[i])); s.segAI = lgS[i] >= t;
@@ -147,7 +152,8 @@
     runs.forEach((r, k) => { r.n = k + 1; r.prob = 1 / (1 + Math.exp(-r.lg)); prose.slice(r.from, r.to + 1).forEach((s) => { s.segRun = k + 1; }); });
     const pct = total ? flagged / total : 0, reportable = total >= S.min_words;
     return { pct, reportable, display: !reportable ? "--" : pct === 0 ? "0%" : pct < S.report_from ? "*%" : `${Math.round(pct * 100)}%`,
-             flaggedWords: flagged, qualifyingWords: total, runs, windows: wins.length, W: S.W, threshold: t, register: regName, version: S.version, calibration: S.calibration || null };
+             flaggedWords: flagged, qualifyingWords: total, runs, windows: wins.length, W: S.W, threshold: t, register: regName, version: S.version, calibration: S.calibration || null,
+             student: stu, studentRequested: !!student, studentMinWords: S.student_min_words || 300, studentCalibration: stu ? (S.student_calibration || null) : null };
   }
   const merge = (maps) => { const o = new Map(); for (const mp of maps) for (const [k, v] of mp) o.set(k, (o.get(k) || 0) + v); return o; };
   const quant = (a, q) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]; };
@@ -186,7 +192,7 @@
     const sc = prose.map((s) => counts(s.text));
 
     await stage("AI coverage: overlapping segment scoring", 0.12);
-    const cov = coverage(prose, sc, REG.name);
+    const cov = coverage(prose, sc, REG.name, opts.student);
 
     await stage("Window re-scoring (sentence neighbourhoods)", 0.14);
     const winProb = prose.map(() => []);
@@ -339,7 +345,7 @@
     y = 150;
     setF("normal", 9, C.mute); doc.text("AI WRITING REPORT", MX, y); y += 26;
     setF("bold", 24); doc.splitTextToSize(clean(title), W - 2 * MX).slice(0, 3).forEach((l) => { doc.text(l, MX, y); y += 28; });
-    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.3`), MX, y); y += 40;
+    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.4`), MX, y); y += 40;
     setF("bold", 12); doc.text("Document details", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
     const pages = meta.pages ? String(meta.pages) : `${Math.max(1, Math.round(b.totalWords / 450))} (estimated)`;
     kv([["Scan ID", scanId], ["Scan date", meta.date || ""], ["File name", meta.file || "(pasted text)"], ["File size", fmtBytes(meta.fileSize)],
@@ -376,7 +382,7 @@
       grow(C.hlMark, String(cov.runs.length), cov.runs.length === 1 ? "AI-generated segment" : "AI-generated segments", cov.display,
            "Text with patterns of large-language-model output. Includes AI text that was lightly edited by a person or a tool.");
       grow([170, 170, 178], "—", "AI-generated, then paraphrased or humanized", "not separated",
-           "ALETHEIA V1.3 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
+           "ALETHEIA V1.4 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
     } else grow([170, 170, 178], "—", "No AI percentage for this document", "--", "See the note above.");
     // whole-document assessment (ALETHEIA's own measure)
     y += 4; setF("bold", 12); doc.text("Whole-document assessment", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 20;
@@ -391,6 +397,9 @@
     y += 6; setF("bold", 12); need(30); doc.text("Frequently asked questions", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 18;
     const cal = cov && cov.calibration;
     const faq = [
+      ...(cov && cov.studentRequested ? [["What does student-assignment mode change?", cov.student
+        ? `The AI percentage used thresholds calibrated only on human student essays of at least ${cov.studentMinWords} words, the kind of text Turnitin is designed for.${cov.studentCalibration ? ` On held-out human student essays never used to choose the thresholds, ${cov.studentCalibration.hold_student_over20} reached 20%. Fully AI-generated essays reached 20% in ${cov.studentCalibration.hold_ai_essay_over20} of cases (standard thresholds: ${cov.studentCalibration.std_ai_essay_over20}), and essays and answers by 2026 models in ${cov.studentCalibration.ai2026_over20} (standard: ${cov.studentCalibration.std_ai2026_over20}).` : ""} Use it only for student assignments: on other kinds of writing (news, reports, magazine features) these thresholds flag human text more often.`
+        : `Student-assignment mode was requested, but the document has fewer than ${cov.studentMinWords} qualifying words, so the standard thresholds were used.`]] : []),
       ["How should I read the AI percentage and false positives?", `The percentage is the share of qualifying words in highlighted segments. Thresholds were set on human writing so that at most 1% of the human documents in each calibration group (and at most 0.5% overall) reach 20%.${cal ? ` On held-out documents never used for any choice, ${cal.hold_human_over20} of human documents reached 20% (including ${cal.hold_student_over20} of student essays), and AI-generated documents averaged ${cal.hold_ai_mean} coverage.` : ""} A highlight means the text resembles AI output, not that it was produced by AI.`],
       ["What counts as qualifying text?", "Sentences in paragraphs of prose. Headings, short labels, lists of fragments, tables of numbers, equations, captions and reference lists are shown in the document view but are not scored."],
       ["Why can the percentage and the deep score differ?", "The percentage looks at overlapping sections of about " + (cov ? cov.W : 250) + " words; the deep score looks at the whole document with a stricter threshold. A document can contain a few AI-like sections without being AI-like overall, and short formulaic passages can look AI-like on their own."],

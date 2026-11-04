@@ -221,6 +221,7 @@ table.data tr.ood td:first-child{font-style:italic;color:var(--fg-2)}
 .modes button.on{background:var(--bg);color:var(--fg);box-shadow:inset 0 -2px 0 var(--accent)}
 .modes .gold{color:var(--beam)}
 #modeNote{margin:10px 0 6px;max-width:820px;line-height:1.5}
+.stuopt{display:flex;gap:8px;align-items:flex-start;max-width:820px;line-height:1.5;margin:0 0 6px;cursor:pointer}.stuopt input{margin-top:3px}
 .progress{padding:12px 18px 14px;border-top:1px solid var(--line)}
 .progress .ptop{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--fg-2);margin-bottom:8px}
 .progress .ptrack{height:6px;margin-bottom:10px}
@@ -296,7 +297,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.3</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.4</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
       <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
@@ -398,7 +399,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.3 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.4 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -426,6 +427,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
             <button data-mode="supreme" role="radio" aria-checked="false"><span class="gold">◆</span> Supreme<small>full analysis + PDF</small></button>
           </div>
           <p class="count" id="modeNote">Fast check with the standard engine. Results in about a second.</p>
+          <label class="count stuopt"><input type="checkbox" id="studentMode"> <b>Student assignment</b> — the AI percentage in Deep Scan and Supreme uses thresholds calibrated on human student essays (essays and assignments of 300+ words only; other kinds of writing are flagged more often in this mode)</label>
         </div>
         <div class="progress" id="deepProg" hidden><div class="ptop"><span id="deepStage">Starting…</span><span class="mono" id="deepTime">0.0 s</span></div><div class="ptrack"><div class="pfill" id="deepBar" style="width:1%;background:var(--beam)"></div></div><button class="btn small" id="deepCancel">Cancel</button></div>
         <div class="bar"><span class="count"><b id="wc">0</b> words</span><span class="count" id="wchint"></span><span class="grow"></span>
@@ -507,6 +509,19 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
         <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
+    <h2>V1.4: student-assignment mode</h2>
+    <p>Turnitin's AI indicator is built for one kind of text: student submissions of at least 300 words. ALETHEIA's standard thresholds have to hold for everything people paste in, including news, reports and magazine features, and that costs recall on essays. V1.4 adds an opt-in <b>Student assignment</b> switch. It keeps the same models and lowers only the AI-percentage thresholds (by 1.10 logits), to the largest shift at which no group of human student essays in a calibration half had more than 1% of documents reach 20% AI. It applies only to documents with at least 300 words of prose.</p>
+    <table class="data"><tr><th>Held-out documents of 300+ words</th><th>Standard</th><th>Student assignment</th></tr>
+      <tr><td>Human student essays reaching 20% (PERSUADE, ELLIPSE English learners, DACTYL, Ghostbuster, OUTFOX, BAWE, OpAI, wasitai)</td><td>1 of 3,752</td><td>5 of 3,752 (0.13%); 2 of 1,857 in the half not used for calibration</td></tr>
+      <tr><td>English-learner essays (ELLIPSE) reaching 20%</td><td>0 of 353</td><td>0 of 353</td></tr>
+      <tr><td>Fully AI-generated essays (GPT-3.5 to GPT-4o era, 1,590)</td><td>80.1%</td><td>85.8%</td></tr>
+      <tr><td>Essays and answers by 2026 models (945)</td><td>66.3%</td><td>86.3%</td></tr>
+      <tr><td>Human essays edited or rewritten by AI (944)</td><td>67.1%</td><td>75.5%</td></tr>
+      <tr><td>Paraphrased or humanized AI essays (933)</td><td>52.2%</td><td>58.6%</td></tr>
+      <tr><td>Human words highlighted in student essays</td><td>0.02%</td><td>0.14%</td></tr></table>
+    <p>For reference, Turnitin reports 84.2% document-level recall at a false-positive rate below 1% on its own test set. That is a different set of documents, so the numbers are not a head-to-head comparison.</p>
+    <p><b>Only for student work.</b> On human writing of 300+ words that is not a student essay, the student thresholds flag about three times as many documents: 65 of 6,354 (1.0%) against 20 (0.3%) with standard thresholds, not counting the Beemo set. Magazine features (11 of 150) and formal reports (10 of 246) are the most affected. Leave the switch off for anything that is not a student assignment.</p>
+    <p><b>What it does not fix.</b> A single AI paragraph inside human text is still rarely highlighted (about 16–28% of AI words in mixed documents, against Turnitin's reported 92% at sentence level), and DIPPER-paraphrased essays are still mostly missed. We tested shorter windows, a multi-scale stacker and seed-and-grow highlighting; none moved these numbers enough to ship. In a small essay sample, an open DeBERTa-v3-large detector (MIT licence) caught much of what ALETHEIA misses, but it is too large to run in a browser and flags many human news and magazine texts, so it is a candidate for a future server-side student mode, not part of V1.4.</p>
     <h2>V1.3: the segment model learns the newest models (seg-0.6)</h2>
     <p>V1.3 retrains the AI-percentage model with about 40,000 more documents written in 2026: answers to 100 chatbot prompts from 50 current models (GPT-6 Astra, Luna and Sol, Claude Opus 5 and Fable 5, Gemini 3.5, Kimi K3, Qwen 3.8, GLM 5.3 and others), explanations from 7 models, research-paper passages by GPT-6 Luna and Claude Opus 5.5 next to their human originals, and student essays, news, government reports and abstracts rewritten by GPT-5.4 and Gemini (OpAI-Bench). A first candidate learned that clear explanatory writing itself looks like AI and flagged more human magazine features, so it was rejected. V1.3 adds 4,600 human news articles, essays and open textbook pages published before 2022 as a counterweight. Thresholds must now also flag no calibration group more often than V1.2 did.</p>
     <table class="data"><tr><th>Same held-out documents, share reaching 20% AI</th><th>V1.2</th><th>V1.3</th></tr>
@@ -609,7 +624,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.3 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.4 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -655,8 +670,8 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.3.0"></script>
-<script src="engine.js?v=1.3.0"></script>
+<script src="model.js?v=1.4.0"></script>
+<script src="engine.js?v=1.4.0"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -734,7 +749,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.3.0"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.4.0"; // appended to script URLs so browsers fetch new models after an update
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
 
@@ -841,6 +856,7 @@ async function handleFile(f){
 let last = null;
 const MODE_LABEL = { standard: "Analyse text", deep: "Run Deep Scan", supreme: "Run Supreme Scan" };
 let mode = "standard";
+const studentOn = () => { const c = document.getElementById("studentMode"); return !!(c && c.checked); };
 $$(".modes [data-mode]").forEach(b => b.addEventListener("click", () => {
   mode = b.dataset.mode;
   $$(".modes [data-mode]").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-checked", x === b); });
@@ -856,7 +872,7 @@ go.addEventListener("click", () => {
   setTimeout(async () => {
     try {
       const r = E.analyze(input.value);
-      if (r.status === "ok") { try { await ensureDeep(false); applyGuard(r, window.AletheiaDeep.guard(r)); } catch (e) { console.warn("register guard unavailable", e); } }
+      if (r.status === "ok") { try { await ensureDeep(false); applyGuard(r, window.AletheiaDeep.guard(r, { student: studentOn() })); } catch (e) { console.warn("register guard unavailable", e); } }
       last = r; lastDeep = null; render(r); $("#deepPanel").style.display = "none";
       if (r.status === "ok") saveHistory(r);
     } catch (e) {
@@ -938,7 +954,7 @@ async function runDeep(level){
   deepAbort = new AbortController();
   try {
     await ensureDeep(level === "supreme");
-    const R = await window.AletheiaDeep.run(input.value, { level, signal: deepAbort.signal,
+    const R = await window.AletheiaDeep.run(input.value, { level, student: studentOn(), signal: deepAbort.signal,
       onProgress: (p) => { st.textContent = p.stage; bar.style.width = Math.max(1, Math.round(p.frac * 100)) + "%"; } });
     if (R.status !== "ok") { render(R.base); return; }
     const A = adaptDeep(R); last = A; lastDeep = R;
@@ -969,7 +985,7 @@ function renderDeepPanel(R, level){
   const infl = R.influence.slice(0, 4).map(x => `<tr><td class="mono">P${x.para + 1}</td><td class="mono">${x.delta >= 0 ? "+" : ""}${(x.delta * 100).toFixed(1)}</td><td>${esc(x.preview)}…</td></tr>`).join("");
   const cv = R.coverage;
   const covHtml = cv ? `<div class="covbox"><div class="covpct">${esc(cv.display)}</div><div><b>detected as AI</b> · ${cv.reportable ? `${cv.runs.length} highlighted segment${cv.runs.length === 1 ? "" : "s"} (teal underline in the text above)` : `needs at least 150 words of prose (found ${cv.qualifyingWords})`}
-      <div class="count" style="margin-top:4px">Share of qualifying words in overlapping ~${cv.W}-word segments that the segment model scores as AI-generated. 1–19% is shown as *% because false positives are more likely there. Calibrated so that at most 1% of human documents in each test group reach 20%.</div></div></div>` : "";
+      <div class="count" style="margin-top:4px">Share of qualifying words in overlapping ~${cv.W}-word segments that the segment model scores as AI-generated. 1–19% is shown as *% because false positives are more likely there. ${cv.student ? "Student-assignment thresholds: calibrated on human student essays only, so that at most 1% of each group reaches 20%. Do not use them for other kinds of writing." : cv.studentRequested ? `Student-assignment mode needs at least ${cv.studentMinWords} words of prose, so the standard thresholds were used.` : "Calibrated so that at most 1% of human documents in each test group reach 20%."}</div></div></div>` : "";
   P.innerHTML = `<p class="eyebrow">${esc(R.levelLabel)}</p>${covHtml}<h2>Deep score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
     <p class="sub">90% bootstrap interval ${Math.round(R.ci[0] * 100)}–${Math.round(R.ci[1] * 100)} · verdict stable in ${Math.round(R.stability * 100)}% of ${R.bootstrap.full} re-analyses · ${(R.elapsedMs / 1000).toFixed(1)} s</p>
     <div class="metric-grid"><div class="metric"><div class="k">Standard model</div><div class="v">${pct(R.pGbm)}</div></div><div class="metric"><div class="k">n-gram model</div><div class="v">${pct(R.pNgram)}</div></div>${R.pGeneral != null ? `<div class="metric"><div class="k">General-writing model</div><div class="v">${pct(R.pGeneral)}</div></div>` : ""}
