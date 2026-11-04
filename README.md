@@ -7,7 +7,7 @@ Everything runs in your browser: documents are never uploaded, and the site make
 can show AI-like patterns, and edited or paraphrased AI text can look human. Do not use a result as the sole basis for
 any academic or employment decision.
 
-Open the site: https://chubbysheepsohandsome-creator.github.io/aletheia/
+Open the site: https://aletheiadetect.com/
 
 Third-party components: jsPDF (MIT), Mammoth (BSD-2-Clause), PDF.js (Apache-2.0), Inter / IBM Plex Mono /
 Cormorant Garamond fonts via Fontsource (SIL OFL 1.1), DejaVu Sans for PDF reports (Bitstream Vera licence); licences are included.
