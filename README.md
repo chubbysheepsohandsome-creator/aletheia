@@ -1,4 +1,4 @@
-# ALETHEIA V1.0
+# ALETHEIA V1.1
 
 ALETHEIA analyses English prose for statistical and stylistic patterns associated with AI-generated text.
 Everything runs in your browser: documents are never uploaded, and the site makes no third-party requests.
@@ -10,4 +10,4 @@ any academic or employment decision.
 Open the site: https://chubbysheepsohandsome-creator.github.io/aletheia/
 
 Third-party components: jsPDF (MIT), Mammoth (BSD-2-Clause), PDF.js (Apache-2.0), Inter / IBM Plex Mono /
-Cormorant Garamond fonts via Fontsource (SIL OFL 1.1); licences are included.
+Cormorant Garamond fonts via Fontsource (SIL OFL 1.1), DejaVu Sans for PDF reports (Bitstream Vera licence); licences are included.

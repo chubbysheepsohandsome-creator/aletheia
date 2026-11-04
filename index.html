@@ -177,6 +177,9 @@ textarea#input::placeholder{color:var(--fg-3)}
 .doc .blk-x em{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-right:8px}
 .doc .blk-h{font:600 14px var(--sans);letter-spacing:.04em;color:var(--fg-2)}
 .s{padding:1px 0;cursor:pointer;transition:background .1s;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.s.segai{box-shadow:inset 0 -2px 0 #1c8ca0}
+.covbox{display:flex;gap:18px;align-items:center;border:1px solid var(--line,#ddd);border-radius:10px;padding:14px 18px;margin:6px 0 18px}
+.covpct{font:600 40px/1 var(--serif);min-width:96px}
 .s.strong{background:var(--hl-strong)} .s.moderate{background:var(--hl-moderate)} .showhuman .s.human{background:var(--hl-human)}
 .s:hover,.s.sel{outline:1px solid var(--accent);outline-offset:2px}
 .tip{position:fixed;z-index:50;max-width:340px;background:var(--fg);color:var(--bg);font-size:12.5px;line-height:1.5;padding:12px 14px;pointer-events:none;display:none}
@@ -293,7 +296,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.0</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.1</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
       <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
@@ -395,7 +398,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.0 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.1 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -504,6 +507,16 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
         <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
+    <h2>AI percentage and highlighted segments (seg-0.1, ALETHEIA V1.1)</h2>
+    <p>Deep and Supreme scans now also report an <b>AI percentage</b>: the share of qualifying words in sections that look AI-generated, the measure Turnitin popularised. The document is cut into overlapping segments of about 250 words (half-segment steps); a segment model trained on 50–280-word windows scores each one, and each sentence takes the average of the segments it belongs to. Values from 1% to 19% are shown as <span class="mono">*%</span>, as Turnitin does, because false positives are more likely in that range. The whole-document deep score is still shown; the two answer different questions.</p>
+    <table class="data"><tr><th>Held-out test (never used for any choice)</th><th>Result</th></tr>
+      <tr><td>Human documents reaching 20% AI, all groups</td><td class="mono">0.8% of 9,008 (0.1% without Beemo)</td></tr>
+      <tr><td>Human student essays, grades 6–12 (OUTFOX / PERSUADE) and English-learner essays (ELLIPSE)</td><td class="mono">0.3% of 307 · 0% of 492</td></tr>
+      <tr><td>2024 human news articles</td><td class="mono">2.7% of 150</td></tr>
+      <tr><td>AI-generated documents reaching 20%</td><td class="mono">66.5% of 11,637 (mean coverage 58%)</td></tr>
+      <tr><td>Part-human, part-AI documents: highlighted words that really were AI</td><td class="mono">88% (but only 24% of the AI words were found)</td></tr>
+    </table>
+    <p>The segment model is cautious by design. On part-AI documents it finds about a quarter of the AI words, and it rarely highlights human ones. Lowering its threshold far enough to match Turnitin on borderline school reports would make 15% of human 2024 news articles and 1–5% of other human writing reach 20%, so we have not done that. Word documents are now read with their equations, tables and headings intact (previously equations were dropped).</p>
     <h3>Earlier finding: academic abstracts</h3>
     <p>deep-0.2.0 flagged 25.7% of 1,834 human academic abstracts in an independent corpus (Mendeley Data, 2025), and the 2023 standard model flagged 11.1%. Both were withdrawn for that register; it now has its own, much stricter threshold.</p>
     <h2>How other detectors and "humanizers" work</h2>
@@ -573,7 +586,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.0 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.1 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -612,15 +625,15 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <footer><div class="wrap">
   <div><a class="brand" href="#home" style="display:flex"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span></a>
     <div class="tag-line">See beyond the words.</div><div class="mono" style="font-size:11px;letter-spacing:.08em">Intelligence. Language. Authenticity.</div>
-    <p style="margin-top:22px;max-width:360px">ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship. <span class="mono">ALETHEIA V1.0</span> · engine <span class="mono" id="ver2"></span> · free beta.</p></div>
+    <p style="margin-top:22px;max-width:360px">ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship. <span class="mono">ALETHEIA V1.1</span> · engine <span class="mono" id="ver2"></span> · free beta.</p></div>
   <div><h4>Product</h4><a href="#detect">ALETHEIA Detect</a><a href="#home">ALETHEIA Trace</a><a href="#evaluate">Evaluate</a><a href="#history">History</a></div>
   <div><h4>Research</h4><a href="#technology">Technology</a><a href="#research">Benchmarks</a><a href="#research">Data licensing</a></div>
   <div><h4>Company</h4><a href="#privacy">Privacy &amp; terms</a><a href="#privacy">FAQ</a><a href="#brand">Brand</a><a href="https://github.com/chubbysheepsohandsome-creator/aletheia" rel="noopener">Source files</a></div>
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js"></script>
-<script src="engine.js"></script>
+<script src="model.js?v=1.1.0"></script>
+<script src="engine.js?v=1.1.0"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -697,8 +710,9 @@ function setTab(t){
   $("#tab-upload").style.display = t === "upload" ? "" : "none";
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
-let currentFile = null;
-function setFile(name){ currentFile = name; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
+let currentFile = null, currentMeta = {};
+const BUILD = "1.1.0"; // appended to script URLs so browsers fetch new models after an update
+function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
 
 const drop = $("#drop"), fileInput = $("#file");
@@ -727,6 +741,7 @@ async function extractPdf(buf){
   await ensurePdf();
   const pdf = await window.pdfjsLib.getDocument({ data: buf, isEvalSupported: false, disableFontFace: true }).promise;
   if (pdf.numPages > 200) throw new Error("PDFs over 200 pages aren't supported in the free version.");
+  currentMeta.pages = pdf.numPages;
   let out = "";
   for (let p = 1; p <= pdf.numPages; p++) {
     const page = await pdf.getPage(p);
@@ -768,16 +783,25 @@ async function handleFile(f){
   try {
     const buf = await f.arrayBuffer();
     const head = new Uint8Array(buf.slice(0, 5));
-    let text = "";
+    let text = ""; currentMeta = { fileSize: f.size };
     if (ext === "pdf") {
       if (String.fromCharCode(...head) !== "%PDF-") throw new Error("This doesn't look like a valid PDF.");
       text = await extractPdf(buf);
       if (wordCount(text) < 20) throw new Error("Almost no text was found. This PDF may be a scanned image. Scanned PDFs need OCR, which the free version doesn't do.");
     } else if (ext === "docx") {
       if (head[0] !== 0x50 || head[1] !== 0x4B) throw new Error("This doesn't look like a valid .docx file.");
-      if (!window.mammoth) await loadScript("mammoth.browser.min.js");
-      const r = await window.mammoth.extractRawText({ arrayBuffer: buf });
-      text = r.value;
+      // own reader first: keeps equations (as linear text), table cells and headings; mammoth's raw text drops equations
+      try {
+        if (!window.AletheiaDocx) await loadScript("docx.js?v=" + BUILD);
+        const d = await window.AletheiaDocx.extract(buf);
+        text = d.text; if (d.meta && d.meta.pages) currentMeta.pages = d.meta.pages;
+        if (wordCount(text) < 5) throw new Error("empty");
+      } catch (e) {
+        console.warn("docx reader fell back to mammoth", e);
+        if (!window.mammoth) await loadScript("mammoth.browser.min.js");
+        const r = await window.mammoth.extractRawText({ arrayBuffer: buf });
+        text = r.value;
+      }
     } else {
       text = new TextDecoder("utf-8").decode(buf);
       if (/\u0000/.test(text.slice(0, 2000))) throw new Error("This file appears to be binary, not plain text.");
@@ -848,9 +872,10 @@ function applyGuard(r, g){
 // ---------- Deep / Supreme scan ----------
 let lastDeep = null, deepAbort = null;
 async function ensureDeep(needPdf){
-  if (!window.AletheiaDeepModel) await loadScript("deep_model.js");
-  if (!window.AletheiaDeep) await loadScript("deep.js");
+  if (!window.AletheiaDeepModel) await loadScript("deep_model.js?v=" + BUILD);
+  if (!window.AletheiaDeep) await loadScript("deep.js?v=" + BUILD);
   if (needPdf && !window.jspdf) await loadScript("jspdf.umd.min.js");
+  if (needPdf && !window.AletheiaReportFonts) { try { await loadScript("report_fonts.js?v=" + BUILD); } catch (e) { console.warn("report fonts unavailable; using built-in fonts", e); } }
 }
 function adaptDeep(R){
   const b = R.base;
@@ -861,7 +886,8 @@ function adaptDeep(R){
     .concat(b.families);
   const tops = b.sentences.filter(s => s.score !== null).sort((a, c) => c.score - a.score).slice(0, 3).filter(s => s.score >= 0.6)
     .map(s => ({ text: s.text, score: s.score, hits: s.f.hits.filter(h => h.kind !== "human").map(h => h.text) }));
-  const notes = [`${R.levelLabel}: verdict held in ${Math.round(R.stability*100)}% of ${R.bootstrap.full} bootstrap re-analyses (90% interval ${Math.round(R.ci[0]*100)}–${Math.round(R.ci[1]*100)}).`,
+  const notes = [...(R.coverage && R.coverage.reportable ? [`AI percentage: ${R.coverage.display} of qualifying text in ${R.coverage.runs.length} highlighted segment${R.coverage.runs.length === 1 ? "" : "s"} (teal underline). This is a separate, section-level measure; the score above is for the whole document.`] : []),
+    `${R.levelLabel}: verdict held in ${Math.round(R.stability*100)}% of ${R.bootstrap.full} bootstrap re-analyses (90% interval ${Math.round(R.ci[0]*100)}–${Math.round(R.ci[1]*100)}).`,
     `Analysis took ${(R.elapsedMs/1000).toFixed(1)} s on this device.`].concat(b.notes);
   return Object.assign({}, b, { score: R.deepScore, flaggedShare: R.flaggedShare, category: R.category, catKey: R.catKey, confidence: R.confidence,
     families: fams, paragraphs, topSentences: tops, notes, thresholds: R.thresholds, version: `${b.version} + ${R.modelVersion}` });
@@ -901,7 +927,7 @@ async function buildPdf(R){
   const box = $("#pdfBox"); box.innerHTML = '<span class="count">Building PDF report…</span>';
   await ensureDeep(true);
   const when = new Date();
-  pdfBlob = window.AletheiaDeep.pdf(R, { date: when.toLocaleString(), file: currentFile || "" });
+  pdfBlob = window.AletheiaDeep.pdf(R, { date: when.toLocaleString(), file: currentFile || "", fileSize: currentMeta.fileSize, pages: currentMeta.pages });
   const name = "ALETHEIA-" + (R.level === "supreme" ? "Supreme" : "Deep") + "-Report-" + when.toISOString().slice(0, 16).replace(/[:T]/g, "-") + ".pdf";
   box.innerHTML = `<button class="btn primary" id="pdfSave">Download PDF report <span class="arr">↓</span></button> <span class="count">${(pdfBlob.size / 1024).toFixed(0)} KB · ready</span><div class="count" id="pdfMsg" style="margin-top:8px"></div>`;
   $("#pdfSave").onclick = async () => {
@@ -913,7 +939,10 @@ function renderDeepPanel(R, level){
   const P = $("#deepPanel"); P.style.display = "";
   const pct = (x) => (x * 100).toFixed(1);
   const infl = R.influence.slice(0, 4).map(x => `<tr><td class="mono">P${x.para + 1}</td><td class="mono">${x.delta >= 0 ? "+" : ""}${(x.delta * 100).toFixed(1)}</td><td>${esc(x.preview)}…</td></tr>`).join("");
-  P.innerHTML = `<p class="eyebrow">${esc(R.levelLabel)}</p><h2>Deep score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
+  const cv = R.coverage;
+  const covHtml = cv ? `<div class="covbox"><div class="covpct">${esc(cv.display)}</div><div><b>detected as AI</b> · ${cv.reportable ? `${cv.runs.length} highlighted segment${cv.runs.length === 1 ? "" : "s"} (teal underline in the text above)` : `needs at least 150 words of prose (found ${cv.qualifyingWords})`}
+      <div class="count" style="margin-top:4px">Share of qualifying words in overlapping ~${cv.W}-word segments that the segment model scores as AI-generated. 1–19% is shown as *% because false positives are more likely there. Calibrated so that at most 1% of human documents in each test group reach 20%.</div></div></div>` : "";
+  P.innerHTML = `<p class="eyebrow">${esc(R.levelLabel)}</p>${covHtml}<h2>Deep score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
     <p class="sub">90% bootstrap interval ${Math.round(R.ci[0] * 100)}–${Math.round(R.ci[1] * 100)} · verdict stable in ${Math.round(R.stability * 100)}% of ${R.bootstrap.full} re-analyses · ${(R.elapsedMs / 1000).toFixed(1)} s</p>
     <div class="metric-grid"><div class="metric"><div class="k">Standard model</div><div class="v">${pct(R.pGbm)}</div></div><div class="metric"><div class="k">n-gram model</div><div class="v">${pct(R.pNgram)}</div></div>${R.pGeneral != null ? `<div class="metric"><div class="k">General-writing model</div><div class="v">${pct(R.pGeneral)}</div></div>` : ""}
     <div class="metric"><div class="k">Combined</div><div class="v">${pct(R.deepScore)}</div></div><div class="metric"><div class="k">Flag threshold</div><div class="v">${pct(R.thresholds.high)}</div></div></div>
@@ -1019,7 +1048,7 @@ function docHtml(r){
   return r.blocks.map(b => {
     if (b.type === "prose" || b.type === "list-prose") {
       const ss = bySent.get(b.i) || [];
-      return `<p data-b="${b.i}">` + ss.map(({ s, idx }) => `<span class="s ${s.cat}" data-i="${idx}">${esc(s.text)}</span>`).join(" ") + `</p>`;
+      return `<p data-b="${b.i}">` + ss.map(({ s, idx }) => `<span class="s ${s.cat}${s.segAI ? " segai" : ""}" data-i="${idx}">${esc(s.text)}</span>`).join(" ") + `</p>`;
     }
     if (b.type === "heading") return `<p class="blk-h" data-b="${b.i}">${esc(b.text.replace(/^#+\s*/, ""))}</p>`;
     return `<p class="blk-x" data-b="${b.i}"><em>${TYPE_LABEL[b.type] || "Excluded"}</em>${esc(b.text)}</p>`;
