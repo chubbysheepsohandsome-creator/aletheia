@@ -94,7 +94,7 @@
     const sc = scoresFromCounts(counts(prose));
     const T = thresholdsFor(sc.academic, sc.creative);
     const ps = base.sentences.filter((s) => s.score !== null);
-    const cov = model().segment ? coverage(ps.map((s) => Object.assign({}, s)), ps.map((s) => counts(s.text)), T.name, opts.student) : null;
+    const cov = model().segment ? coverage(ps.map((s) => Object.assign({}, s)), ps.map((s) => counts(s.text)), T.name, opts.student, opts.sensitive) : null;
     return Object.assign(T, { deep: deepOf(base.score, sc, T), pNgram: sc.ai, pGeneral: sc.gen, coverage: cov, union: (model().segment || {}).union_coverage || null });
   }
   const ngramProb = (text) => probFromCounts(counts(text));
@@ -133,27 +133,35 @@
   }
   // Student-assignment mode: thresholds calibrated on human student essays only (>= student_min_words prose words);
   // used only when the user says the text is a student assignment. Outside that scope the standard thresholds apply.
-  function coverage(prose, sc, regName, student) {
+  // High sensitivity (student mode only): also highlights "screening leads" between t_screen and t_student; the
+  // percentage then counts both, and pctStrong / displayStrong keep the student-threshold figure.
+  function coverage(prose, sc, regName, student, sensitive) {
     const m = model(), S = m.segment;
     if (!S || !SCOEF || !prose.length) return null;
     const wc = prose.map((s) => s.f.wc), wins = segWindows(wc, S.W), acc = prose.map(() => [0, 0]);
     for (const [a, b] of wins) { const l = lg(scoresFromCounts(merge(sc.slice(a, b)))[S.head]); for (let i = a; i < b; i++) { acc[i][0] += l; acc[i][1]++; } }
     const qWords = wc.reduce((x, w) => x + (w >= 3 ? w : 0), 0);
     const stu = !!(student && S.t_student && qWords >= (S.student_min_words || 300));
+    const sens = !!(stu && sensitive && S.t_screen);
     const TT = stu ? S.t_student : S.t;
     const t = TT[regName] ?? TT.general, lgS = acc.map(([x, k]) => x / Math.max(1, k));
-    let total = 0, flagged = 0; const runs = []; let cur = null;
+    const tLow = sens ? (S.t_screen[regName] ?? S.t_screen.general) : t;
+    let total = 0, flagged = 0, strong = 0; const runs = []; let cur = null;
     prose.forEach((s, i) => {
-      s.seg = 1 / (1 + Math.exp(-lgS[i])); s.segAI = lgS[i] >= t;
-      if (s.f.wc >= 3) { total += s.f.wc; if (s.segAI) flagged += s.f.wc; }
-      if (s.segAI) { if (!cur) { cur = { from: i, to: i, words: 0, lg: 0 }; runs.push(cur); } cur.to = i; cur.words += s.f.wc; cur.lg = Math.max(cur.lg, lgS[i]); }
+      s.seg = 1 / (1 + Math.exp(-lgS[i])); s.segAI = lgS[i] >= tLow; s.segLead = s.segAI && lgS[i] < t;
+      if (s.f.wc >= 3) { total += s.f.wc; if (s.segAI) flagged += s.f.wc; if (s.segAI && !s.segLead) strong += s.f.wc; }
+      if (s.segAI) { if (!cur) { cur = { from: i, to: i, words: 0, lg: -Infinity, lead: true }; runs.push(cur); } cur.to = i; cur.words += s.f.wc; cur.lg = Math.max(cur.lg, lgS[i]); if (!s.segLead) cur.lead = false; }
       else cur = null;
     });
     runs.forEach((r, k) => { r.n = k + 1; r.prob = 1 / (1 + Math.exp(-r.lg)); prose.slice(r.from, r.to + 1).forEach((s) => { s.segRun = k + 1; }); });
-    const pct = total ? flagged / total : 0, reportable = total >= S.min_words;
-    return { pct, reportable, display: !reportable ? "--" : pct === 0 ? "0%" : pct < S.report_from ? "*%" : `${Math.round(pct * 100)}%`,
-             flaggedWords: flagged, qualifyingWords: total, runs, windows: wins.length, W: S.W, threshold: t, register: regName, version: S.version, calibration: S.calibration || null,
-             student: stu, studentRequested: !!student, studentMinWords: S.student_min_words || 300, studentCalibration: stu ? (S.student_calibration || null) : null };
+    const reportable = total >= S.min_words;
+    const fmt = (p) => (!reportable ? "--" : p === 0 ? "0%" : p < S.report_from ? "*%" : `${Math.round(p * 100)}%`);
+    const pct = total ? flagged / total : 0, pctStrong = total ? strong / total : 0;
+    return { pct, reportable, display: fmt(pct), pctStrong, displayStrong: fmt(pctStrong),
+             flaggedWords: flagged, strongWords: strong, qualifyingWords: total, runs, windows: wins.length, W: S.W, threshold: t, screenThreshold: sens ? tLow : null,
+             register: regName, version: S.version, calibration: S.calibration || null,
+             student: stu, studentRequested: !!student, studentMinWords: S.student_min_words || 300, studentCalibration: stu ? (S.student_calibration || null) : null,
+             sensitive: sens, sensitiveRequested: !!sensitive, screenCalibration: sens ? (S.screen_calibration || null) : null };
   }
   const merge = (maps) => { const o = new Map(); for (const mp of maps) for (const [k, v] of mp) o.set(k, (o.get(k) || 0) + v); return o; };
   const quant = (a, q) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]; };
@@ -192,7 +200,7 @@
     const sc = prose.map((s) => counts(s.text));
 
     await stage("AI coverage: overlapping segment scoring", 0.12);
-    const cov = coverage(prose, sc, REG.name, opts.student);
+    const cov = coverage(prose, sc, REG.name, opts.student, opts.sensitive);
 
     await stage("Window re-scoring (sentence neighbourhoods)", 0.14);
     const winProb = prose.map(() => []);
@@ -309,7 +317,7 @@
       return uni ? s.replace(/[^\x09\x0A\x0D\x20-\x7E\xA0-ɏˆ-˝Ͱ-Ͽ -⏿■-◿✓-✗]/g, "?")
         : s.replace(/[“”„]/g, '"').replace(/[‘’‚]/g, "'").replace(/[—–]/g, "-").replace(/…/g, "...").replace(/≤/g, "<=").replace(/≥/g, ">=").replace(/≈/g, "~").replace(/√/g, "sqrt").replace(/[⁻−]/g, "-").replace(/→/g, "->").replace(/[^\x09\x0A\x0D\x20-\x7E\xA0-\xFF]/g, "?"); };
     const C = { ink: [16, 17, 20], mute: [110, 112, 120], gold: [185, 154, 91], line: [220, 216, 205], red: [196, 97, 79], amber: [201, 161, 74], green: [111, 159, 120],
-                paper: [255, 255, 255], hl: [182, 230, 238], hlMark: [28, 140, 160], warnBg: [253, 246, 231], warn: [150, 102, 20], soft: [246, 245, 241] };
+                paper: [255, 255, 255], hl: [182, 230, 238], hlLead: [250, 226, 178], hlMark: [28, 140, 160], warnBg: [253, 246, 231], warn: [150, 102, 20], soft: [246, 245, 241] };
     const cov = R.coverage, b = R.base, enc8 = new TextEncoder();
     const fullText = b.blocks.map((x) => x.text).join("\n\n");
     const hex = (n) => (n >>> 0).toString(16).padStart(8, "0");
@@ -345,7 +353,7 @@
     y = 150;
     setF("normal", 9, C.mute); doc.text("AI WRITING REPORT", MX, y); y += 26;
     setF("bold", 24); doc.splitTextToSize(clean(title), W - 2 * MX).slice(0, 3).forEach((l) => { doc.text(l, MX, y); y += 28; });
-    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.4`), MX, y); y += 40;
+    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.5`), MX, y); y += 40;
     setF("bold", 12); doc.text("Document details", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
     const pages = meta.pages ? String(meta.pages) : `${Math.max(1, Math.round(b.totalWords / 450))} (estimated)`;
     kv([["Scan ID", scanId], ["Scan date", meta.date || ""], ["File name", meta.file || "(pasted text)"], ["File size", fmtBytes(meta.fileSize)],
@@ -360,6 +368,7 @@
     newPage();
     const big = !cov ? "--" : cov.display;
     setF("bold", 30); doc.text(clean(`${big} detected as AI`), MX, y + 8); y += 30;
+    if (cov && cov.sensitive) { setF("bold", 10, C.warn); doc.text(clean(`High-sensitivity screening: ${cov.displayStrong} at the student-assignment threshold; the rest are screening leads (amber).`), MX, y); y += 16; }
     setF("normal", 9.5, C.mute);
     para(!cov ? "The segment model is not available in this version." : !cov.reportable
       ? `Not enough qualifying prose for an AI percentage: ${cov.qualifyingWords} words were found and at least ${model().segment.min_words} are needed.`
@@ -379,10 +388,13 @@
       setF("normal", 8.5, C.mute); doc.splitTextToSize(clean(sub), W - 2 * MX - 20).forEach((l) => { doc.text(l, MX + 20, y); y += 11; }); y += 12;
     };
     if (cov && cov.reportable) {
-      grow(C.hlMark, String(cov.runs.length), cov.runs.length === 1 ? "AI-generated segment" : "AI-generated segments", cov.display,
+      const nLead = b.sentences.filter((s) => s.segLead).length, nStrong = cov.runs.filter((r) => !r.lead).length;
+      grow(C.hlMark, String(nStrong), nStrong === 1 ? "AI-generated segment" : "AI-generated segments", cov.sensitive ? cov.displayStrong : cov.display,
            "Text with patterns of large-language-model output. Includes AI text that was lightly edited by a person or a tool.");
+      if (cov.sensitive) grow(C.hlLead, String(nLead), nLead === 1 ? "sentence marked as a screening lead" : "sentences marked as screening leads", `+${Math.round((cov.pct - cov.pctStrong) * 100)}%`,
+           "High-sensitivity mode only: weaker AI-like patterns that the student-assignment threshold does not count. More human text reaches this level, so treat these as places to look, not as evidence.");
       grow([170, 170, 178], "—", "AI-generated, then paraphrased or humanized", "not separated",
-           "ALETHEIA V1.4 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
+           "ALETHEIA V1.5 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
     } else grow([170, 170, 178], "—", "No AI percentage for this document", "--", "See the note above.");
     // whole-document assessment (ALETHEIA's own measure)
     y += 4; setF("bold", 12); doc.text("Whole-document assessment", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 20;
@@ -397,6 +409,7 @@
     y += 6; setF("bold", 12); need(30); doc.text("Frequently asked questions", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 18;
     const cal = cov && cov.calibration;
     const faq = [
+      ...(cov && cov.sensitive ? [["What is high-sensitivity screening?", `An optional setting inside student-assignment mode that prefers catching more AI text over avoiding false alarms. It also highlights weaker AI-like segments (screening leads, amber), and the percentage at the top counts them.${cov.screenCalibration ? ` On held-out human student essays never used to choose the setting, ${cov.screenCalibration.hold_student_over20} reached 20% (student-assignment threshold alone: ${cov.screenCalibration.hold_student_over20_base}); AI-generated essays and answers reached 20% in ${cov.screenCalibration.ai_over20} of cases (student-assignment threshold alone: ${cov.screenCalibration.ai_over20_base}).` : ""} Use it to decide where to look, never as evidence on its own.`]] : []),
       ...(cov && cov.studentRequested ? [["What does student-assignment mode change?", cov.student
         ? `The AI percentage used thresholds calibrated only on human student essays of at least ${cov.studentMinWords} words, the kind of text Turnitin is designed for.${cov.studentCalibration ? ` On held-out human student essays never used to choose the thresholds, ${cov.studentCalibration.hold_student_over20} reached 20%. Fully AI-generated essays reached 20% in ${cov.studentCalibration.hold_ai_essay_over20} of cases (standard thresholds: ${cov.studentCalibration.std_ai_essay_over20}), and essays and answers by 2026 models in ${cov.studentCalibration.ai2026_over20} (standard: ${cov.studentCalibration.std_ai2026_over20}).` : ""} Use it only for student assignments: on other kinds of writing (news, reports, magazine features) these thresholds flag human text more often.`
         : `Student-assignment mode was requested, but the document has fewer than ${cov.studentMinWords} qualifying words, so the standard thresholds were used.`]] : []),
@@ -432,7 +445,7 @@
         need(size * lh);
         for (let i = 0; i < ln.length; i++) if (ln[i].hl) {
           const nx = ln[i + 1] && ln[i + 1].hl ? ln[i + 1].x : ln[i].x + ln[i].w + 1.5;
-          doc.setFillColor(...C.hl); doc.rect(MX + ln[i].x - 1, y - size * 0.88, nx - ln[i].x + 1, size * 1.22, "F");
+          doc.setFillColor(...(ln[i].hl === "lead" ? C.hlLead : C.hl)); doc.rect(MX + ln[i].x - 1, y - size * 0.88, nx - ln[i].x + 1, size * 1.22, "F");
         }
         const r = ln.find((it) => it.hl && it.run && !marked.has(it.run));
         if (r) { marked.add(r.run); setF("bold", 7, C.hlMark); doc.text(String(r.run), MX - 8, y - 1, { align: "right" }); }
@@ -450,9 +463,9 @@
       const spans = []; let pos = 0;
       for (const s of ss) {
         const at = t.indexOf(s.text, pos);
-        if (at < 0) { spans.push({ text: s.text, hl: !!s.segAI, run: s.segRun }); continue; }
+        if (at < 0) { spans.push({ text: s.text, hl: s.segAI ? (s.segLead ? "lead" : true) : false, run: s.segRun }); continue; }
         if (at > pos) spans.push({ text: t.slice(pos, at), hl: false });
-        spans.push({ text: s.text, hl: !!s.segAI, run: s.segRun }); pos = at + s.text.length;
+        spans.push({ text: s.text, hl: s.segAI ? (s.segLead ? "lead" : true) : false, run: s.segRun }); pos = at + s.text.length;
       }
       if (pos < t.length) spans.push({ text: t.slice(pos), hl: false });
       flow(spans, 10, 1.55, C.ink); y += 6;
@@ -462,7 +475,7 @@
       const prose = b.sentences.filter((s) => s.score !== null);
       for (const r of cov.runs) {
         const txt = prose.slice(r.from, r.to + 1).map((s) => s.text).join(" ");
-        need(30); setF("bold", 9, C.hlMark); doc.text(`Segment ${r.n}`, MX, y); setF("normal", 8.5, C.mute);
+        need(30); setF("bold", 9, r.lead ? C.warn : C.hlMark); doc.text(r.lead ? `Segment ${r.n} · screening lead` : `Segment ${r.n}`, MX, y); setF("normal", 8.5, C.mute);
         doc.text(clean(`${r.words} words · peak segment score ${Math.round(r.prob * 100)}/100`), W - MX, y, { align: "right" }); y += 12;
         para(txt.length > 420 ? txt.slice(0, 400).replace(/\s\S*$/, "") + " …" : txt, 8.8, C.ink); y += 6;
       }
