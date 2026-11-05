@@ -11,7 +11,7 @@
 <meta property="og:type" content="website"><meta property="og:url" content="https://aletheiadetect.com/">
 <link rel="canonical" href="https://aletheiadetect.com/">
 <style>@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-italic.woff2") format("woff2");font-weight:500;font-style:italic;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
-/* V1.7.8 motion layer: one easing family, short durations, nothing loops, everything honours reduced motion */
+/* V1.7.3 motion layer: one easing family, short durations, nothing loops, everything honours reduced motion */
 :root{--ease:cubic-bezier(.22,.61,.36,1);--ease-io:cubic-bezier(.4,0,.2,1)}
 html{scroll-padding-top:88px;scrollbar-gutter:stable}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -34,8 +34,10 @@ nav.links a,.mobile-nav a{transition:color .18s var(--ease)}
 .theming,.theming *{transition:background-color .32s var(--ease-io),border-color .32s var(--ease-io),color .32s var(--ease-io),fill .32s var(--ease-io),stroke .32s var(--ease-io)!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important;scroll-behavior:auto!important}}
 
+/* V1.7.9 changelog */
+.changelog h2{margin-top:32px}.cl{border-left:2px solid var(--line-2,#ccc);padding:2px 0 2px 18px;margin:18px 0}.cl h3{margin:0 0 6px;font-size:18px}.cl h3 span{font-family:Inter,system-ui,sans-serif;font-size:13px;font-weight:400;color:var(--fg-3);margin-left:8px}.cl ul{margin:0;padding-left:18px}.cl li{margin:4px 0;line-height:1.55}
 /* V1.7.8 tier chips */
-.tier{display:flex;gap:6px;margin:8px 0 0 30px;flex-wrap:wrap}.tier button{font:inherit;font-size:12.5px;padding:6px 12px;border-radius:999px;border:1px solid var(--line,#bbb);background:transparent;color:inherit;cursor:pointer;transition:background .18s var(--ease),border-color .18s var(--ease)}.tier button.on{background:var(--accent,#0e7c86);color:#fff;border-color:transparent}.tier button:disabled{cursor:default}
+.tier{display:flex;gap:6px;margin:8px 0 0 30px;flex-wrap:wrap}.tier button{font:inherit;font-size:12.5px;padding:6px 12px;border-radius:999px;border:1px solid var(--line,#bbb);background:transparent;color:inherit;cursor:pointer;transition:background .18s var(--ease),border-color .18s var(--ease)}.tier button.on{background:var(--accent,#0e7c86);color:var(--bg,#fff);border-color:transparent}.tier button:disabled{cursor:default}
 /* V1.7.7 cleaner options + result text */
 .opts{display:flex;flex-direction:column;gap:2px;max-width:760px;margin:6px 0 2px}
 .opt{display:flex;gap:10px;align-items:flex-start;padding:7px 8px;border-radius:8px;cursor:pointer;transition:background-color .16s var(--ease)}
@@ -208,12 +210,12 @@ textarea#input::placeholder{color:var(--fg-3)}
 .dcta-top{display:flex;align-items:center;gap:18px}.dcta-ico{flex:0 0 88px;width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent);color:var(--bg)}
 .dcta-ico svg{width:46px;height:46px}.dcta-txt{flex:1;min-width:0}.dcta-title{font-family:var(--serif);font-size:30px;line-height:1.15;color:var(--fg)}.dcta-lead{margin-top:6px;font-size:16px;font-weight:600;color:var(--accent)}
 .dcta-sub{margin-top:6px;font-size:14px;line-height:1.55;color:var(--fg-2)}.dcta-btn{flex:0 0 auto;padding:14px 24px;font-size:15px}
-@keyframes dpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@media(prefers-reduced-motion:reduce){.dcta-ico{animation:none!important}}.dways{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:6px 0 4px 34px}.dway-note{margin:0 0 8px;max-width:560px}.dchip{display:inline-block;padding:3px 9px;border:1px dashed var(--accent);border-radius:8px;cursor:grab;font-family:var(--mono);font-size:12px;color:var(--fg)}.dpanel{margin-top:16px;background:var(--bg)}.dsteps{margin-top:12px}.dstep{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:13.5px;line-height:1.5;color:var(--fg-2)}
+@media(prefers-reduced-motion:reduce){.dcta-ico{animation:none!important}}.dways{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:6px 0 4px 34px}.dway-note{margin:0 0 8px;max-width:560px}.dchip{display:inline-block;padding:3px 9px;border:1px dashed var(--accent);border-radius:8px;cursor:grab;font-family:var(--mono);font-size:12px;color:var(--fg)}.dpanel{margin-top:16px;background:var(--bg)}.dsteps{margin-top:12px}.dstep{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:13.5px;line-height:1.5;color:var(--fg-2)}
 .dstep>b:first-child{flex:0 0 24px;height:24px;border-radius:50%;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:12px}
 .dstep.done>b:first-child{background:var(--accent);color:var(--bg);border-color:var(--accent)}.dstep.now{color:var(--fg);font-size:14.5px}
 .dstep.now>b:first-child{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .donfloat{position:fixed;right:16px;bottom:16px;z-index:60;display:inline-flex;opacity:0;visibility:hidden;transform:translateY(10px);pointer-events:none;transition:opacity .28s var(--ease),transform .28s var(--ease),visibility 0s linear .28s;align-items:center;gap:10px;padding:12px 18px;border:0;border-radius:999px;background:var(--accent);color:var(--bg);font:600 14px var(--sans,inherit);cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.35)}
-.donfloat.show{opacity:1;visibility:visible;transform:none;pointer-events:auto;transition-delay:0s}.donfloat svg{width:20px;height:20px}
+.donfloat[hidden]{display:none}.donfloat.show{opacity:1;visibility:visible;transform:none;pointer-events:auto;transition-delay:0s}.donfloat svg{width:20px;height:20px}
 @media(max-width:700px){.dcta-top{flex-wrap:wrap}.dcta-ico{flex-basis:64px;width:64px;height:64px}.dcta-ico svg{width:36px;height:36px}.dways{margin-left:0}.dcta-btn{width:100%;justify-content:center}.dcta-title{font-size:20px}}
 .helpbox{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}.helppanel{margin-top:10px;padding:12px;border:1px solid var(--line-2);border-radius:10px}.helppanel textarea{background:transparent;color:inherit;border:1px solid var(--line-2);border-radius:8px;padding:6px;font:inherit;font-size:13px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--fg-2);margin-bottom:16px;align-items:center}
@@ -341,15 +343,15 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
   .tabs .spacer{display:none}.tabs select{order:3;flex:1 0 calc(100% - 28px);margin:10px 14px;max-width:calc(100% - 28px)}
   textarea#input{font-size:18px;padding:20px;min-height:260px}.hero h1{font-size:54px}.reveal .txt{font-size:19px}
 }
-@media print{header.top,.mobile-nav,footer,.actions,#inputSection,.page-head{display:none!important}.doc{max-height:none}.summary{position:static}.res-grid{grid-template-columns:1fr}}
+@media print{header.top,.mobile-nav,footer,.actions,#inputSection,.page-head,.donfloat,.dcta{display:none!important}.doc{max-height:none}.summary{position:static}.res-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.7.8</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.7.9</small></a>
     <nav class="links">
-      <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
+      <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a>
       <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
     </nav>
     <button class="iconbtn" id="themeBtn" aria-label="Switch light or dark theme" title="Switch theme">
@@ -358,7 +360,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <a class="btn small primary hdr-cta" href="#detect">Analyze a Document</a>
   </div>
 </header>
-<div class="mobile-nav"><a href="#home" data-p="home">Home</a><a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a></div>
+<div class="mobile-nav"><a href="#home" data-p="home">Home</a><a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a></div>
 
 <!-- ================= HOME ================= -->
 <main class="page" id="p-home">
@@ -449,7 +451,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.7.8 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.7.9 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -481,7 +483,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
             <label class="opt"><input type="checkbox" id="studentMode"><span><b>Student assignment</b><small>AI percentage calibrated on human student essays (300+ words). Other kinds of writing are flagged more often in this mode.</small></span></label>
             <label class="opt sub" id="sensOpt" style="opacity:.55"><input type="checkbox" id="sensMode" checked disabled><span><b>High sensitivity (screening)</b><small>On by default. Also marks weaker segments in amber and counts them: catches more AI text, with about 1 in 100 human essays reaching 20% instead of 1 in 1,000. Amber means "look here", not evidence.</small></span></label>
             <label class="opt sub2" id="vhOpt" style="opacity:.55"><input type="checkbox" id="vhMode" disabled><span><b>Very high sensitivity</b><small>Goes further: about 2 in 100 human essays reach 20%, in exchange for catching more rewritten and "humanized" AI text.</small></span></label>
-            <div class="tier" id="tierRow" role="group" aria-label="Detection level" style="opacity:.55"><button type="button" data-tier="0" title="Strict student threshold only: the figure most comparable to Turnitin's indicator">T · Turnitin-comparable</button><button type="button" data-tier="1" class="on">High</button><button type="button" data-tier="2">Very high</button></div>
+            <div class="tier" id="tierRow" role="group" aria-label="Detection level" style="opacity:.55"><button type="button" disabled aria-pressed="false" data-tier="0" title="Strict student threshold only: fewest false alarms, lowest recall">T · strict</button><button type="button" disabled aria-pressed="false" data-tier="1">High</button><button type="button" disabled aria-pressed="false" data-tier="2">Very high</button></div>
           </div>
         </div>
         <div class="progress" id="deepProg" hidden><div class="ptop"><span id="deepStage">Starting…</span><span class="mono" id="deepTime">0.0 s</span></div><div class="ptrack"><div class="pfill" id="deepBar" style="width:1%;background:var(--beam)"></div></div><button class="btn small" id="deepCancel">Cancel</button></div>
@@ -543,7 +545,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>Measured once on a held-out test split separated by prompt and by author. Rows in italics come from sources excluded from training entirely. Small grey figures are 95% confidence intervals.</p>
     <div class="tscroll"><table class='data'><thead><tr><th>Held-out set</th><th class='n'>n</th><th class='n'>AI detected</th><th class='n'>Humans flagged</th><th class='n'>ROC-AUC</th></tr></thead><tbody><tr><td>All held-out test documents</td><td class='n'>3482</td><td class='n'>83.2%<span class='ci'>81.7–84.6</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.993</td></tr><tr><td>Student essays</td><td class='n'>956</td><td class='n'>91.2%<span class='ci'>89.1–93.0</span></td><td class='n'>2.2%<span class='ci'>0.8–6.3</span></td><td class='n'>0.990</td></tr><tr><td>News (author-held-out)</td><td class='n'>847</td><td class='n'>79.5%<span class='ci'>76.4–82.3</span></td><td class='n'>0.0%<span class='ci'>0.0–3.1</span></td><td class='n'>0.988</td></tr><tr><td>Creative writing</td><td class='n'>1108</td><td class='n'>79.1%<span class='ci'>76.4–81.6</span></td><td class='n'>0.0%<span class='ci'>0.0–2.4</span></td><td class='n'>0.988</td></tr><tr><td>Claude (2023) vs human</td><td class='n'>1400</td><td class='n'>51.3%<span class='ci'>46.5–56.1</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.981</td></tr><tr><td>ChatGPT, plain prompt vs human</td><td class='n'>1401</td><td class='n'>74.4%<span class='ci'>70.0–78.4</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.987</td></tr><tr class='ood'><td>Humanizer-paraphrased AI (unseen source)</td><td class='n'>100</td><td class='n'>50.0%<span class='ci'>40.4–59.6</span></td><td class='n'>—</td><td class='n'>—</td></tr><tr class='ood'><td>GPTZero sample set (unseen source)</td><td class='n'>66</td><td class='n'>16.1%<span class='ci'>7.1–32.6</span></td><td class='n'>0.0%<span class='ci'>0.0–9.9</span></td><td class='n'>0.716</td></tr></tbody></table></div>
     <p>For comparison, the hand-tuned v0.1 rules caught 46.5% of AI texts while flagging 3.7% of human texts, including 17.8% of human student essays.</p>
-    <p><b>Limitations.</b> Benchmark AI text was produced in 2023 by GPT-3.5 and Claude. Performance on GPT-4o/5, Claude 3+, Gemini, DeepSeek and Llama has not yet been measured. Generalisation to unseen sources is weak. An earlier non-native-writer figure relied on corpora with restrictive licences, so it has been withdrawn until we have a commercially licensed evaluation set.</p>
+    <p><b>Limitations.</b> Benchmark AI text was produced in 2023 by GPT-3.5 and Claude. This benchmark (engine 0.2.0) did not include newer models; they are measured in the Deep Scan sections below. Generalisation to unseen sources is weak. An earlier non-native-writer figure relied on corpora with restrictive licences, so it has been withdrawn until we have a commercially licensed evaluation set.</p>
     <h2>Deep Scan (deep-0.7.0, ALETHEIA V1.0)</h2>
     <p>Deep and Supreme scans combine a character- and word-level n-gram model with the standard document model. Training text comes from <b>120+ language models released between 2023 and 2026</b> (short fiction from public creative-writing benchmarks, including GPT-5.x, Claude 4–5, Gemini 2.5–4, DeepSeek, Kimi, Qwen, Grok, Llama and Mistral), real ChatGPT answers (WildChat), current-model essays, news and abstracts (DACTYL), Q&amp;A (HC3), synthetic textbooks and guides (Cosmopedia), adversarial sets (DetectRL, RAID: paraphrasing, back-translation, synonym swaps, misspellings) and human writing from public-domain fiction, Wikipedia, learner essays and news. A small genre model sorts each text into one of three registers, each with its own threshold: <b>academic abstracts</b> (strictest), <b>creative writing</b> (calibrated on human fiction) and <b>everything else</b>. In V1.0 the third register gets a second model trained only on non-fiction writing; the two models vote, and the combined score was calibrated again. Every threshold was set on a calibration split so that at most 1% of human texts in any group are flagged.</p>
     <div class="tscroll"><table class="data"><thead><tr><th>Held-out data, never used in training</th><th class="n">AI detected</th><th class="n">Humans flagged</th></tr></thead><tbody>
@@ -565,8 +567,10 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
         <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
-    <p><b>V1.7.4–V1.7.7 (steps).</b> 1.7.4: donated texts are registered with consent notes, and a paired table records Turnitin's percentage next to ours. 1.7.5: lines that are mostly equations or formulas are shown but not scored, which removes a known false-positive source in mathematics reports. 1.7.6: measured the headline figure at each sensitivity level against Turnitin on the first paired documents (no model change). 1.7.7: cleaner options and result text. With only two paired documents so far, nothing is calibrated to Turnitin yet.</p>
-    <p><b>V1.7.8.</b> Interface motion reworked for long sessions: one easing curve, short fades instead of snaps, a gauge that fills once, no looping animation on the donate banner, a soft cross-fade when switching light/dark, clear keyboard focus rings, and full respect for the system "reduce motion" setting.  V1.7.2: the donation form now asks two clearer questions (how AI was used, including "AI only taught or gave feedback", and who wrote the text, including group work) and has an optional field for the Turnitin AI percentage, which lets us measure how close ALETHEIA is to it.  V1.7.1: the "Donate this article" call is now a large banner above the results (with a floating button), and the email is prepared for you: on phones and tablets one tap opens the share menu with the donation file already attached; on desktop a ready-made email file (.eml) opens in Outlook, Thunderbird and similar apps with the address, subject and attachment filled in, and for Gmail and other webmail the file can be dragged in. A browser cannot attach a file to an email silently, so these are the closest it can get; a copy-and-paste fallback remains.</p>
+    <p><b>V1.7.4–V1.7.7 (steps).</b> 1.7.4: donated texts are logged with the donor's consent statement (texts without written consent from every author are never used for training; they may be used only for internal false-positive checks; labels and ages are as stated by the donor and are not verified), and a paired table records Turnitin's percentage next to ours. 1.7.5: lines that are mostly equations or formulas are shown but not scored, which removes a known false-positive source in mathematics reports. 1.7.6: measured the headline figure at each sensitivity level against Turnitin on the first paired documents (no model change). 1.7.7: cleaner options and result text. With only two paired documents so far, nothing is calibrated to Turnitin yet.</p>
+    <p><b>V1.7.8 detection levels.</b> In Student assignment mode you can pick the level directly: <b>T</b> (strict student threshold only, fewest false alarms: 2 of 1,857 held-out human essays reach 20%), <b>High</b> (the default; adds amber screening leads: 22 of 1,857, 1.2%, as of V1.7; the V1.6 table below shows 20) or <b>Very high</b> (about 2%). We have compared T with Turnitin on only two documents so far, so we cannot yet say how closely it matches. High catches more AI text but flags more human writing: in our own checks, two self-declared human school reports (one of them scored 0% by Turnitin) reached about 30% at High and showed under 20% at T. Read amber passages as leads, and check at T before acting on a result.</p>
+    <p><b>V1.7.9.</b> Release checks now include an independent cross-review: two separate reviewers check the code and this page, then verify each other's findings before release. Fixes from the first review: the floating donate button no longer appears on other pages or after "New scan", and a donation always contains the text that was scanned; the share menu should open more reliably on iPhone, and Android can fall back to sharing the donation as a .txt file (both tested only in a desktop test browser so far); level buttons announce their state to screen readers; clearer instructions for Thunderbird and Apple Mail; the equation filter now needs at least two maths symbols and works for non-English text; this page's level figures and wording were corrected.</p>
+    <p><b>V1.7.3.</b> Interface motion reworked for long sessions: one easing curve, short fades instead of snaps, a gauge that fills once, no looping animation on the donate banner, a soft cross-fade when switching light/dark, clear keyboard focus rings, and full respect for the system "reduce motion" setting.  V1.7.2: the donation form now asks two clearer questions (how AI was used, including "AI only taught or gave feedback", and who wrote the text, including group work) and has an optional field for the Turnitin AI percentage, which lets us measure how close ALETHEIA is to it.  V1.7.1: the "Donate this article" call is now a large banner above the results (with a floating button), and the email is prepared for you: on phones and tablets one tap opens the share menu with the donation file already attached; on desktop a ready-made email file (.eml) opens in Outlook, Thunderbird and similar apps with the address, subject and attachment filled in, and for Gmail and other webmail the file can be dragged in. A browser cannot attach a file to an email silently, so these are the closest it can get; a copy-and-paste fallback remains.</p>
     <h2>V1.7: short AI passages, annotated Word files, feedback</h2>
     <p><b>Short AI passages.</b> We built a labelled test set of mixed student essays: human essays with one AI paragraph inserted, an AI conclusion added, an AI body with a human opening, human and AI halves, and sentence-by-sentence interleaving. Our 250-word segments diluted short AI paragraphs almost completely. From V1.7, student-assignment mode also scores 100-word windows and highlights a sentence when either pass reaches its threshold; the thresholds were set so that highlighted words in human calibration essays rise by at most a quarter.</p>
     <div class="tscroll"><table class="data"><tr><th>Mixed essays, share of AI words highlighted (high sensitivity)</th><th>V1.6</th><th>V1.7</th></tr>
@@ -650,7 +654,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p><b>Our gap.</b> ALETHEIA runs entirely in your browser, with no transformer language model and no humanized training data from commercial tools. Closing that gap needs a server-side model and licensed humanizer data, which is on the roadmap below.</p>
     <p><b>An honest note on time.</b> A longer scan is more accurate only because it runs more analysis, not because it waits. Deep and Supreme use the same stronger model. Supreme adds 2,000 bootstrap re-analyses, three window sizes and paragraph influence analysis, which make the uncertainty estimate and the section map more reliable, then writes a PDF. On a laptop this takes seconds to about a minute; on a phone or with very long documents, longer.</p>
     <p><b>Caveats.</b> Human samples per group are small, so intervals are wide. Genres we have little human data for (personal essays, blogs, modern published fiction, student creative writing) use the conservative threshold, and their true false-positive rate is unmeasured. The Deep model was trained on research data whose upstream rights are still under review, so it must be retrained on commercially cleared data before a paid launch.</p>
-    <h2>Data, licensed or not at all</h2>
+    <h2>Data: what is licensed, what is under review</h2>
     <div class="kv"><div><b>38</b><span>sources reviewed (incl. 16 from 2025–26)</span></div><div><b>6</b><span>approved for commercial training</span></div><div><b>17</b><span>quarantined pending source-rights review</span></div></div>
     <div class="lic">
       <div class="ok"><b>Approved commercial</b>Wikipedia · Stack Exchange · arXiv &amp; PMC (per-record CC licences) · AI Text Detection Benchmark 2026 · WasItAIGenerated 2026-09 (per row)</div>
@@ -695,16 +699,80 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
   <div class="content" id="histBox" style="max-width:none"></div>
 </div></main>
 
+<!-- ================= CHANGELOG ================= -->
+<main class="page" id="p-changelog"><div class="wrap">
+  <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
+  <div class="content changelog">
+  <h2>V1.7 series (5–6 November 2026)</h2>
+  <div class="cl"><h3>V1.7.9 <span>6 Nov 2026 · quality gate and fixes</span></h3><ul>
+    <li><b>New release check:</b> before each release, two independent reviewers check the code and the public text, verify each other's findings, and a final review must pass.</li>
+    <li><b>Fixed:</b> a donation now always contains the text that was scanned. Before, editing the text box after a scan could pair old results with new text.</li>
+    <li><b>Fixed:</b> the floating donate button no longer appears on other pages, after "New scan" or in print.</li>
+    <li><b>Improved:</b> the share menu is opened in a way iPhones accept; Android can share the donation as a .txt file. Not yet tested on real phones.</li>
+    <li><b>Improved:</b> level buttons tell screen readers which one is selected; better contrast in dark mode; clearer steps for Thunderbird and Apple Mail.</li>
+    <li><b>Changed:</b> the equation filter needs at least two maths symbols (or a line of maths symbols with no real words) and works for non-English text.</li>
+    <li><b>Corrected wording:</b> T is no longer called "Turnitin-comparable" (only two paired documents exist); the Privacy page now says donated text may be used for training; High is disclosed to flag more human writing.</li></ul></div>
+  <div class="cl"><h3>V1.7.8 <span>6 Nov 2026 · choose your level</span></h3><ul>
+    <li><b>New:</b> in Student assignment mode, pick the level with one tap: <b>T · strict</b> (fewest false alarms), <b>High</b> (default) or <b>Very high</b>.</li>
+    <li><b>What to know (small sample):</b> of 4 donated school reports of 300+ words, all said to be human-written, 3 reached 20% or more at High. Two of them (one scored 0% by Turnitin) were about 30% at High but under 20% at T. Check at T before acting on a result.</li>
+    <li>The footer shows the build number.</li></ul></div>
+  <div class="cl"><h3>V1.7.4 – V1.7.7 <span>5–6 Nov 2026 · data and cleanup</span></h3><ul>
+    <li><b>V1.7.4:</b> donated texts are logged with the donor's consent statement; a paired table records Turnitin's AI percentage next to ours.</li>
+    <li><b>V1.7.5:</b> lines that are mostly equations are shown but not scored. This removes a false-positive source in maths reports.</li>
+    <li><b>V1.7.6:</b> measured each level against Turnitin on the first paired documents. No model change: two documents are not enough to calibrate.</li>
+    <li><b>V1.7.7:</b> cleaner options panel and result text.</li></ul></div>
+  <div class="cl"><h3>V1.7.3 <span>5 Nov 2026 · calmer interface</span></h3><ul>
+    <li>One easing curve, short fades, a gauge that fills once, no looping animations, soft light/dark switch, clear focus rings, full "reduce motion" support.</li></ul></div>
+  <div class="cl"><h3>V1.7.2 <span>5 Nov 2026 · better donation form</span></h3><ul>
+    <li>Two clear questions: how AI was used (including "AI only taught me") and who wrote the text (including group work).</li>
+    <li>Optional field for the Turnitin AI percentage, so we can measure how close we are.</li></ul></div>
+  <div class="cl"><h3>V1.7.1 <span>5 Nov 2026 · easier donating</span></h3><ul>
+    <li>Large "Donate this article" banner above the results and a floating button.</li>
+    <li>The email is prepared for you: share menu with the file attached on phones, a ready-made .eml email on desktop, drag-in for webmail, copy as a last resort.</li></ul></div>
+  <div class="cl"><h3>V1.7 <span>5 Nov 2026 · short AI passages, Word files, feedback</span></h3><ul>
+    <li><b>New:</b> student mode also checks 100-word windows, so a single AI paragraph inside a human essay is found more often (5% → 21% of its words at High).</li>
+    <li><b>New:</b> download your Word file with flagged sentences highlighted; the text is not changed.</li>
+    <li><b>New:</b> "Report a wrong result" and "Donate this article", both by your own email.</li>
+    <li>Cost: human essays reaching 20% rose slightly: T 2 → 3, High 20 → 22, Very high 39 → 46 of 1,857.</li></ul></div>
+  <h2>V1.1 – V1.6 (4–5 November 2026)</h2>
+  <div class="cl"><h3>V1.6 <span>5 Nov 2026 · fewer missed AI essays</span></h3><ul><li>Fewer missed AI essays, in exchange for more false alarms.</li>
+    <li>Student mode turns on High sensitivity by default; new Very high level.</li>
+    <li>Human essays reaching 20%: student 0.1%, High 1.1%, Very high 2.0%. AI essays found: 78.0%, 84.3%, 86.5%.</li></ul></div>
+  <div class="cl"><h3>V1.5 <span>5 Nov 2026 · High sensitivity (opt-in)</span></h3><ul>
+    <li>Weaker AI-like segments (weaker signs, worth a look) are marked in amber as "screening leads" and counted.</li>
+    <li>Tested combining several models: about +1 point of recall, not worth the complexity, not shipped.</li></ul></div>
+  <div class="cl"><h3>V1.4 <span>5 Nov 2026 · Student assignment mode</span></h3><ul>
+    <li>Thresholds calibrated on human student essays of 300+ words, like Turnitin's scope.</li>
+    <li>AI essays found: 80.1% → 85.8%; human essays reaching 20%: 0.13%. Other kinds of writing are flagged more often in this mode.</li></ul></div>
+  <div class="cl"><h3>V1.3 <span>5 Nov 2026 · new model, newest AI systems</span></h3><ul>
+    <li>New model version, trained with answers from 50 models of 2026, plus papers and prose by GPT-6 Luna, Claude Opus/Sonnet 5.5 and DeepSeek V4.1, plus openly licensed human prose.</li>
+    <li>Unseen-prompt 2026 AI text found: 15% → 54%. Human government reports wrongly flagged: 27 → 0 of 259.</li>
+    <li>Cost: humanized text found 51% → 43%; paraphrased (DIPPER) essays found 41% → 29%.</li></ul></div>
+  <div class="cl"><h3>V1.2 <span>4 Nov 2026 · new model, 2026 data</span></h3><ul>
+    <li>Added 33 newer generators and two months of humanizer data.</li>
+    <li>Unseen 2026 generators found: 21.8% → 29.0%; humanizer text 27% → 51%. 0 of 3,977 real student essays flagged.</li><li>Cost: older AI text found 66.5% → 62.4%.</li></ul></div>
+  <div class="cl"><h3>V1.1 <span>4 Nov 2026 · AI percentage and report</span></h3><ul>
+    <li>New AI percentage: share of text in AI-like 250-word segments (1–19% shown as *%).</li>
+    <li>PDF report in two parts; our own Word reader keeps equations and tables.</li>
+    <li>Prompted by a maths report scored 9/100 by ALETHEIA and 39% by Turnitin.</li></ul></div>
+  <div class="cl"><h3>V1.0 <span>4 Nov 2026 · first release</span></h3><ul>
+    <li>Deep model (version 0.7.0) with three writing registers (academic, creative, general), each calibrated so at most 1% of human texts per group are flagged.</li>
+    <li>Standard, Deep and Supreme scan modes; everything runs in your browser.</li>
+    <li>Known risk: human answers written to chatbot-style prompts are flagged 12–16% of the time.</li></ul></div>
+  <p class="count" style="margin-top:24px">Full methods and tables: see <a href="#research">Research</a>. A score is never proof of authorship.</p>
+  </div>
+</div></main>
+
 <!-- ================= PRIVACY ================= -->
 <main class="page" id="p-privacy"><div class="wrap">
   <div class="page-head"><p class="eyebrow">Privacy</p><h1>Your writing stays yours.</h1><p>Privacy, terms of use and frequently asked questions.</p></div>
   <div class="content">
     <ul>
       <li><b>No upload.</b> Text extraction (TXT, DOCX, PDF) and analysis run on your device.</li>
-      <li><b>No training on your work.</b> Submitted text is never used to train or tune ALETHEIA.</li>
+      <li><b>No training on your work.</b> Text you scan is never used to train or tune ALETHEIA unless you choose to donate it (see below).</li>
       <li><b>Minimal history.</b> Scan summaries only, in your browser's local storage; clear them at any time.</li>
       <li><b>No accounts, cookies, analytics or third-party requests</b> in the free beta. Fonts and libraries are served from this site.</li>
-      <li><b>Feedback and donations (optional, from V1.7).</b> "Report a wrong result" prepares an email with the result numbers and your answer only, never your text. "Donate this article" saves a file on your device that you attach to an email yourself (or, if attaching is not possible, you may paste the copied donation text into the email body); it is offered only to people aged 18 or older who wrote the text or have the author's permission. Both are sent by you, from your own email app, to feedback@aletheiadetect.com, so we also see the sending address, which we use only to reply. Donated texts are kept for up to 3 years, used only to test and improve the detector, never published or sold, and deleted on request (quote the donation ID). Feedback is used to find problems and is never used directly as training labels.</li>
+      <li><b>Feedback and donations (optional, from V1.7).</b> "Report a wrong result" prepares an email with the result numbers and your answer only, never your text. "Donate this article" saves a file on your device that you attach to an email yourself (or, if attaching is not possible, you may paste the copied donation text into the email body); it is offered only to people aged 18 or older who wrote the text or have permission from every author. Both are sent by you, from your own email app, to feedback@aletheiadetect.com, so we also see the sending address, which we use only to reply. Donated texts are kept for up to 3 years, used only to test and train the detector, never published or sold, and deleted on request (quote the donation ID). Feedback is used to find problems and is never used directly as training labels.</li>
       <li><b>Annotated Word files.</b> The highlighted copy of an uploaded .docx is built in your browser; the file never leaves your device.</li>
       <li><b>Hosting.</b> The site is hosted on GitHub Pages. Like any web host, GitHub receives standard request logs (such as IP address and browser) when a page is loaded; it never receives the text you analyse.</li>
       <li>Future server-side features will use encrypted transport, automatic deletion with configurable retention, and audit logs that never store document contents. They will be designed around the Australian Privacy Principles.</li>
@@ -713,7 +781,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.7.8 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.7.9 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -754,13 +822,13 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <div class="tag-line">See beyond the words.</div><div class="mono" style="font-size:11px;letter-spacing:.08em">Intelligence. Language. Authenticity.</div>
     <p style="margin-top:22px;max-width:360px">ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship. <span class="mono" id="verApp"></span> · engine <span class="mono" id="ver2"></span> · free beta.</p></div>
   <div><h4>Product</h4><a href="#detect">ALETHEIA Detect</a><a href="#home">ALETHEIA Trace</a><a href="#evaluate">Evaluate</a><a href="#history">History</a></div>
-  <div><h4>Research</h4><a href="#technology">Technology</a><a href="#research">Benchmarks</a><a href="#research">Data licensing</a></div>
+  <div><h4>Research</h4><a href="#technology">Technology</a><a href="#research">Benchmarks</a><a href="#research">Data licensing</a><a href="#changelog">Changelog</a></div>
   <div><h4>Company</h4><a href="#privacy">Privacy &amp; terms</a><a href="#privacy">FAQ</a><a href="#brand">Brand</a><a href="https://github.com/chubbysheepsohandsome-creator/aletheia" rel="noopener">Source files</a></div>
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.7.8"></script>
-<script src="engine.js?v=1.7.8"></script>
+<script src="model.js?v=1.7.9"></script>
+<script src="engine.js?v=1.7.9"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -777,7 +845,7 @@ const store = {
 $("#ver1").textContent = E.VERSION; $("#ver2").textContent = E.VERSION;
 
 // ---------- Routing ----------
-const PAGES = ["home","detect","technology","research","evaluate","history","privacy","brand"];
+const PAGES = ["home","detect","technology","research","changelog","evaluate","history","privacy","brand"];
 const ALIAS = {"detector":"detect","how-it-works":"technology"};
 function route(){
   let h = (location.hash || "").replace("#","");
@@ -789,6 +857,7 @@ function route(){
   if (PAGES.includes(h)) window.scrollTo(0,0);
 }
 window.addEventListener("hashchange", route); route();
+window.addEventListener("hashchange", () => { const fl = document.getElementById("donFloat"); if (fl && !/^#?detect/.test(location.hash || "#detect")) fl.classList.remove("show"); });
 
 // ---------- Samples (written for this demo; illustrative only) ----------
 const SAMPLES = {
@@ -838,7 +907,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.7.8"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.7.9"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -966,9 +1035,10 @@ const syncSens = () => {
   if (tr) {
     const lvl = !on || !sm.checked ? 0 : (vm && vm.checked ? 2 : 1);
     tr.style.opacity = on ? "1" : ".55";
-    tr.querySelectorAll("button").forEach(b => { b.disabled = !on; b.classList.toggle("on", +b.dataset.tier === lvl); });
+    tr.querySelectorAll("button").forEach(b => { const sel = on && +b.dataset.tier === lvl; b.disabled = !on; b.classList.toggle("on", sel); b.setAttribute("aria-pressed", sel ? "true" : "false"); });
   }
 };
+syncSens();
 document.addEventListener("click", (e) => {
   const b = e.target && e.target.closest && e.target.closest("#tierRow button");
   if (!b || b.disabled) return;
@@ -985,7 +1055,7 @@ $$(".modes [data-mode]").forEach(b => b.addEventListener("click", () => {
   $$(".modes [data-mode]").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-checked", x === b); });
   go.textContent = MODE_LABEL[mode];
   $("#modeNote").textContent = mode === "standard" ? "Fast check with the standard engine. Results in about a second."
-    : mode === "deep" ? "Adds the n-gram model trained on 120+ language models (2023–2026), window re-scoring and 300 bootstrap re-analyses. Thresholds differ for academic, creative and other writing; each was set to flag at most 1% of human texts."
+    : mode === "deep" ? "Adds the n-gram model trained on 120+ language models (2023–2026), window re-scoring and 300 bootstrap re-analyses. Thresholds differ for academic, creative and other writing; in standard mode each was set to flag at most 1% of human texts per group; the student levels accept more (see Research)."
     : "Everything in Deep, plus 2,000 bootstrap re-analyses, three window sizes and paragraph influence analysis, then a full PDF report. Takes as long as the analysis needs: usually under a minute, longer on phones and long documents.";
 }));
 go.addEventListener("click", () => {
@@ -1125,11 +1195,12 @@ function donateBanner(r){
       <div class="dcta-sub">Every text you donate, with a label of who wrote it, is used to test ALETHEIA and make it fairer and more accurate for the next student. It takes about a minute, it is optional, and the email is prepared for you: one tap and the file is attached.</div></div>
     <button class="btn primary dcta-btn" id="dctaBtn">Donate this article <span class="arr">→</span></button></div>
     <div id="donatePanel"></div>`;
+  if (r && r.__text === undefined) r.__text = input.value;
   $("#dctaBtn").onclick = () => openDonate(r);
   const fl = $("#donFloat"); if (fl) { fl.hidden = false; fl.onclick = () => openDonate(r); }
   if (window.IntersectionObserver && fl) {
     if (window.__donObs) window.__donObs.disconnect();
-    window.__donObs = new IntersectionObserver((e) => { fl.classList.toggle("show", !e[0].isIntersecting); }, { threshold: 0.15 });
+    window.__donObs = new IntersectionObserver((e) => { const vis = B.offsetParent !== null && $("#results").style.display !== "none"; fl.classList.toggle("show", vis && !e[0].isIntersecting); }, { threshold: 0.15 });
     window.__donObs.observe(B);
   } else if (fl) fl.classList.add("show");
 }
@@ -1160,11 +1231,12 @@ function donatePanel(r){
     const label = document.querySelector('input[name="dnv"]:checked').value, author = document.querySelector('input[name="dnw"]:checked').value;
     const tiiRaw = parseFloat(($("#dnTii").value || "").trim()), tii = isFinite(tiiRaw) && tiiRaw >= 0 && tiiRaw <= 100 ? Math.round(tiiRaw) : null;
     const rec = { donation_id: id, created: new Date().toISOString(), aletheia: BUILD, label, author, turnitin_ai_pct: tii, consent: { adult: true, rights: true, use_for_testing_and_training: true, retention: "up to 3 years", withdrawal: "email the donation ID" },
-                  result: resultNumbers(r), words: r.totalWords, text: input.value };
+                  result: resultNumbers(r), words: r.totalWords, text: (r.__text !== undefined ? r.__text : input.value) };
     const json = JSON.stringify(rec, null, 1);
     const fname = `ALETHEIA-donation-${id}.json`, subject = `ALETHEIA donation ${id}`;
     const note = `Donation ID: ${id}\nLabel: ${label}\nAuthor: ${author}\nTurnitin AI %: ${tii === null ? "-" : tii}\n\nThe donation file ${fname} is attached.\n`;
-    const file = new File([json], fname, { type: "application/json" });
+    let file = new File([json], fname, { type: "application/json" });
+    try { if (navigator.canShare && !navigator.canShare({ files: [file] })) { const tf = new File([json], fname.replace(/\.json$/, ".txt"), { type: "text/plain" }); if (navigator.canShare({ files: [tf] })) file = tf; } } catch (e) {}
     const eml = makeEml(subject, note, fname, json);
     const canShare = !framed && !!(navigator.canShare && navigator.share && navigator.canShare({ files: [file] }));
     const copyAddr = async () => { try { await navigator.clipboard.writeText(HELP_ADDR); } catch (e) {} };
@@ -1172,30 +1244,31 @@ function donatePanel(r){
     const shareNow = () => navigator.share({ files: [file], title: subject, text: `${note}\nSend to: ${HELP_ADDR}` });
     const draw = (shared, saved) => {
       $("#dnSteps").innerHTML = `<div class="dsteps">
-        <div class="dstep ${shared ? "done" : "now"}"><b>${shared ? "✓" : "1"}</b><span>${shared ? `Choose your email app in the share menu. The file <b>${fname}</b> is already attached; the address <b>${HELP_ADDR}</b> was copied, paste it into "To" if it is empty, then press Send.` : "Pick the way that matches your email. In every case the file ends up attached; you only press Send."}</span></div>
+        <div class="dstep ${shared ? "done" : "now"}"><b>${shared ? "✓" : "1"}</b><span>${shared ? `Choose your email app in the share menu. The file <b>${file.name}</b> is already attached. If "To" is empty, paste or type <b>${HELP_ADDR}</b> (we tried to copy it for you), then press Send.` : "Pick the way that matches your email. In every case the file ends up attached; you only press Send."}</span></div>
         <div class="dways">
           ${canShare ? `<button class="btn primary" id="dnShare">Send with my email app (file attached automatically)</button>` : ""}
           <button class="btn ${canShare ? "" : "primary"}" id="dnEml">Download ready-made email (.eml)</button>
-          <div class="count dway-note">Outlook, Windows Mail, Thunderbird and most desktop mail apps: open the downloaded file and the email appears with the address, subject and the donation already attached. Just press Send.</div>
+          <div class="count dway-note">Outlook and Windows Mail: open the downloaded file and the email appears with the address, subject and the donation already attached; press Send. Thunderbird: open it, then Message → Edit as New Message. Apple Mail: open it, then Message → Send Again.</div>
           <button class="btn" id="dnMail">Gmail, school webmail or another site: open a new email</button>
           <div class="count dway-note">${saved ? `The file <b>${fname}</b> was also saved to your Downloads.` : "The file is saved to your Downloads when you tap this button."} <span class="dchip" id="dnChip" draggable="true" title="Drag me into the email">📎 ${fname}</span> <b>Drag the file (or this chip) into the email</b>, or use the paperclip, then press Send. In Outlook, choose "Attach as copy", not a OneDrive link, because we cannot open links.</div>
           <button class="btn small" id="dnCopy">Cannot attach at all? Copy the donation text instead</button>
         </div>
         <div class="dstep"><b>2</b><span>Keep the ID <b>${id}</b> if you may want it deleted later.</span></div>
-        <div class="count" id="dnMsg" style="margin-top:6px"></div></div>`;
+        <div class="count" id="dnMsg" role="status" aria-live="polite" style="margin-top:6px"></div></div>`;
       const msg = $("#dnMsg");
       const save = async () => { try { await saveBlob(new Blob([json], { type: "application/json" }), fname); return true; } catch (e) { return false; } };
-      if ($("#dnShare")) $("#dnShare").onclick = async () => { try { await copyAddr(); await shareNow(); draw(true, saved); } catch (e) { if (e && e.name !== "AbortError") msg.textContent = "The share menu could not open here. Use one of the other ways."; } };
+      if ($("#dnShare")) $("#dnShare").onclick = async () => { try { copyAddr(); const sp = shareNow(); await sp; draw(true, saved); } catch (e) { if (e && e.name !== "AbortError") msg.textContent = "The share menu could not open here. Use one of the other ways."; } };
       $("#dnEml").onclick = async () => { try { await saveBlob(eml, `ALETHEIA-donation-${id}.eml`); msg.textContent = "Open the downloaded .eml file with your email app, check it, then press Send."; } catch (e) { msg.textContent = "The .eml file could not be saved in this view. Use another way."; } };
-      $("#dnMail").onclick = async () => { const ok2 = saved || await save(); if (ok2) saved = true; location.href = mailto(subject, note + `\n(If the file is not attached yet, drag ${fname} into this email before pressing Send.)\n`); msg.textContent = `Email opened. Attach ${fname} (drag it in or use the paperclip) and press Send.`; };
+      $("#dnMail").onclick = async () => { const ok2 = saved || await save(); if (ok2) saved = true; setTimeout(() => { location.href = mailto(subject, note + `\n(If the file is not attached yet, drag ${fname} into this email before pressing Send.)\n`); }, 400); msg.textContent = `Email opened. Attach ${fname} (drag it in or use the paperclip) and press Send.`; };
       $("#dnCopy").onclick = async () => { try { await navigator.clipboard.writeText(`To: ${HELP_ADDR}\nSubject: ${subject}\n\n${note}\n${json}`); msg.textContent = "Copied. Paste it into the body of a new email to " + HELP_ADDR + " and send it."; } catch (e) { msg.textContent = "Copy was blocked by the browser."; } };
-      const chip = $("#dnChip"); if (chip) chip.addEventListener("dragstart", (ev) => { try { ev.dataTransfer.setData("DownloadURL", `application/json:${fname}:${URL.createObjectURL(file)}`); ev.dataTransfer.effectAllowed = "copy"; ev.dataTransfer.items.add(file); } catch (e) {} });
+      const chip = $("#dnChip"); if (chip) chip.addEventListener("dragstart", (ev) => { try { const u = URL.createObjectURL(file); ev.dataTransfer.setData("DownloadURL", `${file.type}:${file.name}:${u}`); setTimeout(() => URL.revokeObjectURL(u), 60000); ev.dataTransfer.effectAllowed = "copy"; ev.dataTransfer.items.add(file); } catch (e) {} });
+      if (shared) { const f = $("#dnSteps .dstep"); if (f) { f.tabIndex = -1; try { f.focus({ preventScroll: true }); } catch (e) {} } }
       $("#dnSteps").scrollIntoView({ behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth", block: "nearest" });
     };
     let saved = false;
     if (canShare) {
       draw(false, false);
-      try { await copyAddr(); await shareNow(); draw(true, false); return; } catch (e) { /* cancelled or blocked: the buttons stay */ }
+      try { copyAddr(); const sp = shareNow(); await sp; draw(true, false); return; } catch (e) { /* cancelled or blocked: the buttons stay */ }
     } else {
       saved = await (async () => { try { await saveBlob(new Blob([json], { type: "application/json" }), fname); return true; } catch (e) { return false; } })();
       draw(false, saved);
@@ -1306,7 +1379,7 @@ function render(r){
       <dt>Model score</dt><dd>${pct}/100${r.thresholds ? ` (flag ≥ ${Math.round(r.thresholds.high*100)})` : ""}</dd>
       <dt>Total words</dt><dd>${r.totalWords.toLocaleString()}</dd>
       <dt>Qualifying prose</dt><dd>${r.qualifyingWords.toLocaleString()}</dd>
-      <dt>Excluded (refs, headings, lists)</dt><dd>${r.excludedWords.toLocaleString()}</dd>
+      <dt>Excluded (refs, headings, lists, equations)</dt><dd>${r.excludedWords.toLocaleString()}</dd>
       <dt>Quoted words excluded</dt><dd>${r.quotedWords.toLocaleString()}</dd>
       <dt>Sentences</dt><dd>${r.stats.sentences}</dd>
       <dt>Language</dt><dd>${esc(r.language.name)}</dd>
@@ -1329,7 +1402,7 @@ function render(r){
   $("#fbBtn").onclick = () => feedbackPanel(r);
   $("#donBtn").onclick = () => openDonate(r);
   donateBanner(r);
-  $("#newScan").onclick = () => { input.value = ""; setFile(null); updateCount(); $("#results").style.display = "none"; window.scrollTo({ top: 0, behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth" }); input.focus(); };
+  $("#newScan").onclick = () => { input.value = ""; setFile(null); updateCount(); $("#results").style.display = "none"; { const fl = $("#donFloat"); if (fl) fl.classList.remove("show"); } window.scrollTo({ top: 0, behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth" }); input.focus(); };
 
   $("#doc").innerHTML = docHtml(r);
   bindSentences(r);

@@ -327,7 +327,8 @@
       }
       if (type === "prose" && CITATION_LINE.test(b) && words(b).length < 60) return { i, text: b, type: "reference", excludedReason: "Citation entry" };
       // V1.7.5: formula lines (symbols plus at most four real words) carry no prose signal; they are shown but not scored.
-      if (type === "prose" && /[=^_√×∴<>±≈≥≤∑∫]/.test(b) && (b.match(/[A-Za-z]{4,}/g) || []).length <= 4) return { i, text: b, type: "equation", excludedReason: "Equation / formula" };
+      if (type === "prose") { const sy = (b.match(/[=^√×∴<>±≈≥≤∑∫]/g) || []).length, lw = (b.match(/\p{L}{4,}/gu) || []).length, tk = (b.match(/\S+/g) || []).length;
+        if ((sy >= 2 && lw <= 4 && lw < 0.5 * Math.max(1, tk)) || (sy >= 1 && lw === 0)) return { i, text: b, type: "equation", excludedReason: "Equation / formula" }; }
       return { i, text: b, type };
     });
 
