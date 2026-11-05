@@ -10,7 +10,30 @@
 <meta property="og:description" content="Free AI-writing analysis that runs entirely in your browser. Evidence, not verdicts.">
 <meta property="og:type" content="website"><meta property="og:url" content="https://aletheiadetect.com/">
 <link rel="canonical" href="https://aletheiadetect.com/">
-<style>@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-italic.woff2") format("woff2");font-weight:500;font-style:italic;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}</style>
+<style>@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:"Cormorant Garamond";src:url("cormorant-garamond-latin-500-italic.woff2") format("woff2");font-weight:500;font-style:italic;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"IBM Plex Mono";src:url("ibm-plex-mono-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}@font-face{font-family:"Inter";src:url("inter-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+/* V1.7.3 motion layer: one easing family, short durations, nothing loops, everything honours reduced motion */
+:root{--ease:cubic-bezier(.22,.61,.36,1);--ease-io:cubic-bezier(.4,0,.2,1)}
+html{scroll-padding-top:88px;scrollbar-gutter:stable}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes gaugein{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes barin{from{transform:scaleX(0)}to{transform:none}}
+.page.on{animation:fadein .26s var(--ease) both}
+.res-grid>*{animation:rise .42s var(--ease) both}.res-grid>*:nth-child(2){animation-delay:.06s}
+.dcta{animation:rise .45s var(--ease) both}
+.dpanel,.dsteps,.dway-note{animation:fadein .3s var(--ease) both}
+.gfill{stroke-dasharray:1;animation:gaugein .9s var(--ease) .1s both}
+.prow .pfill{transform-origin:0 50%;animation:barin .6s var(--ease) both}
+.progress .pfill{transition:width .45s var(--ease)}
+.tip{animation:fadein .12s linear both}
+.btn:active:not(:disabled){transform:translateY(1px)}.btn.primary:active:not(:disabled){transform:translateY(1px) scale(.992)}
+.btn:focus-visible,.iconbtn:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+textarea{transition:border-color .18s var(--ease),box-shadow .18s var(--ease)}textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+nav.links a,.mobile-nav a{transition:color .18s var(--ease)}
+.iconbtn{transition:background-color .18s var(--ease),border-color .18s var(--ease),transform .12s var(--ease)}.iconbtn:active{transform:scale(.95)}
+.theming,.theming *{transition:background-color .32s var(--ease-io),border-color .32s var(--ease-io),color .32s var(--ease-io),fill .32s var(--ease-io),stroke .32s var(--ease-io)!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;transition-delay:0s!important;scroll-behavior:auto!important}}
+</style>
 <style>
 :root{
   --obsidian:#101114;--charcoal:#181A20;--graphite:#252832;--ivory:#F2F0E9;--softwhite:#FAFAF7;--champagne:#C9B98D;--gold:#B99A5B;
@@ -46,13 +69,13 @@ nav.links a{color:var(--fg-2);text-decoration:none;font-size:13.5px;letter-spaci
 nav.links a:hover{color:var(--fg)} nav.links a.on{color:var(--fg);border-bottom-color:var(--accent)}
 .iconbtn{background:none;border:1px solid var(--line-2);color:var(--fg-2);width:34px;height:34px;display:grid;place-items:center;cursor:pointer;border-radius:2px}
 .iconbtn:hover{color:var(--fg);border-color:var(--fg-3)}
-.btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line-2);background:transparent;color:var(--fg);padding:11px 20px;font-size:13.5px;font-weight:500;letter-spacing:.02em;cursor:pointer;text-decoration:none;border-radius:2px;transition:.2s}
+.btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line-2);background:transparent;color:var(--fg);padding:11px 20px;font-size:13.5px;font-weight:500;letter-spacing:.02em;cursor:pointer;text-decoration:none;border-radius:2px;transition:border-color .18s var(--ease),background-color .18s var(--ease),color .18s var(--ease),transform .12s var(--ease),opacity .18s}
 .btn:hover{border-color:var(--fg-2)}
 .btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .btn.primary:hover{background:var(--accent);border-color:var(--accent);color:var(--btn-fg)}
 .btn.small{padding:7px 13px;font-size:12.5px}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-.btn .arr{font-family:var(--mono);transition:transform .2s} .btn:hover .arr{transform:translateX(3px)}
+.btn .arr{font-family:var(--mono);transition:transform .24s var(--ease)} .btn:hover .arr{transform:translateX(3px)}
 .mobile-nav{display:none;gap:18px;overflow-x:auto;padding:10px 32px;border-bottom:1px solid var(--line)}
 .mobile-nav a{white-space:nowrap;color:var(--fg-2);text-decoration:none;font-size:13.5px}
 .mobile-nav a.on{color:var(--fg)}
@@ -135,7 +158,7 @@ nav.links a:hover{color:var(--fg)} nav.links a.on{color:var(--fg);border-bottom-
 .tabs select{margin:0 14px;border:1px solid var(--line-2);border-radius:2px;padding:6px 8px;font:12.5px var(--sans);color:var(--fg-2);background:var(--bg)}
 textarea#input{display:block;width:100%;min-height:320px;border:0;padding:26px 28px;font:400 20px/1.65 var(--serif);color:var(--fg);background:var(--bg);resize:vertical;outline:none}
 textarea#input::placeholder{color:var(--fg-3)}
-.drop{margin:24px;border:1px dashed var(--line-2);padding:60px 20px;text-align:center;color:var(--fg-2);cursor:pointer;transition:.2s;background:var(--bg)}
+.drop{margin:24px;border:1px dashed var(--line-2);padding:60px 20px;text-align:center;color:var(--fg-2);cursor:pointer;transition:border-color .2s var(--ease),background-color .2s var(--ease),color .2s var(--ease);background:var(--bg)}
 .drop.over,.drop:hover{border-color:var(--accent)}
 .drop strong{display:block;font:500 26px var(--serif);color:var(--fg);margin-bottom:6px}
 .drop small{color:var(--fg-3);font-size:13px}
@@ -168,15 +191,15 @@ textarea#input::placeholder{color:var(--fg-3)}
 .notes ul{margin:0;padding-left:16px}.notes li{margin:4px 0}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
 .dcta{margin:0 0 22px;padding:26px 26px;border-width:2px;border:1px solid var(--accent);border-radius:14px;background:color-mix(in srgb,var(--accent) 9%,var(--bg-2))}
-.dcta-top{display:flex;align-items:center;gap:18px}.dcta-ico{flex:0 0 88px;width:88px;height:88px;animation:dpulse 2.4s ease-in-out infinite;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent);color:var(--bg)}
+.dcta-top{display:flex;align-items:center;gap:18px}.dcta-ico{flex:0 0 88px;width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent);color:var(--bg)}
 .dcta-ico svg{width:46px;height:46px}.dcta-txt{flex:1;min-width:0}.dcta-title{font-family:var(--serif);font-size:30px;line-height:1.15;color:var(--fg)}.dcta-lead{margin-top:6px;font-size:16px;font-weight:600;color:var(--accent)}
 .dcta-sub{margin-top:6px;font-size:14px;line-height:1.55;color:var(--fg-2)}.dcta-btn{flex:0 0 auto;padding:14px 24px;font-size:15px}
 @keyframes dpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@media(prefers-reduced-motion:reduce){.dcta-ico{animation:none!important}}.dways{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:6px 0 4px 34px}.dway-note{margin:0 0 8px;max-width:560px}.dchip{display:inline-block;padding:3px 9px;border:1px dashed var(--accent);border-radius:8px;cursor:grab;font-family:var(--mono);font-size:12px;color:var(--fg)}.dpanel{margin-top:16px;background:var(--bg)}.dsteps{margin-top:12px}.dstep{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:13.5px;line-height:1.5;color:var(--fg-2)}
 .dstep>b:first-child{flex:0 0 24px;height:24px;border-radius:50%;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:12px}
 .dstep.done>b:first-child{background:var(--accent);color:var(--bg);border-color:var(--accent)}.dstep.now{color:var(--fg);font-size:14.5px}
 .dstep.now>b:first-child{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-.donfloat{position:fixed;right:16px;bottom:16px;z-index:60;display:none;align-items:center;gap:10px;padding:12px 18px;border:0;border-radius:999px;background:var(--accent);color:var(--bg);font:600 14px var(--sans,inherit);cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.35)}
-.donfloat.show{display:inline-flex}.donfloat svg{width:20px;height:20px}
+.donfloat{position:fixed;right:16px;bottom:16px;z-index:60;display:inline-flex;opacity:0;visibility:hidden;transform:translateY(10px);pointer-events:none;transition:opacity .28s var(--ease),transform .28s var(--ease),visibility 0s linear .28s;align-items:center;gap:10px;padding:12px 18px;border:0;border-radius:999px;background:var(--accent);color:var(--bg);font:600 14px var(--sans,inherit);cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.35)}
+.donfloat.show{opacity:1;visibility:visible;transform:none;pointer-events:auto;transition-delay:0s}.donfloat svg{width:20px;height:20px}
 @media(max-width:700px){.dcta-top{flex-wrap:wrap}.dcta-ico{flex-basis:64px;width:64px;height:64px}.dcta-ico svg{width:36px;height:36px}.dways{margin-left:0}.dcta-btn{width:100%;justify-content:center}.dcta-title{font-size:20px}}
 .helpbox{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}.helppanel{margin-top:10px;padding:12px;border:1px solid var(--line-2);border-radius:10px}.helppanel textarea{background:transparent;color:inherit;border:1px solid var(--line-2);border-radius:8px;padding:6px;font:inherit;font-size:13px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--fg-2);margin-bottom:16px;align-items:center}
@@ -188,7 +211,7 @@ textarea#input::placeholder{color:var(--fg-3)}
 .doc .blk-x{color:var(--fg-3);font:13.5px/1.6 var(--sans);border-left:1px solid var(--line-2);padding-left:12px}
 .doc .blk-x em{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-right:8px}
 .doc .blk-h{font:600 14px var(--sans);letter-spacing:.04em;color:var(--fg-2)}
-.s{padding:1px 0;cursor:pointer;transition:background .1s;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.s{padding:1px 0;cursor:pointer;transition:background-color .16s var(--ease);box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .s.segai{box-shadow:inset 0 -2px 0 #1c8ca0}
 .s.segai.seglead{box-shadow:inset 0 -2px 0 #d9962b}
 .covbox{display:flex;gap:18px;align-items:center;border:1px solid var(--line,#ddd);border-radius:10px;padding:14px 18px;margin:6px 0 18px}
@@ -310,7 +333,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.7.2</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.7.3</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
       <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
@@ -412,7 +435,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.7.2 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.7.3 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -525,7 +548,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
         <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
-    <p><b>V1.7.2.</b> The donation form now asks two clearer questions (how AI was used, including "AI only taught or gave feedback", and who wrote the text, including group work) and has an optional field for the Turnitin AI percentage, which lets us measure how close ALETHEIA is to it.  V1.7.1: the "Donate this article" call is now a large banner above the results (with a floating button), and the email is prepared for you: on phones and tablets one tap opens the share menu with the donation file already attached; on desktop a ready-made email file (.eml) opens in Outlook, Thunderbird and similar apps with the address, subject and attachment filled in, and for Gmail and other webmail the file can be dragged in. A browser cannot attach a file to an email silently, so these are the closest it can get; a copy-and-paste fallback remains.</p>
+    <p><b>V1.7.3.</b> Interface motion reworked for long sessions: one easing curve, short fades instead of snaps, a gauge that fills once, no looping animation on the donate banner, a soft cross-fade when switching light/dark, clear keyboard focus rings, and full respect for the system "reduce motion" setting.  V1.7.2: the donation form now asks two clearer questions (how AI was used, including "AI only taught or gave feedback", and who wrote the text, including group work) and has an optional field for the Turnitin AI percentage, which lets us measure how close ALETHEIA is to it.  V1.7.1: the "Donate this article" call is now a large banner above the results (with a floating button), and the email is prepared for you: on phones and tablets one tap opens the share menu with the donation file already attached; on desktop a ready-made email file (.eml) opens in Outlook, Thunderbird and similar apps with the address, subject and attachment filled in, and for Gmail and other webmail the file can be dragged in. A browser cannot attach a file to an email silently, so these are the closest it can get; a copy-and-paste fallback remains.</p>
     <h2>V1.7: short AI passages, annotated Word files, feedback</h2>
     <p><b>Short AI passages.</b> We built a labelled test set of mixed student essays: human essays with one AI paragraph inserted, an AI conclusion added, an AI body with a human opening, human and AI halves, and sentence-by-sentence interleaving. Our 250-word segments diluted short AI paragraphs almost completely. From V1.7, student-assignment mode also scores 100-word windows and highlights a sentence when either pass reaches its threshold; the thresholds were set so that highlighted words in human calibration essays rise by at most a quarter.</p>
     <div class="tscroll"><table class="data"><tr><th>Mixed essays, share of AI words highlighted (high sensitivity)</th><th>V1.6</th><th>V1.7</th></tr>
@@ -672,7 +695,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.7.2 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.7.3 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -718,8 +741,8 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.7.2"></script>
-<script src="engine.js?v=1.7.2"></script>
+<script src="model.js?v=1.7.3"></script>
+<script src="engine.js?v=1.7.3"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -797,7 +820,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.7.2"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.7.3"; // appended to script URLs so browsers fetch new models after an update
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
 
@@ -1081,7 +1104,7 @@ function donateBanner(r){
 }
 function openDonate(r){
   donatePanel(r || last);
-  const B = $("#donateCta"); if (B) B.scrollIntoView({ behavior: "smooth", block: "start" });
+  const B = $("#donateCta"); if (B) B.scrollIntoView({ behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth", block: "start" });
 }
 function donatePanel(r){
   const P = $("#donatePanel") || $("#helpPanel");
@@ -1136,7 +1159,7 @@ function donatePanel(r){
       $("#dnMail").onclick = async () => { const ok2 = saved || await save(); if (ok2) saved = true; location.href = mailto(subject, note + `\n(If the file is not attached yet, drag ${fname} into this email before pressing Send.)\n`); msg.textContent = `Email opened. Attach ${fname} (drag it in or use the paperclip) and press Send.`; };
       $("#dnCopy").onclick = async () => { try { await navigator.clipboard.writeText(`To: ${HELP_ADDR}\nSubject: ${subject}\n\n${note}\n${json}`); msg.textContent = "Copied. Paste it into the body of a new email to " + HELP_ADDR + " and send it."; } catch (e) { msg.textContent = "Copy was blocked by the browser."; } };
       const chip = $("#dnChip"); if (chip) chip.addEventListener("dragstart", (ev) => { try { ev.dataTransfer.setData("DownloadURL", `application/json:${fname}:${URL.createObjectURL(file)}`); ev.dataTransfer.effectAllowed = "copy"; ev.dataTransfer.items.add(file); } catch (e) {} });
-      $("#dnSteps").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      $("#dnSteps").scrollIntoView({ behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth", block: "nearest" });
     };
     let saved = false;
     if (canShare) {
@@ -1216,7 +1239,7 @@ function gauge(score, color){
   const [x0,y0] = p(a0), [x1,y1] = p(a1), [xe,ye] = p(0);
   return `<svg class="gauge" width="220" height="122" viewBox="0 0 200 112" role="img" aria-label="AI-like signal ${Math.round(score*100)} out of 100">
     <path d="M${x0} ${y0} A${r} ${r} 0 0 1 ${xe} ${ye}" fill="none" style="stroke:var(--track)" stroke-width="16" stroke-linecap="round"/>
-    <path d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)}" fill="none" stroke="${color || scoreColor(score)}" stroke-width="16" stroke-linecap="round"/>
+    <path class="gfill" pathLength="1" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)}" fill="none" stroke="${color || scoreColor(score)}" stroke-width="16" stroke-linecap="round"/>
     <text x="18" y="110" font-size="10" style="fill:var(--fg-3)" font-family="IBM Plex Mono">0</text><text x="172" y="110" font-size="10" style="fill:var(--fg-3)" font-family="IBM Plex Mono">100</text></svg>`;
 }
 const CAT_SUB = {
@@ -1235,7 +1258,7 @@ function render(r){
   if (r.status !== "ok") {
     grid.style.display = "none";
     state.innerHTML = `<div class="card state-card"><p class="eyebrow">${r.status === "insufficient" ? "Insufficient evidence" : "Unsupported language"}</p><h2>${r.status === "insufficient" ? "Not enough prose to assess" : "This text can't be assessed yet"}</h2><p style="color:var(--ink-2);max-width:620px;margin:8px auto 0">${esc(r.message)}</p>${r.excludedWords ? `<p style="color:var(--ink-3);font-size:14px">${r.excludedWords} words were set aside as headings, lists, tables or references.</p>` : ""}</div>`;
-    state.scrollIntoView({ behavior: "smooth", block: "start" });
+    state.scrollIntoView({ behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth", block: "start" });
     return;
   }
   state.innerHTML = ""; grid.style.display = "";
@@ -1275,7 +1298,7 @@ function render(r){
   $("#fbBtn").onclick = () => feedbackPanel(r);
   $("#donBtn").onclick = () => openDonate(r);
   donateBanner(r);
-  $("#newScan").onclick = () => { input.value = ""; setFile(null); updateCount(); $("#results").style.display = "none"; window.scrollTo({ top: 0, behavior: "smooth" }); input.focus(); };
+  $("#newScan").onclick = () => { input.value = ""; setFile(null); updateCount(); $("#results").style.display = "none"; window.scrollTo({ top: 0, behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth" }); input.focus(); };
 
   $("#doc").innerHTML = docHtml(r);
   bindSentences(r);
@@ -1286,7 +1309,7 @@ function render(r){
     const v = p.local, w = Math.max(2, v * 100);
     return `<div class="prow" data-block="${p.block}" title="${esc(p.preview)}…"><span class="lab">P${i+1}</span><div class="ptrack"><div class="pfill" style="width:${w}%;background:${scoreColor(v)}"></div></div><span class="val">${Math.round(v*100)}</span></div>`;
   }).join("");
-  $$("#pbars .prow").forEach(row => row.onclick = () => { const el = $(`#doc [data-b="${row.dataset.block}"]`); if (el) { el.scrollIntoView({ behavior: "smooth", block: "center" }); el.animate([{ background: "#e3f0f1" }, { background: "transparent" }], { duration: 1400 }); } });
+  $$("#pbars .prow").forEach(row => row.onclick = () => { const el = $(`#doc [data-b="${row.dataset.block}"]`); if (el) { el.scrollIntoView({ behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth", block: "center" }); el.animate([{ background: "#e3f0f1" }, { background: "transparent" }], { duration: 1400 }); } });
 
   // Evidence table
   const maxAbs = 2.5;
@@ -1301,7 +1324,7 @@ function render(r){
   $("#topPanel").style.display = r.topSentences.length ? "" : "none";
   $("#tops").innerHTML = r.topSentences.map(s => `<div class="top-s">${esc(s.text)}<small>Signal ${Math.round(s.score*100)} · ${s.hits.length ? esc([...new Set(s.hits)].slice(0,5).join(" · ")) : "structural pattern (uniform sentence rhythm)"}</small></div>`).join("");
 
-  $("#results").scrollIntoView({ behavior: "smooth", block: "start" });
+  $("#results").scrollIntoView({ behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth", block: "start" });
 }
 
 const TYPE_LABEL = { heading: "Heading", list: "List item · excluded", reference: "Reference · excluded", table: "Table · excluded", quote: "Block quote · excluded", math: "Maths · excluded" };
@@ -1480,7 +1503,7 @@ updateCount();
 })();
 </script>
 <script>
-document.getElementById("themeBtn").addEventListener("click",function(){var d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("aletheia.theme",n);}catch(e){}});
+document.getElementById("themeBtn").addEventListener("click",function(){var d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.classList.add("theming");d.dataset.theme=n;setTimeout(function(){d.classList.remove("theming")},380);try{localStorage.setItem("aletheia.theme",n);}catch(e){}});
 </script>
 <button class="donfloat" id="donFloat" hidden aria-label="Donate this article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.2-4.5-9.6-9.1C.8 8.7 2.6 5.2 6 5.2c2.2 0 3.6 1.2 4.4 2.5.4.6 1.4.6 1.8 0 .8-1.3 2.2-2.5 4.4-2.5 3.4 0 5.2 3.5 3.6 6.7C19.2 16.5 12 21 12 21z" fill="currentColor"/></svg>Donate this article</button>
 </body>
