@@ -298,7 +298,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.5</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.6</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
       <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
@@ -400,7 +400,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.5 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.6 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -429,7 +429,8 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
           </div>
           <p class="count" id="modeNote">Fast check with the standard engine. Results in about a second.</p>
           <label class="count stuopt"><input type="checkbox" id="studentMode"> <b>Student assignment</b> — the AI percentage in Deep Scan and Supreme uses thresholds calibrated on human student essays (essays and assignments of 300+ words only; other kinds of writing are flagged more often in this mode)</label>
-          <label class="count stuopt" id="sensOpt" style="padding-left:24px;opacity:.55"><input type="checkbox" id="sensMode" disabled> <b>High sensitivity (screening)</b> — also highlights weaker AI-like segments in amber and counts them, catching more AI text at the cost of more false alarms (about 1 in 100 human essays instead of 1 in 1,000). Treat amber as places to look, not as evidence.</label>
+          <label class="count stuopt" id="sensOpt" style="padding-left:24px;opacity:.55"><input type="checkbox" id="sensMode" checked disabled> <b>High sensitivity (screening)</b> — on by default in student mode: also highlights weaker AI-like segments in amber and counts them, catching more AI text at the cost of more false alarms (about 1 in 100 human essays instead of 1 in 1,000). Treat amber as places to look, not as evidence.</label>
+          <label class="count stuopt" id="vhOpt" style="padding-left:48px;opacity:.55"><input type="checkbox" id="vhMode" disabled> <b>Very high sensitivity</b> — goes further still: about 2 in 100 human essays reach 20%, in exchange for catching more rewritten and "humanized" AI text.</label>
         </div>
         <div class="progress" id="deepProg" hidden><div class="ptop"><span id="deepStage">Starting…</span><span class="mono" id="deepTime">0.0 s</span></div><div class="ptrack"><div class="pfill" id="deepBar" style="width:1%;background:var(--beam)"></div></div><button class="btn small" id="deepCancel">Cancel</button></div>
         <div class="bar"><span class="count"><b id="wc">0</b> words</span><span class="count" id="wchint"></span><span class="grow"></span>
@@ -511,6 +512,14 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
         <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
+    <h2>V1.6: recall first in student mode</h2>
+    <p>Our rule is that missing AI text is worse than flagging a few extra essays. From V1.6, ticking <b>Student assignment</b> also turns on <b>High sensitivity</b> by default, and a new <b>Very high sensitivity</b> level goes one step further. Measured on student-scope documents of 300+ words, with false positives counted only on human essays that were never used to choose the setting:</p>
+    <div class="tscroll"><table class="data"><tr><th>Held-out documents of 300+ words</th><th>Student threshold</th><th>High (default)</th><th>Very high</th></tr>
+    <tr><td>Human student essays reaching 20%</td><td>2 of 1,857 (0.1%)</td><td>20 of 1,857 (1.1%)</td><td>38 of 1,857 (2.0%)</td></tr>
+    <tr><td>AI and AI-edited essays reaching 20%</td><td>78.0%</td><td>84.3%</td><td>86.5%</td></tr>
+    <tr><td>Essays from 2026 models</td><td>86.3%</td><td>94.5%</td><td>96.3%</td></tr>
+    <tr><td>Paraphrased or "humanized" AI essays</td><td>58.6%</td><td>67.5%</td><td>71.2%</td></tr></table></div>
+    <p>The weakest human group at the very-high level is the Ghostbuster student essays (7 of 36 calibration essays flagged), so a high percentage on a single essay is a reason to look closer and talk to the writer, never proof of authorship.</p>
     <h2>V1.5: high-sensitivity screening, and what ensembles can and cannot add</h2>
     <p>Some users would rather check a few extra essays than miss AI text. V1.5 adds an optional <b>High sensitivity</b> setting inside student-assignment mode. It lowers the segment thresholds by a further 0.80 logits, the largest shift at which human student essays in a calibration half stay at or below 2% overall and no essay collection exceeds 10% reaching 20%. Segments that only this setting finds are shown in amber as <i>screening leads</i>; teal still marks what the student-assignment threshold alone would flag, and both figures are reported.</p>
     <table class="data"><tr><th>Held-out documents of 300+ words, share reaching 20%</th><th>Student assignment</th><th>+ High sensitivity</th></tr>
@@ -636,7 +645,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.5 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.6 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -682,8 +691,8 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.5.0"></script>
-<script src="engine.js?v=1.5.0"></script>
+<script src="model.js?v=1.6.0"></script>
+<script src="engine.js?v=1.6.0"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -761,7 +770,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.5.0"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.6.0"; // appended to script URLs so browsers fetch new models after an update
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
 
@@ -869,13 +878,24 @@ let last = null;
 const MODE_LABEL = { standard: "Analyse text", deep: "Run Deep Scan", supreme: "Run Supreme Scan" };
 let mode = "standard";
 const studentOn = () => { const c = document.getElementById("studentMode"); return !!(c && c.checked); };
-const sensitiveOn = () => { const c = document.getElementById("sensMode"); return !!(c && c.checked && studentOn()); };
+const sensitiveOn = () => {
+  const c = document.getElementById("sensMode"), v = document.getElementById("vhMode");
+  if (!(c && c.checked && studentOn())) return 0;
+  return v && v.checked ? 2 : 1;
+};
+const syncSens = () => {
+  const st = document.getElementById("studentMode"), sm = document.getElementById("sensMode"), vm = document.getElementById("vhMode");
+  const so = document.getElementById("sensOpt"), vo = document.getElementById("vhOpt"), on = !!(st && st.checked);
+  if (sm) sm.disabled = !on;
+  const vOn = on && sm && sm.checked;
+  if (vm) { vm.disabled = !vOn; if (!vOn) vm.checked = false; }
+  if (so) so.style.opacity = on ? "1" : ".55";
+  if (vo) vo.style.opacity = vOn ? "1" : ".55";
+};
 document.addEventListener("change", (e) => {
-  if (e.target && e.target.id === "studentMode") {
-    const sm = document.getElementById("sensMode"), so = document.getElementById("sensOpt");
-    if (sm) { sm.disabled = !e.target.checked; if (!e.target.checked) sm.checked = false; }
-    if (so) so.style.opacity = e.target.checked ? "1" : ".55";
-  }
+  if (!e.target) return;
+  if (e.target.id === "studentMode") { const sm = document.getElementById("sensMode"); if (sm && e.target.checked) sm.checked = true; syncSens(); }
+  if (e.target.id === "sensMode") syncSens();
 });
 $$(".modes [data-mode]").forEach(b => b.addEventListener("click", () => {
   mode = b.dataset.mode;

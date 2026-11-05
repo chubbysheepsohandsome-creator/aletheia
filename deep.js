@@ -142,10 +142,11 @@
     for (const [a, b] of wins) { const l = lg(scoresFromCounts(merge(sc.slice(a, b)))[S.head]); for (let i = a; i < b; i++) { acc[i][0] += l; acc[i][1]++; } }
     const qWords = wc.reduce((x, w) => x + (w >= 3 ? w : 0), 0);
     const stu = !!(student && S.t_student && qWords >= (S.student_min_words || 300));
-    const sens = !!(stu && sensitive && S.t_screen);
+    const lvl = !stu ? 0 : (sensitive === 2 && S.t_screen2) ? 2 : (sensitive && S.t_screen) ? 1 : 0;
+    const sens = lvl > 0, TS2 = lvl === 2 ? S.t_screen2 : S.t_screen;
     const TT = stu ? S.t_student : S.t;
     const t = TT[regName] ?? TT.general, lgS = acc.map(([x, k]) => x / Math.max(1, k));
-    const tLow = sens ? (S.t_screen[regName] ?? S.t_screen.general) : t;
+    const tLow = sens ? (TS2[regName] ?? TS2.general) : t;
     let total = 0, flagged = 0, strong = 0; const runs = []; let cur = null;
     prose.forEach((s, i) => {
       s.seg = 1 / (1 + Math.exp(-lgS[i])); s.segAI = lgS[i] >= tLow; s.segLead = s.segAI && lgS[i] < t;
@@ -161,7 +162,7 @@
              flaggedWords: flagged, strongWords: strong, qualifyingWords: total, runs, windows: wins.length, W: S.W, threshold: t, screenThreshold: sens ? tLow : null,
              register: regName, version: S.version, calibration: S.calibration || null,
              student: stu, studentRequested: !!student, studentMinWords: S.student_min_words || 300, studentCalibration: stu ? (S.student_calibration || null) : null,
-             sensitive: sens, sensitiveRequested: !!sensitive, screenCalibration: sens ? (S.screen_calibration || null) : null };
+             sensitive: sens, sensitiveLevel: lvl, sensitiveRequested: !!sensitive, screenCalibration: sens ? ((lvl === 2 ? S.screen2_calibration : S.screen_calibration) || null) : null };
   }
   const merge = (maps) => { const o = new Map(); for (const mp of maps) for (const [k, v] of mp) o.set(k, (o.get(k) || 0) + v); return o; };
   const quant = (a, q) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]; };
@@ -353,7 +354,7 @@
     y = 150;
     setF("normal", 9, C.mute); doc.text("AI WRITING REPORT", MX, y); y += 26;
     setF("bold", 24); doc.splitTextToSize(clean(title), W - 2 * MX).slice(0, 3).forEach((l) => { doc.text(l, MX, y); y += 28; });
-    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.5`), MX, y); y += 40;
+    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.6`), MX, y); y += 40;
     setF("bold", 12); doc.text("Document details", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
     const pages = meta.pages ? String(meta.pages) : `${Math.max(1, Math.round(b.totalWords / 450))} (estimated)`;
     kv([["Scan ID", scanId], ["Scan date", meta.date || ""], ["File name", meta.file || "(pasted text)"], ["File size", fmtBytes(meta.fileSize)],
@@ -368,7 +369,7 @@
     newPage();
     const big = !cov ? "--" : cov.display;
     setF("bold", 30); doc.text(clean(`${big} detected as AI`), MX, y + 8); y += 30;
-    if (cov && cov.sensitive) { setF("bold", 10, C.warn); doc.text(clean(`High-sensitivity screening: ${cov.displayStrong} at the student-assignment threshold; the rest are screening leads (amber).`), MX, y); y += 16; }
+    if (cov && cov.sensitive) { setF("bold", 10, C.warn); doc.text(clean(`${cov.sensitiveLevel === 2 ? "Very-high" : "High"}-sensitivity screening: ${cov.displayStrong} at the student-assignment threshold; the rest are screening leads (amber).`), MX, y); y += 16; }
     setF("normal", 9.5, C.mute);
     para(!cov ? "The segment model is not available in this version." : !cov.reportable
       ? `Not enough qualifying prose for an AI percentage: ${cov.qualifyingWords} words were found and at least ${model().segment.min_words} are needed.`
@@ -392,9 +393,9 @@
       grow(C.hlMark, String(nStrong), nStrong === 1 ? "AI-generated segment" : "AI-generated segments", cov.sensitive ? cov.displayStrong : cov.display,
            "Text with patterns of large-language-model output. Includes AI text that was lightly edited by a person or a tool.");
       if (cov.sensitive) grow(C.hlLead, String(nLead), nLead === 1 ? "sentence marked as a screening lead" : "sentences marked as screening leads", `+${Math.round((cov.pct - cov.pctStrong) * 100)}%`,
-           "High-sensitivity mode only: weaker AI-like patterns that the student-assignment threshold does not count. More human text reaches this level, so treat these as places to look, not as evidence.");
+           "High-sensitivity screening only: weaker AI-like patterns that the student-assignment threshold does not count. More human text reaches this level, so treat these as places to look, not as evidence.");
       grow([170, 170, 178], "—", "AI-generated, then paraphrased or humanized", "not separated",
-           "ALETHEIA V1.5 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
+           "ALETHEIA V1.6 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
     } else grow([170, 170, 178], "—", "No AI percentage for this document", "--", "See the note above.");
     // whole-document assessment (ALETHEIA's own measure)
     y += 4; setF("bold", 12); doc.text("Whole-document assessment", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 20;
@@ -409,7 +410,7 @@
     y += 6; setF("bold", 12); need(30); doc.text("Frequently asked questions", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 18;
     const cal = cov && cov.calibration;
     const faq = [
-      ...(cov && cov.sensitive ? [["What is high-sensitivity screening?", `An optional setting inside student-assignment mode that prefers catching more AI text over avoiding false alarms. It also highlights weaker AI-like segments (screening leads, amber), and the percentage at the top counts them.${cov.screenCalibration ? ` On held-out human student essays never used to choose the setting, ${cov.screenCalibration.hold_student_over20} reached 20% (student-assignment threshold alone: ${cov.screenCalibration.hold_student_over20_base}); AI-generated essays and answers reached 20% in ${cov.screenCalibration.ai_over20} of cases (student-assignment threshold alone: ${cov.screenCalibration.ai_over20_base}).` : ""} Use it to decide where to look, never as evidence on its own.`]] : []),
+      ...(cov && cov.sensitive ? [["What is high-sensitivity screening?", `A setting inside student-assignment mode (on by default there) that prefers catching more AI text over avoiding false alarms; the very-high level goes further.${cov.sensitiveLevel === 2 ? " This report used the very-high level." : ""} It also highlights weaker AI-like segments (screening leads, amber), and the percentage at the top counts them.${cov.screenCalibration ? ` On held-out human student essays never used to choose the setting, ${cov.screenCalibration.hold_student_over20} reached 20% (student-assignment threshold alone: ${cov.screenCalibration.hold_student_over20_base}); AI-generated essays and answers reached 20% in ${cov.screenCalibration.ai_over20} of cases (student-assignment threshold alone: ${cov.screenCalibration.ai_over20_base}).` : ""} Use it to decide where to look, never as evidence on its own.`]] : []),
       ...(cov && cov.studentRequested ? [["What does student-assignment mode change?", cov.student
         ? `The AI percentage used thresholds calibrated only on human student essays of at least ${cov.studentMinWords} words, the kind of text Turnitin is designed for.${cov.studentCalibration ? ` On held-out human student essays never used to choose the thresholds, ${cov.studentCalibration.hold_student_over20} reached 20%. Fully AI-generated essays reached 20% in ${cov.studentCalibration.hold_ai_essay_over20} of cases (standard thresholds: ${cov.studentCalibration.std_ai_essay_over20}), and essays and answers by 2026 models in ${cov.studentCalibration.ai2026_over20} (standard: ${cov.studentCalibration.std_ai2026_over20}).` : ""} Use it only for student assignments: on other kinds of writing (news, reports, magazine features) these thresholds flag human text more often.`
         : `Student-assignment mode was requested, but the document has fewer than ${cov.studentMinWords} qualifying words, so the standard thresholds were used.`]] : []),
