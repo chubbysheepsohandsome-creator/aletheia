@@ -326,6 +326,8 @@
         else return { i, text: b, type: "reference", excludedReason: "Reference / bibliography" };
       }
       if (type === "prose" && CITATION_LINE.test(b) && words(b).length < 60) return { i, text: b, type: "reference", excludedReason: "Citation entry" };
+      // V1.7.5: formula lines (symbols plus at most four real words) carry no prose signal; they are shown but not scored.
+      if (type === "prose" && /[=^_√×∴<>±≈≥≤∑∫]/.test(b) && (b.match(/[A-Za-z]{4,}/g) || []).length <= 4) return { i, text: b, type: "equation", excludedReason: "Equation / formula" };
       return { i, text: b, type };
     });
 
