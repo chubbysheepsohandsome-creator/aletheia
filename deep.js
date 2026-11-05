@@ -147,9 +147,21 @@
     const TT = stu ? S.t_student : S.t;
     const t = TT[regName] ?? TT.general, lgS = acc.map(([x, k]) => x / Math.max(1, k));
     const tLow = sens ? (TS2[regName] ?? TS2.general) : t;
+    // V1.7 (student mode): short-passage pass. 100-word windows scored by the main deep head catch AI paragraphs of
+    // 60-150 words that the 250-word windows dilute; a sentence counts if either pass reaches its threshold.
+    const SP = stu && S.short ? S.short : null; let l100 = null, tS = Infinity, tSLow = Infinity;
+    if (SP) {
+      const a2 = prose.map(() => [0, 0]);
+      for (const [a, b] of segWindows(wc, SP.W)) { const l = lg(scoresFromCounts(merge(sc.slice(a, b)))[SP.head]); for (let i = a; i < b; i++) { a2[i][0] += l; a2[i][1]++; } }
+      l100 = a2.map(([x, k]) => x / Math.max(1, k));
+      tS = t + SP.shift.t_student; tSLow = sens ? tLow + SP.shift[lvl === 2 ? "t_screen2" : "t_screen"] : tS;
+    }
     let total = 0, flagged = 0, strong = 0; const runs = []; let cur = null;
     prose.forEach((s, i) => {
-      s.seg = 1 / (1 + Math.exp(-lgS[i])); s.segAI = lgS[i] >= tLow; s.segLead = s.segAI && lgS[i] < t;
+      s.seg = 1 / (1 + Math.exp(-lgS[i]));
+      const isStrong = lgS[i] >= t || (l100 !== null && l100[i] >= tS);
+      s.segAI = isStrong || lgS[i] >= tLow || (l100 !== null && l100[i] >= tSLow); s.segLead = s.segAI && !isStrong;
+      s.segShort = !!(l100 !== null && s.segAI && lgS[i] < (isStrong ? t : tLow));
       if (s.f.wc >= 3) { total += s.f.wc; if (s.segAI) flagged += s.f.wc; if (s.segAI && !s.segLead) strong += s.f.wc; }
       if (s.segAI) { if (!cur) { cur = { from: i, to: i, words: 0, lg: -Infinity, lead: true }; runs.push(cur); } cur.to = i; cur.words += s.f.wc; cur.lg = Math.max(cur.lg, lgS[i]); if (!s.segLead) cur.lead = false; }
       else cur = null;
@@ -162,7 +174,7 @@
              flaggedWords: flagged, strongWords: strong, qualifyingWords: total, runs, windows: wins.length, W: S.W, threshold: t, screenThreshold: sens ? tLow : null,
              register: regName, version: S.version, calibration: S.calibration || null,
              student: stu, studentRequested: !!student, studentMinWords: S.student_min_words || 300, studentCalibration: stu ? (S.student_calibration || null) : null,
-             sensitive: sens, sensitiveLevel: lvl, sensitiveRequested: !!sensitive, screenCalibration: sens ? ((lvl === 2 ? S.screen2_calibration : S.screen_calibration) || null) : null };
+             shortPass: !!SP, shortCalibration: SP ? (SP.calibration || null) : null, sensitive: sens, sensitiveLevel: lvl, sensitiveRequested: !!sensitive, screenCalibration: sens ? ((lvl === 2 ? S.screen2_calibration : S.screen_calibration) || null) : null };
   }
   const merge = (maps) => { const o = new Map(); for (const mp of maps) for (const [k, v] of mp) o.set(k, (o.get(k) || 0) + v); return o; };
   const quant = (a, q) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]; };
@@ -354,7 +366,7 @@
     y = 150;
     setF("normal", 9, C.mute); doc.text("AI WRITING REPORT", MX, y); y += 26;
     setF("bold", 24); doc.splitTextToSize(clean(title), W - 2 * MX).slice(0, 3).forEach((l) => { doc.text(l, MX, y); y += 28; });
-    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.6`), MX, y); y += 40;
+    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.7`), MX, y); y += 40;
     setF("bold", 12); doc.text("Document details", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
     const pages = meta.pages ? String(meta.pages) : `${Math.max(1, Math.round(b.totalWords / 450))} (estimated)`;
     kv([["Scan ID", scanId], ["Scan date", meta.date || ""], ["File name", meta.file || "(pasted text)"], ["File size", fmtBytes(meta.fileSize)],
@@ -395,7 +407,7 @@
       if (cov.sensitive) grow(C.hlLead, String(nLead), nLead === 1 ? "sentence marked as a screening lead" : "sentences marked as screening leads", `+${Math.round((cov.pct - cov.pctStrong) * 100)}%`,
            "High-sensitivity screening only: weaker AI-like patterns that the student-assignment threshold does not count. More human text reaches this level, so treat these as places to look, not as evidence.");
       grow([170, 170, 178], "—", "AI-generated, then paraphrased or humanized", "not separated",
-           "ALETHEIA V1.6 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
+           "ALETHEIA V1.7 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
     } else grow([170, 170, 178], "—", "No AI percentage for this document", "--", "See the note above.");
     // whole-document assessment (ALETHEIA's own measure)
     y += 4; setF("bold", 12); doc.text("Whole-document assessment", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 20;
