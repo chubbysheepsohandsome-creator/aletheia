@@ -167,6 +167,17 @@ textarea#input::placeholder{color:var(--fg-3)}
 .notes{margin:16px 0 0;padding:14px 16px;background:var(--bg);font-size:12.5px;color:var(--fg-2)}
 .notes ul{margin:0;padding-left:16px}.notes li{margin:4px 0}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.dcta{margin:0 0 22px;padding:26px 26px;border-width:2px;border:1px solid var(--accent);border-radius:14px;background:color-mix(in srgb,var(--accent) 9%,var(--bg-2))}
+.dcta-top{display:flex;align-items:center;gap:18px}.dcta-ico{flex:0 0 88px;width:88px;height:88px;animation:dpulse 2.4s ease-in-out infinite;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--accent);color:var(--bg)}
+.dcta-ico svg{width:46px;height:46px}.dcta-txt{flex:1;min-width:0}.dcta-title{font-family:var(--serif);font-size:30px;line-height:1.15;color:var(--fg)}.dcta-lead{margin-top:6px;font-size:16px;font-weight:600;color:var(--accent)}
+.dcta-sub{margin-top:6px;font-size:14px;line-height:1.55;color:var(--fg-2)}.dcta-btn{flex:0 0 auto;padding:14px 24px;font-size:15px}
+@keyframes dpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}@media(prefers-reduced-motion:reduce){.dcta-ico{animation:none!important}}.dways{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin:6px 0 4px 34px}.dway-note{margin:0 0 8px;max-width:560px}.dchip{display:inline-block;padding:3px 9px;border:1px dashed var(--accent);border-radius:8px;cursor:grab;font-family:var(--mono);font-size:12px;color:var(--fg)}.dpanel{margin-top:16px;background:var(--bg)}.dsteps{margin-top:12px}.dstep{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:13.5px;line-height:1.5;color:var(--fg-2)}
+.dstep>b:first-child{flex:0 0 24px;height:24px;border-radius:50%;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:12px}
+.dstep.done>b:first-child{background:var(--accent);color:var(--bg);border-color:var(--accent)}.dstep.now{color:var(--fg);font-size:14.5px}
+.dstep.now>b:first-child{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.donfloat{position:fixed;right:16px;bottom:16px;z-index:60;display:none;align-items:center;gap:10px;padding:12px 18px;border:0;border-radius:999px;background:var(--accent);color:var(--bg);font:600 14px var(--sans,inherit);cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.35)}
+.donfloat.show{display:inline-flex}.donfloat svg{width:20px;height:20px}
+@media(max-width:700px){.dcta-top{flex-wrap:wrap}.dcta-ico{flex-basis:64px;width:64px;height:64px}.dcta-ico svg{width:36px;height:36px}.dways{margin-left:0}.dcta-btn{width:100%;justify-content:center}.dcta-title{font-size:20px}}
 .helpbox{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}.helppanel{margin-top:10px;padding:12px;border:1px solid var(--line-2);border-radius:10px}.helppanel textarea{background:transparent;color:inherit;border:1px solid var(--line-2);border-radius:8px;padding:6px;font:inherit;font-size:13px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--fg-2);margin-bottom:16px;align-items:center}
 .legend span{display:flex;align-items:center;gap:7px}
@@ -299,7 +310,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.7</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.7.1</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
       <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
@@ -401,7 +412,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.7 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.7.1 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -440,6 +451,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     </section>
     <section id="results">
       <div id="resState"></div>
+      <div class="dcta" id="donateCta" hidden></div>
       <div class="res-grid" id="resGrid">
         <aside class="panel summary" id="summary"></aside>
         <div>
@@ -513,6 +525,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
         <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
+    <p><b>V1.7.1.</b> The "Donate this article" call is now a large banner above the results (with a floating button), and the email is prepared for you: on phones and tablets one tap opens the share menu with the donation file already attached; on desktop a ready-made email file (.eml) opens in Outlook, Thunderbird and similar apps with the address, subject and attachment filled in, and for Gmail and other webmail the file can be dragged in. A browser cannot attach a file to an email silently, so these are the closest it can get; a copy-and-paste fallback remains.</p>
     <h2>V1.7: short AI passages, annotated Word files, feedback</h2>
     <p><b>Short AI passages.</b> We built a labelled test set of mixed student essays: human essays with one AI paragraph inserted, an AI conclusion added, an AI body with a human opening, human and AI halves, and sentence-by-sentence interleaving. Our 250-word segments diluted short AI paragraphs almost completely. From V1.7, student-assignment mode also scores 100-word windows and highlights a sentence when either pass reaches its threshold; the thresholds were set so that highlighted words in human calibration essays rise by at most a quarter.</p>
     <div class="tscroll"><table class="data"><tr><th>Mixed essays, share of AI words highlighted (high sensitivity)</th><th>V1.6</th><th>V1.7</th></tr>
@@ -650,7 +663,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
       <li><b>No training on your work.</b> Submitted text is never used to train or tune ALETHEIA.</li>
       <li><b>Minimal history.</b> Scan summaries only, in your browser's local storage; clear them at any time.</li>
       <li><b>No accounts, cookies, analytics or third-party requests</b> in the free beta. Fonts and libraries are served from this site.</li>
-      <li><b>Feedback and donations (optional, from V1.7).</b> "Report a wrong result" prepares an email with the result numbers and your answer only, never your text. "Donate this text" saves a file on your device that you may attach to an email yourself; it is offered only to people aged 18 or older who wrote the text or have the author's permission. Both are sent by you, from your own email app, to feedback@aletheiadetect.com, so we also see the sending address, which we use only to reply. Donated texts are kept for up to 3 years, used only to test and improve the detector, never published or sold, and deleted on request (quote the donation ID). Feedback is used to find problems and is never used directly as training labels.</li>
+      <li><b>Feedback and donations (optional, from V1.7).</b> "Report a wrong result" prepares an email with the result numbers and your answer only, never your text. "Donate this article" saves a file on your device that you attach to an email yourself (or, if attaching is not possible, you may paste the copied donation text into the email body); it is offered only to people aged 18 or older who wrote the text or have the author's permission. Both are sent by you, from your own email app, to feedback@aletheiadetect.com, so we also see the sending address, which we use only to reply. Donated texts are kept for up to 3 years, used only to test and improve the detector, never published or sold, and deleted on request (quote the donation ID). Feedback is used to find problems and is never used directly as training labels.</li>
       <li><b>Annotated Word files.</b> The highlighted copy of an uploaded .docx is built in your browser; the file never leaves your device.</li>
       <li><b>Hosting.</b> The site is hosted on GitHub Pages. Like any web host, GitHub receives standard request logs (such as IP address and browser) when a page is loaded; it never receives the text you analyse.</li>
       <li>Future server-side features will use encrypted transport, automatic deletion with configurable retention, and audit logs that never store document contents. They will be designed around the Australian Privacy Principles.</li>
@@ -659,7 +672,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.7 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.7.1 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -705,8 +718,8 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.7.0"></script>
-<script src="engine.js?v=1.7.0"></script>
+<script src="model.js?v=1.7.1"></script>
+<script src="engine.js?v=1.7.1"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -784,7 +797,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.7.0"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.7.1"; // appended to script URLs so browsers fetch new models after an update
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
 
@@ -1048,17 +1061,39 @@ function feedbackPanel(r){
   $("#fbSend").onclick = (e) => { e.preventDefault(); location.href = mailto("ALETHEIA result feedback", body()); $("#fbMsg").textContent = `If no email app opened, use "Copy instead" and send it to ${HELP_ADDR}.`; };
   $("#fbCopy").onclick = async () => { try { await navigator.clipboard.writeText(`To: ${HELP_ADDR}\nSubject: ALETHEIA result feedback\n\n` + body()); $("#fbMsg").textContent = "Copied."; } catch (e) { $("#fbMsg").textContent = "Copy was blocked by the browser."; } };
 }
+const HEART = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.2-4.5-9.6-9.1C.8 8.7 2.6 5.2 6 5.2c2.2 0 3.6 1.2 4.4 2.5.4.6 1.4.6 1.8 0 .8-1.3 2.2-2.5 4.4-2.5 3.4 0 5.2 3.5 3.6 6.7C19.2 16.5 12 21 12 21z" fill="currentColor"/></svg>';
+function donateBanner(r){
+  const B = $("#donateCta"); if (!B) return;
+  B.hidden = false;
+  B.innerHTML = `<div class="dcta-top"><div class="dcta-ico">${HEART}</div>
+    <div class="dcta-txt"><div class="dcta-title">Please donate this article's data</div>
+      <div class="dcta-lead">It helps you, and it helps us. This really matters to us.</div>
+      <div class="dcta-sub">Every text you donate, with a label of who wrote it, is used to test ALETHEIA and make it fairer and more accurate for the next student. It takes about a minute, it is optional, and the email is prepared for you: one tap and the file is attached.</div></div>
+    <button class="btn primary dcta-btn" id="dctaBtn">Donate this article <span class="arr">→</span></button></div>
+    <div id="donatePanel"></div>`;
+  $("#dctaBtn").onclick = () => openDonate(r);
+  const fl = $("#donFloat"); if (fl) { fl.hidden = false; fl.onclick = () => openDonate(r); }
+  if (window.IntersectionObserver && fl) {
+    if (window.__donObs) window.__donObs.disconnect();
+    window.__donObs = new IntersectionObserver((e) => { fl.classList.toggle("show", !e[0].isIntersecting); }, { threshold: 0.15 });
+    window.__donObs.observe(B);
+  } else if (fl) fl.classList.add("show");
+}
+function openDonate(r){
+  donatePanel(r || last);
+  const B = $("#donateCta"); if (B) B.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 function donatePanel(r){
-  const P = $("#helpPanel");
-  P.innerHTML = `<div class="helppanel"><p class="count" style="margin:0 0 8px"><b>Donate this text</b> so we can test and improve the detector. This is completely optional and separate from your result.</p>
+  const P = $("#donatePanel") || $("#helpPanel");
+  P.innerHTML = `<div class="helppanel dpanel"><p class="count" style="margin:0 0 8px"><b>Donate this article</b>: optional, and separate from your result.</p>
     <div class="count">Who wrote it?</div>
     ${["I wrote it myself, without AI", "It was generated by AI", "AI-assisted (AI-edited, paraphrased or mixed)", "Someone else wrote it, and they agreed to donate it"].map((t) => `<label class="count" style="display:block"><input type="radio" name="dnv" value="${esc(t)}"> ${esc(t)}</label>`).join("")}
     <label class="count" style="display:block;margin-top:6px"><input type="checkbox" id="dnAdult"> I am 18 or older.</label>
     <label class="count" style="display:block"><input type="checkbox" id="dnRights"> I wrote this text, or its author agreed that I may donate it.</label>
     <label class="count" style="display:block"><input type="checkbox" id="dnUse"> ALETHEIA may keep this text for up to 3 years to test and train its detector. It will never be published or sold. I can ask for it to be deleted at any time by emailing the donation ID.</label>
-    <p class="count" style="margin:6px 0">Please remove names, student numbers and other personal details from the text box above before donating. The text is saved to a file on your device first; you then attach it to an email yourself.</p>
+    <p class="count" style="margin:6px 0">Please remove names, student numbers and other personal details from the text box above before donating.</p>
     <div class="actions" style="margin-top:6px"><button class="btn small primary" id="dnGo" disabled>Save donation file and open email</button></div>
-    <div class="count" id="dnMsg" style="margin-top:6px"></div></div>`;
+    <div id="dnSteps"></div></div>`;
   const ok = () => !!document.querySelector('input[name="dnv"]:checked') && $("#dnAdult").checked && $("#dnRights").checked && $("#dnUse").checked;
   P.querySelectorAll("input").forEach((x) => x.addEventListener("change", () => { $("#dnGo").disabled = !ok(); }));
   $("#dnGo").onclick = async () => {
@@ -1067,12 +1102,54 @@ function donatePanel(r){
     const label = document.querySelector('input[name="dnv"]:checked').value;
     const rec = { donation_id: id, created: new Date().toISOString(), aletheia: BUILD, label, consent: { adult: true, rights: true, use_for_testing_and_training: true, retention: "up to 3 years", withdrawal: "email the donation ID" },
                   result: resultNumbers(r), words: r.totalWords, text: input.value };
-    try {
-      await saveBlob(new Blob([JSON.stringify(rec, null, 1)], { type: "application/json" }), `ALETHEIA-donation-${id}.json`);
-      $("#dnMsg").innerHTML = `Saved <b>ALETHEIA-donation-${id}.json</b>. Attach it to the email that opens now and send it to ${HELP_ADDR}. Keep the ID <b>${id}</b> if you may want it deleted later.`;
-      setTimeout(() => { location.href = mailto(`ALETHEIA donation ${id}`, `Donation ID: ${id}\nLabel: ${label}\n\nPlease attach the file ALETHEIA-donation-${id}.json before sending.`); }, 400);
-    } catch (e) { $("#dnMsg").textContent = "The file could not be saved in this view. Open the site in your browser to donate."; }
+    const json = JSON.stringify(rec, null, 1);
+    const fname = `ALETHEIA-donation-${id}.json`, subject = `ALETHEIA donation ${id}`;
+    const note = `Donation ID: ${id}\nLabel: ${label}\n\nThe donation file ${fname} is attached.\n`;
+    const file = new File([json], fname, { type: "application/json" });
+    const eml = makeEml(subject, note, fname, json);
+    const canShare = !framed && !!(navigator.canShare && navigator.share && navigator.canShare({ files: [file] }));
+    const copyAddr = async () => { try { await navigator.clipboard.writeText(HELP_ADDR); } catch (e) {} };
+    // One tap: on phones, tablets and many desktops the system share sheet attaches the file for us. Must be called before any await.
+    const shareNow = () => navigator.share({ files: [file], title: subject, text: `${note}\nSend to: ${HELP_ADDR}` });
+    const draw = (shared, saved) => {
+      $("#dnSteps").innerHTML = `<div class="dsteps">
+        <div class="dstep ${shared ? "done" : "now"}"><b>${shared ? "✓" : "1"}</b><span>${shared ? `Choose your email app in the share menu. The file <b>${fname}</b> is already attached; the address <b>${HELP_ADDR}</b> was copied, paste it into "To" if it is empty, then press Send.` : "Pick the way that matches your email. In every case the file ends up attached; you only press Send."}</span></div>
+        <div class="dways">
+          ${canShare ? `<button class="btn primary" id="dnShare">Send with my email app (file attached automatically)</button>` : ""}
+          <button class="btn ${canShare ? "" : "primary"}" id="dnEml">Download ready-made email (.eml)</button>
+          <div class="count dway-note">Outlook, Windows Mail, Thunderbird and most desktop mail apps: open the downloaded file and the email appears with the address, subject and the donation already attached. Just press Send.</div>
+          <button class="btn" id="dnMail">Gmail, school webmail or another site: open a new email</button>
+          <div class="count dway-note">${saved ? `The file <b>${fname}</b> was also saved to your Downloads.` : "The file is saved to your Downloads when you tap this button."} <span class="dchip" id="dnChip" draggable="true" title="Drag me into the email">📎 ${fname}</span> <b>Drag the file (or this chip) into the email</b>, or use the paperclip, then press Send.</div>
+          <button class="btn small" id="dnCopy">Cannot attach at all? Copy the donation text instead</button>
+        </div>
+        <div class="dstep"><b>2</b><span>Keep the ID <b>${id}</b> if you may want it deleted later.</span></div>
+        <div class="count" id="dnMsg" style="margin-top:6px"></div></div>`;
+      const msg = $("#dnMsg");
+      const save = async () => { try { await saveBlob(new Blob([json], { type: "application/json" }), fname); return true; } catch (e) { return false; } };
+      if ($("#dnShare")) $("#dnShare").onclick = async () => { try { await copyAddr(); await shareNow(); draw(true, saved); } catch (e) { if (e && e.name !== "AbortError") msg.textContent = "The share menu could not open here. Use one of the other ways."; } };
+      $("#dnEml").onclick = async () => { try { await saveBlob(eml, `ALETHEIA-donation-${id}.eml`); msg.textContent = "Open the downloaded .eml file with your email app, check it, then press Send."; } catch (e) { msg.textContent = "The .eml file could not be saved in this view. Use another way."; } };
+      $("#dnMail").onclick = async () => { const ok2 = saved || await save(); if (ok2) saved = true; location.href = mailto(subject, note + `\n(If the file is not attached yet, drag ${fname} into this email before pressing Send.)\n`); msg.textContent = `Email opened. Attach ${fname} (drag it in or use the paperclip) and press Send.`; };
+      $("#dnCopy").onclick = async () => { try { await navigator.clipboard.writeText(`To: ${HELP_ADDR}\nSubject: ${subject}\n\n${note}\n${json}`); msg.textContent = "Copied. Paste it into the body of a new email to " + HELP_ADDR + " and send it."; } catch (e) { msg.textContent = "Copy was blocked by the browser."; } };
+      const chip = $("#dnChip"); if (chip) chip.addEventListener("dragstart", (ev) => { try { ev.dataTransfer.setData("DownloadURL", `application/json:${fname}:${URL.createObjectURL(file)}`); ev.dataTransfer.effectAllowed = "copy"; ev.dataTransfer.items.add(file); } catch (e) {} });
+      $("#dnSteps").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+    let saved = false;
+    if (canShare) {
+      draw(false, false);
+      try { await copyAddr(); await shareNow(); draw(true, false); return; } catch (e) { /* cancelled or blocked: the buttons stay */ }
+    } else {
+      saved = await (async () => { try { await saveBlob(new Blob([json], { type: "application/json" }), fname); return true; } catch (e) { return false; } })();
+      draw(false, saved);
+    }
   };
+}
+// Ready-made email draft (X-Unsent) with the donation file already attached.
+function makeEml(subject, text, fname, json){
+  const u8 = new TextEncoder().encode(json); let bin = ""; for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
+  const b64 = btoa(bin).replace(/(.{76})/g, "$1\r\n"), B = "ALETHEIA-" + Math.random().toString(36).slice(2);
+  const body = ["To: " + HELP_ADDR, "Subject: " + subject, "X-Unsent: 1", "MIME-Version: 1.0", `Content-Type: multipart/mixed; boundary="${B}"`, "", `--${B}`, "Content-Type: text/plain; charset=utf-8", "Content-Transfer-Encoding: 8bit", "", text.replace(/\n/g, "\r\n"), `--${B}`,
+    `Content-Type: application/json; name="${fname}"`, `Content-Disposition: attachment; filename="${fname}"`, "Content-Transfer-Encoding: base64", "", b64, `--${B}--`, ""].join("\r\n");
+  return new Blob([body], { type: "message/rfc822" });
 }
 // V1.7: annotated copy of the uploaded Word file (only when the text box still holds the text read from that file)
 function docxBox(R){
@@ -1085,7 +1162,7 @@ function docxBox(R){
       if (!window.AletheiaDocx || !window.AletheiaDocx.annotate) await loadScript("docx.js?v=" + BUILD);
       const cv = R.coverage, marks = R.base.sentences.filter((s) => s.segAI).map((s) => ({ text: s.text, lead: !!s.segLead }));
       const mode = cv.student ? (cv.sensitive ? (cv.sensitiveLevel === 2 ? "student assignment, very high sensitivity" : "student assignment, high sensitivity") : "student assignment") : "standard thresholds";
-      const notice = [`ALETHEIA V1.7 · ${cv.display} detected as AI (${R.levelLabel}, ${mode}) · ${new Date().toLocaleDateString()}`,
+      const notice = [`ALETHEIA ${BUILD} · ${cv.display} detected as AI (${R.levelLabel}, ${mode}) · ${new Date().toLocaleDateString()}`,
         cv.sensitive ? `Teal: AI-like at the student-assignment threshold (${cv.displayStrong}). Amber: screening leads, weaker signals shown only in high-sensitivity mode.` : "Teal: sentences in segments the model scores as AI-generated.",
         "This highlighting is a statistical estimate, not proof of authorship. Delete these lines before reusing the file."];
       const r = await window.AletheiaDocx.annotate(docxSrc.buf, marks, notice);
@@ -1186,12 +1263,13 @@ function render(r){
     </div>
     <div class="count" id="copyMsg" style="margin-top:8px"></div>
     <div class="helpbox"><div class="count"><b>Help improve ALETHEIA</b> · optional. Nothing is sent unless you send it yourself from your own email.</div>
-      <div class="actions" style="margin-top:8px"><button class="btn small" id="fbBtn">Report a wrong result</button><button class="btn small" id="donBtn">Donate this text…</button></div>
+      <div class="actions" style="margin-top:8px"><button class="btn small" id="fbBtn">Report a wrong result</button><button class="btn small primary" id="donBtn">Donate this article <span class="arr">→</span></button></div>
       <div id="helpPanel"></div></div>`;
   $("#copyRep").onclick = async () => { try { await navigator.clipboard.writeText(reportText(r)); $("#copyMsg").textContent = "Report copied to clipboard."; } catch(e) { $("#copyMsg").textContent = "Copy was blocked by the browser. Select the report text manually."; } };
   if (!framed) { $("#dlRep").onclick = () => downloadReport(r); $("#printRep").onclick = () => window.print(); }
   $("#fbBtn").onclick = () => feedbackPanel(r);
-  $("#donBtn").onclick = () => donatePanel(r);
+  $("#donBtn").onclick = () => openDonate(r);
+  donateBanner(r);
   $("#newScan").onclick = () => { input.value = ""; setFile(null); updateCount(); $("#results").style.display = "none"; window.scrollTo({ top: 0, behavior: "smooth" }); input.focus(); };
 
   $("#doc").innerHTML = docHtml(r);
@@ -1399,5 +1477,6 @@ updateCount();
 <script>
 document.getElementById("themeBtn").addEventListener("click",function(){var d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("aletheia.theme",n);}catch(e){}});
 </script>
+<button class="donfloat" id="donFloat" hidden aria-label="Donate this article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.2-4.5-9.6-9.1C.8 8.7 2.6 5.2 6 5.2c2.2 0 3.6 1.2 4.4 2.5.4.6 1.4.6 1.8 0 .8-1.3 2.2-2.5 4.4-2.5 3.4 0 5.2 3.5 3.6 6.7C19.2 16.5 12 21 12 21z" fill="currentColor"/></svg>Donate this article</button>
 </body>
 </html>
