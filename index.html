@@ -310,7 +310,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.7.1</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.7.2</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a>
       <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
@@ -412,7 +412,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.7.1 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.7.2 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -525,7 +525,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
         <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
-    <p><b>V1.7.1.</b> The "Donate this article" call is now a large banner above the results (with a floating button), and the email is prepared for you: on phones and tablets one tap opens the share menu with the donation file already attached; on desktop a ready-made email file (.eml) opens in Outlook, Thunderbird and similar apps with the address, subject and attachment filled in, and for Gmail and other webmail the file can be dragged in. A browser cannot attach a file to an email silently, so these are the closest it can get; a copy-and-paste fallback remains.</p>
+    <p><b>V1.7.2.</b> The donation form now asks two clearer questions (how AI was used, including "AI only taught or gave feedback", and who wrote the text, including group work) and has an optional field for the Turnitin AI percentage, which lets us measure how close ALETHEIA is to it.  V1.7.1: the "Donate this article" call is now a large banner above the results (with a floating button), and the email is prepared for you: on phones and tablets one tap opens the share menu with the donation file already attached; on desktop a ready-made email file (.eml) opens in Outlook, Thunderbird and similar apps with the address, subject and attachment filled in, and for Gmail and other webmail the file can be dragged in. A browser cannot attach a file to an email silently, so these are the closest it can get; a copy-and-paste fallback remains.</p>
     <h2>V1.7: short AI passages, annotated Word files, feedback</h2>
     <p><b>Short AI passages.</b> We built a labelled test set of mixed student essays: human essays with one AI paragraph inserted, an AI conclusion added, an AI body with a human opening, human and AI halves, and sentence-by-sentence interleaving. Our 250-word segments diluted short AI paragraphs almost completely. From V1.7, student-assignment mode also scores 100-word windows and highlights a sentence when either pass reaches its threshold; the thresholds were set so that highlighted words in human calibration essays rise by at most a quarter.</p>
     <div class="tscroll"><table class="data"><tr><th>Mixed essays, share of AI words highlighted (high sensitivity)</th><th>V1.6</th><th>V1.7</th></tr>
@@ -672,7 +672,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.7.1 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.7.2 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -718,8 +718,8 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.7.1"></script>
-<script src="engine.js?v=1.7.1"></script>
+<script src="model.js?v=1.7.2"></script>
+<script src="engine.js?v=1.7.2"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -797,7 +797,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.7.1"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.7.2"; // appended to script URLs so browsers fetch new models after an update
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
 
@@ -1086,25 +1086,30 @@ function openDonate(r){
 function donatePanel(r){
   const P = $("#donatePanel") || $("#helpPanel");
   P.innerHTML = `<div class="helppanel dpanel"><p class="count" style="margin:0 0 8px"><b>Donate this article</b>: optional, and separate from your result.</p>
-    <div class="count">Who wrote it?</div>
-    ${["I wrote it myself, without AI", "It was generated by AI", "AI-assisted (AI-edited, paraphrased or mixed)", "Someone else wrote it, and they agreed to donate it"].map((t) => `<label class="count" style="display:block"><input type="radio" name="dnv" value="${esc(t)}"> ${esc(t)}</label>`).join("")}
+    <div class="count"><b>1. How was AI used?</b></div>
+    ${["I wrote it myself, without AI", "I wrote it myself; AI only taught me or gave feedback (none of its wording is in the text)", "AI-assisted (AI-edited, paraphrased or mixed)", "It was generated by AI"].map((t) => `<label class="count" style="display:block"><input type="radio" name="dnv" value="${esc(t)}"> ${esc(t)}</label>`).join("")}
+    <div class="count" style="margin-top:8px"><b>2. Who wrote it?</b></div>
+    ${["I wrote it", "Someone else wrote it and they agreed to donate it", "A group wrote it and every author agreed to donate it"].map((t) => `<label class="count" style="display:block"><input type="radio" name="dnw" value="${esc(t)}"> ${esc(t)}</label>`).join("")}
+    <div class="count" style="margin-top:8px"><b>3. Optional:</b> if you have a Turnitin AI report for this text, type its AI percentage here (0 to 100). This is the most useful thing you can add: it lets us measure how close ALETHEIA is.</div>
+    <input id="dnTii" type="number" min="0" max="100" step="1" placeholder="e.g. 39" style="width:110px;margin:4px 0 6px;background:transparent;color:inherit;border:1px solid var(--line-2);border-radius:8px;padding:6px;font:inherit;font-size:13px">
     <label class="count" style="display:block;margin-top:6px"><input type="checkbox" id="dnAdult"> I am 18 or older.</label>
-    <label class="count" style="display:block"><input type="checkbox" id="dnRights"> I wrote this text, or its author agreed that I may donate it.</label>
+    <label class="count" style="display:block"><input type="checkbox" id="dnRights"> I wrote this text, or all of its authors agreed that I may donate it.</label>
     <label class="count" style="display:block"><input type="checkbox" id="dnUse"> ALETHEIA may keep this text for up to 3 years to test and train its detector. It will never be published or sold. I can ask for it to be deleted at any time by emailing the donation ID.</label>
     <p class="count" style="margin:6px 0">Please remove names, student numbers and other personal details from the text box above before donating.</p>
     <div class="actions" style="margin-top:6px"><button class="btn small primary" id="dnGo" disabled>Save donation file and open email</button></div>
     <div id="dnSteps"></div></div>`;
-  const ok = () => !!document.querySelector('input[name="dnv"]:checked') && $("#dnAdult").checked && $("#dnRights").checked && $("#dnUse").checked;
+  const ok = () => !!document.querySelector('input[name="dnv"]:checked') && !!document.querySelector('input[name="dnw"]:checked') && $("#dnAdult").checked && $("#dnRights").checked && $("#dnUse").checked;
   P.querySelectorAll("input").forEach((x) => x.addEventListener("change", () => { $("#dnGo").disabled = !ok(); }));
   $("#dnGo").onclick = async () => {
     if (!ok()) return;
     const id = "D" + Array.from(crypto.getRandomValues(new Uint8Array(6)), (b) => b.toString(16).padStart(2, "0")).join("").toUpperCase();
-    const label = document.querySelector('input[name="dnv"]:checked').value;
-    const rec = { donation_id: id, created: new Date().toISOString(), aletheia: BUILD, label, consent: { adult: true, rights: true, use_for_testing_and_training: true, retention: "up to 3 years", withdrawal: "email the donation ID" },
+    const label = document.querySelector('input[name="dnv"]:checked').value, author = document.querySelector('input[name="dnw"]:checked').value;
+    const tiiRaw = parseFloat(($("#dnTii").value || "").trim()), tii = isFinite(tiiRaw) && tiiRaw >= 0 && tiiRaw <= 100 ? Math.round(tiiRaw) : null;
+    const rec = { donation_id: id, created: new Date().toISOString(), aletheia: BUILD, label, author, turnitin_ai_pct: tii, consent: { adult: true, rights: true, use_for_testing_and_training: true, retention: "up to 3 years", withdrawal: "email the donation ID" },
                   result: resultNumbers(r), words: r.totalWords, text: input.value };
     const json = JSON.stringify(rec, null, 1);
     const fname = `ALETHEIA-donation-${id}.json`, subject = `ALETHEIA donation ${id}`;
-    const note = `Donation ID: ${id}\nLabel: ${label}\n\nThe donation file ${fname} is attached.\n`;
+    const note = `Donation ID: ${id}\nLabel: ${label}\nAuthor: ${author}\nTurnitin AI %: ${tii === null ? "-" : tii}\n\nThe donation file ${fname} is attached.\n`;
     const file = new File([json], fname, { type: "application/json" });
     const eml = makeEml(subject, note, fname, json);
     const canShare = !framed && !!(navigator.canShare && navigator.share && navigator.canShare({ files: [file] }));
