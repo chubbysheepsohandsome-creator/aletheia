@@ -436,7 +436,7 @@ footer{border-top:1px solid var(--line)}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.0</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.1</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
@@ -538,7 +538,7 @@ footer{border-top:1px solid var(--line)}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.0 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.1 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -801,6 +801,9 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
   <h2>V1.8 (6 November 2026)</h2>
+  <div class="cl"><h3>V1.8.1 <span>6 Nov 2026 · full Chinese on the Detect page</span></h3><ul>
+    <li><b>中文:</b> in Chinese mode the whole Detect page is now in Chinese, including progress steps, results, evidence explanations, sentence details, error messages and the donation and feedback steps. Only your own document text stays as written.</li>
+    <li><b>Hard cases added to testing:</b> two AI-generated student essays donated on 6 November score like human writing in every current model (whole-document score 1/100; Very high finds 0% and 40%). They are now part of the regression set: no future model is accepted unless it catches them without flagging more human essays. The detection models are unchanged in this version.</li></ul></div>
   <div class="cl"><h3>V1.8.0 <span>6 Nov 2026 · a cleaner, simpler ALETHEIA</span></h3><ul>
     <li><b>Two modes only:</b> the quick Standard check is gone. Every scan is now a <b>Deep Scan</b> (two trained models, window re-scoring, bootstrap re-analysis) or <b>Supreme</b> (everything plus a PDF report).</li>
     <li><b>Level picker:</b> one button opens a list of levels with a short description each: General, <b>T mode</b> (strict student threshold, Turnitin-style scope), High (default for students) and Very high.</li>
@@ -891,7 +894,7 @@ footer{border-top:1px solid var(--line)}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.8.0 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.8.1 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -937,8 +940,8 @@ footer{border-top:1px solid var(--line)}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.8.0"></script>
-<script src="engine.js?v=1.8.0"></script>
+<script src="model.js?v=1.8.1"></script>
+<script src="engine.js?v=1.8.1"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -1017,7 +1020,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.8.0"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.8.1"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -1605,6 +1608,10 @@ function reportText(r){
   return L.join("\n");
 }
 function downloadReport(r){
+  const zh = window.AletheiaLang && window.AletheiaLang.get() === "zh"; if (zh) window.AletheiaLang.set("en");
+  try { downloadReportEn(r); } finally { if (zh) window.AletheiaLang.set("zh"); }
+}
+function downloadReportEn(r){
   const css = [...document.querySelectorAll("style")].map(s => s.textContent).join("\n");
   const html = `<!DOCTYPE html><html data-theme="${document.documentElement.dataset.theme}"><head><meta charset="utf-8"><title>ALETHEIA report</title><style>${css} body{padding:30px} .s{cursor:default}</style></head><body class="wrap">
   <h1 style="font-family:var(--serif)">ALETHEIA Detect report</h1>
@@ -1730,7 +1737,7 @@ var ZH = {
 "Understand the patterns behind written language through advanced AI writing analysis. ALETHEIA shows you the evidence, sentence by sentence. It never hands down a verdict.":"通过 AI 写作分析，理解文字背后的模式。ALETHEIA 逐句展示证据，但从不下定论。",
 "Analyze a Document":"分析文档","Explore the Technology":"了解技术","Start Analyzing":"开始分析","Read the research notes →":"阅读研究说明 →",
 "See beyond the words.":"看见文字背后。","Open Detect":"打开检测","Follow the research":"关注研究",
-"ALETHEIA Detect · V1.8.0 free beta":"ALETHEIA 检测 · V1.8.0 免费测试版","Analyze a document.":"分析一篇文档。",
+"Analyze a document.":"分析一篇文档。",
 "Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.":"粘贴文字或上传文件。分析完全在你的浏览器里运行，文档不会离开你的设备。仅支持英文正文；至少 80 词，建议 300 词以上。",
 "Paste text":"粘贴文字","Upload file":"上传文件","Load a demo sample…":"载入示例…","Demo: assistant-style essay":"示例：助手风格的文章","Demo: casual personal writing":"示例：随意的个人写作","Demo: plain lab report":"示例：普通实验报告","Demo: mixed document":"示例：混合文档",
 "Drop a document here":"把文档拖到这里","or click to choose · .docx, .pdf or .txt · up to 10 MB · text is extracted on your device and shown for review":"或点击选择 · .docx、.pdf 或 .txt · 最大 10 MB · 文字在你的设备上提取并显示供检查",
@@ -1739,20 +1746,20 @@ var ZH = {
 "Standard thresholds for any writing: articles, reports, essays. Fewest false alarms.":"适用于任何文体的标准阈值：文章、报告、论文。误报最少。",
 "T mode":"T 档","student":"学生","High":"高","student · default":"学生 · 默认","Very high":"极高",
 "Our strictest student-essay threshold, applied to texts of 300+ words as Turnitin does. Not calibrated to Turnitin yet: only two paired documents so far.":"我们最严格的学生论文阈值，和 Turnitin 一样只看 300 词以上的文本。尚未按 Turnitin 校准：目前只有两份对照文档。",
-"Also counts weaker AI-like passages (amber). Catches more AI text; about 1 in 100 human essays reaches 20%.":"同时计入较弱的 AI 痕迹（琥珀色），能抓到更多 AI 文本；每 100 篇人写的论文中约有 1 篇达到 20%。",
+"Also counts weaker AI-like passages (amber). Catches more AI text; about 1 in 100 human essays reaches 20%.":"同时计入较弱的 AI 式信号（琥珀色），能抓到更多 AI 文本；每 100 篇人写的论文中约有 1 篇达到 20%。",
 "The most sensitive level: catches more rewritten AI text but still misses some. About 2–3 in 100 human essays reach 20%.":"最敏感的档位：能抓到更多改写过的 AI 文本，但仍会漏掉一些。每 100 篇人写的论文中约有 2–3 篇达到 20%。",
 "Turn on Student assignment to use the student levels.":"打开“学生作业”才能使用学生档位。",
-"Deep Scan: two trained models, window re-scoring and bootstrap re-analysis, about 10–40 seconds.":"深度扫描：两个训练好的模型、窗口重评分和自助法重复分析，约 10–40 秒。",
-"Everything in Deep, plus 2,000 bootstrap re-analyses, three window sizes and paragraph influence analysis, then a full PDF report. Takes as long as the analysis needs: usually under a minute, longer on phones and long documents.":"包含深度扫描的全部内容，加上 2,000 次自助重分析、三种窗口大小和段落影响分析，最后生成完整 PDF 报告。通常不到一分钟，手机和长文档会更久。",
+"Deep Scan: two trained models, window re-scoring and bootstrap re-analysis, about 10–40 seconds.":"深度扫描：两个训练好的模型、窗口重评分和自助法（bootstrap）重分析，约 10–40 秒。",
+"Everything in Deep, plus 2,000 bootstrap re-analyses, three window sizes and paragraph influence analysis, then a full PDF report. Takes as long as the analysis needs: usually under a minute, longer on phones and long documents.":"包含深度扫描的全部内容，加上 2,000 次自助法重分析、三种窗口大小和段落影响分析，最后生成完整 PDF 报告。通常不到一分钟，手机和长文档会更久。",
 "Starting…":"开始…","Cancel":"取消","words":"词","Clear":"清空","Run Deep Scan":"开始深度扫描","Run Supreme Scan":"开始至尊扫描",
 "Loading Deep Scan models…":"正在加载深度扫描模型…","Done":"完成",
-"Highlighted document":"标注后的文档","Hover or tap a sentence to see its signals. Highlights show patterns, not proof of authorship.":"悬停或点按句子查看信号。标注显示的是模式，不是作者身份的证据。",
-"Strong AI-like signals":"强 AI 痕迹","Moderate":"中等","Human-like":"像人写","Inconclusive":"无法判断","Show human-like":"显示像人写的部分",
+"Highlighted document":"标注后的文档","Hover or tap a sentence to see its signals. Highlights show patterns, not proof of authorship.":"悬停或点按句子查看信号。标注显示的是模式，不能证明是谁写的。",
+"Strong AI-like signals":"强烈的 AI 式信号","Moderate":"中等","Human-like":"像人写","Inconclusive":"无法判断","Show human-like":"显示像人写的部分",
 "Distribution by paragraph":"按段落分布","Each prose paragraph's own AI-like signal level. Click a bar to jump to it.":"每个正文段落自己的 AI 信号强度。点击条形跳转到该段。",
 "Evidence":"证据","The first row is the trained model that decides the result; the others are the interpretable signals it is built on.":"第一行是决定结果的训练模型，其余是它所依据的可解释信号。",
-"Passages driving the result":"影响结果的关键句","The sentences with the strongest AI-like signals.":"AI 痕迹最强的句子。",
+"Passages driving the result":"影响结果的关键句","The sentences with the strongest AI-like signals.":"AI 式信号最强的句子。",
 "How to read this report.":"如何阅读这份报告。",
-"ALETHEIA measures patterns, not authorship. Formal, technical, template-based and non-native English writing can show AI-like patterns, and edited AI text can look human. Never use this score alone to accuse anyone of misconduct. Treat it as the start of a conversation, alongside drafts, notes and version history.":"ALETHEIA 测量的是模式，不是作者身份。正式、技术性、模板化以及非母语的英文写作都可能出现 AI 式的模式，而编辑过的 AI 文本也可能看起来像人写的。绝不要只凭这个分数指控任何人作弊。请把它当作一次对话的开始，并结合草稿、笔记和修改记录。",
+"ALETHEIA measures patterns, not authorship. Formal, technical, template-based and non-native English writing can show AI-like patterns, and edited AI text can look human. Never use this score alone to accuse anyone of misconduct. Treat it as the start of a conversation, alongside drafts, notes and version history.":"ALETHEIA 测量的是写作模式，不能判断是谁写的。正式、技术性、模板化以及非母语的英文写作都可能出现 AI 式的模式，而编辑过的 AI 文本也可能看起来像人写的。绝不要只凭这个分数指控任何人作弊。请把它当作一次对话的开始，并结合草稿、笔记和修改记录。",
 "Your scans.":"你的扫描记录。","Only summaries (date, result, word count) are kept, and only in this browser. Document text is never stored.":"只保存摘要（日期、结果、字数），而且只存在这个浏览器里。文档文字从不保存。",
 "Intelligence. Language. Authenticity.":"智能 · 语言 · 真实。","ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship.":"ALETHEIA 报告与文本生成方式有关的模式，无法证明作者身份。",
 "Product":"产品","Evaluate":"评估","Benchmarks":"基准测试","Data licensing":"数据授权","Company":"公司","Privacy & terms":"隐私与条款","FAQ":"常见问题","Brand":"品牌","Source files":"源文件",
@@ -1775,34 +1782,140 @@ var ZH = {
 "Create account":"注册","Sign out":"退出登录","Your account":"你的账号","Name":"名字","Email":"邮箱","Password":"密码","Close":"关闭","Account":"账号"
 };
 var ZH_ATTR = {"Account":"账号","Detection level":"检测档位","Paste the text you want to examine…":"粘贴你想检查的文字…","Switch light or dark theme":"切换深色/浅色","Switch theme":"切换主题","Load a sample":"载入示例","Remove file":"移除文件","Analysis depth":"分析深度","ALETHEIA home":"ALETHEIA 首页","Donate this article":"捐献这篇文章","Formula lines are shown but not scored":"公式行只显示、不计分","Optional comment (please don't paste your text here)":"可选备注（请不要在这里粘贴你的文字）"};
+var ZH2 = {
+"01 · Result":"01 · 结果","Insufficient evidence":"证据不足","Unsupported language":"不支持的语言","Not enough prose to assess":"可评估的正文不够","This text can't be assessed yet":"暂时无法评估这段文字",
+"Demo samples were written for this demonstration. They show how the report works and don't measure accuracy.":"示例文字是为演示编写的，只用来展示报告的样子，不代表准确率。",
+"That file is larger than 10 MB. Please upload a smaller file or paste the text.":"文件超过 10 MB。请上传更小的文件，或直接粘贴文字。",
+"Old .doc files aren't supported. Please save as .docx or PDF.":"不支持旧版 .doc 文件。请另存为 .docx 或 PDF。","Unsupported file type. Use .txt, .docx or .pdf.":"不支持这种文件类型。请使用 .txt、.docx 或 .pdf。",
+"This doesn't look like a valid PDF.":"这不像是有效的 PDF 文件。","Almost no text was found. This PDF may be a scanned image. Scanned PDFs need OCR, which the free version doesn't do.":"几乎没有找到文字。这个 PDF 可能是扫描图片，需要文字识别（OCR），免费版不支持。",
+"This doesn't look like a valid .docx file.":"这不像是有效的 .docx 文件。","This file appears to be binary, not plain text.":"这个文件似乎是二进制文件，不是纯文本。","Could not read that file.":"无法读取这个文件。",
+"Loading Deep Scan models…":"正在加载深度扫描模型…","Deep Scan cancelled.":"深度扫描已取消。","Building PDF report…":"正在生成 PDF 报告…","Download PDF report":"下载 PDF 报告","Building annotated copy…":"正在生成标注副本…",
+"Standard engine: preprocessing, 23 features, GBM document model":"标准引擎：预处理、23 个特征、GBM 文档模型","n-gram stylometric model and register analysis on the full document":"全文 n-gram 文体模型与文体类型分析",
+"Paragraph-level n-gram scoring":"段落级 n-gram 评分","Sentence counts for window and bootstrap analysis":"为窗口和自助法分析统计句子","Combining evidence":"综合证据","AI coverage: overlapping segment scoring":"AI 覆盖率：重叠片段评分",
+"Leave-one-paragraph-out influence analysis":"逐段剔除影响分析","Window re-scoring (sentence neighbourhoods)":"窗口重评分（相邻句子）",
+"Predominantly human-like":"大体像人写","Mostly human-like, some AI-like signals":"大多像人写，有少量 AI 式信号","Inconclusive":"无法判断","AI-like wording with human-like structure":"AI 式用词、人写式结构","Mixed signals across sections":"不同部分信号不一致","Substantial AI-like signals":"明显的 AI 式信号","Strong AI-like signals":"强烈的 AI 式信号","Inconclusive (academic writing)":"无法判断（学术写作）",
+"Few AI-like patterns were found.":"发现的 AI 式模式很少。","Mostly human-like, with a few AI-associated patterns.":"大多像人写，有少量与 AI 相关的模式。","The evidence does not support a reliable conclusion either way.":"证据不足以得出可靠结论。",
+"AI-associated wording, but human-like sentence structure. This may be edited AI text, or human text in a formal style.":"有 AI 式用词，但句子结构像人写。可能是编辑过的 AI 文本，也可能是正式文体的人写文本。",
+"Many AI-associated patterns across the document.":"全文有很多与 AI 相关的模式。","Dense, consistent AI-associated patterns, possibly including chatbot artefacts.":"密集且一致的 AI 模式，可能包含聊天机器人的痕迹。",
+"Some sections show strong AI-like signals while others look human-like. Review section by section.":"有些部分 AI 式信号很强，另一些像人写。请逐段查看。",
+"Sentence-length variation (burstiness)":"句长变化（突发性）","Sentence lengths are unusually uniform. LLM output often has low variation; many careful human writers do too.":"句子长度异常整齐。大模型输出的变化往往很小，但许多认真写作的人也是这样。",
+"Sentence lengths vary a lot (short and long mixed), which is more typical of human writing.":"句子长短变化很大（长短交错），更像人写。","Sentence-length variation is in the ordinary range.":"句长变化在正常范围内。",
+"Paragraph-length uniformity":"段落长度均匀度","Paragraphs are very similar in length, a common pattern in generated essays.":"段落长度非常接近，这是生成文章的常见模式。","Paragraph lengths vary normally.":"段落长度变化正常。",
+"Formal transition openers":"正式过渡词开头","Many sentences open with “Additionally”, “Furthermore”, “Moreover”, etc.":"很多句子以 “Additionally”“Furthermore”“Moreover” 等开头。","Transition-word openers are not unusually frequent.":"以过渡词开头的句子不算多。",
+"Lexical diversity (MATTR-50)":"词汇多样性（MATTR-50）","Shown for information only. Vocabulary diversity depends heavily on topic and proficiency, so it is not used in the score.":"仅供参考。词汇多样性很依赖话题和语言水平，所以不计入分数。",
+"AI-associated vocabulary":"AI 常用词汇","Dense use of words like “delve”, “pivotal”, “tapestry”, “underscores”, “fostering”.":"大量使用 “delve”“pivotal”“tapestry”“underscores”“fostering” 这类词。","Some AI-associated vocabulary is present.":"有一些 AI 常用词汇。","Little AI-associated vocabulary.":"AI 常用词汇很少。",
+"Formulaic phrase templates":"套路化短语","Several template phrases (e.g. “plays a crucial role”, “It’s not just X — it’s Y”, “highlighting the importance of”).":"有几处模板短语（如 “plays a crucial role”“It’s not just X — it’s Y”“highlighting the importance of”）。","A few template phrases.":"有少量模板短语。","Few template phrases.":"模板短语很少。",
+"Rhetorical devices (lists of three, em dashes)":"修辞手法（三项并列、破折号）","Heavy use of three-item lists and em dashes is an editorial observation, not a reliable signal on its own.":"大量使用三项并列和破折号只是写作上的观察，单独看并不可靠。",
+"Chatbot artefacts":"聊天机器人痕迹","Phrases or citation markers typically produced by chat assistants (e.g. “I hope this helps”, oaicite markers). These are strong but can appear in quoted or discussed text.":"聊天助手典型的用语或引用标记（如 “I hope this helps”、oaicite 标记）。信号很强，但也可能出现在引用或讨论的文字里。",
+"Chat-style formatting":"聊天式排版","Markdown bold labels, “#” headings or emoji bullets pasted from a chat interface.":"从聊天界面粘贴来的 Markdown 粗体标签、“#” 标题或表情符号列表。",
+"Human-writing signals":"人写信号","Informal words, spelling slips, lowercase “i”, doubled words or expressive punctuation — rare in unedited LLM output.":"口语词、拼写错误、小写的 “i”、重复的词或情绪化标点——未经编辑的大模型输出很少出现。",
+"Few informal or error-type signals (normal for polished or edited writing, so this is not evidence of AI).":"口语或错误类信号很少（润色或编辑过的文字通常如此，所以这不是 AI 的证据）。",
+"Contractions":"缩约形式（如 don't）","Frequent contractions suggest a conversational, personal register.":"大量使用缩约形式，说明文风口语化、偏个人。","Contraction use is not used as evidence either way in formal writing.":"在正式写作中，缩约形式的多少不作为判断依据。",
+"Below the review threshold.":"低于复核阈值。","Above the review threshold.":"高于复核阈值。","Review range.":"复核区间。",
+"Signal family":"信号类型","Measured":"测量值","Effect on score":"对分数的影响","Strength":"强度","Toward human-like":"偏向人写","Toward AI-like":"偏向 AI","Neutral":"中性","Info only":"仅供参考","moderate":"中等","weak":"弱","strong":"强","ineffective":"无效",
+"Para":"段落","Δ score":"分数变化","Opening":"开头","Paragraphs that move the result most":"对结果影响最大的段落",
+"No specific markers. The score reflects local sentence rhythm and the document-level pattern.":"没有具体的标记。分数反映的是局部句子节奏和全文模式。","Opens with a formal transition word.":"以正式的过渡词开头。",
+"Moderate AI-like signals":"中等的 AI 式信号","Human-like signals":"人写信号","Too short to score":"太短，不计分","structural pattern (uniform sentence rhythm)":"结构模式（句子节奏整齐）",
+"Heading":"标题","List item · excluded":"列表项 · 已排除","Reference · excluded":"参考文献 · 已排除","Table · excluded":"表格 · 已排除","Block quote · excluded":"整段引文 · 已排除","Maths · excluded":"数学公式 · 已排除","Excluded":"已排除",
+"Share of prose in segments that look AI-generated, at the student-assignment threshold.":"在学生作业阈值下，落在像 AI 生成的片段里的正文比例。","Share of prose in segments that look AI-generated.":"落在像 AI 生成的片段里的正文比例。",
+"Student-assignment thresholds: calibrated on human student essays only, so that at most 1% of each group reaches 20%. Do not use them for other kinds of writing.":"学生作业阈值：只用人写的学生论文校准，使每组人写学生论文中最多 1% 达到 20%。不要用于其他类型的写作。",
+"Teal: sentences in segments the model scores as AI-generated.":"青色：模型判为 AI 生成的片段中的句子。","This highlighting is a statistical estimate, not proof of authorship. Delete these lines before reusing the file.":"这些标注只是统计估计，不能证明是谁写的。再次使用文件前请删除这几行。",
+"Download cancelled.":"下载已取消。","Downloads aren't available in this view. Open the site in your browser to save the PDF.":"这个视图里无法下载。请在浏览器中打开网站来保存 PDF。","Download annotated Word file":"下载标注后的 Word 文件",
+"Pick the way that matches your email. In every case the file ends up attached; you only press Send.":"选择和你的邮箱相符的方式。每种方式最后文件都会附上，你只需要点发送。",
+"The file is saved to your Downloads when you tap this button.":"点这个按钮时，文件会保存到你的“下载”文件夹。","Drag me into the email":"把我拖进邮件","Attach as copy":"作为副本附加",
+"The share menu could not open here. Use one of the other ways.":"这里打不开分享菜单。请用其他方式。","Open the downloaded .eml file with your email app, check it, then press Send.":"用邮件应用打开下载的 .eml 文件，检查后点发送。","The .eml file could not be saved in this view. Use another way.":"这个视图里无法保存 .eml 文件。请用其他方式。",
+"Copy was blocked by the browser.":"浏览器阻止了复制。","Cannot attach at all? Copy the donation text instead":"完全没法附加文件？改为复制捐献文字","Download ready-made email (.eml)":"下载准备好的邮件（.eml）","Gmail, school webmail or another site: open a new email":"Gmail、学校网页邮箱或其他网站：新建一封邮件",
+"Drag the file (or this chip) into the email":"把文件（或这个标签）拖进邮件","Keep the ID":"记下这个 ID","if you may want it deleted later.":"，以后如果想删除会用到。","The file":"文件","was also saved to your Downloads.":"也已保存到你的“下载”文件夹。",
+": optional, and separate from your result.":"：自愿，与你的检测结果无关。","Share":"分享","Share the file (one tap)":"分享文件（点一下）","Email opened.":"邮件已打开。",
+", or use the paperclip, then press Send. In Outlook, choose \"Attach as copy\", not a OneDrive link, because we cannot open links.":"，或用回形针附加，然后点发送。在 Outlook 里请选“作为副本附加”，不要用 OneDrive 链接，因为我们打不开链接。",
+"Sends to feedback@aletheiadetect.com from your own email; we see your email address only to reply.":"用你自己的邮箱发送到 feedback@aletheiadetect.com；你的邮箱地址只用于回复你。",
+"Report a wrong result":"报告错误结果","Run Supreme Scan":"开始至尊扫描","Upload file":"上传文件","Supreme Deep Scan":"至尊深度扫描",
+"· 300+ recommended":"· 建议 300 词以上","Human-like:":"像人写：","Informal word":"口语词","Spelling slip / missing apostrophe":"拼写错误 / 缺少撇号","Expressive punctuation":"情绪化标点","Lowercase pronoun":"小写代词","Doubled word":"重复的词","Repeated punctuation":"重复标点","lowercase “i”":"小写的 “i”",
+"Trailing “, highlighting …” clause":"句尾 “, highlighting …” 分句",
+"Abstract framing.":"抽象化表述。","Abstract promotional phrasing.":"抽象的宣传式措辞。","Audience-broadening template.":"扩大受众的套话。","Cliché.":"陈词滥调。","Common filler (weak).":"常见填充语（弱）。","Common in assistant prose (weak).":"AI 助手文字中常见（弱）。","Emphasis on wider significance.":"强调更广泛的意义。","Formulaic abstract metaphor.":"套路化的抽象比喻。","Formulaic conclusion opener":"套路化的结论开头","Formulaic emphasis on significance.":"套路化地强调重要性。","Formulaic prescriptive framing.":"套路化的规定式表述。","Generic change framing.":"泛泛的“变化”表述。","Generic emotional framing.":"泛泛的情感表述。","Generic forward-looking close.":"泛泛的展望式结尾。","Generic hedge.":"泛泛的含糊措辞。","Generic importance claim.":"泛泛地声称重要。","Generic scene-setting opener.":"泛泛的铺垫式开头。","Generic scene-setting.":"泛泛的铺垫。","Generic value claim.":"泛泛的价值判断。","Inflated legacy statement.":"夸大的“影响深远”式说法。","Inflated symbolism.":"夸大的象征意义。","Journey metaphor cliché.":"“旅程”比喻套话。","Negative-parallelism template.":"“不是……而是……”式模板。","Over-used abstract framing.":"被滥用的抽象表述。","Parallel construction used heavily by LLMs.":"大模型常用的排比结构。","Promotional generic phrase.":"宣传式套话。","Promotional, generic description.":"宣传式的泛泛描述。","Puffery about significance.":"吹捧意义。","Stock framing phrase common in assistant-style prose.":"AI 助手风格文字中常见的固定表述。","Stock phrase.":"固定套话。","Strongly over-represented in LLM text.":"在大模型文字中出现得特别多。","Superficial significance analysis.":"肤浅的意义分析。","Template causal link.":"模板化的因果连接。","Template-like conclusion signpost.":"模板化的结论提示语。","Templated summary phrase.":"模板化的总结语。","Vague quantity phrase.":"模糊的数量表述。",
+"Academic-abstract writing style detected. Thresholds for this style are stricter because AI-rewritten abstracts are hard to tell apart from human ones.":"检测到学术摘要文体。这种文体的阈值更严格，因为 AI 改写的摘要很难和人写的区分。",
+"Creative-writing style detected (fiction, monologue or story). Thresholds were calibrated on human fiction.":"检测到创意写作文体（小说、独白或故事）。阈值是用人写的小说校准的。",
+"The standard model scored this text as AI-like, but in academic-abstract style that score is not reliable enough for an AI verdict.":"标准模型认为这段文字像 AI，但在学术摘要文体中这个分数不够可靠，不能下 AI 结论。",
+"The standard model scored this text as AI-like, but the second (n-gram) model did not agree, so no AI verdict is given. Deep Scan gives a fuller picture.":"标准模型认为这段文字像 AI，但第二个（n-gram）模型不同意，所以不给出 AI 结论。深度扫描能给出更完整的判断。",
+"Detected language: Not English (or very little running prose). This free version only analyses English prose.":"检测到的语言：不是英文（或连贯正文很少）。免费版只分析英文正文。"
+};
+var RX2 = [
+ [/^Bootstrap resampling, (full engine|n-gram model) \((\d+)\/(\d+)\)$/, function(m,a,b,c){ return "自助法重抽样，"+(a==="full engine"?"完整引擎":"n-gram 模型")+"（"+b+"/"+c+"）"; }],
+ [/^Window re-scoring \(([^)]*)\)$/, "窗口重评分（$1）"],
+ [/^Deep Scan model \((.+)\)$/, "深度扫描模型（$1）"],
+ [/^Trained document model \((.+)\)$/, "训练好的文档模型（$1）"],
+ [/^Combines the standard document model \((\d+)\) with the n-gram stylometric model \((\d+)\)\. 90% bootstrap interval (\d+)–(\d+)\.$/, "综合标准文档模型（$1）和 n-gram 文体模型（$2）。90% 自助法区间 $3–$4。"],
+ [/^(Deep Scan|Supreme Deep Scan): verdict held in (\d+)% of (\d+) bootstrap re-analyses \(90% interval (\d+)–(\d+)\)\.$/, function(m,a,b,c,d,e){ return (a==="Deep Scan"?"深度扫描":"至尊深度扫描")+"："+c+" 次自助法重分析中 "+b+"% 结论不变（90% 区间 "+d+"–"+e+"）。"; }],
+ [/^(\d+) words inside quotation marks were excluded from scoring\.$/, "引号内的 $1 个词未计分。"],
+ [/^(\d+) invisible and (\d+) look-alike characters .*$/, "发现 $1 个不可见字符和 $2 个形近字符（例如混在英文单词里的西里尔字母），分析前已规范化。这类字符是某些“绕过检测”工具的常用手法。"],
+ [/^(\d+) numbered lines were read as running prose; the line numbers were ignored\.$/, "$1 行带编号的文字被当作连贯正文，行号已忽略。"],
+ [/^Short text \((\d+) words of prose\)\. Results on short texts are much less reliable; treat as indicative only\.$/, "文字较短（$1 个正文词）。短文本的结果可靠性低得多，只能作参考。"],
+ [/^Only (\d+) words of qualifying prose were found\. At least (\d+) are needed, and 300\+ gives far more reliable results\.$/, "只找到 $1 个计分正文词。至少需要 $2 个，300 个以上结果会可靠得多。"],
+ [/^([\d.]+) \/100 words$/, "$1 /100 词"],
+ [/^([\d.]+) triplets, ([\d.]+) dashes \/100w$/, "$1 处三项并列、$2 个破折号 /100 词"],
+ [/^(\d+)% of sentences$/, "$1% 的句子"],
+ [/^(\d+) found$/, "发现 $1 处"],
+ [/^(\d+)% of sentences start with “(.+)”\.$/, "$1% 的句子以 “$2” 开头。"],
+ [/^word “(.+)”$/, "词语 “$1”"],
+ [/^Human-like: (.+)$/, function(m,a){ return "像人写：" + a.split(/; (?=(?:Informal word|Spelling slip|Expressive punctuation|Lowercase pronoun|Doubled word))/).map(function(x){ var i = x.indexOf(": "), l = i < 0 ? x : x.slice(0, i), v = i < 0 ? "" : x.slice(i + 2); return (ZH[l] || ZH2[l] || l) + (v ? "：" + (v === "lowercase “i”" ? ZH2[v] : v === "Repeated punctuation" ? ZH2[v] : v) : ""); }).join("；"); }],
+ [/^Signal (\d+) · (.+)$/, function(m,a,b){ return "信号 " + a + " · " + b.split(" · ").map(function(x){ var w = x.match(/^word “(.+)”$/); return ZH2[x] || ZH[x] || (w ? "词语 “" + w[1] + "”" : x); }).join(" · "); }],
+ [/^· (\d+) · (Strong AI-like signals|Moderate AI-like signals|Inconclusive|Human-like signals|Too short to score)$/, function(m,a,b){ return "· " + a + " · " + (ZH2[b] || ZH[b]); }],
+ [/^· (Strong AI-like signals|Moderate AI-like signals|Inconclusive|Human-like signals|Too short to score)$/, function(m,b){ return "· " + (ZH2[b] || ZH[b]); }],
+ [/^· need (\d+) more$/, "· 还需要 $1 词"],
+ [/^Extracted ([\d,]+) words\. Review the text below, then press Analyse\.$/, "已提取 $1 个词。请检查下面的文字，然后开始分析。"],
+ [/^Extracting text from (.+)…$/, "正在从 $1 提取文字…"],
+ [/^([\d.]+ [KM]B) · ready$/, "$1 · 已就绪"],
+ [/^Mode: (.+)$/, "模式：$1"],
+ [/^Saved\. All (\d+) flagged sentences? highlighted\.$/, "已保存。$1 个被标记的句子全部已标注。"],
+ [/^Saved\. (\d+) of (\d+) flagged sentences highlighted; (\d+) could not be placed exactly .*$/, "已保存。$2 个被标记的句子中有 $1 个已标注；$3 个无法精确定位（公式、文本框或修订记录），只在本页和 PDF 中显示。"],
+ [/^Deep Scan could not finish: (.*)$/, "深度扫描未能完成：$1"],
+ [/^Email opened\. Attach (.+) \(drag it in or use the paperclip\) and press Send\.$/, "邮件已打开。请附上 $1（拖进去或用回形针），然后点发送。"],
+ [/^If no email app opened, use "Copy instead" and send it to (.+)\.$/, "如果没有打开邮件应用，请点“改为复制”，然后发送到 $1。"],
+ [/^Copied\. Paste it into the body of a new email to (.*)$/, "已复制。请粘贴到发给 $1 的新邮件正文里"],
+ [/^Confidence: (.+)$/, function(m,a){ return "可信度：" + ({ "High":"高","Medium-high":"中高","Medium":"中","Low":"低" }[a] || a); }],
+ [/^Evidence: (.+)$/, function(m,a){ return "证据量：" + ({ "Substantial":"充足","Moderate":"中等","Limited":"有限" }[a] || a); }],
+ [/^High-sensitivity screening: (\S+) at the student-assignment threshold .*$/, "高灵敏度排查：其中 $1 达到学生作业阈值（青色）；琥珀色片段是只有这个档位才计入的排查线索。每 100 篇人写的论文中约有 1 篇在这里达到 20%，所以请把琥珀色当作值得一看的地方，而不是证据。"],
+ [/^Share of qualifying words in overlapping ~(\d+)-word segments that the segment model scores as AI-generated\. 1–19% is shown as \*% because false positives are more likely there\.(.*)$/, function(m,a,b){ return "在约 " + a + " 词的重叠片段中，被片段模型判为 AI 生成的计分词所占比例。1–19% 显示为 *%，因为这个区间更容易误报。" + (b ? " " + (b.indexOf("High-sensitivity") >= 0 ? "高灵敏度排查会额外计入较弱的片段（琥珀色），只作为线索。" : b.indexOf("Student-assignment") >= 0 ? "学生作业阈值只用人写的学生论文校准。" : b.trim()) : ""); }],
+ [/^Teal: AI-like at the student-assignment threshold \((\S+)\)\. Amber: screening leads, weaker signals shown only in high-sensitivity mode\.$/, "青色：达到学生作业阈值的 AI 式信号（$1）。琥珀色：排查线索，只在高灵敏度档位显示的较弱信号。"],
+ [/^AI percentage: (\S+) of qualifying text in (\d+) highlighted segments? \(teal underline\)\. This is a separate, section-level measure; the score above is for the whole document\.$/, "AI 百分比：$1 的计分正文落在 $2 个标注片段里（青色下划线）。这是按片段计算的单独指标；上面的分数针对全文。"],
+ [/^AI percentage: (\S+) of qualifying text in (\d+) highlighted segments? \(teal underline = .*\)\. This is a separate, section-level measure; the score above is for the whole document\.$/, "AI 百分比：$1 的计分正文落在 $2 个标注片段里（青色 = 学生作业阈值，琥珀色 = 高灵敏度排查线索）。这是按片段计算的单独指标；上面的分数针对全文。"],
+ [/^Saved$/, "已保存"],
+ [/^Outlook and Windows Mail: open the downloaded file.*$/, "Outlook 和 Windows 邮件：打开下载的文件，邮件会自动带上收件地址、主题和捐献文件，点发送即可。Thunderbird：打开后选“消息 → 作为新消息编辑”。Apple Mail：打开后选“邮件 → 再次发送”。"]
+];
+
 var RX = [
  [/^(\d[\d,]*) words$/, "$1 词"],
- [/^· (\d+) highlighted segments? \(teal underline in the text above\)$/, "· $1 个标注段（上文中的青色下划线）"],
+ [/^· (\d+) highlighted segments? \(teal underline in the text above\)$/, "· $1 个标注片段（上文中的青色下划线）"],
  [/^Whole-document score (\d+)$/, "全文得分 $1"],
  [/^(\d+) · (Result|Details|Document|Paragraphs|Evidence|Passages)(.*)$/, function(m,a,b,c){return a+" · "+({Result:"结果",Details:"详情",Document:"文档",Paragraphs:"段落",Evidence:"证据",Passages:"关键句"}[b])+(c||"").replace("Deep Scan","深度扫描").replace("Supreme","至尊");}],
  [/^(\*%|\d+%) at the student threshold \(teal\); the rest of this figure is amber screening leads: places to look, not evidence\.$/, "其中 $1 达到学生阈值（青色）；其余是琥珀色的排查线索：值得一看的地方，不是证据。"],
- [/^90% bootstrap interval (\d+)–(\d+) · verdict stable in (\d+)% of (\d+) re-analyses · ([\d.]+) s$/, "90% 自助区间 $1–$2 · $4 次重分析中 $3% 结论一致 · $5 秒"],
- [/^Deep Scan: verdict held in (\d+)% of (\d+) bootstrap re-analyses \(90% interval (\d+)–(\d+)\)\.$/, "深度扫描：$2 次自助重分析中 $1% 结论不变（90% 区间 $3–$4）。"],
+ [/^90% bootstrap interval (\d+)–(\d+) · verdict stable in (\d+)% of (\d+) re-analyses · ([\d.]+) s$/, "90% 自助法区间 $1–$2 · $4 次重分析中 $3% 结论一致 · $5 秒"],
+ [/^Deep Scan: verdict held in (\d+)% of (\d+) bootstrap re-analyses \(90% interval (\d+)–(\d+)\)\.$/, "深度扫描：$2 次自助法重分析中 $1% 结论不变（90% 区间 $3–$4）。"],
  [/^(\d[\d,]*) words in headings, lists, tables or references were excluded from scoring\.$/, "标题、列表、表格或参考文献中的 $1 个词未计分。"],
  [/^Formal, technical, and non-native English writing can trigger AI-like signals\. A score is never proof of authorship\.$/, "正式、技术性和非母语的英文写作都可能触发 AI 信号。分数不能证明是谁写的。"],
  [/^The standard sentence model was trained on 2023-era ChatGPT and Claude text; the n-gram model that cross-checks it \(and powers Deep Scan\) was trained on text from 120\+ models released 2023–2026\.$/, "标准句子模型用 2023 年的 ChatGPT 和 Claude 文本训练；交叉核对它的 n-gram 模型（深度扫描的核心）用 2023–2026 年发布的 120 多个模型的文本训练。"],
- [/^AI percentage: (\S+) of qualifying text in (\d+) highlighted segments? \(.*\)\. This is a separate, section-level measure; the score above is for the whole document\.$/, "AI 百分比：$1 的计分正文落在 $2 个标注段里。这是按片段计算的单独指标；上面的分数针对全文。"],
+ [/^AI percentage: (\S+) of qualifying text in (\d+) highlighted segments? \(.*\)\. This is a separate, section-level measure; the score above is for the whole document\.$/, "AI 百分比：$1 的计分正文落在 $2 个标注片段里。这是按片段计算的单独指标；上面的分数针对全文。"],
+ [/^ALETHEIA Detect · (V[\d.]+) free beta$/, "ALETHEIA 检测 · $1 免费测试版"],
  [/^Analysis took ([\d.]+) s on this device\.$/, "本次分析在这台设备上用了 $1 秒。"]
 ];
+for (var k2 in ZH2) if (!ZH[k2]) ZH[k2] = ZH2[k2];
 var LANG = "en"; try { LANG = localStorage.getItem("aletheia.lang") || (/^zh/i.test(navigator.language || "") ? "zh" : "en"); } catch (e) {}
 var orig = new WeakMap(), origAttr = new WeakMap();
-var SKIP = "script,style,textarea,#doc,#detail,table.hist td,#p-research,#p-changelog,#p-technology,#p-evaluate,#p-brand,#p-privacy,.tip,#tops,.mono.v";
-function tr(s){ var k = s.trim().replace(/\s+/g, " "); if (ZH[k]) return s.replace(s.trim(), ZH[k]);
-  for (var i = 0; i < RX.length; i++) { if (RX[i][0].test(k)) return s.replace(s.trim(), k.replace(RX[i][0], RX[i][1])); } return null; }
+var ALLOW = "#doc .blk-x>em,#tops small";
+var SKIP = "script,style,textarea,#doc,#detail>div:first-child,#tops,table.hist td,#p-research,#p-changelog,#p-technology,#p-evaluate,#p-brand,#p-privacy,.mono.v";
+function skipped(e){ return !!(e && e.closest(SKIP) && !e.closest(ALLOW)); }
+var ALLRX = null;
+function tr(s){ var k = s.trim().replace(/\s+/g, " "); if (ZH[k]) { var zk = ZH[k]; return s.replace(s.trim(), function(){ return zk; }); }
+  var all = ALLRX || (ALLRX = RX2.concat(RX)); for (var i = 0; i < all.length; i++) { if (all[i][0].test(k)) { var z = k.replace(all[i][0], all[i][1]); return s.replace(s.trim(), function(){ return z; }); } } return null; }
 function apply(root){
   if (LANG !== "zh") return;
-  if (root.closest && root.closest(SKIP)) return;
+  if (root.closest && skipped(root) && !(root.querySelector && root.querySelector(ALLOW))) return;
   if (root.getAttribute) ["placeholder","title","aria-label"].forEach(function(a){ var v = root.getAttribute(a); if (v && ZH_ATTR[v]) { var m = origAttr.get(root) || {}; if (!m[a]) m[a] = v; origAttr.set(root, m); root.setAttribute(a, ZH_ATTR[v]); } });
   var zs = root.querySelectorAll ? Array.prototype.slice.call(root.querySelectorAll("[data-zh]")) : []; if (root.hasAttribute && root.hasAttribute("data-zh")) zs.push(root);
   zs.forEach(function(e){ if (!orig.has(e)) { orig.set(e, e.innerHTML); e.innerHTML = e.getAttribute("data-zh"); } });
-  var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function(x){ var e = x.parentElement; return e && e.closest(SKIP + ",[data-zh]") ? 3 : 1; } }), n, list = [];
+  var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function(x){ var e = x.parentElement; return !e || skipped(e) || e.closest("[data-zh]") ? 3 : 1; } }), n, list = [];
   while ((n = w.nextNode())) list.push(n);
-  list.forEach(function(t){ var e = t.parentElement; if (!e || e.closest(SKIP)) return; var v = t.nodeValue; if (!/[A-Za-z]/.test(v)) return;
+  list.forEach(function(t){ var e = t.parentElement; if (!e || skipped(e)) return; var v = t.nodeValue; if (!/[A-Za-z]/.test(v)) return;
     var z = tr(v); if (z != null && z !== v) { if (!orig.has(t)) orig.set(t, v); t.nodeValue = z; } });
   (root.querySelectorAll ? root.querySelectorAll("[placeholder],[title],[aria-label]") : []).forEach(function(e){
     ["placeholder","title","aria-label"].forEach(function(a){ var v = e.getAttribute(a); if (v && ZH_ATTR[v]) { var m = origAttr.get(e) || {}; if (!m[a]) m[a] = v; origAttr.set(e, m); e.setAttribute(a, ZH_ATTR[v]); } }); });
