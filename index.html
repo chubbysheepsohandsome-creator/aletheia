@@ -19,7 +19,7 @@ html{scroll-padding-top:88px;scrollbar-gutter:stable}
 @keyframes gaugein{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes barin{from{transform:scaleX(0)}to{transform:none}}
 .page.on{animation:fadein .26s var(--ease) both}
-.res-grid>*{animation:rise .42s var(--ease) both}.res-grid>*:nth-child(2){animation-delay:.06s}
+.res-grid>*{animation:rise .42s var(--ease) both}.res-grid>*:nth-child(2){animation-delay:.06s}.res-grid>*:nth-child(3){animation-delay:.12s}
 .dcta{animation:rise .45s var(--ease) both}
 .dpanel,.dsteps,.dway-note{animation:fadein .3s var(--ease) both}
 .gfill{stroke-dasharray:1;animation:gaugein .9s var(--ease) .1s both}
@@ -343,31 +343,118 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
   .tabs .spacer{display:none}.tabs select{order:3;flex:1 0 calc(100% - 28px);margin:10px 14px;max-width:calc(100% - 28px)}
   textarea#input{font-size:18px;padding:20px;min-height:260px}.hero h1{font-size:54px}.reveal .txt{font-size:19px}
 }
-@media print{header.top,.mobile-nav,footer,.actions,#inputSection,.page-head,.donfloat,.dcta{display:none!important}.doc{max-height:none}.summary{position:static}.res-grid{grid-template-columns:1fr}}
+@media print{:root,[data-theme]{--bg:#fff;--bg-2:#fff;--bg-3:#f2f4f7;--card:#fff;--fg:#141A22;--fg-2:#46505E;--fg-3:#6b7684;--line:rgba(20,26,34,.15);--line-2:rgba(20,26,34,.25);--shadow:none}html,body{background:#fff!important;color:#141A22!important}.helpbox,.zhnote,.modal{display:none!important}header.top,.mobile-nav,footer,.actions,#inputSection,.page-head,.donfloat,.dcta{display:none!important}.doc{max-height:none}.summary{position:static}.res-grid{grid-template-columns:1fr}}
+
+/* ===== V1.8 design layer: calmer palette, softer geometry, fewer lines ===== */
+[data-theme="dark"]{
+  --bg:#0D1015;--bg-2:#141921;--bg-3:#1C232D;--fg:#ECEFF4;--fg-2:#A9B2BF;--fg-3:#768192;
+  --line:rgba(236,239,244,.08);--line-2:rgba(236,239,244,.15);--accent:#93B4FF;--beam:#5CC8B8;--track:#232B36;--btn-fg:#0D1015;
+  --hl-strong:rgba(240,110,100,.30);--hl-moderate:rgba(240,186,90,.28);--hl-human:rgba(92,200,150,.20);
+  --card:#121720;--shadow:0 1px 0 rgba(255,255,255,.03) inset,0 10px 30px rgba(0,0,0,.25);
+}
+[data-theme="light"]{
+  --bg:#F7F8FA;--bg-2:#FFFFFF;--bg-3:#EEF1F5;--fg:#141A22;--fg-2:#46505E;--fg-3:#7A8493;
+  --line:rgba(20,26,34,.08);--line-2:rgba(20,26,34,.15);--accent:#2F5BD3;--beam:#0E8C80;--track:#E6EAF0;--btn-fg:#FFFFFF;
+  --hl-strong:rgba(226,82,72,.20);--hl-moderate:rgba(232,166,48,.24);--hl-human:rgba(30,160,110,.16);
+  --card:#FFFFFF;--shadow:0 1px 2px rgba(20,26,34,.04),0 8px 24px rgba(20,26,34,.06);
+}
+.eyebrow{letter-spacing:.16em}
+header.top{border-bottom-color:transparent;box-shadow:0 1px 0 var(--line)}
+nav.links{gap:22px}nav.links a.on{border-bottom-color:transparent;color:var(--fg);font-weight:500}
+.iconbtn{border-radius:10px;border-color:var(--line)}
+.langbtn{font:600 13px var(--sans)}
+.btn{border-radius:10px}.btn.small{border-radius:9px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--btn-fg)}
+.btn.primary:hover{filter:brightness(1.06);background:var(--accent);border-color:var(--accent)}
+.acctbtn{gap:8px}.acct-dot{width:20px;height:20px;border-radius:50%;background:var(--bg-3);border:1px solid var(--line-2);display:inline-grid;place-items:center;font:600 10.5px var(--sans);color:var(--fg)}
+.acctbtn.in .acct-dot{background:var(--accent);color:var(--btn-fg);border-color:transparent}
+.page-head{border-bottom:0;padding:56px 0 18px}
+.workbench{border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow)}
+.tabs{border-bottom-color:var(--line)}.tabs button.on{border-bottom-width:2px}
+.tabs select{border-radius:8px}
+textarea#input{border-radius:18px 18px 0 0;background:var(--card);font:400 19px/1.7 var(--serif)}
+.drop{border-radius:14px;background:var(--bg)}
+.modebar{padding:16px 20px 6px;border-top:1px solid var(--line)}
+.modes{grid-template-columns:repeat(2,1fr);border:0;background:var(--bg-3);border-radius:12px;padding:4px;gap:4px;max-width:560px}
+.modes button{border:0!important;border-radius:9px;padding:10px 14px;transition:background-color .18s var(--ease),color .18s var(--ease)}
+.modes button.on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.ctrlrow{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:14px 0 4px}
+.switch{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.switch input{position:absolute;opacity:0;width:1px;height:1px}
+.switch .track{position:relative;flex:0 0 46px;width:46px;height:28px;border-radius:999px;background:var(--track);border:1px solid var(--line-2);transition:background-color .22s var(--ease),border-color .22s var(--ease)}
+.switch .thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .22s var(--ease)}
+.switch input:checked+.track{background:#34C759;border-color:#34C759}
+.switch input:checked+.track .thumb{transform:translateX(18px)}
+.switch input:focus-visible+.track{outline:2px solid var(--accent);outline-offset:2px}
+.swlbl b{display:block;font:500 14px/1.3 var(--sans);color:var(--fg)}.swlbl small{display:block;font:12px/1.4 var(--sans);color:var(--fg-3)}
+.picker{position:relative;margin-left:auto}
+.pickbtn{display:flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:var(--card);color:var(--fg);border-radius:10px;padding:9px 12px;font:500 13.5px var(--sans);cursor:pointer;transition:border-color .18s var(--ease)}
+.pickbtn:hover{border-color:var(--fg-3)}.pk-k{color:var(--fg-3);font-weight:400}
+.picklist{position:absolute;right:0;top:calc(100% + 6px);z-index:40;width:min(380px,86vw);background:var(--card);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.28);padding:6px;animation:rise .18s var(--ease) both}
+.picklist button{display:block;width:100%;text-align:left;background:none;border:0;border-radius:10px;padding:10px 12px;color:var(--fg);cursor:pointer}
+.picklist button:hover:not(:disabled),.picklist button:focus-visible{background:var(--bg-3)}
+.picklist button.on{background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.picklist button:disabled{opacity:.45;cursor:not-allowed}
+.picklist b{display:block;font:600 13.5px var(--sans)}.picklist b i{font:400 11px var(--mono);font-style:normal;color:var(--fg-3);margin-left:6px;letter-spacing:.04em}
+.picklist small{display:block;margin-top:3px;font:12.5px/1.45 var(--sans);color:var(--fg-2)}
+.pk-hint{flex-basis:100%;margin:0;font:12px var(--sans);color:var(--fg-3);text-align:right}@media (max-width:760px){.pk-hint{text-align:left}}
+#modeNote{margin:10px 0 6px;color:var(--fg-3);font-size:12.5px}
+.bar{border-top:1px solid var(--line)}
+.progress .ptrack{border-radius:999px;overflow:hidden}
+/* results: one column, each section its own card */
+.res-stack{grid-template-columns:minmax(0,1fr)!important;gap:22px}
+.res-stack .summary{position:static}
+.panel{border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow);padding:28px 30px;margin-bottom:22px}
+.panel h2{font-size:26px}
+.sec-k{font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+.res-stack .summary .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:4px 28px}
+.res-stack .summary .meta>div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:6px 0}
+.res-stack .summary .meta dt,.res-stack .summary .meta dd{margin:0}
+.res-stack #deepPanel .covbox{border:0;background:var(--bg-3);border-radius:14px;padding:22px 24px}
+.res-stack #deepPanel .covpct{font-size:64px}
+.mdet{margin-top:14px}.mdet summary{cursor:pointer;font:500 13px var(--sans);color:var(--fg-2)}
+#modeNote{font-family:var(--sans)}
+@media (max-width:760px){table.sig{display:block;overflow-x:auto}header.top .wrap{gap:10px;padding:0 16px}.brand span{letter-spacing:.18em;font-size:17px}.vbadge{display:none}#acctLbl{display:none}.acctbtn{padding:6px 7px}.picklist{left:0;right:auto}.picker{margin-left:0}.panel{padding:22px 18px;border-radius:14px}}
+.dcta{border-radius:18px}
+.disclaimer{border-radius:14px;background:var(--bg-3);border:0}
+footer{border-top:1px solid var(--line)}
+/* account + language dialogs */
+.modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:rgba(5,8,12,.55);backdrop-filter:blur(4px);animation:fadein .16s var(--ease) both}
+.modal[hidden]{display:none}
+.mbox{width:min(420px,92vw);background:var(--card);border:1px solid var(--line-2);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.35);padding:26px 26px 22px;animation:rise .22s var(--ease) both}
+.mbox h3{font:600 22px var(--sans);letter-spacing:-.01em;margin:0 0 4px}.mbox .msub{color:var(--fg-3);font-size:13px;margin:0 0 16px}
+.mtabs{display:flex;gap:4px;background:var(--bg-3);border-radius:10px;padding:3px;margin-bottom:16px}.mtabs button{flex:1;border:0;background:none;color:var(--fg-2);padding:8px;border-radius:8px;font:500 13px var(--sans);cursor:pointer}.mtabs button.on{background:var(--card);color:var(--fg)}
+.fld{display:block;margin:0 0 12px}.fld span{display:block;font:500 12.5px var(--sans);color:var(--fg-2);margin-bottom:5px}
+.fld input{width:100%;border:1px solid var(--line-2);background:var(--bg);color:var(--fg);border-radius:10px;padding:10px 12px;font:14px var(--sans)}
+.fld input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.merr{color:#E5534B;font-size:12.5px;min-height:18px;margin:2px 0 8px}
+.mnote{font-size:12px;color:var(--fg-3);margin:12px 0 0;line-height:1.5}
+.zhnote{margin:24px 0 0;padding:10px 14px;border-radius:10px;background:var(--bg-3);color:var(--fg-2);font-size:13px}
+.mrow{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.7.9</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.0</small></a>
     <nav class="links">
-      <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a>
-      <a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a>
+      <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
+    <button class="iconbtn langbtn" id="langBtn" aria-label="切换到中文 / Switch language" title="中文 / English">中</button>
     <button class="iconbtn" id="themeBtn" aria-label="Switch light or dark theme" title="Switch theme">
       <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg>
     </button>
-    <a class="btn small primary hdr-cta" href="#detect">Analyze a Document</a>
+    <button class="btn small acctbtn" id="acctBtn" aria-haspopup="dialog"><span class="acct-dot" aria-hidden="true"></span><span id="acctLbl">Sign in</span></button>
   </div>
 </header>
-<div class="mobile-nav"><a href="#home" data-p="home">Home</a><a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#evaluate" data-p="evaluate">Evaluate</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a></div>
+<div class="mobile-nav"><a href="#home" data-p="home">Home</a><a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a></div>
 
 <!-- ================= HOME ================= -->
 <main class="page" id="p-home">
   <section class="wrap hero">
     <div>
       <p class="eyebrow">AI Writing Intelligence</p>
-      <h1>See beyond<br>the <em>words.</em></h1>
+      <h1 data-zh="看见<br><em>文字背后。</em>">See beyond<br>the <em>words.</em></h1>
       <p class="lede">Understand the patterns behind written language through advanced AI writing analysis. ALETHEIA shows you the evidence, sentence by sentence. It never hands down a verdict.</p>
       <div class="ctas"><a class="btn primary" href="#detect">Analyze a Document <span class="arr">→</span></a><a class="btn" href="#technology">Explore the Technology</a></div>
       <div class="meta"><span><b>96.5%</b>fiction by unseen 2025–26 models found (Deep Scan)</span><span><b>0 / 3,879</b>essays by English learners flagged</span><span><b>0 bytes</b>uploaded</span></div>
@@ -396,8 +483,8 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
   </div></section>
 
   <section class="section"><div class="wrap">
-    <div class="sec-head"><div><p class="eyebrow">02 — Technology</p><h2>Seven independent lenses on a single text.</h2></div>
-      <p>Each layer sees something different. They are combined with capped weights, so no single signal, and no pile of weak ones, can decide the result.</p></div>
+    <div class="sec-head"><div><p class="eyebrow">02 — Technology</p><h2>Several layers of evidence on a single text.</h2></div>
+      <p>Trained models make the decision; the interpretable signals below show why. No single hand-picked signal decides the result on its own.</p></div>
     <div class="tech-grid">
       <div class="tech"><div class="n">01</div><h3>Linguistic analysis</h3><p>Segmentation into prose, quotations, references, headings and lists, so only the author's own running prose is assessed.</p></div>
       <div class="tech"><div class="n">02</div><h3>Statistical text analysis</h3><p>Sentence-length variation, paragraph uniformity, function-word ratios, punctuation habits and lexical diversity.</p></div>
@@ -438,7 +525,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
       <div class="stat"><div class="v">23</div><div class="l">dataset sources reviewed for licensing; 11 approved, 12 refused</div><div class="c">review 2026-11-02</div></div>
       <div class="stat"><div class="v">21</div><div class="l">automated leakage checks every training release must pass</div><div class="c">release r20261102-7d8acc5e</div></div>
     </div>
-    <p class="callout">Benchmark AI text comes from 2023-era models. Performance on newer systems has not yet been measured and is likely lower, and results on unseen sources are clearly weaker. The latest candidate model was <b>rejected</b> by our promotion gate because 1.36% of human texts were flagged, above our 1% limit. <a href="#research">Read the research notes →</a></p>
+    <p class="callout">These figures are for the original engine 0.2.0 on 2023-era text. Deep Scan results on 2025–26 models are on the Research page; humanized, paraphrased and mixed text remain weaker, and some AI-written student essays are still missed. <a href="#research">Read the research notes →</a></p>
   </div></section>
 
   <section class="final"><div class="wrap">
@@ -451,7 +538,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.7.9 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.0 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -474,37 +561,44 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
         <div class="msg" id="msg"></div>
         <div class="modebar">
           <div class="modes" role="radiogroup" aria-label="Analysis depth">
-            <button class="on" data-mode="standard" role="radio" aria-checked="true">Standard<small>~1 second</small></button>
-            <button data-mode="deep" role="radio" aria-checked="false">Deep Scan<small>higher accuracy</small></button>
-            <button data-mode="supreme" role="radio" aria-checked="false"><span class="gold">◆</span> Supreme<small>full analysis + PDF</small></button>
+            <button class="on" data-mode="deep" role="radio" aria-checked="true">Deep Scan<small>thorough · about 10–40 s</small></button>
+            <button data-mode="supreme" role="radio" aria-checked="false"><span class="gold">◆</span> Supreme<small>everything + PDF report</small></button>
           </div>
-          <p class="count" id="modeNote">Fast check with the standard engine. Results in about a second.</p>
-          <div class="opts">
-            <label class="opt"><input type="checkbox" id="studentMode"><span><b>Student assignment</b><small>AI percentage calibrated on human student essays (300+ words). Other kinds of writing are flagged more often in this mode.</small></span></label>
-            <label class="opt sub" id="sensOpt" style="opacity:.55"><input type="checkbox" id="sensMode" checked disabled><span><b>High sensitivity (screening)</b><small>On by default. Also marks weaker segments in amber and counts them: catches more AI text, with about 1 in 100 human essays reaching 20% instead of 1 in 1,000. Amber means "look here", not evidence.</small></span></label>
-            <label class="opt sub2" id="vhOpt" style="opacity:.55"><input type="checkbox" id="vhMode" disabled><span><b>Very high sensitivity</b><small>Goes further: about 2 in 100 human essays reach 20%, in exchange for catching more rewritten and "humanized" AI text.</small></span></label>
-            <div class="tier" id="tierRow" role="group" aria-label="Detection level" style="opacity:.55"><button type="button" disabled aria-pressed="false" data-tier="0" title="Strict student threshold only: fewest false alarms, lowest recall">T · strict</button><button type="button" disabled aria-pressed="false" data-tier="1">High</button><button type="button" disabled aria-pressed="false" data-tier="2">Very high</button></div>
+          <div class="ctrlrow">
+            <label class="switch" for="studentMode"><input type="checkbox" id="studentMode" role="switch"><span class="track" aria-hidden="true"><span class="thumb"></span></span><span class="swlbl"><b>Student assignment</b><small>For essays and reports of 300+ words</small></span></label>
+            <div class="picker" id="picker">
+              <button type="button" class="pickbtn" id="pickBtn" aria-haspopup="listbox" aria-expanded="false"><span class="pk-k">Level</span><span class="pk-v" id="pickVal">General</span><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+              <div class="picklist" id="pickList" role="listbox" aria-label="Detection level" hidden>
+                <button type="button" role="option" data-lv="g"><b>General</b><small>Standard thresholds for any writing: articles, reports, essays. Fewest false alarms.</small></button>
+                <button type="button" role="option" data-lv="0"><b>T mode <i>student</i></b><small>Our strictest student-essay threshold, applied to texts of 300+ words as Turnitin does. Not calibrated to Turnitin yet: only two paired documents so far.</small></button>
+                <button type="button" role="option" data-lv="1"><b>High <i>student · default</i></b><small>Also counts weaker AI-like passages (amber). Catches more AI text; about 1 in 100 human essays reaches 20%.</small></button>
+                <button type="button" role="option" data-lv="2"><b>Very high <i>student</i></b><small>The most sensitive level: catches more rewritten AI text but still misses some. About 2–3 in 100 human essays reach 20%.</small></button>
+              </div>
+            </div>
+            <p class="pk-hint" id="pickHint">Turn on Student assignment to use the student levels.</p>
           </div>
+          <input type="checkbox" id="sensMode" hidden checked disabled><input type="checkbox" id="vhMode" hidden disabled>
+          <p class="count" id="modeNote">Deep Scan: two trained models, window re-scoring and bootstrap re-analysis, about 10–40 seconds.</p>
         </div>
         <div class="progress" id="deepProg" hidden><div class="ptop"><span id="deepStage">Starting…</span><span class="mono" id="deepTime">0.0 s</span></div><div class="ptrack"><div class="pfill" id="deepBar" style="width:1%;background:var(--beam)"></div></div><button class="btn small" id="deepCancel">Cancel</button></div>
         <div class="bar"><span class="count"><b id="wc">0</b> words</span><span class="count" id="wchint"></span><span class="grow"></span>
-          <button class="btn small" id="clear">Clear</button><button class="btn primary" id="go" disabled>Analyse text</button></div>
+          <button class="btn small" id="clear">Clear</button><button class="btn primary" id="go" disabled>Run Deep Scan</button></div>
       </div>
     </section>
     <section id="results">
       <div id="resState"></div>
       <div class="dcta" id="donateCta" hidden></div>
-      <div class="res-grid" id="resGrid">
-        <aside class="panel summary" id="summary"></aside>
+      <div class="res-grid res-stack" id="resGrid">
+        <div class="panel sec" id="deepPanel" style="display:none"></div>
+        <aside class="panel summary sec" id="summary"></aside>
         <div>
-          <div class="panel" id="deepPanel" style="display:none;border-color:color-mix(in srgb,var(--beam) 45%,transparent)"></div>
-          <div class="panel"><h2>Highlighted document</h2><p class="sub">Hover or tap a sentence to see its signals. Highlights show patterns, not proof of authorship.</p>
+          <div class="panel sec"><p class="sec-k">03 · Document</p><h2>Highlighted document</h2><p class="sub">Hover or tap a sentence to see its signals. Highlights show patterns, not proof of authorship.</p>
             <div class="legend"><span><i class="sw" style="background:var(--hl-strong)"></i>Strong AI-like signals</span><span><i class="sw" style="background:var(--hl-moderate)"></i>Moderate</span><span><i class="sw" style="background:var(--hl-human)"></i>Human-like</span><span><i class="sw" style="border:1px solid var(--line-2)"></i>Inconclusive</span><label><input type="checkbox" id="showHuman"> Show human-like</label></div>
             <div class="doc" id="doc"></div><div class="detail" id="detail"></div></div>
-          <div class="panel"><h2>Distribution by paragraph</h2><p class="sub">Each prose paragraph's own AI-like signal level. Click a bar to jump to it.</p>
+          <div class="panel sec"><p class="sec-k">04 · Paragraphs</p><h2>Distribution by paragraph</h2><p class="sub">Each prose paragraph's own AI-like signal level. Click a bar to jump to it.</p>
             <div class="pbars" id="pbars"></div><div class="axis"><span></span><div><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><span></span></div></div>
-          <div class="panel"><h2>Evidence</h2><p class="sub">The first row is the trained model that decides the result; the others are the interpretable signals it is built on.</p><div class="tscroll"><table class="ev" id="ev"></table></div></div>
-          <div class="panel" id="topPanel"><h2>Passages driving the result</h2><p class="sub">The sentences with the strongest AI-like signals.</p><div id="tops"></div></div>
+          <div class="panel sec"><p class="sec-k">05 · Evidence</p><h2>Evidence</h2><p class="sub">The first row is the trained model that decides the result; the others are the interpretable signals it is built on.</p><div class="tscroll"><table class="ev" id="ev"></table></div></div>
+          <div class="panel sec" id="topPanel"><p class="sec-k">06 · Passages</p><h2>Passages driving the result</h2><p class="sub">The sentences with the strongest AI-like signals.</p><div id="tops"></div></div>
           <div class="disclaimer"><b>How to read this report.</b> ALETHEIA measures patterns, not authorship. Formal, technical, template-based and non-native English writing can show AI-like patterns, and edited AI text can look human. Never use this score alone to accuse anyone of misconduct. Treat it as the start of a conversation, alongside drafts, notes and version history.</div>
         </div>
       </div>
@@ -514,6 +608,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 
 <!-- ================= TECHNOLOGY ================= -->
 <main class="page" id="p-technology"><div class="wrap">
+  <p class="zhnote" data-zhnote hidden>本页目前只有英文版本。</p>
   <div class="page-head"><p class="eyebrow">Technology</p><h1>How ALETHEIA reads a text.</h1><p>An independent detection engine (<span class="mono" id="ver1"></span>) that combines a transparent feature extractor with a small trained classifier, all running in your browser.</p></div>
   <div class="content">
     <h2>The analysis pipeline</h2>
@@ -539,6 +634,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 
 <!-- ================= RESEARCH ================= -->
 <main class="page" id="p-research"><div class="wrap">
+  <p class="zhnote" data-zhnote hidden>本页目前只有英文版本。</p>
   <div class="page-head"><p class="eyebrow">Research &amp; Development</p><h1>Research notes.</h1><p>How we measure ALETHEIA, where the data comes from, and what we refuse to use.</p></div>
   <div class="content">
     <h2>Benchmark: engine 0.2.0</h2>
@@ -563,7 +659,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
       <tr class="ood"><td>&nbsp;&nbsp;same texts: Pangram / GPTZero (their published scores)</td><td class="n">98.2% / 81.8%</td><td class="n">3.6% / 0.0%</td></tr>
     </tbody></table></div>
     <p>Compared with deep-0.4.0, V1.0 finds more AI text in every held-out group (questions and answers 1.6% → 42.7%, real ChatGPT answers 46.6% → 55.5%, current-model news 41.5% → 56.8%) and leaves fiction and academic abstracts unchanged. Two earlier candidates that retrained a single model on all genres lost ground on GPT-5.5 fiction and were not released.</p>
-    <p>For comparison, the standard 2023-era model found only 0–13% of modern AI fiction. The Standard mode now consults the n-gram model too: it gives an AI verdict when that model clears its register's threshold, and withholds one when it disagrees. Line-numbered texts (monologues, scripts) are now read as prose; previously their lines were excluded as list items.</p>
+    <p>For comparison, the standard 2023-era model found only 0–13% of modern AI fiction. The Standard mode (removed in V1.8) consulted the n-gram model too: it gave an AI verdict when that model clears its register's threshold, and withholds one when it disagrees. Line-numbered texts (monologues, scripts) are now read as prose; previously their lines were excluded as list items.</p>
         <p><b>Weak spot: older and open models in non-fiction.</b> Wikipedia-style articles, how-to guides and forum answers written by older or small open models (BLOOMz, Dolly, Flan-T5) are rarely detected (0–5%); ChatGPT-written ones are found 12–39% of the time. Human writing in these styles is almost never flagged (0–0.3%).</p>
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
@@ -701,8 +797,20 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 
 <!-- ================= CHANGELOG ================= -->
 <main class="page" id="p-changelog"><div class="wrap">
+  <p class="zhnote" data-zhnote hidden>本页目前只有英文版本。</p>
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
+  <h2>V1.8 (6 November 2026)</h2>
+  <div class="cl"><h3>V1.8.0 <span>6 Nov 2026 · a cleaner, simpler ALETHEIA</span></h3><ul>
+    <li><b>Two modes only:</b> the quick Standard check is gone. Every scan is now a <b>Deep Scan</b> (two trained models, window re-scoring, bootstrap re-analysis) or <b>Supreme</b> (everything plus a PDF report).</li>
+    <li><b>Level picker:</b> one button opens a list of levels with a short description each: General, <b>T mode</b> (strict student threshold, Turnitin-style scope), High (default for students) and Very high.</li>
+    <li><b>Student assignment</b> is now an on/off switch. The student levels unlock when it is on.</li>
+    <li><b>Clearer results:</b> one column of separate, numbered cards (Result, Details, Document, Paragraphs, Evidence, Passages). The AI percentage comes first; model internals are folded away.</li>
+    <li><b>New look:</b> new light and dark colour palettes, softer shapes, fewer lines and a shorter menu.</li>
+    <li><b>中文 / English:</b> the main interface can be switched to Chinese. Research pages stay in English for now.</li>
+    <li><b>Accounts (beta):</b> you can create an account and sign in. For now the account lives only in this browser on this device (the password is stored as a salted hash) and signing in does not change your results. Nothing is sent to a server.</li>
+    <li><b>Reports:</b> the copied and downloaded reports and the History page now show the AI percentage you see on screen.</li>
+    <li><b>Not changed:</b> the detection models and thresholds are the same as V1.7.9. Recent donated essays show that some AI-written student essays are still missed, even at Very high; improving that needs more labelled data and is the next priority.</li></ul></div>
   <h2>V1.7 series (5–6 November 2026)</h2>
   <div class="cl"><h3>V1.7.9 <span>6 Nov 2026 · quality gate and fixes</span></h3><ul>
     <li><b>New release check:</b> before each release, two independent reviewers check the code and the public text, verify each other's findings, and a final review must pass.</li>
@@ -765,13 +873,15 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 
 <!-- ================= PRIVACY ================= -->
 <main class="page" id="p-privacy"><div class="wrap">
+  <p class="zhnote" data-zhnote hidden>本页目前只有英文版本。中文要点：扫描完全在你的浏览器里完成，文字不会上传。捐献的文字由你自己的邮箱发给我们，最多保存 3 年，用于测试和训练检测器，不会公开或出售；随时可以发邮件附上捐献 ID 要求删除。捐献者必须年满 18 岁，并获得所有作者的同意。测试版账号只保存在这个浏览器里，不会发送到任何服务器，也不能保护这台设备上的历史记录。</p>
   <div class="page-head"><p class="eyebrow">Privacy</p><h1>Your writing stays yours.</h1><p>Privacy, terms of use and frequently asked questions.</p></div>
   <div class="content">
     <ul>
       <li><b>No upload.</b> Text extraction (TXT, DOCX, PDF) and analysis run on your device.</li>
+      <li><b>Accounts (beta).</b> If you create an account, your name, email and a salted hash of your password are stored only in this browser on this device. They are not sent to us or to any server, and clearing your browser data deletes them. A beta account does not lock or protect anything: anyone using this browser can see your scan history, so on a shared computer clear it when you finish.</li>
       <li><b>No training on your work.</b> Text you scan is never used to train or tune ALETHEIA unless you choose to donate it (see below).</li>
       <li><b>Minimal history.</b> Scan summaries only, in your browser's local storage; clear them at any time.</li>
-      <li><b>No accounts, cookies, analytics or third-party requests</b> in the free beta. Fonts and libraries are served from this site.</li>
+      <li><b>No cookies, analytics or third-party requests</b> in the free beta. Fonts and libraries are served from this site. Settings, scan summaries and beta accounts use this browser's local storage.</li>
       <li><b>Feedback and donations (optional, from V1.7).</b> "Report a wrong result" prepares an email with the result numbers and your answer only, never your text. "Donate this article" saves a file on your device that you attach to an email yourself (or, if attaching is not possible, you may paste the copied donation text into the email body); it is offered only to people aged 18 or older who wrote the text or have permission from every author. Both are sent by you, from your own email app, to feedback@aletheiadetect.com, so we also see the sending address, which we use only to reply. Donated texts are kept for up to 3 years, used only to test and train the detector, never published or sold, and deleted on request (quote the donation ID). Feedback is used to find problems and is never used directly as training labels.</li>
       <li><b>Annotated Word files.</b> The highlighted copy of an uploaded .docx is built in your browser; the file never leaves your device.</li>
       <li><b>Hosting.</b> The site is hosted on GitHub Pages. Like any web host, GitHub receives standard request logs (such as IP address and browser) when a page is loaded; it never receives the text you analyse.</li>
@@ -781,7 +891,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.7.9 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.8.0 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -791,7 +901,7 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
     <p><b>Why does it say "Inconclusive"?</b> Because the evidence is not strong enough either way, or because the writing style (for example academic abstracts) is one where AI and human text are hard to tell apart. We prefer saying so to guessing.</p>
     <p><b>Can AI "humanizers" fool it?</b> Often, yes. Paraphrased and humanized AI text is detected far less reliably (see Research). ALETHEIA does undo invisible characters and look-alike letters that some tools insert.</p>
     <p><b>Which languages work?</b> English prose only, at least 80 words; 300+ words gives more reliable results.</p>
-    <p><b>Why are Standard and Deep results different?</b> Deep Scan uses a second, stronger model and re-analyses the text hundreds of times; when they disagree, trust Deep Scan more and treat the result as uncertain.</p>
+    <p><b>Why do Deep Scan and Supreme results differ slightly?</b> Supreme runs more bootstrap re-analyses and several window sizes, so its interval is estimated more precisely and can differ slightly; the AI percentage uses the same thresholds in both.</p>
   </div>
 </div></main>
 
@@ -827,8 +937,8 @@ footer .tag-line{font:500 26px var(--serif);color:var(--fg);margin:16px 0 8px}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.7.9"></script>
-<script src="engine.js?v=1.7.9"></script>
+<script src="model.js?v=1.8.0"></script>
+<script src="engine.js?v=1.8.0"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -907,7 +1017,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.7.9"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.8.0"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -1015,8 +1125,8 @@ async function handleFile(f){
 
 // ---------- Analyse ----------
 let last = null;
-const MODE_LABEL = { standard: "Analyse text", deep: "Run Deep Scan", supreme: "Run Supreme Scan" };
-let mode = "standard";
+const MODE_LABEL = { deep: "Run Deep Scan", supreme: "Run Supreme Scan" };
+let mode = "deep";
 const studentOn = () => { const c = document.getElementById("studentMode"); return !!(c && c.checked); };
 const sensitiveOn = () => {
   const c = document.getElementById("sensMode"), v = document.getElementById("vhMode");
@@ -1031,20 +1141,37 @@ const syncSens = () => {
   if (vm) { vm.disabled = !vOn; if (!vOn) vm.checked = false; }
   if (so) so.style.opacity = on ? "1" : ".55";
   if (vo) vo.style.opacity = vOn ? "1" : ".55";
-  const tr = document.getElementById("tierRow");
-  if (tr) {
-    const lvl = !on || !sm.checked ? 0 : (vm && vm.checked ? 2 : 1);
-    tr.style.opacity = on ? "1" : ".55";
-    tr.querySelectorAll("button").forEach(b => { const sel = on && +b.dataset.tier === lvl; b.disabled = !on; b.classList.toggle("on", sel); b.setAttribute("aria-pressed", sel ? "true" : "false"); });
-  }
+  // V1.8 level picker mirrors the hidden checkboxes
+  const lvl = !on ? "g" : (!sm.checked ? "0" : (vm && vm.checked ? "2" : "1"));
+  const names = { g: "General", "0": "T mode", "1": "High", "2": "Very high" };
+  const pv = document.getElementById("pickVal"); if (pv) pv.textContent = names[lvl];
+  document.querySelectorAll("#pickList [data-lv]").forEach(b => {
+    const isStu = b.dataset.lv !== "g"; b.disabled = on ? !isStu : isStu;
+    b.classList.toggle("on", b.dataset.lv === lvl); b.setAttribute("aria-selected", b.dataset.lv === lvl ? "true" : "false");
+  });
+  const hint = document.getElementById("pickHint"); if (hint) hint.hidden = on;
 };
 syncSens();
-document.addEventListener("click", (e) => {
-  const b = e.target && e.target.closest && e.target.closest("#tierRow button");
-  if (!b || b.disabled) return;
-  const sm = document.getElementById("sensMode"), vm = document.getElementById("vhMode"), n = +b.dataset.tier;
-  sm.checked = n >= 1; vm.disabled = n < 1; vm.checked = n === 2; syncSens();
-});
+{
+  const pb = document.getElementById("pickBtn"), pl = document.getElementById("pickList");
+  const close = () => { if (pl && !pl.hidden) { pl.hidden = true; pb.setAttribute("aria-expanded", "false"); } };
+  if (pb && pl) {
+    pb.addEventListener("click", (e) => { e.stopPropagation(); pl.hidden = !pl.hidden; pb.setAttribute("aria-expanded", pl.hidden ? "false" : "true");
+      if (!pl.hidden) { const f = pl.querySelector("button.on:not(:disabled)") || pl.querySelector("button:not(:disabled)"); if (f) f.focus(); } });
+    pl.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-lv]"); if (!b || b.disabled) return;
+      const sm = document.getElementById("sensMode"), vm = document.getElementById("vhMode"), n = b.dataset.lv;
+      if (n !== "g") { sm.checked = n !== "0"; vm.disabled = n === "0"; vm.checked = n === "2"; }
+      syncSens(); close(); pb.focus();
+    });
+    document.addEventListener("click", (e) => { if (!e.target.closest || !e.target.closest("#picker")) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !pl.hidden) { close(); pb.focus(); } });
+    pl.addEventListener("keydown", (e) => { if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return; e.preventDefault();
+      const opts = [...pl.querySelectorAll("button:not(:disabled)")], i = opts.indexOf(document.activeElement);
+      const n = opts[(i + (e.key === "ArrowDown" ? 1 : -1) + opts.length) % opts.length]; if (n) n.focus(); });
+    document.getElementById("picker").addEventListener("focusout", (e) => { if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest("#picker")) close(); });
+  }
+}
 document.addEventListener("change", (e) => {
   if (!e.target) return;
   if (e.target.id === "studentMode") { const sm = document.getElementById("sensMode"); if (sm && e.target.checked) sm.checked = true; syncSens(); }
@@ -1054,25 +1181,10 @@ $$(".modes [data-mode]").forEach(b => b.addEventListener("click", () => {
   mode = b.dataset.mode;
   $$(".modes [data-mode]").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-checked", x === b); });
   go.textContent = MODE_LABEL[mode];
-  $("#modeNote").textContent = mode === "standard" ? "Fast check with the standard engine. Results in about a second."
-    : mode === "deep" ? "Adds the n-gram model trained on 120+ language models (2023–2026), window re-scoring and 300 bootstrap re-analyses. Thresholds differ for academic, creative and other writing; in standard mode each was set to flag at most 1% of human texts per group; the student levels accept more (see Research)."
+  $("#modeNote").textContent = mode === "deep" ? "Deep Scan: two trained models, window re-scoring and bootstrap re-analysis, about 10–40 seconds."
     : "Everything in Deep, plus 2,000 bootstrap re-analyses, three window sizes and paragraph influence analysis, then a full PDF report. Takes as long as the analysis needs: usually under a minute, longer on phones and long documents.";
 }));
-go.addEventListener("click", () => {
-  hideMsg();
-  if (mode !== "standard") return runDeep(mode);
-  go.disabled = true; go.innerHTML = '<span class="spinner"></span>Analysing…';
-  setTimeout(async () => {
-    try {
-      const r = E.analyze(input.value);
-      if (r.status === "ok") { try { await ensureDeep(false); applyGuard(r, window.AletheiaDeep.guard(r, { student: studentOn(), sensitive: sensitiveOn() })); } catch (e) { console.warn("register guard unavailable", e); } }
-      last = r; lastDeep = null; render(r); $("#deepPanel").style.display = "none";
-      if (r.status === "ok") saveHistory(r);
-    } catch (e) {
-      console.error(e); showMsg("Something went wrong during analysis. Please try again or simplify the formatting.");
-    } finally { go.innerHTML = MODE_LABEL[mode]; updateCount(); }
-  }, 30);
-});
+go.addEventListener("click", () => { hideMsg(); runDeep(mode); });
 
 // Academic-register guard for the Standard mode: in academic-abstract style the standard model over-flags human writing
 // (11% on an independent abstract corpus), so its AI verdicts are replaced by the separately calibrated decision.
@@ -1151,11 +1263,11 @@ async function runDeep(level){
       onProgress: (p) => { st.textContent = p.stage; bar.style.width = Math.max(1, Math.round(p.frac * 100)) + "%"; } });
     if (R.status !== "ok") { render(R.base); return; }
     const A = adaptDeep(R); last = A; lastDeep = R;
-    render(A); renderDeepPanel(R, level); saveHistory(Object.assign({}, A, { category: A.category + " · " + R.levelLabel }));
+    render(A); renderDeepPanel(R, level); saveHistory(Object.assign({}, A, { category: A.category + " · " + R.levelLabel, aipct: R.coverage ? R.coverage.display : null }));
     if (level === "supreme") await buildPdf(R);
   } catch (e) {
     if (e && e.message === "cancelled") showMsg("Deep Scan cancelled.", "info");
-    else { console.error(e); showMsg("Deep Scan could not finish: " + (e && e.message ? e.message : "unknown error") + ". Try the standard analysis."); }
+    else { console.error(e); showMsg("Deep Scan could not finish: " + (e && e.message ? e.message : "unknown error") + ". Please try again, or try a shorter extract."); }
   } finally { clearInterval(timer); prog.hidden = true; go.disabled = false; go.textContent = MODE_LABEL[mode]; updateCount(); }
 }
 $("#deepCancel").addEventListener("click", () => deepAbort && deepAbort.abort());
@@ -1164,17 +1276,17 @@ let pdfBlob = null, docxSrc = null;
 const HELP_ADDR = "feedback@aletheiadetect.com";
 function resultNumbers(r){
   const R = lastDeep && last === r ? lastDeep : null, cv = R && R.coverage;
-  const L = [`ALETHEIA ${BUILD}`, `Mode: ${R ? R.levelLabel : "Standard"}`, `Highlighted share (standard engine): ${Math.round(r.flaggedShare * 100)}%`, `Model score: ${Math.round(r.score * 100)}/100`,
+  const L = [`ALETHEIA ${BUILD}`, `Mode: ${R ? R.levelLabel : "Deep Scan"}`, `Highlighted share (sentence engine): ${Math.round(r.flaggedShare * 100)}%`,
     `Words: ${r.totalWords} total, ${r.qualifyingWords} qualifying`, `Language: ${r.language.name}`];
   if (R) L.push(`Deep score: ${Math.round(R.deepScore * 100)}/100`, `Register: ${R.register && R.register.academic ? "academic" : R.register && R.register.creative ? "creative" : "general"}`);
-  if (cv) L.push(`AI percentage: ${cv.display}${cv.sensitive ? ` (student threshold ${cv.displayStrong})` : ""}`, `Thresholds: ${cv.student ? (cv.sensitive ? (cv.sensitiveLevel === 2 ? "student, very high sensitivity" : "student, high sensitivity") : "student") : "standard"}`);
+  if (cv) L.push(`AI percentage: ${cv.display}${cv.sensitive ? ` (student threshold ${cv.displayStrong})` : ""}`, `Thresholds: ${cv.student ? (cv.sensitive ? (cv.sensitiveLevel === 2 ? "student, very high sensitivity" : "student, high sensitivity") : "student, T mode") : "general"}`);
   if (currentFile) L.push(`File type: ${(currentFile.split(".").pop() || "").toLowerCase()}`);
   return L;
 }
 function mailto(subject, body){ return `mailto:${HELP_ADDR}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; }
 function feedbackPanel(r){
   const P = $("#helpPanel");
-  P.innerHTML = `<div class="helppanel"><p class="count" style="margin:0 0 8px">Your text is <b>not</b> included, only the numbers below and your answer.</p>
+  P.innerHTML = `<div class="helppanel"><p class="count" style="margin:0 0 8px" data-zh="不包含你的文字，只包含下面的数字和你的回答。">Your text is <b>not</b> included, only the numbers below and your answer.</p>
     <div class="count">What is actually true for this text?</div>
     ${["I wrote it myself, without AI", "It was written by AI", "Partly AI (edited, paraphrased or mixed)", "Not sure"].map((t, i) => `<label class="count" style="display:block"><input type="radio" name="fbv" value="${esc(t)}"${i ? "" : " checked"}> ${esc(t)}</label>`).join("")}
     <textarea id="fbNote" rows="2" maxlength="400" placeholder="Optional comment (please don't paste your text here)" style="width:100%;margin-top:6px"></textarea>
@@ -1192,7 +1304,7 @@ function donateBanner(r){
   B.innerHTML = `<div class="dcta-top"><div class="dcta-ico">${HEART}</div>
     <div class="dcta-txt"><div class="dcta-title">Please donate this article's data</div>
       <div class="dcta-lead">It helps you, and it helps us. This really matters to us.</div>
-      <div class="dcta-sub">Every text you donate, with a label of who wrote it, is used to test ALETHEIA and make it fairer and more accurate for the next student. It takes about a minute, it is optional, and the email is prepared for you: one tap and the file is attached.</div></div>
+      <div class="dcta-sub">Every text you donate, with a label of who wrote it, is used to test ALETHEIA and make it fairer and more accurate for the next student. It takes about a minute and it is optional. The email is prepared for you: on phones one tap attaches the file; on a computer you attach it yourself.</div></div>
     <button class="btn primary dcta-btn" id="dctaBtn">Donate this article <span class="arr">→</span></button></div>
     <div id="donatePanel"></div>`;
   if (r && r.__text === undefined) r.__text = input.value;
@@ -1325,10 +1437,10 @@ function renderDeepPanel(R, level){
   const cv = R.coverage;
   const covHtml = cv ? `<div class="covbox"><div class="covpct">${esc(cv.display)}</div><div><b>detected as AI</b> · ${cv.reportable ? `${cv.runs.length} highlighted segment${cv.runs.length === 1 ? "" : "s"} (teal underline in the text above)` : `needs at least 150 words of prose (found ${cv.qualifyingWords})`}
       <div class="covnote">${cv.sensitive ? `${cv.displayStrong} at the student threshold (teal); the rest of this figure is amber screening leads: places to look, not evidence.` : cv.student ? "Share of prose in segments that look AI-generated, at the student-assignment threshold." : "Share of prose in segments that look AI-generated."}</div><details class="covmore"><summary>How to read this</summary><p>Share of qualifying words in overlapping ~${cv.W}-word segments that the segment model scores as AI-generated. 1–19% is shown as *% because false positives are more likely there. ${cv.sensitive ? `High-sensitivity screening: ${cv.displayStrong} at the student-assignment threshold (teal); amber segments are screening leads that only this setting counts. About 1 in 100 human student essays reaches 20% here, so check amber passages against drafts and notes before drawing any conclusion. ` : ""}${cv.student ? "Student-assignment thresholds: calibrated on human student essays only, so that at most 1% of each group reaches 20%. Do not use them for other kinds of writing." : cv.studentRequested ? `Student-assignment mode needs at least ${cv.studentMinWords} words of prose, so the standard thresholds were used.` : "Calibrated so that at most 1% of human documents in each test group reach 20%."}</p></details></div></div>` : "";
-  P.innerHTML = `<p class="eyebrow">${esc(R.levelLabel)}</p>${covHtml}<h2>Deep score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
+  P.innerHTML = `<p class="sec-k">01 · Result · ${esc(R.levelLabel)}</p>${covHtml}<h2 style="margin-top:18px">Whole-document score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
     <p class="sub">90% bootstrap interval ${Math.round(R.ci[0] * 100)}–${Math.round(R.ci[1] * 100)} · verdict stable in ${Math.round(R.stability * 100)}% of ${R.bootstrap.full} re-analyses · ${(R.elapsedMs / 1000).toFixed(1)} s</p>
-    <div class="metric-grid"><div class="metric"><div class="k">Standard model</div><div class="v">${pct(R.pGbm)}</div></div><div class="metric"><div class="k">n-gram model</div><div class="v">${pct(R.pNgram)}</div></div>${R.pGeneral != null ? `<div class="metric"><div class="k">General-writing model</div><div class="v">${pct(R.pGeneral)}</div></div>` : ""}
-    <div class="metric"><div class="k">Combined</div><div class="v">${pct(R.deepScore)}</div></div><div class="metric"><div class="k">Flag threshold</div><div class="v">${pct(R.thresholds.high)}</div></div></div>
+    <details class="mdet"><summary>Model details</summary><div class="metric-grid" style="margin-top:10px"><div class="metric"><div class="k">Standard model</div><div class="v">${pct(R.pGbm)}</div></div><div class="metric"><div class="k">n-gram model</div><div class="v">${pct(R.pNgram)}</div></div>${R.pGeneral != null ? `<div class="metric"><div class="k">General-writing model</div><div class="v">${pct(R.pGeneral)}</div></div>` : ""}
+    <div class="metric"><div class="k">Combined</div><div class="v">${pct(R.deepScore)}</div></div><div class="metric"><div class="k">Flag threshold</div><div class="v">${pct(R.thresholds.high)}</div></div></div></details>
     ${infl ? `<h3 style="font:500 18px var(--serif);margin:16px 0 6px">Paragraphs that move the result most</h3><table class="data"><tr><th>Para</th><th>Δ score</th><th>Opening</th></tr>${infl}</table>` : ""}
     <div id="pdfBox" style="margin-top:16px">${level === "supreme" ? "" : '<button class="btn small" id="mkPdf">Create PDF report</button>'}</div><div id="docxBox" style="margin-top:12px"></div>`;
   const mk = $("#mkPdf"); if (mk) mk.onclick = () => buildPdf(R);
@@ -1369,23 +1481,18 @@ function render(r){
   const pct = Math.round(r.score * 100), share = Math.round(r.flaggedShare * 100);
   const when = new Date(r.analyzedAt);
   $("#summary").innerHTML = `
-    <p class="eyebrow">Prose with AI-like signals</p>
-    ${gauge(r.flaggedShare, CAT_COLOR[r.catKey])}
-    <div class="scoreline"><span class="num">${share}%</span><span class="unit">of qualifying prose highlighted · not a probability</span></div>
-    <div class="cat">${esc(r.category)}</div>
-    <div class="catsub">${esc(CAT_SUB[r.catKey] || "")}</div>
-    <div style="text-align:center;margin-bottom:10px"><span class="pill">Confidence: ${esc(r.confidence)}</span> <span class="pill">Evidence: ${esc(r.evidence)}</span></div>
+    <p class="sec-k">02 · Details</p><h2>Document details</h2>
     <dl class="meta">
-      <dt>Model score</dt><dd>${pct}/100${r.thresholds ? ` (flag ≥ ${Math.round(r.thresholds.high*100)})` : ""}</dd>
-      <dt>Total words</dt><dd>${r.totalWords.toLocaleString()}</dd>
-      <dt>Qualifying prose</dt><dd>${r.qualifyingWords.toLocaleString()}</dd>
-      <dt>Excluded (refs, headings, lists, equations)</dt><dd>${r.excludedWords.toLocaleString()}</dd>
-      <dt>Quoted words excluded</dt><dd>${r.quotedWords.toLocaleString()}</dd>
-      <dt>Sentences</dt><dd>${r.stats.sentences}</dd>
-      <dt>Language</dt><dd>${esc(r.language.name)}</dd>
-      <dt>Engine version</dt><dd>${esc(r.version)}</dd>
-      <dt>Analysed</dt><dd>${when.toLocaleDateString()} ${when.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}</dd>
-      ${currentFile ? `<dt>File</dt><dd title="${esc(currentFile)}">${esc(currentFile.length > 22 ? currentFile.slice(0,20)+"…" : currentFile)}</dd>` : ""}
+      <div><dt>Whole-document score</dt><dd>${pct}/100</dd></div>
+      <div><dt>Total words</dt><dd>${r.totalWords.toLocaleString()}</dd></div>
+      <div><dt>Qualifying prose</dt><dd>${r.qualifyingWords.toLocaleString()}</dd></div>
+      <div><dt>Excluded (refs, headings, lists, equations)</dt><dd>${r.excludedWords.toLocaleString()}</dd></div>
+      <div><dt>Quoted words excluded</dt><dd>${r.quotedWords.toLocaleString()}</dd></div>
+      <div><dt>Sentences</dt><dd>${r.stats.sentences}</dd></div>
+      <div><dt>Language</dt><dd>${esc(r.language.name)}</dd></div>
+      <div><dt>Engine version</dt><dd>${esc(r.version)}</dd></div>
+      <div><dt>Analysed</dt><dd>${when.toLocaleDateString()} ${when.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}</dd></div>
+      ${currentFile ? `<div><dt>File</dt><dd title="${esc(currentFile)}">${esc(currentFile.length > 22 ? currentFile.slice(0,20)+"…" : currentFile)}</dd></div>` : ""}
     </dl>
     <div class="notes"><ul>${r.notes.map(n => `<li>${esc(n)}</li>`).join("")}</ul></div>
     <div class="actions">
@@ -1481,8 +1588,9 @@ function reportText(r){
   L.push("Engine: " + r.version + " | Analysed: " + new Date(r.analyzedAt).toLocaleString());
   if (currentFile) L.push("File: " + currentFile);
   L.push("");
-  L.push(`Prose with AI-like signals: ${Math.round(r.flaggedShare*100)}% of qualifying prose (not a probability)`);
-  L.push(`Model score: ${Math.round(r.score*100)}/100` + (r.thresholds ? ` (flagging threshold ${Math.round(r.thresholds.high*100)})` : ""));
+  { const R = lastDeep && last === r ? lastDeep : null, cv = R && R.coverage;
+    if (cv) L.push(`AI percentage: ${cv.display} detected as AI (${R.levelLabel}; ${cv.student ? (cv.sensitive ? (cv.sensitiveLevel === 2 ? "student, very high" : "student, high") : "student, T mode") : "general"} level)`);
+    L.push(`Whole-document score: ${Math.round(r.score*100)}/100` + (r.thresholds ? ` (flagging threshold ${Math.round(r.thresholds.high*100)})` : "")); }
   L.push("Assessment: " + r.category + " — " + (CAT_SUB[r.catKey] || ""));
   L.push(`Confidence: ${r.confidence} | Evidence: ${r.evidence}`);
   L.push(`Words: ${r.totalWords} total, ${r.qualifyingWords} qualifying prose, ${r.excludedWords} excluded, ${r.quotedWords} quoted`);
@@ -1500,7 +1608,7 @@ function downloadReport(r){
   const css = [...document.querySelectorAll("style")].map(s => s.textContent).join("\n");
   const html = `<!DOCTYPE html><html data-theme="${document.documentElement.dataset.theme}"><head><meta charset="utf-8"><title>ALETHEIA report</title><style>${css} body{padding:30px} .s{cursor:default}</style></head><body class="wrap">
   <h1 style="font-family:var(--serif)">ALETHEIA Detect report</h1>
-  <div class="res-grid"><aside class="card summary" style="position:static">${$("#summary").innerHTML.replace(/<div class="actions">[\s\S]*?<\/div>\s*<div class="count" id="copyMsg"[^>]*><\/div>/, "")}</aside>
+  <div class="card panel">${$("#deepPanel").innerHTML.replace(/<div id="pdfBox"[\s\S]*$/, "")}</div><div class="res-grid"><aside class="card summary" style="position:static">${$("#summary").innerHTML.replace(/<div class="actions">[\s\S]*?<\/div>\s*<div class="count" id="copyMsg"[^>]*><\/div>/, "")}</aside>
   <div><div class="card panel"><h2>Highlighted document</h2><div class="doc" style="max-height:none">${$("#doc").innerHTML}</div></div>
   <div class="card panel"><h2>Evidence</h2><table class="ev">${$("#ev").innerHTML}</table></div>
   <div class="disclaimer">A detector score is not proof of who wrote a document. Do not use it as the sole basis for any decision.</div></div></div></body></html>`;
@@ -1510,17 +1618,18 @@ function downloadReport(r){
   document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
 }
 
+window.addEventListener("beforeprint", () => document.querySelectorAll("details.mdet,details.covmore").forEach(d => d.open = true));
 // ---------- History ----------
 function saveHistory(r){
   const h = (store.get("aletheia.history", null) || store.get("proselens.history", []));
-  h.unshift({ at: r.analyzedAt, score: r.flaggedShare, category: r.category, words: r.qualifyingWords, file: currentFile || null, version: r.version });
+  h.unshift({ at: r.analyzedAt, score: r.flaggedShare, aipct: r.aipct || null, category: r.category, words: r.qualifyingWords, file: currentFile || null, version: r.version });
   store.set("aletheia.history", h.slice(0, 50));
 }
 function renderHistory(){
   const h = (store.get("aletheia.history", null) || store.get("proselens.history", []));
   const box = $("#histBox");
   if (!h.length) { box.innerHTML = `<div class="card panel"><p style="margin:0;color:var(--ink-2)">No scans yet. <a href="#detect">Run your first scan.</a></p></div>`; return; }
-  box.innerHTML = `<div class="card panel"><table class="hist"><tr><th>Date</th><th>Source</th><th>Words</th><th>AI-like prose</th><th>Assessment</th></tr>${h.map(x => `<tr><td>${esc(new Date(x.at).toLocaleString())}</td><td>${esc(x.file || "Pasted text")}</td><td class="count">${x.words}</td><td><span class="count" style="color:var(--ink)">${Math.round(x.score*100)}%</span></td><td>${esc(x.category)}</td></tr>`).join("")}</table><div style="margin-top:14px"><button class="btn small" id="clrHist">Clear history</button></div></div>`;
+  box.innerHTML = `<div class="card panel"><table class="hist"><tr><th>Date</th><th>Source</th><th>Words</th><th>AI percentage</th><th>Assessment</th></tr>${h.map(x => `<tr><td>${esc(new Date(x.at).toLocaleString())}</td><td>${esc(x.file || "Pasted text")}</td><td class="count">${x.words}</td><td><span class="count" style="color:var(--ink)">${esc(x.aipct || "–")}</span></td><td>${esc(x.category)}</td></tr>`).join("")}</table><div style="margin-top:14px"><button class="btn small" id="clrHist">Clear history</button></div></div>`;
   $("#clrHist").onclick = () => { store.set("aletheia.history", []); renderHistory(); };
 }
 
@@ -1609,6 +1718,174 @@ updateCount();
 </script>
 <script>
 document.getElementById("themeBtn").addEventListener("click",function(){var d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.classList.add("theming");d.dataset.theme=n;setTimeout(function(){d.classList.remove("theming")},380);try{localStorage.setItem("aletheia.theme",n);}catch(e){}});
+</script>
+<div class="modal" id="acctModal" hidden role="dialog" aria-modal="true" aria-label="Account"><div class="mbox"></div></div>
+<script>
+/* V1.8: Chinese/English switch and on-device accounts. English is the source text; Chinese is applied by
+   replacing exact text nodes and attributes, so dynamic results are translated too. Research pages stay English. */
+(function(){
+var ZH = {
+"Detect":"检测","Technology":"技术","Research":"研究","Changelog":"更新日志","History":"历史","Home":"首页","Privacy":"隐私","Sign in":"登录",
+"AI Writing Intelligence":"AI 写作分析",
+"Understand the patterns behind written language through advanced AI writing analysis. ALETHEIA shows you the evidence, sentence by sentence. It never hands down a verdict.":"通过 AI 写作分析，理解文字背后的模式。ALETHEIA 逐句展示证据，但从不下定论。",
+"Analyze a Document":"分析文档","Explore the Technology":"了解技术","Start Analyzing":"开始分析","Read the research notes →":"阅读研究说明 →",
+"See beyond the words.":"看见文字背后。","Open Detect":"打开检测","Follow the research":"关注研究",
+"ALETHEIA Detect · V1.8.0 free beta":"ALETHEIA 检测 · V1.8.0 免费测试版","Analyze a document.":"分析一篇文档。",
+"Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.":"粘贴文字或上传文件。分析完全在你的浏览器里运行，文档不会离开你的设备。仅支持英文正文；至少 80 词，建议 300 词以上。",
+"Paste text":"粘贴文字","Upload file":"上传文件","Load a demo sample…":"载入示例…","Demo: assistant-style essay":"示例：助手风格的文章","Demo: casual personal writing":"示例：随意的个人写作","Demo: plain lab report":"示例：普通实验报告","Demo: mixed document":"示例：混合文档",
+"Drop a document here":"把文档拖到这里","or click to choose · .docx, .pdf or .txt · up to 10 MB · text is extracted on your device and shown for review":"或点击选择 · .docx、.pdf 或 .txt · 最大 10 MB · 文字在你的设备上提取并显示供检查",
+"Deep Scan":"深度扫描","thorough · about 10–40 s":"更彻底 · 约 10–40 秒","Supreme":"至尊","everything + PDF report":"全部分析 + PDF 报告",
+"Student assignment":"学生作业","For essays and reports of 300+ words":"适用于 300 词以上的论文和报告","Level":"档位","General":"通用",
+"Standard thresholds for any writing: articles, reports, essays. Fewest false alarms.":"适用于任何文体的标准阈值：文章、报告、论文。误报最少。",
+"T mode":"T 档","student":"学生","High":"高","student · default":"学生 · 默认","Very high":"极高",
+"Our strictest student-essay threshold, applied to texts of 300+ words as Turnitin does. Not calibrated to Turnitin yet: only two paired documents so far.":"我们最严格的学生论文阈值，和 Turnitin 一样只看 300 词以上的文本。尚未按 Turnitin 校准：目前只有两份对照文档。",
+"Also counts weaker AI-like passages (amber). Catches more AI text; about 1 in 100 human essays reaches 20%.":"同时计入较弱的 AI 痕迹（琥珀色），能抓到更多 AI 文本；每 100 篇人写的论文中约有 1 篇达到 20%。",
+"The most sensitive level: catches more rewritten AI text but still misses some. About 2–3 in 100 human essays reach 20%.":"最敏感的档位：能抓到更多改写过的 AI 文本，但仍会漏掉一些。每 100 篇人写的论文中约有 2–3 篇达到 20%。",
+"Turn on Student assignment to use the student levels.":"打开“学生作业”才能使用学生档位。",
+"Deep Scan: two trained models, window re-scoring and bootstrap re-analysis, about 10–40 seconds.":"深度扫描：两个训练好的模型、窗口重评分和自助法重复分析，约 10–40 秒。",
+"Everything in Deep, plus 2,000 bootstrap re-analyses, three window sizes and paragraph influence analysis, then a full PDF report. Takes as long as the analysis needs: usually under a minute, longer on phones and long documents.":"包含深度扫描的全部内容，加上 2,000 次自助重分析、三种窗口大小和段落影响分析，最后生成完整 PDF 报告。通常不到一分钟，手机和长文档会更久。",
+"Starting…":"开始…","Cancel":"取消","words":"词","Clear":"清空","Run Deep Scan":"开始深度扫描","Run Supreme Scan":"开始至尊扫描",
+"Loading Deep Scan models…":"正在加载深度扫描模型…","Done":"完成",
+"Highlighted document":"标注后的文档","Hover or tap a sentence to see its signals. Highlights show patterns, not proof of authorship.":"悬停或点按句子查看信号。标注显示的是模式，不是作者身份的证据。",
+"Strong AI-like signals":"强 AI 痕迹","Moderate":"中等","Human-like":"像人写","Inconclusive":"无法判断","Show human-like":"显示像人写的部分",
+"Distribution by paragraph":"按段落分布","Each prose paragraph's own AI-like signal level. Click a bar to jump to it.":"每个正文段落自己的 AI 信号强度。点击条形跳转到该段。",
+"Evidence":"证据","The first row is the trained model that decides the result; the others are the interpretable signals it is built on.":"第一行是决定结果的训练模型，其余是它所依据的可解释信号。",
+"Passages driving the result":"影响结果的关键句","The sentences with the strongest AI-like signals.":"AI 痕迹最强的句子。",
+"How to read this report.":"如何阅读这份报告。",
+"ALETHEIA measures patterns, not authorship. Formal, technical, template-based and non-native English writing can show AI-like patterns, and edited AI text can look human. Never use this score alone to accuse anyone of misconduct. Treat it as the start of a conversation, alongside drafts, notes and version history.":"ALETHEIA 测量的是模式，不是作者身份。正式、技术性、模板化以及非母语的英文写作都可能出现 AI 式的模式，而编辑过的 AI 文本也可能看起来像人写的。绝不要只凭这个分数指控任何人作弊。请把它当作一次对话的开始，并结合草稿、笔记和修改记录。",
+"Your scans.":"你的扫描记录。","Only summaries (date, result, word count) are kept, and only in this browser. Document text is never stored.":"只保存摘要（日期、结果、字数），而且只存在这个浏览器里。文档文字从不保存。",
+"Intelligence. Language. Authenticity.":"智能 · 语言 · 真实。","ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship.":"ALETHEIA 报告与文本生成方式有关的模式，无法证明作者身份。",
+"Product":"产品","Evaluate":"评估","Benchmarks":"基准测试","Data licensing":"数据授权","Company":"公司","Privacy & terms":"隐私与条款","FAQ":"常见问题","Brand":"品牌","Source files":"源文件",
+"Donate this article":"捐献这篇文章","Please donate this article's data":"请捐献这篇文章的数据","It helps you, and it helps us. This really matters to us.":"这既帮助你，也帮助我们。这对我们真的很重要。",
+"Every text you donate, with a label of who wrote it, is used to test ALETHEIA and make it fairer and more accurate for the next student. It takes about a minute and it is optional. The email is prepared for you: on phones one tap attaches the file; on a computer you attach it yourself.":"你捐献的每篇文字（附上是谁写的）都会用来测试 ALETHEIA，让它对下一个学生更公平、更准确。大约一分钟，完全自愿。邮件已经为你准备好：手机上点一下就会附上文件，电脑上需要你自己附上。",
+"1. How was AI used?":"1. AI 是怎么用的？","I wrote it myself, without AI":"我自己写的，没用 AI","I wrote it myself; AI only taught me or gave feedback (none of its wording is in the text)":"我自己写的；AI 只是教我或给反馈（文中没有它的原话）",
+"AI-assisted (AI-edited, paraphrased or mixed)":"AI 辅助（AI 修改、改写或混合）","It was generated by AI":"由 AI 生成","2. Who wrote it?":"2. 是谁写的？","I wrote it":"我写的",
+"Someone else wrote it and they agreed to donate it":"别人写的，并且对方同意捐献","A group wrote it and every author agreed to donate it":"小组写的，每位作者都同意捐献","3. Optional:":"3. 可选：",
+"if you have a Turnitin AI report for this text, type its AI percentage here (0 to 100). This is the most useful thing you can add: it lets us measure how close ALETHEIA is.":"如果这篇文字有 Turnitin AI 报告，请在这里填它的 AI 百分比（0 到 100）。这是你能提供的最有用的信息：能让我们衡量 ALETHEIA 有多接近。",
+"I am 18 or older.":"我已年满 18 岁。","I wrote this text, or all of its authors agreed that I may donate it.":"这篇文字是我写的，或所有作者都同意我捐献。",
+"ALETHEIA may keep this text for up to 3 years to test and train its detector. It will never be published or sold. I can ask for it to be deleted at any time by emailing the donation ID.":"ALETHEIA 可以保存这篇文字最多 3 年，用于测试和训练检测器。绝不会公开或出售。我可以随时通过邮件发送捐献 ID 要求删除。",
+"Please remove names, student numbers and other personal details from the text box above before donating.":"捐献前请先在上面的文本框里删掉姓名、学号等个人信息。",
+"Save donation file and open email":"保存捐献文件并打开邮件","detected as AI":"被检测为 AI","How to read this":"怎么理解这个数字",
+"Model details":"模型细节","Standard model":"标准模型","n-gram model":"n-gram 模型","General-writing model":"通用写作模型","Combined":"综合","Flag threshold":"标记阈值","Create PDF report":"生成 PDF 报告",
+"Document details":"文档详情","Whole-document score":"全文得分","Total words":"总词数","Qualifying prose":"计分正文","Excluded (refs, headings, lists, equations)":"已排除（引用、标题、列表、公式）","Quoted words excluded":"已排除的引文词数","Sentences":"句子数","Language":"语言","English":"英语","Engine version":"引擎版本","Analysed":"分析时间",
+"Copy report":"复制报告","Download report":"下载报告","Print / PDF":"打印 / PDF","New scan":"新的扫描","Help improve ALETHEIA":"帮助改进 ALETHEIA","· optional. Nothing is sent unless you send it yourself from your own email.":"· 可选。除非你自己用邮箱发送，否则什么都不会发出。","Report a wrong result":"报告错误结果",
+"Signal family":"信号类型","Measured":"测量值","Effect on score":"对分数的影响","Strength":"强度","Toward human-like":"偏向人写","Toward AI-like":"偏向 AI","Neutral":"中性","Info only":"仅供参考","moderate":"中等","weak":"弱","strong":"强",
+"What is actually true for this text?":"这篇文字的真实情况是？","It was written by AI":"是 AI 写的","Partly AI (edited, paraphrased or mixed)":"部分是 AI（修改、改写或混合）","Not sure":"不确定",
+"Open email to send":"打开邮件发送","Copy instead":"改为复制","Date":"日期","Source":"来源","Words":"词数","AI-like prose":"AI 式正文","Assessment":"评估","Pasted text":"粘贴的文字","Clear history":"清空历史",
+"Create account":"注册","Sign out":"退出登录","Your account":"你的账号","Name":"名字","Email":"邮箱","Password":"密码","Close":"关闭","Account":"账号"
+};
+var ZH_ATTR = {"Account":"账号","Detection level":"检测档位","Paste the text you want to examine…":"粘贴你想检查的文字…","Switch light or dark theme":"切换深色/浅色","Switch theme":"切换主题","Load a sample":"载入示例","Remove file":"移除文件","Analysis depth":"分析深度","ALETHEIA home":"ALETHEIA 首页","Donate this article":"捐献这篇文章","Formula lines are shown but not scored":"公式行只显示、不计分","Optional comment (please don't paste your text here)":"可选备注（请不要在这里粘贴你的文字）"};
+var RX = [
+ [/^(\d[\d,]*) words$/, "$1 词"],
+ [/^· (\d+) highlighted segments? \(teal underline in the text above\)$/, "· $1 个标注段（上文中的青色下划线）"],
+ [/^Whole-document score (\d+)$/, "全文得分 $1"],
+ [/^(\d+) · (Result|Details|Document|Paragraphs|Evidence|Passages)(.*)$/, function(m,a,b,c){return a+" · "+({Result:"结果",Details:"详情",Document:"文档",Paragraphs:"段落",Evidence:"证据",Passages:"关键句"}[b])+(c||"").replace("Deep Scan","深度扫描").replace("Supreme","至尊");}],
+ [/^(\*%|\d+%) at the student threshold \(teal\); the rest of this figure is amber screening leads: places to look, not evidence\.$/, "其中 $1 达到学生阈值（青色）；其余是琥珀色的排查线索：值得一看的地方，不是证据。"],
+ [/^90% bootstrap interval (\d+)–(\d+) · verdict stable in (\d+)% of (\d+) re-analyses · ([\d.]+) s$/, "90% 自助区间 $1–$2 · $4 次重分析中 $3% 结论一致 · $5 秒"],
+ [/^Deep Scan: verdict held in (\d+)% of (\d+) bootstrap re-analyses \(90% interval (\d+)–(\d+)\)\.$/, "深度扫描：$2 次自助重分析中 $1% 结论不变（90% 区间 $3–$4）。"],
+ [/^(\d[\d,]*) words in headings, lists, tables or references were excluded from scoring\.$/, "标题、列表、表格或参考文献中的 $1 个词未计分。"],
+ [/^Formal, technical, and non-native English writing can trigger AI-like signals\. A score is never proof of authorship\.$/, "正式、技术性和非母语的英文写作都可能触发 AI 信号。分数不能证明是谁写的。"],
+ [/^The standard sentence model was trained on 2023-era ChatGPT and Claude text; the n-gram model that cross-checks it \(and powers Deep Scan\) was trained on text from 120\+ models released 2023–2026\.$/, "标准句子模型用 2023 年的 ChatGPT 和 Claude 文本训练；交叉核对它的 n-gram 模型（深度扫描的核心）用 2023–2026 年发布的 120 多个模型的文本训练。"],
+ [/^AI percentage: (\S+) of qualifying text in (\d+) highlighted segments? \(.*\)\. This is a separate, section-level measure; the score above is for the whole document\.$/, "AI 百分比：$1 的计分正文落在 $2 个标注段里。这是按片段计算的单独指标；上面的分数针对全文。"],
+ [/^Analysis took ([\d.]+) s on this device\.$/, "本次分析在这台设备上用了 $1 秒。"]
+];
+var LANG = "en"; try { LANG = localStorage.getItem("aletheia.lang") || (/^zh/i.test(navigator.language || "") ? "zh" : "en"); } catch (e) {}
+var orig = new WeakMap(), origAttr = new WeakMap();
+var SKIP = "script,style,textarea,#doc,#detail,table.hist td,#p-research,#p-changelog,#p-technology,#p-evaluate,#p-brand,#p-privacy,.tip,#tops,.mono.v";
+function tr(s){ var k = s.trim().replace(/\s+/g, " "); if (ZH[k]) return s.replace(s.trim(), ZH[k]);
+  for (var i = 0; i < RX.length; i++) { if (RX[i][0].test(k)) return s.replace(s.trim(), k.replace(RX[i][0], RX[i][1])); } return null; }
+function apply(root){
+  if (LANG !== "zh") return;
+  if (root.closest && root.closest(SKIP)) return;
+  if (root.getAttribute) ["placeholder","title","aria-label"].forEach(function(a){ var v = root.getAttribute(a); if (v && ZH_ATTR[v]) { var m = origAttr.get(root) || {}; if (!m[a]) m[a] = v; origAttr.set(root, m); root.setAttribute(a, ZH_ATTR[v]); } });
+  var zs = root.querySelectorAll ? Array.prototype.slice.call(root.querySelectorAll("[data-zh]")) : []; if (root.hasAttribute && root.hasAttribute("data-zh")) zs.push(root);
+  zs.forEach(function(e){ if (!orig.has(e)) { orig.set(e, e.innerHTML); e.innerHTML = e.getAttribute("data-zh"); } });
+  var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: function(x){ var e = x.parentElement; return e && e.closest(SKIP + ",[data-zh]") ? 3 : 1; } }), n, list = [];
+  while ((n = w.nextNode())) list.push(n);
+  list.forEach(function(t){ var e = t.parentElement; if (!e || e.closest(SKIP)) return; var v = t.nodeValue; if (!/[A-Za-z]/.test(v)) return;
+    var z = tr(v); if (z != null && z !== v) { if (!orig.has(t)) orig.set(t, v); t.nodeValue = z; } });
+  (root.querySelectorAll ? root.querySelectorAll("[placeholder],[title],[aria-label]") : []).forEach(function(e){
+    ["placeholder","title","aria-label"].forEach(function(a){ var v = e.getAttribute(a); if (v && ZH_ATTR[v]) { var m = origAttr.get(e) || {}; if (!m[a]) m[a] = v; origAttr.set(e, m); e.setAttribute(a, ZH_ATTR[v]); } }); });
+}
+function revert(){ document.querySelectorAll("[data-zh]").forEach(function(e){ if (orig.has(e)) { e.innerHTML = orig.get(e); orig.delete(e); } }); var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), n; while ((n = w.nextNode())) { if (orig.has(n)) { n.nodeValue = orig.get(n); orig.delete(n); } }
+  document.querySelectorAll("[placeholder],[title],[aria-label]").forEach(function(e){ var m = origAttr.get(e); if (m) { Object.keys(m).forEach(function(a){ e.setAttribute(a, m[a]); }); origAttr.delete(e); } }); }
+var mo = new MutationObserver(function(ms){ if (LANG !== "zh") return; mo.disconnect(); ms.forEach(function(m){ m.addedNodes.forEach(function(x){ if (x.nodeType === 1) apply(x); else if (x.nodeType === 3 && x.parentElement) apply(x.parentElement); }); if (m.type === "characterData" && m.target.parentElement) apply(m.target.parentElement); }); observe(); });
+function observe(){ mo.observe(document.body, { childList: true, subtree: true, characterData: true }); }
+function setLang(l){ LANG = l; try { localStorage.setItem("aletheia.lang", l); } catch (e) {} document.documentElement.lang = l === "zh" ? "zh-CN" : "en";
+  var b = document.getElementById("langBtn"); if (b) { b.textContent = l === "zh" ? "EN" : "中"; }
+  if (l === "zh") { apply(document.body); } else revert();
+  document.querySelectorAll("[data-zhnote]").forEach(function(n){ n.hidden = l !== "zh"; }); }
+window.AletheiaLang = { set: setLang, get: function(){ return LANG; } };
+document.getElementById("langBtn").addEventListener("click", function(){ setLang(LANG === "zh" ? "en" : "zh"); });
+observe(); setLang(LANG);
+
+/* ---- accounts: kept on this device only until a server exists ---- */
+var KEY = "aletheia.accounts", CUR = "aletheia.session";
+function load(){ try { return JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { return {}; } }
+function save(a){ try { localStorage.setItem(KEY, JSON.stringify(a)); return true; } catch (e) { return false; } }
+function cur(){ try { return localStorage.getItem(CUR) || ""; } catch (e) { return ""; } }
+function setCur(e){ try { if (e) localStorage.setItem(CUR, e); else localStorage.removeItem(CUR); } catch (x) {} }
+function hex(buf){ return Array.prototype.map.call(new Uint8Array(buf), function(b){ return ("0" + b.toString(16)).slice(-2); }).join(""); }
+async function hash(pw, salt){
+  if (!(window.crypto && crypto.subtle)) throw new Error("This browser cannot create an account here.");
+  var k = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveBits"]);
+  return hex(await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt: new TextEncoder().encode(salt), iterations: 150000 }, k, 256));
+}
+function renderBtn(){ var e = cur(), a = load(), b = document.getElementById("acctBtn"), l = document.getElementById("acctLbl"), d = b && b.querySelector(".acct-dot");
+  if (!b) return; var u = e && a[e];
+  b.classList.toggle("in", !!u); l.textContent = u ? (u.name || e).split(" ")[0] : "Sign in"; if (d) d.textContent = u ? (u.name || e).trim().charAt(0).toUpperCase() : "";
+  if (LANG === "zh" && !u) l.textContent = "登录";
+  b.setAttribute("aria-label", u ? (LANG === "zh" ? "账号：" : "Account: ") + (u.name || e) : (LANG === "zh" ? "登录" : "Sign in")); }
+var M = document.getElementById("acctModal");
+function z(en, zh){ return LANG === "zh" ? zh : en; }
+function open(){ var e = cur(), a = load(); M.hidden = false; draw(e && a[e] ? "me" : "in"); }
+function closeM(){ M.hidden = true; document.getElementById("acctBtn").focus(); }
+function draw(view){
+  var box = M.querySelector(".mbox"), e = cur(), a = load(), u = a[e];
+  if (view === "me") {
+    box.innerHTML = '<h3>' + z("Your account", "你的账号") + '</h3><p class="msub">' + esc(u.name || "") + ' · ' + esc(e) + '</p>'
+      + '<p class="mnote">' + z("Signed in on this device. Accounts are stored only in this browser for now; signing in does not change your results and nothing is sent to a server. Sync across devices will come later.", "已在这台设备上登录。账号目前只保存在这个浏览器里；登录不会改变检测结果，也不会发送到任何服务器。跨设备同步以后会推出。") + '</p>'
+      + '<div class="mrow"><button class="btn small" id="acOut">' + z("Sign out", "退出登录") + '</button><button class="btn small primary" id="acClose">' + z("Close", "关闭") + '</button></div>';
+    box.querySelector("#acOut").onclick = function(){ setCur(""); renderBtn(); closeM(); };
+    box.querySelector("#acClose").onclick = closeM; box.querySelector("#acClose").focus(); return;
+  }
+  var up = view === "up";
+  box.innerHTML = '<div class="mtabs"><button class="' + (up ? "" : "on") + '" data-v="in">' + z("Sign in", "登录") + '</button><button class="' + (up ? "on" : "") + '" data-v="up">' + z("Create account", "注册") + '</button></div>'
+    + '<form id="acForm" novalidate>' + (up ? '<label class="fld"><span>' + z("Name", "名字") + '</span><input id="acName" autocomplete="name" maxlength="60"></label>' : "")
+    + '<label class="fld"><span>' + z("Email", "邮箱") + '</span><input id="acEmail" type="email" autocomplete="email" maxlength="120"></label>'
+    + '<label class="fld"><span>' + z("Password", "密码") + '</span><input id="acPw" type="password" autocomplete="' + (up ? "new-password" : "current-password") + '" minlength="8"></label>'
+    + '<div class="merr" id="acErr" role="alert"></div><div class="mrow"><button type="button" class="btn small" id="acCancel">' + z("Cancel", "取消") + '</button><button class="btn small primary" type="submit">' + (up ? z("Create account", "注册") : z("Sign in", "登录")) + '</button></div></form>'
+    + '<p class="mnote">' + z("Beta: your account is kept only in this browser on this device (password stored as a salted hash). Signing in does not change detection yet. Don't reuse a password from another site.", "测试版：账号只保存在这台设备的浏览器里（密码以加盐哈希保存）。登录暂时不会改变检测功能。请不要使用其他网站的密码。") + '</p>';
+  box.querySelectorAll(".mtabs button").forEach(function(b){ b.setAttribute("aria-pressed", b.classList.contains("on") ? "true" : "false"); b.onclick = function(){ draw(b.dataset.v); var t = M.querySelector('.mtabs button[data-v="' + b.dataset.v + '"]'); if (t) t.focus(); }; });
+  box.querySelector("#acCancel").onclick = closeM;
+  var f = box.querySelector("#acForm"), err = box.querySelector("#acErr");
+  f.onsubmit = async function(ev){ ev.preventDefault(); err.textContent = "";
+    var em = box.querySelector("#acEmail").value.trim().toLowerCase(), pw = box.querySelector("#acPw").value, nm = up ? box.querySelector("#acName").value.trim() : "";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { err.textContent = z("Please enter a valid email.", "请输入有效的邮箱。"); return; }
+    if (pw.length < 8) { err.textContent = z("Password must be at least 8 characters.", "密码至少 8 位。"); return; }
+    try {
+      var a = load();
+      if (up) { if (!nm) { err.textContent = z("Please enter your name.", "请输入名字。"); return; } if (a[em]) { err.textContent = z("An account with this email already exists on this device.", "这台设备上已有这个邮箱的账号。"); return; }
+        var salt = hex(crypto.getRandomValues(new Uint8Array(16))); a[em] = { name: nm, salt: salt, h: await hash(pw, salt), created: new Date().toISOString() };
+        if (!save(a)) { err.textContent = z("This browser blocked saving.", "浏览器阻止了保存。"); return; } }
+      else { var u = a[em]; if (!u || (await hash(pw, u.salt)) !== u.h) { err.textContent = z("Email or password is incorrect.", "邮箱或密码不正确。"); return; } }
+      setCur(em); renderBtn(); draw("me");
+    } catch (x) { err.textContent = x && x.message ? x.message : "Error"; }
+  };
+  var first = box.querySelector("input"); if (first) first.focus();
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+document.getElementById("acctBtn").addEventListener("click", open);
+M.addEventListener("click", function(e){ if (e.target === M) closeM(); });
+document.addEventListener("keydown", function(e){
+  if (M.hidden) return;
+  if (e.key === "Escape") { closeM(); return; }
+  if (e.key === "Tab") { var f = M.querySelectorAll("button,input"); if (!f.length) return; var a = f[0], z2 = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z2.focus(); } else if (!e.shiftKey && document.activeElement === z2) { e.preventDefault(); a.focus(); } }
+});
+renderBtn();
+var lb = document.getElementById("langBtn"); if (lb) lb.addEventListener("click", renderBtn);
+})();
 </script>
 <button class="donfloat" id="donFloat" hidden aria-label="Donate this article"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.2-4.5-9.6-9.1C.8 8.7 2.6 5.2 6 5.2c2.2 0 3.6 1.2 4.4 2.5.4.6 1.4.6 1.8 0 .8-1.3 2.2-2.5 4.4-2.5 3.4 0 5.2 3.5 3.6 6.7C19.2 16.5 12 21 12 21z" fill="currentColor"/></svg>Donate this article</button>
 </body>
