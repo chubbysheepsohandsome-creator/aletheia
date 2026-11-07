@@ -236,6 +236,15 @@ textarea#input::placeholder{color:var(--fg-3)}
 .covpct{font:600 40px/1 var(--serif);min-width:96px}
 .s.strong{background:var(--hl-strong)} .s.moderate{background:var(--hl-moderate)} .showhuman .s.human{background:var(--hl-human)}
 .s:hover,.s.sel{outline:1px solid var(--accent);outline-offset:2px}
+.modelbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:-4px 0 18px;padding:10px 14px;background:var(--bg-3);border-radius:14px}
+.modelbar .mb-l{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)}
+.mb-seg{display:flex;gap:4px;background:var(--bg);border-radius:10px;padding:3px}
+.mb-seg button{background:none;border:0;border-radius:8px;padding:7px 14px;cursor:pointer;color:var(--fg-2);font:500 13.5px var(--sans);text-align:left}
+.mb-seg button small{display:block;font:11px var(--mono);color:var(--fg-3);margin-top:1px;font-weight:400}
+.mb-seg button.on{background:var(--card);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.modelbar.legacy{box-shadow:inset 0 0 0 1px var(--accent)}
+.modelbar .mb-n{font-size:12.5px;color:var(--fg-3);flex:1;min-width:220px}
+.legacybar{margin:-6px 0 14px;padding:10px 14px;border-radius:12px;background:var(--bg-3);box-shadow:inset 0 0 0 1px var(--accent);font-size:13.5px}.legacybar b{margin-right:8px;font-weight:600}
 .s mark.aw{background:rgba(110,150,255,.32);color:inherit;font-weight:500;padding:0 1px;border-radius:3px}
 .tip .whyl{margin-top:6px;opacity:.95}.tip .whyl b{font-family:var(--sans);font-weight:600}
 .detail .whyl{margin-top:8px}
@@ -444,7 +453,7 @@ footer{border-top:1px solid var(--line)}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.4</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.5</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
@@ -613,8 +622,13 @@ footer{border-top:1px solid var(--line)}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.4 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.5 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
+    <div class="modelbar" id="modelBar"><span class="mb-l">Model</span>
+      <div class="mb-seg" role="radiogroup" aria-label="Model version">
+        <button class="on" data-model="current" role="radio" aria-checked="true">Current<small>seg-0.8 · latest training</small></button><button data-model="legacy" role="radio" aria-checked="false">Previous<small>seg-0.7 · before the latest training</small></button>
+      </div>
+      <span class="mb-n">Switch to the model used before the latest training to compare results. Scores and thresholds are otherwise identical.</span></div>
     <section id="inputSection">
       <div class="workbench">
         <div class="tabs" role="tablist">
@@ -1096,6 +1110,8 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
   <h2>V1.8 (6–7 November 2026)</h2>
+  <div class="cl"><h3>V1.8.5 <span>7 Nov 2026 · switch back to the previous model</span></h3><ul>
+    <li><b>New:</b> a Model switch at the top of the Detect page. “Previous” runs the model used before the V1.8.3 retraining (seg-0.7, the one released in V1.8.2); “Current” is seg-0.8. Everything else is the same: engine, thresholds, levels and student mode. The previous model is only downloaded when you choose it, and results made with it are labelled. The wording marks from V1.8.4 are not shown for the previous model, because the word list was built on the current one.</li></ul></div>
   <div class="cl"><h3>V1.8.4 <span>7 Nov 2026 · test version: the wording behind the highlights</span></h3><ul>
     <li><b>New (test):</b> inside highlighted segments, the words that raised the score are now marked with a yellow tint, listed in the sentence details, and summarised under the AI percentage. Only words from a fixed list of 283 are ever shown: words that raised segment scores in flagged text from at least six different datasets, and that appear at least twice as often per document in AI-written samples as in human samples. Names and topic words fail the first test; common words such as “because” fail the second.</li>
     <li><b>What it is not:</b> it is not evidence of who wrote the text. The same words show up in human texts that get flagged: in a check of 1,413 held-out human texts, 43 were flagged in high-sensitivity student mode and 33 of those had at least one marked word. Scores, thresholds and the model (seg-0.8) are unchanged from V1.8.3.</li>
@@ -1183,6 +1199,8 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">更新日志</p><h1>V1.0 以来的每一次更新。</h1><p>最新的在最上面。每一条都写明改了什么、为什么改，以及对你的结果意味着什么。除非另有说明，数字都来自模型从未见过的测试文本；样本很小的会标出来。</p></div>
   <div class="content changelog">
   <h2>V1.8（2026 年 11 月 6–7 日）</h2>
+  <div class="cl"><h3>V1.8.5 <span>2026 年 11 月 7 日 · 可以切回上一版模型</span></h3><ul>
+    <li><b>新增：</b>检测页顶部有了模型开关。“上一版”运行 V1.8.3 重新训练之前的模型（seg-0.7，也就是 V1.8.2 发布的那个），“当前”是 seg-0.8。其余完全相同：引擎、阈值、档位和学生模式。上一版模型只在你选择它时才会下载，用它得出的结果会有标注。V1.8.4 的用词标记不会在上一版模型下显示，因为词表是在当前模型上建立的。</li></ul></div>
   <div class="cl"><h3>V1.8.4 <span>2026 年 11 月 7 日 · 测试版：高亮背后的用词</span></h3><ul>
     <li><b>新增（测试）：</b>在被高亮的片段里，拉高分数的词现在会用黄色底色标出，出现在句子详情里，并在 AI 百分比下面汇总。只会显示固定名单里的 283 个词：这些词在至少六个不同数据集的被标文本里都拉高了片段分数，并且在 AI 写的样本里每篇出现的频率至少是人写样本的两倍。人名和题目词通过不了第一条，“because”这类常用词通过不了第二条。</li>
     <li><b>它不是什么：</b>它不是谁写了这段文字的证据。被标出的人写文本里也会出现这些词：在 1,413 篇预留人写文本的检查中，学生高敏感模式下有 43 篇被标出，其中 33 篇至少有一个标出的词。分数、阈值和模型（seg-0.8）与 V1.8.3 完全相同。</li>
@@ -1288,7 +1306,7 @@ footer{border-top:1px solid var(--line)}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.8.4 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.8.5 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -1319,7 +1337,7 @@ footer{border-top:1px solid var(--line)}
     <p>ALETHEIA 的结果不是不当行为的证据，不能作为任何学术或雇佣决定的唯一依据。</p>
     <h2>使用条款（免费测试版）</h2>
     <ul>
-      <li>ALETHEIA V1.8.4 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
+      <li>ALETHEIA V1.8.5 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
       <li>用它来开启一次对话，而不是结束对话：看看草稿、笔记和版本历史，并和作者谈谈。</li>
       <li>只分析你有权查看的文本：你自己写的，或你有正当理由审阅的文本。</li>
       <li>检测模型用研究数据集训练，这些数据集的上游版权仍在审查中；付费版将用已获许可的数据重新训练。</li>
@@ -1389,8 +1407,8 @@ footer{border-top:1px solid var(--line)}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.8.4"></script>
-<script src="engine.js?v=1.8.4"></script>
+<script src="model.js?v=1.8.5"></script>
+<script src="engine.js?v=1.8.5"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -1469,7 +1487,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.8.4"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.8.5"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -1579,6 +1597,16 @@ async function handleFile(f){
 let last = null;
 const MODE_LABEL = { deep: "Run Deep Scan", supreme: "Run Supreme Scan" };
 let mode = "deep";
+// V1.8.5: choose the model used before the seg-0.8 retraining, to compare results.
+let useLegacy = false;
+(function(){
+  const bar = document.getElementById("modelBar"); if (!bar) return;
+  bar.querySelectorAll("[data-model]").forEach((b) => b.addEventListener("click", () => {
+    useLegacy = b.dataset.model === "legacy";
+    bar.querySelectorAll("[data-model]").forEach((x) => { const on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-checked", on ? "true" : "false"); });
+    bar.classList.toggle("legacy", useLegacy);
+  }));
+})();
 const studentOn = () => { const c = document.getElementById("studentMode"); return !!(c && c.checked); };
 const sensitiveOn = () => {
   const c = document.getElementById("sensMode"), v = document.getElementById("vhMode");
@@ -1711,11 +1739,12 @@ async function runDeep(level){
   deepAbort = new AbortController();
   try {
     await ensureDeep(level === "supreme");
-    const R = await window.AletheiaDeep.run(input.value, { level, student: studentOn(), sensitive: sensitiveOn(), signal: deepAbort.signal,
+    if (useLegacy && !window.AletheiaDeepModelLegacy) { st.textContent = "Loading the previous model…"; await loadScript("deep_model_v182.js?v=" + BUILD); }
+    const R = await window.AletheiaDeep.run(input.value, { level, student: studentOn(), sensitive: sensitiveOn(), legacy: useLegacy, signal: deepAbort.signal,
       onProgress: (p) => { st.textContent = p.stage; bar.style.width = Math.max(1, Math.round(p.frac * 100)) + "%"; } });
     if (R.status !== "ok") { render(R.base); return; }
-    const A = adaptDeep(R); last = A; lastDeep = R;
-    render(A); renderDeepPanel(R, level); saveHistory(Object.assign({}, A, { category: A.category + " · " + R.levelLabel, aipct: R.coverage ? R.coverage.display : null }));
+    R.legacy = useLegacy; const A = adaptDeep(R); last = A; lastDeep = R;
+    render(A); renderDeepPanel(R, level); saveHistory(Object.assign({}, A, { category: A.category + " · " + R.levelLabel + (useLegacy ? " · seg-0.7" : ""), aipct: R.coverage ? R.coverage.display : null }));
     if (level === "supreme") await buildPdf(R);
   } catch (e) {
     if (e && e.message === "cancelled") showMsg("Deep Scan cancelled.", "info");
@@ -1890,7 +1919,7 @@ function renderDeepPanel(R, level){
   const covHtml = cv ? `<div class="covbox"><div class="covpct">${esc(cv.display)}</div><div><b>detected as AI</b> · ${cv.reportable ? `${cv.runs.length} highlighted segment${cv.runs.length === 1 ? "" : "s"} (teal underline in the text above)` : `needs at least 150 words of prose (found ${cv.qualifyingWords})`}
       <div class="covnote">${cv.sensitive ? `${cv.displayStrong} at the student threshold (teal); the rest of this figure is amber screening leads: places to look, not evidence.` : cv.student ? "Share of prose in segments that look AI-generated, at the student-assignment threshold." : "Share of prose in segments that look AI-generated."}</div><details class="covmore"><summary>How to read this</summary><p>Share of qualifying words in overlapping ~${cv.W}-word segments that the segment model scores as AI-generated. 1–19% is shown as *% because false positives are more likely there. ${cv.sensitive ? `High-sensitivity screening: ${cv.displayStrong} at the student-assignment threshold (teal); amber segments are screening leads that only this setting counts. About 1 in 100 human student essays reaches 20% here, so check amber passages against drafts and notes before drawing any conclusion. ` : ""}${cv.student ? "Student-assignment thresholds: calibrated on human student essays only, so that at most 1% of each group reaches 20%. Do not use them for other kinds of writing." : cv.studentRequested ? `Student-assignment mode needs at least ${cv.studentMinWords} words of prose, so the standard thresholds were used.` : "Calibrated so that at most 1% of human documents in each test group reach 20%."}</p></details></div></div>` : "";
   const whyHtml = cv && cv.why && cv.why.length ? `<div class="whybox"><b>Wording that raised the score</b><div class="whyw">${cv.why.map(w => `<span class="whyc">${esc(w.t)}<small>${w.n}×</small></span>`).join("")}</div><div class="covnote">In our samples these words appear in AI-written text at least twice as often as in human writing, and they pulled the highlighted segments’ scores up. People use them too, so this shows where the model is looking, not who wrote the text.</div></div>` : "";
-  P.innerHTML = `<p class="sec-k">01 · Result · ${esc(R.levelLabel)}</p>${covHtml}${whyHtml}<h2 style="margin-top:18px">Whole-document score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
+  P.innerHTML = `<p class="sec-k">01 · Result · ${esc(R.levelLabel)}</p>${R.legacy ? `<div class="legacybar"><b>Previous model</b><span>This result comes from the model used before the latest training (seg-0.7). Switch back to the current model at the top of the page to compare.</span></div>` : ""}${covHtml}${whyHtml}<h2 style="margin-top:18px">Whole-document score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
     <p class="sub">90% bootstrap interval ${Math.round(R.ci[0] * 100)}–${Math.round(R.ci[1] * 100)} · verdict stable in ${Math.round(R.stability * 100)}% of ${R.bootstrap.full} re-analyses · ${(R.elapsedMs / 1000).toFixed(1)} s</p>
     <details class="mdet"><summary>Model details</summary><div class="metric-grid" style="margin-top:10px"><div class="metric"><div class="k">Standard model</div><div class="v">${pct(R.pGbm)}</div></div><div class="metric"><div class="k">n-gram model</div><div class="v">${pct(R.pNgram)}</div></div>${R.pGeneral != null ? `<div class="metric"><div class="k">General-writing model</div><div class="v">${pct(R.pGeneral)}</div></div>` : ""}
     <div class="metric"><div class="k">Combined</div><div class="v">${pct(R.deepScore)}</div></div><div class="metric"><div class="k">Flag threshold</div><div class="v">${pct(R.thresholds.high)}</div></div></div></details>
@@ -2288,7 +2317,8 @@ var ZH2 = {
 "Below the review threshold.":"低于复核阈值。","Above the review threshold.":"高于复核阈值。","Review range.":"复核区间。",
 "Signal family":"信号类型","Measured":"测量值","Effect on score":"对分数的影响","Strength":"强度","Toward human-like":"偏向人写","Toward AI-like":"偏向 AI","Neutral":"中性","Info only":"仅供参考","moderate":"中等","weak":"弱","strong":"强","ineffective":"无效",
 "Para":"段落","Δ score":"分数变化","Opening":"开头","Paragraphs that move the result most":"对结果影响最大的段落",
-"Wording typical of AI text":"典型的 AI 用词","Wording that raised this segment’s score:":"拉高这一段分数的用词：","Wording that raised the score":"拉高分数的用词",
+"Wording typical of AI text":"典型的 AI 用词","Model":"模型","Current":"当前","Previous":"上一版","seg-0.8 · latest training":"seg-0.8 · 最新一次训练","seg-0.7 · before the latest training":"seg-0.7 · 最新训练之前","Model version":"模型版本",
+"Switch to the model used before the latest training to compare results. Scores and thresholds are otherwise identical.":"切换到最新一次训练之前使用的模型，用来对比结果。其余的分数和阈值完全相同。","Previous model":"上一版模型","This result comes from the model used before the latest training (seg-0.7). Switch back to the current model at the top of the page to compare.":"这个结果来自最新一次训练之前的模型（seg-0.7）。要对比的话，请在页面顶部切回当前模型。","Loading the previous model…":"正在加载上一版模型…","Wording that raised this segment’s score:":"拉高这一段分数的用词：","Wording that raised the score":"拉高分数的用词",
 "In our samples these words appear in AI-written text at least twice as often as in human writing, and they pulled the highlighted segments’ scores up. People use them too, so this shows where the model is looking, not who wrote the text.":"在我们的样本里，这些词在 AI 写的文本中出现的频率至少是人写文本的两倍，并且把被标出片段的分数拉高了。人也会用这些词，所以这只能说明模型在看哪里，不能说明是谁写的。",
 "No specific markers. The score reflects local sentence rhythm and the document-level pattern.":"没有具体的标记。分数反映的是局部句子节奏和全文模式。","Opens with a formal transition word.":"以正式的过渡词开头。",
 "Moderate AI-like signals":"中等的 AI 式信号","Human-like signals":"人写信号","Too short to score":"太短，不计分","structural pattern (uniform sentence rhythm)":"结构模式（句子节奏整齐）",
