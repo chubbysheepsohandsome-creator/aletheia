@@ -439,7 +439,7 @@ footer{border-top:1px solid var(--line)}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.2</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.3</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
@@ -608,7 +608,7 @@ footer{border-top:1px solid var(--line)}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.2 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.3 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -733,6 +733,18 @@ footer{border-top:1px solid var(--line)}
 <div class="en-v">
   <div class="page-head"><p class="eyebrow">Research &amp; Development</p><h1>Research notes.</h1><p>How we measure ALETHEIA, where the data comes from, and what we refuse to use.</p></div>
   <div class="content">
+    <h2>V1.8.3: more generators, more kinds of assignment (seg-0.8)</h2>
+    <p>The AI-percentage model is retrained as seg-0.8. Tests on seven new Year 10 to 12 task sheets (a persuasive essay, a <i>Macbeth</i> analysis, a biology practical report, a history source analysis, an explanatory report, a physics practical and a history essay) showed that practical reports and the "average student" and "rushed draft" styles were mostly missed. We added 75 AI-written assignments on these tasks (DeepSeek 50, ChatGPT 25, five styles each) and re-weighted 268 human texts that are lab write-ups or cover the same topics, so the model does not simply learn the topics. We trained one candidate and did not tune it on the test sets below. Thresholds are unchanged.</p>
+    <div class="tscroll"><table class="data"><tr><th>Number reaching 20%, student levels (T · High · Very high)</th><th>seg-0.7</th><th>seg-0.8</th></tr>
+      <tr><td>Perplexity, a generator held out of training, on five of the new tasks (25)</td><td class="mono">13 · 14 · 14</td><td class="mono">23 · 24 · 24</td></tr>
+      <tr><td>&nbsp;&nbsp;of which biology practical reports (5)</td><td class="mono">0 · 0 · 0</td><td class="mono">5 · 5 · 5</td></tr>
+      <tr><td>&nbsp;&nbsp;of which "average student" and "rushed draft" styles (10)</td><td class="mono">2 · 3 · 3</td><td class="mono">8 · 9 · 9</td></tr>
+      <tr><td>AI-written chemistry research investigations (10)</td><td class="mono">2 · 6 · 7</td><td class="mono">2 · 8 · 8</td></tr>
+      <tr><td>Held-out human texts of 300+ words (4,581)</td><td class="mono">84 · 190 · 285</td><td class="mono">83 · 174 · 272</td></tr>
+      <tr><td>Real student essays, PERSUADE 2.0 (2,437)</td><td class="mono">2 · 23 · 42</td><td class="mono">3 · 24 · 40</td></tr>
+      <tr><td>Held-out human lab write-ups and texts on the new topics (59)</td><td class="mono">2 · 5 · 7</td><td class="mono">1 · 4 · 6</td></tr>
+      <tr><td>Older AI test sets, General level (no student switch)</td><td class="mono">60.2%</td><td class="mono">60.9%</td></tr></table></div>
+    <p><b>Read these numbers with care.</b> The Perplexity essays answer the same five task sheets as the training essays, so they show that the model now catches a generator it never saw on these tasks, not that it handles new tasks. There is one essay per style and task, and the "average student" and "rushed draft" styles are AI imitations, not real student writing. At the General level, held-out human texts reaching 20% rose from 42 to 45 of 9,006. One group got slightly worse at High: Beemo human answers written to chatbot-style prompts, 64 to 67. The donated human school reports score as before (one still reaches 22% at T). We still have no human-written student practical reports to test against, which is the biggest gap.</p>
     <h2>V1.8.2: retrained on student work by current AI models (seg-0.7)</h2>
     <p>The AI-percentage model is retrained as seg-0.7. Donated essays showed that current models writing as a typical Year 12 student were almost never caught. We added 25 AI-written assignments made on real Year 12 task sheets (a persuasive essay on racism in Australia by Gemini, ChatGPT, DeepSeek and Perplexity, 20 essays, and a physics research investigation by Gemini, 5; each model was asked for five styles: natural, average student, top student, rushed draft and hand-reworded). Because 20 of them share one topic, the model first learned the topic itself and flagged human essays about racism, so we also re-weighted 534 human texts on the same topics. Thresholds are unchanged.</p>
     <div class="tscroll"><table class="data"><tr><th>Number reaching 20%, student levels (T · High · Very high)</th><th>seg-0.6</th><th>seg-0.7</th></tr>
@@ -885,6 +897,18 @@ footer{border-top:1px solid var(--line)}
 <div class="zh-v" lang="zh-CN">
   <div class="page-head"><p class="eyebrow">研究与开发</p><h1>研究笔记。</h1><p>我们如何测量 ALETHEIA、数据从哪里来，以及哪些数据我们拒绝使用。</p></div>
   <div class="content">
+    <h2>V1.8.3：更多生成模型、更多作业类型（seg-0.8）</h2>
+    <p>AI 百分比模型重新训练为 seg-0.8。我们用七份新的 10 到 12 年级任务单做了测试（议论文、《麦克白》分析、生物实验报告、历史材料分析、说明文、物理实验报告和历史论述文），发现实验报告以及"普通学生"和"赶工草稿"两种风格大多被漏掉。我们加入了这些任务上的 75 篇 AI 作业（DeepSeek 50 篇、ChatGPT 25 篇，每种五个风格），并对 268 篇人写的实验报告或同题材文本加了权重，防止模型只学会题目本身。我们只训练了一个候选版本，没有用下面的测试集调参。阈值没有改变。</p>
+    <div class="tscroll"><table class="data"><tr><th>达到 20% 的数量，学生档位（T · 高 · 极高）</th><th>seg-0.7</th><th>seg-0.8</th></tr>
+      <tr><td>Perplexity（训练中完全没用到的生成模型）在五个新任务上写的作业（25）</td><td class="mono">13 · 14 · 14</td><td class="mono">23 · 24 · 24</td></tr>
+      <tr><td>&nbsp;&nbsp;其中生物实验报告（5）</td><td class="mono">0 · 0 · 0</td><td class="mono">5 · 5 · 5</td></tr>
+      <tr><td>&nbsp;&nbsp;其中"普通学生"和"赶工草稿"风格（10）</td><td class="mono">2 · 3 · 3</td><td class="mono">8 · 9 · 9</td></tr>
+      <tr><td>AI 写的化学研究报告（10）</td><td class="mono">2 · 6 · 7</td><td class="mono">2 · 8 · 8</td></tr>
+      <tr><td>预留的 300 词以上人写文本（4,581）</td><td class="mono">84 · 190 · 285</td><td class="mono">83 · 174 · 272</td></tr>
+      <tr><td>真实学生作文，PERSUADE 2.0（2,437）</td><td class="mono">2 · 23 · 42</td><td class="mono">3 · 24 · 40</td></tr>
+      <tr><td>预留的人写实验报告和新题材文本（59）</td><td class="mono">2 · 5 · 7</td><td class="mono">1 · 4 · 6</td></tr>
+      <tr><td>旧 AI 测试集，通用档（不开学生开关）</td><td class="mono">60.2%</td><td class="mono">60.9%</td></tr></table></div>
+    <p><b>请谨慎解读这些数字。</b>Perplexity 的作业回答的是和训练作业相同的五份任务单，所以它只说明模型现在能在这些任务上抓到一个从未见过的生成模型，不说明它能处理新任务。每个任务每种风格只有一篇，"普通学生"和"赶工草稿"是 AI 模仿出来的，不是真实学生写的。在通用档，预留人写文本达到 20% 的数量从 9,006 篇中的 42 篇升到 45 篇。有一组在高档略有变差：Beemo 中按聊天机器人式提示写的人写回答，从 64 篇升到 67 篇。捐献的人写学校报告得分和以前一样（其中一份在 T 档仍达到 22%）。我们仍然没有学生亲手写的实验报告可以用来测试，这是最大的缺口。</p>
     <h2>V1.8.2：用新一代 AI 写的学生作业重新训练（seg-0.7）</h2>
     <p>AI 百分比模型重新训练为 seg-0.7。捐献的作文显示，当代模型模仿普通 12 年级学生写的作业几乎从不被检出。我们加入了 25 篇按真实 12 年级任务单写的 AI 作业（关于澳大利亚种族主义的议论文由 Gemini、ChatGPT、DeepSeek 和 Perplexity 写，共 20 篇；物理研究报告由 Gemini 写，共 5 篇；每个模型都写五种风格：自然、普通学生、高水平学生、赶工草稿和人工改写）。因为其中 20 篇是同一个题目，模型一开始学到的是题目本身，也会把讨论种族主义的人写作文判成 AI 式，所以我们又给 534 篇同题材的人写文本加了权重。阈值没有改变。</p>
     <div class="tscroll"><table class="data"><tr><th>达到 20% 的数量，学生档位（T · 高 · 极高）</th><th>seg-0.6</th><th>seg-0.7</th></tr>
@@ -1061,6 +1085,9 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
   <h2>V1.8 (6–7 November 2026)</h2>
+  <div class="cl"><h3>V1.8.3 <span>7 Nov 2026 · retrained model for more kinds of assignment</span></h3><ul>
+    <li><b>New model (seg-0.8):</b> retrained with 75 AI-written assignments on seven new task sheets (DeepSeek, ChatGPT), plus a re-weighted human counterweight of lab write-ups and same-topic texts. On essays by Perplexity, a generator never used in training, the High level now finds 24 of 25 (was 14), including all 5 biology practical reports (was 0). These essays answer the same task sheets as the training essays.</li>
+    <li><b>Cost and limits:</b> held-out human texts reaching 20% fell at High (190 → 174 of 4,581), but rose slightly at the General level (42 → 45 of 9,006) and for Beemo prompt-written answers at High (64 → 67). One donated human school report still reaches 22% at T. We have no human-written student practical reports to test against yet. See Research.</li></ul></div>
   <div class="cl"><h3>V1.8.2 <span>7 Nov 2026 · retrained model, every page in Chinese</span></h3><ul>
     <li><b>New model (seg-0.7):</b> retrained with 25 AI-written Year 12 assignments made by Gemini, ChatGPT, DeepSeek and Perplexity. On AI-written chemistry research investigations from a task it never saw, High finds 6 of 10 (was 4); we trained four candidates and chose this one on these same 10 essays, so this is optimistic. Both donated AI essays, on the same topic as 20 training essays, now reach 20% at every student level (was 0 · 0 · 1).</li>
     <li><b>Cost and limits:</b> human texts reaching 20% are about the same overall (High 196 → 190 of 4,581), but one donated human school report now reaches 22% at T, and human texts on the same topics as the new training essays went from 0 · 0 · 2 to 0 · 1 · 3 (T · High · Very high, of 21). AI essays written in an "average student" or "rushed draft" style are still mostly missed. Samples are small; see Research.</li>
@@ -1141,6 +1168,9 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">更新日志</p><h1>V1.0 以来的每一次更新。</h1><p>最新的在最上面。每一条都写明改了什么、为什么改，以及对你的结果意味着什么。除非另有说明，数字都来自模型从未见过的测试文本；样本很小的会标出来。</p></div>
   <div class="content changelog">
   <h2>V1.8（2026 年 11 月 6–7 日）</h2>
+  <div class="cl"><h3>V1.8.3 <span>2026 年 11 月 7 日 · 为更多作业类型重新训练模型</span></h3><ul>
+    <li><b>新模型（seg-0.8）：</b>用七份新任务单上的 75 篇 AI 作业（DeepSeek、ChatGPT）重新训练，并加入了人写实验报告和同题材文本作为加权对照。对训练中从未用过的 Perplexity 写的作业，高档现在能找到 25 篇中的 24 篇（以前是 14 篇），其中 5 篇生物实验报告全部找到（以前是 0 篇）。这些作业回答的是和训练作业相同的任务单。</li>
+    <li><b>代价和局限：</b>预留人写文本在高档达到 20% 的数量下降（4,581 篇中 190 → 174），但在通用档略有上升（9,006 篇中 42 → 45），Beemo 按提示写的回答在高档也略有上升（64 → 67）。一份捐献的人写学校报告在 T 档仍达到 22%。我们还没有学生亲手写的实验报告可以用来测试。详见研究页。</li></ul></div>
   <div class="cl"><h3>V1.8.2 <span>2026 年 11 月 7 日 · 重新训练的模型，所有页面中文化</span></h3><ul>
     <li><b>新模型（seg-0.7）：</b>用 Gemini、ChatGPT、DeepSeek 和 Perplexity 写的 25 篇 12 年级 AI 作业重新训练。对一个从未见过的任务写的 AI 化学研究报告，高档能找到 10 篇中的 6 篇（以前是 4 篇）；我们训练了四个候选版本，并用这同样 10 篇报告挑出了这一个，所以这个数字偏乐观。两篇捐献的 AI 作文和 20 篇训练作文题目相同，现在在每个学生档位都达到 20%（以前是 0 · 0 · 1）。</li>
     <li><b>代价和局限：</b>达到 20% 的人写文本整体大致不变（高档 4,581 篇中 196 → 190），但一份捐献的人写学校报告现在在 T 档达到 22%，与新训练作文同题材的 21 篇人写文本从 0 · 0 · 2 变为 0 · 1 · 3（T · 高 · 极高）。"普通学生"或"赶工草稿"风格的 AI 作文大多仍会漏掉。样本很小；详见研究页。</li>
@@ -1239,7 +1269,7 @@ footer{border-top:1px solid var(--line)}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.8.2 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.8.3 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -1270,7 +1300,7 @@ footer{border-top:1px solid var(--line)}
     <p>ALETHEIA 的结果不是不当行为的证据，不能作为任何学术或雇佣决定的唯一依据。</p>
     <h2>使用条款（免费测试版）</h2>
     <ul>
-      <li>ALETHEIA V1.8.2 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
+      <li>ALETHEIA V1.8.3 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
       <li>用它来开启一次对话，而不是结束对话：看看草稿、笔记和版本历史，并和作者谈谈。</li>
       <li>只分析你有权查看的文本：你自己写的，或你有正当理由审阅的文本。</li>
       <li>检测模型用研究数据集训练，这些数据集的上游版权仍在审查中；付费版将用已获许可的数据重新训练。</li>
@@ -1340,8 +1370,8 @@ footer{border-top:1px solid var(--line)}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.8.2"></script>
-<script src="engine.js?v=1.8.2"></script>
+<script src="model.js?v=1.8.3"></script>
+<script src="engine.js?v=1.8.3"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -1420,7 +1450,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.8.2"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.8.3"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
