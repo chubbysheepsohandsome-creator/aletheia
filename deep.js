@@ -51,11 +51,15 @@
   }
 
   function setModel(w) { w = w === true ? "seg07" : (w || "current"); if (!MODEL_SRC[w]) w = "current"; if (w !== which) { which = w; M = null; } }
+  // V1.8.7 topic mask: topic words (racism, australia, schools, universities ...) are blanked out, same length, before n-gram
+  // counting, so a topic can no longer move the score. Current model only; older models are left exactly as they were.
+  const TOPIC_RE = /\b(?:1919|1920s|1929|1930s|1936|1939|aboriginal|aboriginals|ambition|ammeter|asphalt|australia|australian|australians|beaker|berlin|bicarbonate|britain|campus|carbon|circuit|classroom|classrooms|college|colleges|colonial|colonisation|colonization|concrete|cooling|council|councils|crocodile|curriculum|digital|dioxide|discriminate|discriminated|discrimination|duncan|education|elodea|france|german|germans|germany|ghost|government|guilt|guilty|headline|hitler|homework|indigenous|islander|islanders|journalists|kindness|king|lady|lunch|macbeth|media|micrometer|minister|mobile|nationalist|nazi|nazis|newspaper|newspapers|nichrome|ohms|online|oxygen|parents|phones|photosynthesis|policy|political|politics|prejudice|racial|racially|racism|racist|racists|reparations|republic|resistance|resistivity|rhineland|roof|roofs|school|schools|segregation|settlement|settlers|shakespeare|sleepwalking|social|sodium|stereotype|stereotypes|strait|student|students|summer|sunlight|syringe|teacher|teachers|torres|treaty|universities|university|urban|vegetation|versailles|voltage|voltmeter|weimar|wire|witches)(?:'s|s|es)?\b/gi;
+  function maskTopic(low) { return which === "current" ? low.replace(TOPIC_RE, (m) => " ".repeat(m.length)) : low; }
   // n-gram counts for one text: Map<index, count>
   function counts(text, into) {
     const m = model(), NF = m.n_features, out = into || new Map();
     const add = (s) => { const h = murmur3(enc.encode(s)); const idx = (h === -2147483648 ? 0 : Math.abs(h)) % NF; out.set(idx, (out.get(idx) || 0) + 1); };
-    const low = text.toLowerCase();
+    const low = maskTopic(text.toLowerCase());
     const cs = Array.from(low.replace(/\s\s+/g, " "));
     for (let n = m.char_ngram[0]; n <= Math.min(m.char_ngram[1], cs.length); n++)
       for (let i = 0; i + n <= cs.length; i++) add(cs.slice(i, i + n).join(""));
@@ -186,7 +190,7 @@
   // exactly into one share per n-gram occurrence. Each share is spread over the characters the n-gram covers and summed
   // per word. Nothing here changes any score; it only reads the same weights the score uses.
   function occurrencesOf(text) {
-    const m = model(), NF = m.n_features, low = text.toLowerCase(), pts = [];
+    const m = model(), NF = m.n_features, low = maskTopic(text.toLowerCase()), pts = [];
     for (let i = 0; i < low.length;) { const ch = String.fromCodePoint(low.codePointAt(i)); pts.push([ch, i]); i += ch.length; }
     const cs = [], po = [], ws = (c) => /\s/.test(c);
     for (let j = 0; j < pts.length;) {

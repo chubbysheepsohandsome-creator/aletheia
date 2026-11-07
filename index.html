@@ -453,7 +453,7 @@ footer{border-top:1px solid var(--line)}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.6</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.7</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
@@ -622,7 +622,7 @@ footer{border-top:1px solid var(--line)}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.6 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.7 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <div class="modelbar" id="modelBar"><span class="mb-l">Model</span>
       <div class="mb-seg" role="radiogroup" aria-label="Model version">
@@ -1110,6 +1110,11 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
   <h2>V1.8 (6–7 November 2026)</h2>
+  <div class="cl"><h3>V1.8.7 <span>7 Nov 2026 · topic words no longer move the score</span></h3><ul>
+    <li><b>Fixed:</b> words that belong to a topic rather than to a writing style (racism, Australian, school, university, Hitler, Macbeth, voltage and about 300 similar words) are now blanked out before the current model scores a text. On a racism-in-Australia essay the result fell from 100% to 43%.</li>
+    <li><b>Cost:</b> on a 25-text AI test set that shares topics with the training data, texts flagged fell from 24 to 19; on 150 other AI texts from 111 to 109. Human texts: no change in flagged counts (4 to 5 of 400, 4 of 102). This is the expected price of removing topic leakage; a topic-balanced retraining is still needed.</li>
+    <li>Previous (seg-0.7) and Older (seg-0.6) modes are unchanged.</li>
+  </ul></div>
   <div class="cl"><h3>V1.8.6 <span>7 Nov 2026 · a third model option, and a known issue</span></h3><ul>
     <li><b>New:</b> the Model switch now also offers seg-0.6, the segment model used from V1.3 to V1.8.1 (before the V1.8.2 retraining). Like the previous model, it downloads only when chosen.</li>
     <li><b>Known issue:</b> seg-0.7 and seg-0.8 were trained with essays on racism in Australia, and the models learned some of the topic itself. On one essay on this topic the result was 100% with seg-0.7 and seg-0.8 and 0% with seg-0.6; removing 98 topic words (racism, Australian, schools, universities and similar, 7% of the text) took the result to under 20% with both newer models. Treat results for essays on this topic with extra caution, and compare with the older model. A topic-balanced retraining is planned.</li></ul></div>
@@ -1202,6 +1207,11 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">更新日志</p><h1>V1.0 以来的每一次更新。</h1><p>最新的在最上面。每一条都写明改了什么、为什么改，以及对你的结果意味着什么。除非另有说明，数字都来自模型从未见过的测试文本；样本很小的会标出来。</p></div>
   <div class="content changelog">
   <h2>V1.8（2026 年 11 月 6–7 日）</h2>
+  <div class="cl"><h3>V1.8.7 <span>2026 年 11 月 7 日 · 题目词不再影响分数</span></h3><ul>
+    <li><b>修复：</b>属于题目而不是文风的词（racism、Australian、school、university、Hitler、Macbeth、voltage 等约 300 个词）在当前模型打分前会被清空。一篇澳大利亚种族主义的文章，结果从 100% 降到 43%。</li>
+    <li><b>代价：</b>在与训练数据题目重合的 25 篇 AI 测试集上，被标出的从 24 篇降到 19 篇；另外 150 篇 AI 文本从 111 降到 109。人写文本：被标出数量基本不变（400 篇中 4 到 5 篇，102 篇中 4 篇）。这是去掉题目泄漏的预期代价，仍需要按题目均衡的重新训练。</li>
+    <li>上一版（seg-0.7）和更早版（seg-0.6）模式不变。</li>
+  </ul></div>
   <div class="cl"><h3>V1.8.6 <span>2026 年 11 月 7 日 · 第三个模型选项，以及一个已知问题</span></h3><ul>
     <li><b>新增：</b>模型开关现在也可以选 seg-0.6，也就是 V1.3 到 V1.8.1 使用的段落模型（V1.8.2 重新训练之前）。和上一版一样，只在选择时才会下载。</li>
     <li><b>已知问题：</b>seg-0.7 和 seg-0.8 训练时用了关于澳大利亚种族主义的文章，模型学到了一部分题目本身。在一篇这个题目的文章上，seg-0.7 和 seg-0.8 给出 100%，seg-0.6 给出 0%；删掉 98 个题目词（racism、Australian、schools、universities 等，占全文 7%）之后，两个新模型都降到 20% 以下。对这个题目的文章请格外谨慎，并用更早的模型对比。我们计划做一次题目均衡的重新训练。</li></ul></div>
@@ -1312,7 +1322,7 @@ footer{border-top:1px solid var(--line)}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.8.6 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.8.7 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -1343,7 +1353,7 @@ footer{border-top:1px solid var(--line)}
     <p>ALETHEIA 的结果不是不当行为的证据，不能作为任何学术或雇佣决定的唯一依据。</p>
     <h2>使用条款（免费测试版）</h2>
     <ul>
-      <li>ALETHEIA V1.8.6 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
+      <li>ALETHEIA V1.8.7 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
       <li>用它来开启一次对话，而不是结束对话：看看草稿、笔记和版本历史，并和作者谈谈。</li>
       <li>只分析你有权查看的文本：你自己写的，或你有正当理由审阅的文本。</li>
       <li>检测模型用研究数据集训练，这些数据集的上游版权仍在审查中；付费版将用已获许可的数据重新训练。</li>
@@ -1413,8 +1423,8 @@ footer{border-top:1px solid var(--line)}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.8.6"></script>
-<script src="engine.js?v=1.8.6"></script>
+<script src="model.js?v=1.8.7"></script>
+<script src="engine.js?v=1.8.7"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -1493,7 +1503,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.8.6"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.8.7"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
