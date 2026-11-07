@@ -32,12 +32,13 @@
     return h | 0;
   }
 
-  let useLegacy = false;  // V1.8.5: true = the model shipped before the seg-0.8 retraining (seg-0.7, V1.8.2), loaded from deep_model_v182.js
+  // V1.8.5/6: earlier models kept for comparison. current = seg-0.8; seg07 = V1.8.2 (deep_model_v182.js); seg06 = V1.3 to V1.8.1 (deep_model_seg06.js)
+  const MODEL_SRC = { current: ["AletheiaDeepModel", "./deep_model.js"], seg07: ["AletheiaDeepModelLegacy", "./deep_model_v182.js"], seg06: ["AletheiaDeepModelSeg06", "./deep_model_seg06.js"] };
+  let which = "current";
   let M = null, IDF = null, COEF = null, RCOEF = null, CCOEF = null, GCOEF = null, SCOEF = null, TOKRE = null;
   function model() {
     if (M) return M;
-    M = useLegacy ? (root.AletheiaDeepModelLegacy || (typeof require === "function" ? require("./deep_model_v182.js") : null))
-                  : (root.AletheiaDeepModel || (typeof require === "function" ? require("./deep_model.js") : null));
+    const src = MODEL_SRC[which]; M = root[src[0]] || (typeof require === "function" ? require(src[1]) : null);
     if (!M) throw new Error("Deep Scan model not loaded");
     const b64 = (s) => { const bin = typeof atob === "function" ? atob(s) : Buffer.from(s, "base64").toString("binary"); const a = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); return a; };
     IDF = b64(M.idf_b64); COEF = new Int8Array(b64(M.coef_b64).buffer);
@@ -49,7 +50,7 @@
     return M;
   }
 
-  function setModel(legacy) { legacy = !!legacy; if (legacy !== useLegacy) { useLegacy = legacy; M = null; } }
+  function setModel(w) { w = w === true ? "seg07" : (w || "current"); if (!MODEL_SRC[w]) w = "current"; if (w !== which) { which = w; M = null; } }
   // n-gram counts for one text: Map<index, count>
   function counts(text, into) {
     const m = model(), NF = m.n_features, out = into || new Map();
@@ -254,7 +255,7 @@
 
   async function run(text, opts = {}) {
     const E = root.ProseLensEngine || require("./engine.js");
-    setModel(opts.legacy);
+    setModel(opts.model || opts.legacy);
     const L = LEVELS[opts.level || "deep"], prog = opts.onProgress || (() => {}), t0 = Date.now();
     const cancelled = () => opts.signal && opts.signal.aborted;
     const stages = [];
@@ -282,7 +283,7 @@
 
     await stage("AI coverage: overlapping segment scoring", 0.12);
     const cov = coverage(prose, sc, REG.name, opts.student, opts.sensitive);
-    if (cov && !useLegacy) addWhy(prose, cov);  // the wording list was built on seg-0.8
+    if (cov && which === "current") addWhy(prose, cov);  // the wording list was built on seg-0.8
 
     await stage("Window re-scoring (sentence neighbourhoods)", 0.14);
     const winProb = prose.map(() => []);
