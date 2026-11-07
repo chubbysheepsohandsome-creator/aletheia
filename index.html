@@ -236,6 +236,11 @@ textarea#input::placeholder{color:var(--fg-3)}
 .covpct{font:600 40px/1 var(--serif);min-width:96px}
 .s.strong{background:var(--hl-strong)} .s.moderate{background:var(--hl-moderate)} .showhuman .s.human{background:var(--hl-human)}
 .s:hover,.s.sel{outline:1px solid var(--accent);outline-offset:2px}
+.s mark.aw{background:rgba(110,150,255,.32);color:inherit;font-weight:500;padding:0 1px;border-radius:3px}
+.tip .whyl{margin-top:6px;opacity:.95}.tip .whyl b{font-family:var(--sans);font-weight:600}
+.detail .whyl{margin-top:8px}
+.whybox{margin:-6px 0 18px;padding:14px 18px;background:var(--bg-3);border-radius:14px}.whybox>b{font-weight:500}
+.whyw{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 8px}.whyc{border:1px solid var(--line-2);border-radius:999px;padding:3px 10px;font-size:13px}.whyc small{margin-left:5px;opacity:.6}
 .tip{position:fixed;z-index:50;max-width:340px;background:var(--fg);color:var(--bg);font-size:12.5px;line-height:1.5;padding:12px 14px;pointer-events:none;display:none}
 .tip b{font-family:var(--mono);font-weight:500}.tip ul{margin:6px 0 0;padding-left:16px}
 .detail{margin-top:16px;padding:14px 16px;border:1px solid var(--line);font-size:13.5px;display:none;background:var(--bg)}
@@ -439,7 +444,7 @@ footer{border-top:1px solid var(--line)}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.3</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.4</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
@@ -608,7 +613,7 @@ footer{border-top:1px solid var(--line)}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.3 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.4 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -663,7 +668,7 @@ footer{border-top:1px solid var(--line)}
         <aside class="panel summary sec" id="summary"></aside>
         <div>
           <div class="panel sec"><p class="sec-k">03 · Document</p><h2>Highlighted document</h2><p class="sub">Hover or tap a sentence to see its signals. Highlights show patterns, not proof of authorship.</p>
-            <div class="legend"><span><i class="sw" style="background:var(--hl-strong)"></i>Strong AI-like signals</span><span><i class="sw" style="background:var(--hl-moderate)"></i>Moderate</span><span><i class="sw" style="background:var(--hl-human)"></i>Human-like</span><span><i class="sw" style="border:1px solid var(--line-2)"></i>Inconclusive</span><label><input type="checkbox" id="showHuman"> Show human-like</label></div>
+            <div class="legend"><span><i class="sw" style="background:var(--hl-strong)"></i>Strong AI-like signals</span><span><i class="sw" style="background:var(--hl-moderate)"></i>Moderate</span><span><i class="sw" style="background:var(--hl-human)"></i>Human-like</span><span><i class="sw" style="border:1px solid var(--line-2)"></i>Inconclusive</span><span><i class="sw" style="background:rgba(110,150,255,.5);border-radius:3px"></i>Wording typical of AI text</span><label><input type="checkbox" id="showHuman"> Show human-like</label></div>
             <div class="doc" id="doc"></div><div class="detail" id="detail"></div></div>
           <div class="panel sec"><p class="sec-k">04 · Paragraphs</p><h2>Distribution by paragraph</h2><p class="sub">Each prose paragraph's own AI-like signal level. Click a bar to jump to it.</p>
             <div class="pbars" id="pbars"></div><div class="axis"><span></span><div><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><span></span></div></div>
@@ -733,6 +738,9 @@ footer{border-top:1px solid var(--line)}
 <div class="en-v">
   <div class="page-head"><p class="eyebrow">Research &amp; Development</p><h1>Research notes.</h1><p>How we measure ALETHEIA, where the data comes from, and what we refuse to use.</p></div>
   <div class="content">
+    <h2>V1.8.4 (test): showing the wording behind a highlight</h2>
+    <p>The AI-percentage model is a linear classifier over word and character n-grams, so a segment’s score splits exactly into one share per n-gram occurrence. We spread each share over the characters it covers and add them up per word; the shares of a single 250-word window plus the intercept reproduce its score to four decimals. Showing raw shares would mostly show topic words, because some of the training text shares topics (in a 6,000-text sample, <i>treaty</i>, <i>keeper’s</i> and <i>ledger</i> carried large shares). So the page only marks words from a fixed list of 283, chosen on a 6,000-text sample (3,000 AI, 3,000 human) of held-out texts: the word must raise segment scores in flagged text from at least six datasets, and appear per document at least twice as often in AI samples as in human samples in most of the six datasets that hold both. Examples: <i>understanding</i>, <i>crucial</i>, <i>ultimately</i>, <i>navigate</i>, <i>insights</i>, <i>comprehensive</i>.</p>
+    <p>Limits. The list was chosen on the same kind of text it is checked on, so the check below is optimistic. Some listed words are also this year’s task words (<i>cities</i>, <i>reduce</i> in the Perplexity essays), and the list says nothing about Chinese-language text. Human texts that are flagged get marked words too, so the marking shows where the model looks, not who wrote the text. Deleting the marked words lowered the segment score by 1.14 (logit units) on average over 199 AI-written texts, against 0.33 for the same number of random words; on the Perplexity essays the figures were 1.07 and 0.20.</p>
     <h2>V1.8.3: more generators, more kinds of assignment (seg-0.8)</h2>
     <p>The AI-percentage model is retrained as seg-0.8. Tests on seven new Year 10 to 12 task sheets (a persuasive essay, a <i>Macbeth</i> analysis, a biology practical report, a history source analysis, an explanatory report, a physics practical and a history essay) showed that practical reports and the "average student" and "rushed draft" styles were mostly missed. We added 75 AI-written assignments on these tasks (DeepSeek 50, ChatGPT 25, five styles each) and re-weighted 268 human texts that are lab write-ups or cover the same topics, so the model does not simply learn the topics. We trained one candidate and did not tune it on the test sets below. Thresholds are unchanged.</p>
     <div class="tscroll"><table class="data"><tr><th>Number reaching 20%, student levels (T · High · Very high)</th><th>seg-0.7</th><th>seg-0.8</th></tr>
@@ -897,6 +905,9 @@ footer{border-top:1px solid var(--line)}
 <div class="zh-v" lang="zh-CN">
   <div class="page-head"><p class="eyebrow">研究与开发</p><h1>研究笔记。</h1><p>我们如何测量 ALETHEIA、数据从哪里来，以及哪些数据我们拒绝使用。</p></div>
   <div class="content">
+    <h2>V1.8.4（测试）：显示高亮背后的用词</h2>
+    <p>AI 百分比模型是建立在词和字符 n-gram 上的线性分类器，所以一个片段的分数可以精确拆成每个 n-gram 出现位置的一份贡献。我们把每份贡献摊到它覆盖的字符上，再按词加总；单个 250 词窗口的各词贡献加上截距，和该窗口的分数一致到小数点后四位。直接显示这些贡献主要会显示题目词，因为部分训练文本的题目相同（在 6,000 篇样本里，<i>treaty</i>、<i>keeper’s</i>、<i>ledger</i> 的贡献很大）。所以页面只标出固定名单里的 283 个词。这个名单是在 6,000 篇预留文本样本（3,000 篇 AI、3,000 篇人写）上挑出的：词必须在至少六个数据集的被标文本里拉高片段分数，并且在同时含有两类文本的六个数据集中的大多数里，每篇出现的频率在 AI 样本中至少是人写样本的两倍。例子：<i>understanding</i>、<i>crucial</i>、<i>ultimately</i>、<i>navigate</i>、<i>insights</i>、<i>comprehensive</i>。</p>
+    <p>局限。名单是在和检验同类的文本上挑的，所以下面的检验结果偏乐观。名单里有些词也是今年的任务词（Perplexity 作文里的 <i>cities</i>、<i>reduce</i>），名单也不涉及中文文本。被判为 AI 的人写文本同样会有被标记的词，所以标记只表示模型在看哪里，不表示是谁写的。删掉标出的词，199 篇 AI 文本的片段分数平均下降 1.14（对数几率单位），随机删掉同样数量的词只下降 0.33；Perplexity 作文分别是 1.07 和 0.20。</p>
     <h2>V1.8.3：更多生成模型、更多作业类型（seg-0.8）</h2>
     <p>AI 百分比模型重新训练为 seg-0.8。我们用七份新的 10 到 12 年级任务单做了测试（议论文、《麦克白》分析、生物实验报告、历史材料分析、说明文、物理实验报告和历史论述文），发现实验报告以及"普通学生"和"赶工草稿"两种风格大多被漏掉。我们加入了这些任务上的 75 篇 AI 作业（DeepSeek 50 篇、ChatGPT 25 篇，每种五个风格），并对 268 篇人写的实验报告或同题材文本加了权重，防止模型只学会题目本身。我们只训练了一个候选版本，没有用下面的测试集调参。阈值没有改变。</p>
     <div class="tscroll"><table class="data"><tr><th>达到 20% 的数量，学生档位（T · 高 · 极高）</th><th>seg-0.7</th><th>seg-0.8</th></tr>
@@ -1085,6 +1096,10 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
   <h2>V1.8 (6–7 November 2026)</h2>
+  <div class="cl"><h3>V1.8.4 <span>7 Nov 2026 · test version: the wording behind the highlights</span></h3><ul>
+    <li><b>New (test):</b> inside highlighted segments, the words that raised the score are now marked with a yellow tint, listed in the sentence details, and summarised under the AI percentage. Only words from a fixed list of 283 are ever shown: words that raised segment scores in flagged text from at least six different datasets, and that appear at least twice as often per document in AI-written samples as in human samples. Names and topic words fail the first test; common words such as “because” fail the second.</li>
+    <li><b>What it is not:</b> it is not evidence of who wrote the text. The same words show up in human texts that get flagged: in a check of 1,413 held-out human texts, 43 were flagged in high-sensitivity student mode and 33 of those had at least one marked word. Scores, thresholds and the model (seg-0.8) are unchanged from V1.8.3.</li>
+    <li><b>Check:</b> deleting the marked words lowers the segment score roughly 3 to 5 times as much as deleting the same number of random words from the same sentences (mean drop 1.14 against 0.33 on 199 AI-written texts, 1.07 against 0.20 on the Perplexity essays).</li></ul></div>
   <div class="cl"><h3>V1.8.3 <span>7 Nov 2026 · retrained model for more kinds of assignment</span></h3><ul>
     <li><b>New model (seg-0.8):</b> retrained with 75 AI-written assignments on seven new task sheets (DeepSeek, ChatGPT), plus a re-weighted human counterweight of lab write-ups and same-topic texts. On essays by Perplexity, a generator never used in training, the High level now finds 24 of 25 (was 14), including all 5 biology practical reports (was 0). These essays answer the same task sheets as the training essays.</li>
     <li><b>Cost and limits:</b> held-out human texts reaching 20% fell at High (190 → 174 of 4,581), but rose slightly at the General level (42 → 45 of 9,006) and for Beemo prompt-written answers at High (64 → 67). One donated human school report still reaches 22% at T. We have no human-written student practical reports to test against yet. See Research.</li></ul></div>
@@ -1168,6 +1183,10 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">更新日志</p><h1>V1.0 以来的每一次更新。</h1><p>最新的在最上面。每一条都写明改了什么、为什么改，以及对你的结果意味着什么。除非另有说明，数字都来自模型从未见过的测试文本；样本很小的会标出来。</p></div>
   <div class="content changelog">
   <h2>V1.8（2026 年 11 月 6–7 日）</h2>
+  <div class="cl"><h3>V1.8.4 <span>2026 年 11 月 7 日 · 测试版：高亮背后的用词</span></h3><ul>
+    <li><b>新增（测试）：</b>在被高亮的片段里，拉高分数的词现在会用黄色底色标出，出现在句子详情里，并在 AI 百分比下面汇总。只会显示固定名单里的 283 个词：这些词在至少六个不同数据集的被标文本里都拉高了片段分数，并且在 AI 写的样本里每篇出现的频率至少是人写样本的两倍。人名和题目词通过不了第一条，“because”这类常用词通过不了第二条。</li>
+    <li><b>它不是什么：</b>它不是谁写了这段文字的证据。被标出的人写文本里也会出现这些词：在 1,413 篇预留人写文本的检查中，学生高敏感模式下有 43 篇被标出，其中 33 篇至少有一个标出的词。分数、阈值和模型（seg-0.8）与 V1.8.3 完全相同。</li>
+    <li><b>检验：</b>删掉标出的词，片段分数的下降大约是从同一批句子里随机删掉同样数量的词的 3 到 5 倍（199 篇 AI 文本平均下降 1.14 对 0.33，Perplexity 作文为 1.07 对 0.20）。</li></ul></div>
   <div class="cl"><h3>V1.8.3 <span>2026 年 11 月 7 日 · 为更多作业类型重新训练模型</span></h3><ul>
     <li><b>新模型（seg-0.8）：</b>用七份新任务单上的 75 篇 AI 作业（DeepSeek、ChatGPT）重新训练，并加入了人写实验报告和同题材文本作为加权对照。对训练中从未用过的 Perplexity 写的作业，高档现在能找到 25 篇中的 24 篇（以前是 14 篇），其中 5 篇生物实验报告全部找到（以前是 0 篇）。这些作业回答的是和训练作业相同的任务单。</li>
     <li><b>代价和局限：</b>预留人写文本在高档达到 20% 的数量下降（4,581 篇中 190 → 174），但在通用档略有上升（9,006 篇中 42 → 45），Beemo 按提示写的回答在高档也略有上升（64 → 67）。一份捐献的人写学校报告在 T 档仍达到 22%。我们还没有学生亲手写的实验报告可以用来测试。详见研究页。</li></ul></div>
@@ -1269,7 +1288,7 @@ footer{border-top:1px solid var(--line)}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.8.3 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.8.4 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -1300,7 +1319,7 @@ footer{border-top:1px solid var(--line)}
     <p>ALETHEIA 的结果不是不当行为的证据，不能作为任何学术或雇佣决定的唯一依据。</p>
     <h2>使用条款（免费测试版）</h2>
     <ul>
-      <li>ALETHEIA V1.8.3 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
+      <li>ALETHEIA V1.8.4 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
       <li>用它来开启一次对话，而不是结束对话：看看草稿、笔记和版本历史，并和作者谈谈。</li>
       <li>只分析你有权查看的文本：你自己写的，或你有正当理由审阅的文本。</li>
       <li>检测模型用研究数据集训练，这些数据集的上游版权仍在审查中；付费版将用已获许可的数据重新训练。</li>
@@ -1370,8 +1389,8 @@ footer{border-top:1px solid var(--line)}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.8.3"></script>
-<script src="engine.js?v=1.8.3"></script>
+<script src="model.js?v=1.8.4"></script>
+<script src="engine.js?v=1.8.4"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -1450,7 +1469,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.8.3"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.8.4"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -1870,7 +1889,8 @@ function renderDeepPanel(R, level){
   const cv = R.coverage;
   const covHtml = cv ? `<div class="covbox"><div class="covpct">${esc(cv.display)}</div><div><b>detected as AI</b> · ${cv.reportable ? `${cv.runs.length} highlighted segment${cv.runs.length === 1 ? "" : "s"} (teal underline in the text above)` : `needs at least 150 words of prose (found ${cv.qualifyingWords})`}
       <div class="covnote">${cv.sensitive ? `${cv.displayStrong} at the student threshold (teal); the rest of this figure is amber screening leads: places to look, not evidence.` : cv.student ? "Share of prose in segments that look AI-generated, at the student-assignment threshold." : "Share of prose in segments that look AI-generated."}</div><details class="covmore"><summary>How to read this</summary><p>Share of qualifying words in overlapping ~${cv.W}-word segments that the segment model scores as AI-generated. 1–19% is shown as *% because false positives are more likely there. ${cv.sensitive ? `High-sensitivity screening: ${cv.displayStrong} at the student-assignment threshold (teal); amber segments are screening leads that only this setting counts. About 1 in 100 human student essays reaches 20% here, so check amber passages against drafts and notes before drawing any conclusion. ` : ""}${cv.student ? "Student-assignment thresholds: calibrated on human student essays only, so that at most 1% of each group reaches 20%. Do not use them for other kinds of writing." : cv.studentRequested ? `Student-assignment mode needs at least ${cv.studentMinWords} words of prose, so the standard thresholds were used.` : "Calibrated so that at most 1% of human documents in each test group reach 20%."}</p></details></div></div>` : "";
-  P.innerHTML = `<p class="sec-k">01 · Result · ${esc(R.levelLabel)}</p>${covHtml}<h2 style="margin-top:18px">Whole-document score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
+  const whyHtml = cv && cv.why && cv.why.length ? `<div class="whybox"><b>Wording that raised the score</b><div class="whyw">${cv.why.map(w => `<span class="whyc">${esc(w.t)}<small>${w.n}×</small></span>`).join("")}</div><div class="covnote">In our samples these words appear in AI-written text at least twice as often as in human writing, and they pulled the highlighted segments’ scores up. People use them too, so this shows where the model is looking, not who wrote the text.</div></div>` : "";
+  P.innerHTML = `<p class="sec-k">01 · Result · ${esc(R.levelLabel)}</p>${covHtml}${whyHtml}<h2 style="margin-top:18px">Whole-document score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
     <p class="sub">90% bootstrap interval ${Math.round(R.ci[0] * 100)}–${Math.round(R.ci[1] * 100)} · verdict stable in ${Math.round(R.stability * 100)}% of ${R.bootstrap.full} re-analyses · ${(R.elapsedMs / 1000).toFixed(1)} s</p>
     <details class="mdet"><summary>Model details</summary><div class="metric-grid" style="margin-top:10px"><div class="metric"><div class="k">Standard model</div><div class="v">${pct(R.pGbm)}</div></div><div class="metric"><div class="k">n-gram model</div><div class="v">${pct(R.pNgram)}</div></div>${R.pGeneral != null ? `<div class="metric"><div class="k">General-writing model</div><div class="v">${pct(R.pGeneral)}</div></div>` : ""}
     <div class="metric"><div class="k">Combined</div><div class="v">${pct(R.deepScore)}</div></div><div class="metric"><div class="k">Flag threshold</div><div class="v">${pct(R.thresholds.high)}</div></div></div></details>
@@ -1978,12 +1998,24 @@ function docHtml(r){
   return r.blocks.map(b => {
     if (b.type === "prose" || b.type === "list-prose") {
       const ss = bySent.get(b.i) || [];
-      return `<p data-b="${b.i}">` + ss.map(({ s, idx }) => `<span class="s ${s.cat}${s.segAI ? " segai" : ""}${s.segLead ? " seglead" : ""}" data-i="${idx}">${esc(s.text)}</span>`).join(" ") + `</p>`;
+      return `<p data-b="${b.i}">` + ss.map(({ s, idx }) => `<span class="s ${s.cat}${s.segAI ? " segai" : ""}${s.segLead ? " seglead" : ""}" data-i="${idx}">${markedText(s)}</span>`).join(" ") + `</p>`;
     }
     if (b.type === "heading") return `<p class="blk-h" data-b="${b.i}">${esc(b.text.replace(/^#+\s*/, ""))}</p>`;
     if (b.type === "equation") return `<p class="blk-x blk-eq" data-b="${b.i}" title="Formula lines are shown but not scored">${esc(b.text)}</p>`;
     return `<p class="blk-x" data-b="${b.i}"><em>${TYPE_LABEL[b.type] || "Excluded"}</em>${esc(b.text)}</p>`;
   }).join("");
+}
+// V1.8.4 (test): words inside flagged segments that pulled the segment score up and that are typical of AI text.
+function markedText(s){
+  if (!s.why || !s.why.length) return esc(s.text);
+  let o = "", p = 0;
+  for (const m of s.why) { if (m.a < p) continue; o += esc(s.text.slice(p, m.a)) + `<mark class="aw">${esc(s.text.slice(m.a, m.b))}</mark>`; p = m.b; }
+  return o + esc(s.text.slice(p));
+}
+function whyLine(s){
+  if (!s.why || !s.why.length) return "";
+  const seen = new Set(), ws = s.why.filter(m => !seen.has(m.t) && seen.add(m.t));
+  return `<div class="whyl"><span>Wording that raised this segment’s score:</span> ${ws.map(m => `<b>${esc(s.text.slice(m.a, m.b))}</b>`).join(", ")}</div>`;
 }
 function sentenceExplain(s){
   const f = s.f;
@@ -1993,8 +2025,9 @@ function sentenceExplain(s){
   let h = `<b>${s.score === null ? "—" : Math.round(s.score*100)}</b> · ${label}`;
   if (ai.length) h += `<ul>${[...new Set(ai)].slice(0,6).map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
   if (hu.length) h += `<div style="margin-top:6px;opacity:.85">Human-like: ${esc([...new Set(hu)].slice(0,4).join("; "))}</div>`;
-  if (!ai.length && !hu.length && s.score !== null) h += `<div style="margin-top:6px;opacity:.85">No specific markers. The score reflects local sentence rhythm and the document-level pattern.</div>`;
+  if (!ai.length && !hu.length && s.score !== null && !(s.why && s.why.length)) h += `<div style="margin-top:6px;opacity:.85">No specific markers. The score reflects local sentence rhythm and the document-level pattern.</div>`;
   if (f.transition) h += `<div style="margin-top:4px;opacity:.85">Opens with a formal transition word.</div>`;
+  h += whyLine(s);
   return h;
 }
 const tip = $("#tip");
@@ -2255,6 +2288,8 @@ var ZH2 = {
 "Below the review threshold.":"低于复核阈值。","Above the review threshold.":"高于复核阈值。","Review range.":"复核区间。",
 "Signal family":"信号类型","Measured":"测量值","Effect on score":"对分数的影响","Strength":"强度","Toward human-like":"偏向人写","Toward AI-like":"偏向 AI","Neutral":"中性","Info only":"仅供参考","moderate":"中等","weak":"弱","strong":"强","ineffective":"无效",
 "Para":"段落","Δ score":"分数变化","Opening":"开头","Paragraphs that move the result most":"对结果影响最大的段落",
+"Wording typical of AI text":"典型的 AI 用词","Wording that raised this segment’s score:":"拉高这一段分数的用词：","Wording that raised the score":"拉高分数的用词",
+"In our samples these words appear in AI-written text at least twice as often as in human writing, and they pulled the highlighted segments’ scores up. People use them too, so this shows where the model is looking, not who wrote the text.":"在我们的样本里，这些词在 AI 写的文本中出现的频率至少是人写文本的两倍，并且把被标出片段的分数拉高了。人也会用这些词，所以这只能说明模型在看哪里，不能说明是谁写的。",
 "No specific markers. The score reflects local sentence rhythm and the document-level pattern.":"没有具体的标记。分数反映的是局部句子节奏和全文模式。","Opens with a formal transition word.":"以正式的过渡词开头。",
 "Moderate AI-like signals":"中等的 AI 式信号","Human-like signals":"人写信号","Too short to score":"太短，不计分","structural pattern (uniform sentence rhythm)":"结构模式（句子节奏整齐）",
 "Heading":"标题","List item · excluded":"列表项 · 已排除","Reference · excluded":"参考文献 · 已排除","Table · excluded":"表格 · 已排除","Block quote · excluded":"整段引文 · 已排除","Maths · excluded":"数学公式 · 已排除","Excluded":"已排除",

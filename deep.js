@@ -177,6 +177,70 @@
              shortPass: !!SP, shortCalibration: SP ? (SP.calibration || null) : null, sensitive: sens, sensitiveLevel: lvl, sensitiveRequested: !!sensitive, screenCalibration: sens ? ((lvl === 2 ? S.screen2_calibration : S.screen_calibration) || null) : null };
   }
   const merge = (maps) => { const o = new Map(); for (const mp of maps) for (const [k, v] of mp) o.set(k, (o.get(k) || 0) + v); return o; };
+  // ---- V1.8.4 (test): which words pull a window's segment score up.
+  // The segment head is linear in the normalised TF-IDF features, so a window's logit (minus the intercept) splits
+  // exactly into one share per n-gram occurrence. Each share is spread over the characters the n-gram covers and summed
+  // per word. Nothing here changes any score; it only reads the same weights the score uses.
+  function occurrencesOf(text) {
+    const m = model(), NF = m.n_features, low = text.toLowerCase(), pts = [];
+    for (let i = 0; i < low.length;) { const ch = String.fromCodePoint(low.codePointAt(i)); pts.push([ch, i]); i += ch.length; }
+    const cs = [], po = [], ws = (c) => /\s/.test(c);
+    for (let j = 0; j < pts.length;) {
+      if (ws(pts[j][0]) && j + 1 < pts.length && ws(pts[j + 1][0])) { let k = j; while (k < pts.length && ws(pts[k][0])) k++; cs.push(" "); po.push(pts[j][1]); j = k; }
+      else { cs.push(pts[j][0]); po.push(pts[j][1]); j++; }
+    }
+    po.push(low.length);
+    const idxOf = (s) => { const h = murmur3(enc.encode(s)); return (h === -2147483648 ? 0 : Math.abs(h)) % NF; };
+    const occ = [], toks = [], re = new RegExp(m.token_pattern, "g"); let mt;
+    for (let n = m.char_ngram[0]; n <= Math.min(m.char_ngram[1], cs.length); n++)
+      for (let i = 0; i + n <= cs.length; i++) occ.push({ i: idxOf(cs.slice(i, i + n).join("")), a: po[i], b: po[i + n] });
+    while ((mt = re.exec(low))) toks.push({ t: mt[0], a: mt.index, b: mt.index + mt[0].length });
+    for (const t of toks) occ.push({ i: idxOf(t.t), a: t.a, b: t.b });
+    for (let i = 0; i + 1 < toks.length; i++) occ.push({ i: idxOf(toks[i].t + " " + toks[i + 1].t), a: toks[i].a, b: toks[i + 1].b });
+    return { occ, toks, len: low.length };
+  }
+  // prose: [{text, f:{wc}}]; returns, per sentence, [{t, a, b, c}] words with their share (logit points) of the windows' score.
+  function explain(prose, headName, W) {
+    const m = model(), HD = { ai: [COEF, m.coef_scale], gen: [GCOEF, m.general_head && m.general_head.coef_scale], seg: [SCOEF, m.segment_head && m.segment_head.coef_scale] }[headName];
+    if (!HD || !HD[0]) return null;
+    const O = prose.map((s) => occurrencesOf(s.text)), wc = prose.map((s) => s.f.wc), wins = segWindows(wc, W), kWin = prose.map(() => 0);
+    const cnt = O.map((o) => { const c = new Map(); for (const x of o.occ) c.set(x.i, (c.get(x.i) || 0) + 1); return c; });
+    for (const [a, b] of wins) for (let i = a; i < b; i++) kWin[i]++;
+    const ch = O.map((o) => new Float32Array(o.len + 1));
+    for (const [a, b] of wins) {
+      const v = merge(cnt.slice(a, b)), c = new Map(); let nrm = 0;
+      for (const [idx, n] of v) { const tf = (1 + Math.log(n)) * IDF[idx] * m.idf_scale; nrm += tf * tf; c.set(idx, tf * HD[0][idx] * HD[1] / n); }
+      const nn = nrm > 0 ? Math.sqrt(nrm) : 1;
+      for (let i = a; i < b; i++) for (const x of O[i].occ) { const sh = c.get(x.i) / nn / kWin[i] / Math.max(1, x.b - x.a); for (let p = x.a; p < x.b; p++) ch[i][p] += sh; }
+    }
+    return O.map((o, i) => {
+      const out = o.toks.map((t) => ({ t: t.t, a: t.a, b: t.b, c: 0 })); let j = 0;
+      if (out.length) for (let p = 0; p < o.len; p++) { while (j + 1 < out.length && p >= out[j + 1].a) j++; out[j].c += ch[i][p]; }
+      return out;
+    });
+  }
+  // ---- V1.8.4 (test): "why does this look like AI" marks.
+  // AI_LEX lists words that (a) pull segment scores up in flagged text from at least 6 different datasets, and
+  // (b) occur at least twice as often per document in AI-written samples as in human samples, in most datasets
+  // that hold both. The number is that median ratio. Topic words and names fail (a); common function words fail (b).
+  // Only these words are ever marked, and only where their share of the window score is positive.
+  const AI_LEX = {"absorbing":2.1,"academic":4.4,"accessible":2.9,"accuracy":2.8,"accurate":2.6,"adapt":2.8,"additionally":3.5,"addressing":2.5,"advanced":2.0,"advancements":5.8,"align":2.9,"alike":5.1,"ambition":2.8,"amidst":2.6,"ancient":3.5,"applications":2.8,"applying":3.6,"appreciate":2.3,"appreciation":3.5,"approach":2.1,"architecture":2.1,"argue":2.6,"argued":2.1,"arguing":2.8,"artifact":2.9,"artificial":3.6,"audience":2.1,"authorities":2.4,"avoiding":2.1,"balance":4.2,"balanced":2.8,"beliefs":2.1,"boundaries":3.2,"broader":4.6,"bustling":2.2,"capabilities":2.9,"carefully":2.2,"carries":2.8,"centuries":2.9,"challenges":5.6,"chaos":2.1,"cities":3.5,"civilization":2.9,"classroom":2.1,"collaboration":4.4,"commitment":2.8,"compassion":2.9,"compelling":2.2,"complex":3.8,"comprehensive":4.6,"concerns":2.9,"conclusion":2.1,"conflict":3.1,"connections":2.9,"consequences":4.4,"considering":2.2,"contribute":4.4,"contributing":2.1,"countless":2.8,"creative":2.2,"creativity":4.4,"creatures":3.5,"criticism":2.8,"crucial":2.6,"cunning":2.1,"decisions":2.8,"deeper":2.9,"deeply":2.8,"demonstrate":3.5,"designed":2.2,"determination":2.4,"determined":4.2,"dialogue":2.9,"disappointment":2.8,"discover":3.9,"distinct":2.9,"diverse":5.6,"edges":2.1,"effectively":2.4,"effectiveness":4.1,"emotional":2.2,"emotionally":2.1,"enable":2.1,"enabling":4.4,"engagement":3.5,"engaging":4.2,"enhance":5.0,"ensure":3.8,"ensuring":4.6,"environments":4.4,"essential":2.9,"establish":3.1,"excitement":2.8,"exciting":2.4,"existence":2.2,"experiences":5.2,"experiencing":2.9,"expertise":4.9,"exploration":5.8,"explore":2.9,"exposure":3.2,"expressed":2.1,"fabric":4.4,"faced":2.9,"feelings":3.1,"findings":5.4,"flexibility":2.6,"forgiveness":2.8,"foster":3.9,"fostering":4.4,"fosters":2.1,"foundation":2.1,"fresh":2.4,"gaps":2.8,"grows":2.5,"guided":2.4,"guiding":2.1,"habit":2.1,"handling":2.1,"harsh":2.9,"healing":3.1,"healthcare":2.9,"here's":6.0,"hesitation":3.5,"hidden":2.9,"highlight":3.7,"highlights":2.4,"impact":3.0,"implications":3.9,"importance":3.3,"improved":2.1,"improving":5.1,"including":2.5,"inclusive":2.9,"indicate":2.9,"individuals":2.4,"innovation":2.2,"insights":6.6,"institutions":3.2,"intellectual":3.1,"intense":3.7,"interests":2.1,"intricate":2.1,"investments":2.8,"involves":2.8,"involving":2.1,"journey":3.9,"kindness":3.5,"lasting":2.1,"laughter":2.8,"leading":3.1,"legend":3.1,"lessons":2.1,"limitations":6.3,"loyalty":2.5,"luxury":2.5,"machinery":3.1,"maintain":3.5,"materials":2.1,"meaningful":2.5,"measures":2.4,"merely":2.1,"mysterious":3.8,"navigate":8.7,"navigating":3.1,"necessary":3.3,"numerous":2.3,"obstacles":2.8,"odds":2.8,"offers":3.3,"one's":3.9,"ongoing":2.9,"opportunities":2.9,"ordinary":2.9,"organized":2.8,"outcomes":4.4,"overall":6.6,"participate":2.1,"particularly":2.7,"passionate":2.8,"perspective":2.1,"physical":2.4,"policies":2.3,"potential":3.3,"practical":3.4,"preferences":4.1,"presence":3.7,"presents":3.5,"preserving":2.9,"prevent":2.1,"principles":3.1,"prioritize":3.5,"privacy":2.8,"profound":4.5,"promising":2.5,"promote":2.4,"promoting":3.5,"prompt":2.5,"protect":2.2,"protecting":2.9,"provide":2.9,"provides":4.0,"providing":3.1,"raised":2.1,"raises":2.8,"raising":2.5,"range":2.8,"realizing":2.8,"realm":4.4,"recognition":3.0,"recognizing":3.5,"recording":2.9,"redemption":2.9,"reduce":3.3,"reducing":2.3,"reflecting":2.9,"reflection":2.9,"relationships":2.3,"reliable":2.1,"remains":2.2,"reminder":2.1,"remote":2.4,"represents":2.2,"reputation":2.1,"resilience":4.4,"resistance":2.9,"resolution":2.1,"response":2.4,"responsibilities":2.8,"responsibility":2.1,"responsible":2.3,"resulting":2.8,"safety":2.8,"saving":2.1,"secrets":4.2,"secure":3.1,"sense":2.6,"sentences":4.2,"setting":2.1,"shadows":2.8,"shaped":2.8,"shared":2.3,"significance":2.7,"significant":3.5,"skills":2.4,"societal":4.6,"solving":2.5,"specific":2.6,"steady":2.2,"strangers":2.9,"struggle":2.4,"substantial":2.5,"successful":3.7,"suggests":2.1,"surrounding":3.3,"sustainable":3.1,"symbol":2.9,"symbols":2.9,"systems":2.4,"tailored":3.1,"talent":2.2,"tapestry":2.9,"targeted":2.1,"teams":2.2,"teamwork":2.1,"tension":2.1,"testament":2.9,"tools":2.5,"traditional":3.2,"trusted":2.1,"ultimately":3.2,"uncertain":2.9,"uncertainty":2.5,"uncover":2.9,"understanding":4.4,"unique":3.5,"urban":2.8,"utilizing":4.4,"valuable":2.9,"voices":2.4,"weight":2.2,"widely":2.6,"widespread":2.4};
+  const WHY_MIN = 0.05;
+  function addWhy(prose, cov) {
+    const S = model().segment; if (!S || !cov) return;
+    const ex = explain(prose, S.head, S.W); if (!ex) return;
+    const agg = new Map();
+    prose.forEach((s, i) => {
+      s.why = null; if (!s.segAI || s.text.toLowerCase().length !== s.text.length) return;
+      const marks = [];
+      for (const w of ex[i]) { const r = AI_LEX[w.t]; if (r && w.c >= WHY_MIN) marks.push({ a: w.a, b: w.b, t: w.t, x: r, c: +w.c.toFixed(3) }); }
+      marks.sort((p, q) => q.c - p.c); const keep = marks.slice(0, 5).sort((p, q) => p.a - q.a);
+      if (!keep.length) return;
+      s.why = keep;
+      for (const k of keep) { const o = agg.get(k.t) || { t: k.t, x: k.x, n: 0, c: 0 }; o.n++; o.c += k.c; agg.set(k.t, o); }
+    });
+    cov.why = [...agg.values()].sort((p, q) => q.c - p.c).slice(0, 8);
+  }
   const quant = (a, q) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]; };
   const tick = () => new Promise((r) => setTimeout(r, 0));
 
@@ -214,6 +278,7 @@
 
     await stage("AI coverage: overlapping segment scoring", 0.12);
     const cov = coverage(prose, sc, REG.name, opts.student, opts.sensitive);
+    if (cov) addWhy(prose, cov);
 
     await stage("Window re-scoring (sentence neighbourhoods)", 0.14);
     const winProb = prose.map(() => []);
@@ -571,6 +636,6 @@
     return doc.output("blob");
   }
 
-  const api = { run, pdf, ngramProb, counts, murmur3, LEVELS, guard, scoresFromCounts, segWindows, coverage };
+  const api = { run, pdf, ngramProb, counts, murmur3, LEVELS, guard, scoresFromCounts, segWindows, coverage, explain, occurrencesOf, addWhy, AI_LEX };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.AletheiaDeep = api;
 })(typeof window !== "undefined" ? window : globalThis);
