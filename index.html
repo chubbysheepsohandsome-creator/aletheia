@@ -430,13 +430,14 @@ footer{border-top:1px solid var(--line)}
 .merr{color:#E5534B;font-size:12.5px;min-height:18px;margin:2px 0 8px}
 .mnote{font-size:12px;color:var(--fg-3);margin:12px 0 0;line-height:1.5}
 .zhnote{margin:24px 0 0;padding:10px 14px;border-radius:10px;background:var(--bg-3);color:var(--fg-2);font-size:13px}
+.zh-v{display:none}html[lang="zh-CN"] .zh-v{display:block}html[lang="zh-CN"] .en-v{display:none}
 .mrow{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.1</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.8.2</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
@@ -455,21 +456,22 @@ footer{border-top:1px solid var(--line)}
     <div>
       <p class="eyebrow">AI Writing Intelligence</p>
       <h1 data-zh="看见<br><em>文字背后。</em>">See beyond<br>the <em>words.</em></h1>
-      <p class="lede">Understand the patterns behind written language through advanced AI writing analysis. ALETHEIA shows you the evidence, sentence by sentence. It never hands down a verdict.</p>
+      <p class="lede" data-zh="通过 AI 写作分析，理解文字背后的模式。ALETHEIA 逐句展示证据，但从不下定论。">Understand the patterns behind written language through advanced AI writing analysis. ALETHEIA shows you the evidence, sentence by sentence. It never hands down a verdict.</p>
       <div class="ctas"><a class="btn primary" href="#detect">Analyze a Document <span class="arr">→</span></a><a class="btn" href="#technology">Explore the Technology</a></div>
-      <div class="meta"><span><b>96.5%</b>fiction by unseen 2025–26 models found (Deep Scan)</span><span><b>0 / 3,879</b>essays by English learners flagged</span><span><b>0 bytes</b>uploaded</span></div>
+      <div class="meta"><span data-zh="<b>96.5%</b>未见过的 2025–26 年模型写的小说被检出（Deep Scan）"><b>96.5%</b>fiction by unseen 2025–26 models found (Deep Scan)</span><span data-zh="<b>0 / 3,879</b>英语学习者作文被误判"><b>0 / 3,879</b>essays by English learners flagged</span><span data-zh="<b>0 字节</b>被上传"><b>0 bytes</b>uploaded</span></div>
     </div>
     <div class="reveal" aria-hidden="true">
       <div class="grid"></div>
       <div class="txt blur">In today's fast-paced world, the written word plays a crucial role in how we understand one another. A sentence can carry a voice, a hesitation, a habit of thought. Some writing wanders and corrects itself; some arrives already polished, evenly measured, each paragraph the same length as the last. Furthermore, it serves as a powerful testament to the patterns that shape a text, highlighting the importance of structure. Read closely and the surface gives way: rhythm, repetition, the quiet regularities of a process. Not every pattern is evidence. But every text has a story, and it is written in more than words.</div>
       <div class="beam"></div>
       <div class="txt clear"><mark>In today's fast-paced world</mark>, the written word <mark>plays a crucial role</mark> in how we understand one another. A sentence can carry a voice, a hesitation, a habit of thought. Some writing wanders and corrects itself; some arrives already polished, evenly measured, each paragraph the same length as the last. <mark>Furthermore</mark>, it <mark>serves as a powerful testament</mark> to the patterns that shape a text, <mark>highlighting the importance of structure</mark>. Read closely and the surface gives way: rhythm, repetition, the quiet regularities of a process. Not every pattern is evidence. But every text has a story, and it is written in more than words.</div>
-      <div class="pt" style="left:36px;top:52px"><i></i>sentence-length σ 0.18</div>
-      <div class="pt" style="right:34px;top:212px"><i></i>template density 2.4 / 100w</div>
-      <div class="pt" style="left:44px;bottom:84px"><i></i>model score 0.96 · evidence: limited</div>
+      <div class="pt" style="left:36px;top:52px"><i></i><span data-zh="句长 σ 0.18">sentence-length σ 0.18</span></div>
+      <div class="pt" style="right:34px;top:212px"><i></i><span data-zh="套话密度 2.4 / 100 词">template density 2.4 / 100w</span></div>
+      <div class="pt" style="left:44px;bottom:84px"><i></i><span data-zh="模型分数 0.96 · 证据：有限">model score 0.96 · evidence: limited</span></div>
     </div>
   </section>
 
+<div class="en-v">
   <section class="section"><div class="wrap split">
     <div><p class="eyebrow">01 — Our Philosophy</p><p class="big-quote">Language contains more information than <em>the words themselves.</em></p></div>
     <div class="body-lg">
@@ -518,7 +520,7 @@ footer{border-top:1px solid var(--line)}
 
   <section class="section"><div class="wrap">
     <div class="sec-head"><div><p class="eyebrow">04 — Research &amp; Development</p><h2>Measured, gated, and published with its limits.</h2></div>
-      <p>Every model is evaluated on data it has never seen. A new version replaces the old one only if it does not wrongly flag more human writers in any group.</p></div>
+      <p>Every model is evaluated on data it has never seen. A new version replaces the old one only if it does not wrongly flag more human writers overall, and any group that gets worse is published with the release.</p></div>
     <div class="stats">
       <div class="stat"><div class="v">83.2<small>%</small></div><div class="l">of AI-generated texts detected on the held-out benchmark</div><div class="c">95% CI 81.7–84.6</div></div>
       <div class="stat"><div class="v">0.3<small>%</small></div><div class="l">of human texts wrongly flagged on the same benchmark</div><div class="c">95% CI 0.1–0.9</div></div>
@@ -533,12 +535,78 @@ footer{border-top:1px solid var(--line)}
     <h2>Discover what lies <em>beneath</em> the words.</h2>
     <a class="btn primary" href="#detect">Start Analyzing <span class="arr">→</span></a>
   </div></section>
+</div>
+<div class="zh-v" lang="zh-CN">
+  <section class="section"><div class="wrap split">
+    <div><p class="eyebrow">01 — 我们的理念</p><p class="big-quote">语言包含的信息，<em>比文字本身更多。</em></p></div>
+    <div class="body-lg">
+      <p>模式、结构、一致性和语言特征，可以为一段文本可能是如何写成的提供有价值的线索。ALETHEIA 通过计算分析来探索这些信号。</p>
+      <p>这个名字来自古希腊语 <i>ἀλήθεια</i>，意思是真相、揭示，让隐藏的东西显露出来。真相并不总是浮在表面；它需要被发现。这也是我们谨慎的原因：信号不是结论，分数也不能证明是谁写的。</p>
+      <ul class="statements">
+        <li>真相，在语言中显露。<span>I</span></li><li>每段文字都有自己的故事。<span>II</span></li>
+        <li>不止于检测，走向理解。<span>III</span></li><li>发现文字背后的模式。<span>IV</span></li>
+      </ul>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow">02 — 技术</p><h2>对同一段文本的多层证据。</h2></div>
+      <p>由训练好的模型做判断；下面这些可解释的信号说明原因。没有任何一个人工挑选的信号能单独决定结果。</p></div>
+    <div class="tech-grid">
+      <div class="tech"><div class="n">01</div><h3>语言分析</h3><p>把文本分成正文、引文、参考文献、标题和列表，只评估作者自己写的连续正文。</p></div>
+      <div class="tech"><div class="n">02</div><h3>统计文本分析</h3><p>句长变化、段落均匀度、功能词比例、标点习惯和词汇多样性。</p></div>
+      <div class="tech"><div class="n">03</div><h3>机器学习分类</h3><p>用有许可、带标签的数据训练的梯度提升模型，并在预留的写作者和题目上评估。</p></div>
+      <div class="tech"><div class="n">04</div><h3>多模型评估</h3><p>覆盖多个生成器家族的基准测试，整个模型都可以预留出来，测试对训练中从未见过的系统的泛化能力。</p></div>
+      <div class="tech"><div class="n">05</div><h3>写作风格分析</h3><p>套话、夸大的重要性和聊天机器人残留，与真实人写的信号相互权衡。</p></div>
+      <div class="tech"><div class="n">06</div><h3>混合作者分析</h3><p>句子和段落级别的证据能把不同部分分开，所以混合或编辑过的文档会显示为混合。</p></div>
+      <div class="tech"><div class="n">07</div><h3>置信度校准</h3><p>阈值在验证数据上设定，保证每个写作者群体中被标出的人写文本不超过 1%；证据不足时会直接说明。</p></div>
+      <div class="tech note"><div class="n">—</div><h3>关于确定性</h3><p>没有任何单一方法或分数能确定一篇文档是谁写的。ALETHEIA 报告的是模式及其强度，但不能证明是谁写的。</p></div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow">03 — 产品</p><h2>一个理念，一系列工具。</h2></div></div>
+    <div class="products">
+      <div class="product">
+        <span class="tag">可用 · 免费测试版</span>
+        <h3>ALETHEIA Detect<small>/detect</small></h3>
+        <p>分析文本，估计它是否呈现人写、AI 生成或混合写作的特征，并逐句列出证据。</p>
+        <ul><li>粘贴或上传</li><li>DOCX、PDF、TXT</li><li>段落级分析</li><li>句子级指标</li><li>详细报告</li><li>置信度与不确定性</li></ul>
+        <div class="bottom"><a class="btn primary" href="#detect">打开检测 <span class="arr">→</span></a></div>
+      </div>
+      <div class="product">
+        <span class="tag muted">开发中</span>
+        <h3>ALETHEIA Trace</h3>
+        <p>ALETHEIA 家族的下一个工具。功能范围还在确定中，准备好后会公布细节。</p>
+        <div class="bottom"><a class="btn" href="#research">关注研究</a></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="wrap">
+    <div class="sec-head"><div><p class="eyebrow">04 — 研究与开发</p><h2>经过测量、把关，并连同局限一起公布。</h2></div>
+      <p>每个模型都在它从未见过的数据上评估。只有在整体上不会误判更多人写作者时，新版本才会替换旧版本；任何变差的群体都会随版本一起公布。</p></div>
+    <div class="stats">
+      <div class="stat"><div class="v">83.2<small>%</small></div><div class="l">预留基准上被检出的 AI 生成文本</div><div class="c">95% CI 81.7–84.6</div></div>
+      <div class="stat"><div class="v">0.3<small>%</small></div><div class="l">同一基准上被误判的人写文本</div><div class="c">95% CI 0.1–0.9</div></div>
+      <div class="stat"><div class="v">23</div><div class="l">个数据源完成许可审查；11 个通过，12 个拒绝</div><div class="c">审查于 2026-11-02</div></div>
+      <div class="stat"><div class="v">21</div><div class="l">项自动泄漏检查，每次训练发布都必须通过</div><div class="c">发布 r20261102-7d8acc5e</div></div>
+    </div>
+    <p class="callout">这些数字来自最初的 0.2.0 引擎和 2023 年的文本。Deep Scan 在 2025–26 年模型上的结果见研究页；人性化处理、改写和混合文本仍然较弱，一些 AI 写的学生作文仍会漏掉。<a href="#research">阅读研究说明 →</a></p>
+  </div></section>
+
+  <section class="final"><div class="wrap">
+    <p class="eyebrow">看见文字背后。</p>
+    <h2>发现文字<em>背后</em>的东西。</h2>
+    <a class="btn primary" href="#detect">开始分析 <span class="arr">→</span></a>
+  </div></section>
+</div>
 </main>
 
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.1 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.8.2 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <section id="inputSection">
       <div class="workbench">
@@ -608,13 +676,14 @@ footer{border-top:1px solid var(--line)}
 
 <!-- ================= TECHNOLOGY ================= -->
 <main class="page" id="p-technology"><div class="wrap">
-  <p class="zhnote" data-zhnote hidden>本页目前只有英文版本。</p>
+<div class="en-v">
   <div class="page-head"><p class="eyebrow">Technology</p><h1>How ALETHEIA reads a text.</h1><p>An independent detection engine (<span class="mono" id="ver1"></span>) that combines a transparent feature extractor with a small trained classifier, all running in your browser.</p></div>
   <div class="content">
     <h2>The analysis pipeline</h2>
     <div class="pipeline"><div class="on">Preprocessing</div><span>→</span><div class="on">Document</div><span>→</span><div class="on">Paragraph</div><span>→</span><div class="on">Sentence</div><span>→</span><div class="on">Statistical layer</div><span>→</span><div class="on">Stylistic layer</div><span>→</span><div class="on">Trained classifier</div><span>→</span><div class="on">FPR-constrained thresholds</div><span>→</span><div class="off">Language-model layer (planned)</div><span>→</span><div class="on">Report</div></div>
     <p><b>Preprocessing</b> separates qualifying prose from headings, lists, tables, mathematical lines, block quotes and reference sections. It removes quotations of six or more words, splits sentences with care for abbreviations and decimals, and checks the language.</p>
     <p><b>Scoring.</b> The engine measures 23 document features. A gradient-boosted tree model trained on licensed, labelled data turns them into a model score. Two thresholds are set on a validation split: the <b>flagging threshold</b> keeps false positives at or below 1% in every human writer group, and the <b>review threshold</b> marks the inconclusive band. Paragraph comparisons use local evidence only, so mixed documents appear mixed.</p>
+    <p><b>Deep and Supreme.</b> These scans also run a character- and word-level n-gram model and a segment model that scores windows of about 250 and 100 words, which give the AI percentage and the highlighted passages. Methods and measurements are on the <a href="#research">Research</a> page.</p>
     <h2>Signals, and how much we trust them</h2>
     <p>Stylistic signals draw on editorial observations such as Wikipedia's <a href="https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing" target="_blank" rel="noopener">Signs of AI writing</a>. We treat them as hypotheses to be measured, not rules.</p>
     <table class="sig">
@@ -630,13 +699,49 @@ footer{border-top:1px solid var(--line)}
     <h2>What we do not claim</h2>
     <p>ALETHEIA does not and cannot prove who wrote a document. Its scores are signal strengths on a calibrated scale, not the probability that a particular person used AI. They should never be the only basis for an academic or employment decision.</p>
   </div>
+</div>
+<div class="zh-v" lang="zh-CN">
+  <div class="page-head"><p class="eyebrow">技术</p><h1>ALETHEIA 如何读一篇文本。</h1><p>一个独立的检测引擎（<span class="mono" data-copy="ver1"></span>），把透明的特征提取器和小型训练分类器结合起来，全部在你的浏览器里运行。</p></div>
+  <div class="content">
+    <h2>分析流程</h2>
+    <div class="pipeline"><div class="on">预处理</div><span>→</span><div class="on">文档</div><span>→</span><div class="on">段落</div><span>→</span><div class="on">句子</div><span>→</span><div class="on">统计层</div><span>→</span><div class="on">文体层</div><span>→</span><div class="on">训练好的分类器</div><span>→</span><div class="on">按误判率约束的阈值</div><span>→</span><div class="off">语言模型层（计划中）</div><span>→</span><div class="on">报告</div></div>
+    <p><b>预处理</b>把合格的正文与标题、列表、表格、数学行、引用块和参考文献分开。它去掉六个词以上的引文，在拆句时注意缩写和小数，并检查语言。</p>
+    <p><b>打分。</b>引擎测量 23 个文档特征。一个用有许可、带标签的数据训练的梯度提升树模型把它们转成模型分数。两个阈值在验证集上设定：<b>标出阈值</b>保证每个人写群体的误判不超过 1%，<b>复核阈值</b>划出无法判断的区间。段落之间的比较只用局部证据，所以混合文档会显示为混合。</p>
+    <p><b>Deep 和 Supreme。</b>这两种扫描还会运行字符级和词级的 n-gram 模型，以及按约 250 词和 100 词窗口打分的片段模型，用来计算 AI 百分比和高亮片段。方法和测量结果见<a href="#research">研究</a>页。</p>
+    <h2>信号，以及我们有多信任它们</h2>
+    <p>文体信号参考了编辑经验总结，例如维基百科的 <a href="https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing" target="_blank" rel="noopener">Signs of AI writing</a>（AI 写作的迹象）。我们把它们当作需要测量的假设，而不是规则。</p>
+    <table class="sig">
+      <tr><th>信号</th><th>层</th><th>评级</th><th>说明</th></tr>
+      <tr><td>聊天机器人残留（"I hope this helps"、oaicite 标记）</td><td>文体</td><td><span class="tag strong">强</span></td><td>除非是引用，人很少会这样写。</td></tr>
+      <tr><td>套路化模板（"plays a crucial role"、"not just X, it's Y"）</td><td>文体</td><td><span class="tag moderate">中等</span></td><td>密度比任何单个短语都重要。</td></tr>
+      <tr><td>与 AI 相关的词汇（"delve"、"tapestry"、"underscores"）</td><td>文体</td><td><span class="tag moderate">中等</span></td><td>会随着模型变化而漂移，所以词表需要定期更新。</td></tr>
+      <tr><td>句长过于均匀（突发性低）</td><td>统计</td><td><span class="tag moderate">中等</span></td><td>认真的正式写作者也可能很均匀。</td></tr>
+      <tr><td>人写信号（笔误、口语词、小写的"i"）</td><td>文体</td><td><span class="tag moderate">中等</span></td><td>只会把结果推向"人写"；没有这些信号永远不算 AI 的证据。</td></tr>
+      <tr><td>词长、功能词、标点、词汇多样性</td><td>统计</td><td><span class="tag">单独很弱</span></td><td>只组合使用，并按群体检查误判。</td></tr>
+      <tr><td>语法完美、弯引号、"听起来很正式"</td><td>—</td><td><span class="tag ineffective">不使用</span></td><td>对写作熟练者和非母语写作者不公平。</td></tr>
+    </table>
+    <h2>我们不声称的事</h2>
+    <p>ALETHEIA 不能也无法证明是谁写的。它的分数是校准后刻度上的信号强度，不是某个人使用了 AI 的概率。它们永远不应该成为学术或雇佣决定的唯一依据。</p>
+  </div>
+</div>
 </div></main>
 
 <!-- ================= RESEARCH ================= -->
 <main class="page" id="p-research"><div class="wrap">
-  <p class="zhnote" data-zhnote hidden>本页目前只有英文版本。</p>
+<div class="en-v">
   <div class="page-head"><p class="eyebrow">Research &amp; Development</p><h1>Research notes.</h1><p>How we measure ALETHEIA, where the data comes from, and what we refuse to use.</p></div>
   <div class="content">
+    <h2>V1.8.2: retrained on student work by current AI models (seg-0.7)</h2>
+    <p>The AI-percentage model is retrained as seg-0.7. Donated essays showed that current models writing as a typical Year 12 student were almost never caught. We added 25 AI-written assignments made on real Year 12 task sheets (a persuasive essay on racism in Australia by Gemini, ChatGPT, DeepSeek and Perplexity, 20 essays, and a physics research investigation by Gemini, 5; each model was asked for five styles: natural, average student, top student, rushed draft and hand-reworded). Because 20 of them share one topic, the model first learned the topic itself and flagged human essays about racism, so we also re-weighted 534 human texts on the same topics. Thresholds are unchanged.</p>
+    <div class="tscroll"><table class="data"><tr><th>Number reaching 20%, student levels (T · High · Very high)</th><th>seg-0.6</th><th>seg-0.7</th></tr>
+      <tr><td>AI-written chemistry research investigations, a task never used in training (DeepSeek 5, Perplexity 5)</td><td class="mono">1 · 4 · 6</td><td class="mono">2 · 6 · 7</td></tr>
+      <tr><td>Two donated AI-written persuasive essays (same topic as training)</td><td class="mono">0 · 0 · 1</td><td class="mono">2 · 2 · 2</td></tr>
+      <tr><td>Held-out human texts of 300+ words (4,581)</td><td class="mono">85 · 196 · 296</td><td class="mono">84 · 190 · 285</td></tr>
+      <tr><td>Real student essays, PERSUADE 2.0 (2,437)</td><td class="mono">3 · 23 · 41</td><td class="mono">2 · 23 · 42</td></tr>
+      <tr><td>Human texts on the same topics as the new training essays (21)</td><td class="mono">0 · 0 · 2</td><td class="mono">0 · 1 · 3</td></tr>
+      <tr><td>Older AI test sets (8,903), High</td><td class="mono">91.0%</td><td class="mono">90.6%</td></tr>
+      <tr><td>Older AI test sets, General level (no student switch)</td><td class="mono">62.1%</td><td class="mono">60.2%</td></tr></table></div>
+    <p><b>Read these with care.</b> We trained four candidates and chose this one using the same 10 chemistry essays, so the gain shown is optimistic. The two donated essays share their topic with 20 training essays, so their jump says little about new topics. One donated human school report now reaches 22% at T (was 14%). We released it anyway because human texts reaching 20% fell overall and missing AI-written assignments was the larger problem; the groups that got worse are listed above. Most AI essays written in an "average student" or "rushed draft" style are still missed. More AI-written and human-written assignments on new task sheets are the next step.</p>
     <h2>Benchmark: engine 0.2.0</h2>
     <p>Measured once on a held-out test split separated by prompt and by author. Rows in italics come from sources excluded from training entirely. Small grey figures are 95% confidence intervals.</p>
     <div class="tscroll"><table class='data'><thead><tr><th>Held-out set</th><th class='n'>n</th><th class='n'>AI detected</th><th class='n'>Humans flagged</th><th class='n'>ROC-AUC</th></tr></thead><tbody><tr><td>All held-out test documents</td><td class='n'>3482</td><td class='n'>83.2%<span class='ci'>81.7–84.6</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.993</td></tr><tr><td>Student essays</td><td class='n'>956</td><td class='n'>91.2%<span class='ci'>89.1–93.0</span></td><td class='n'>2.2%<span class='ci'>0.8–6.3</span></td><td class='n'>0.990</td></tr><tr><td>News (author-held-out)</td><td class='n'>847</td><td class='n'>79.5%<span class='ci'>76.4–82.3</span></td><td class='n'>0.0%<span class='ci'>0.0–3.1</span></td><td class='n'>0.988</td></tr><tr><td>Creative writing</td><td class='n'>1108</td><td class='n'>79.1%<span class='ci'>76.4–81.6</span></td><td class='n'>0.0%<span class='ci'>0.0–2.4</span></td><td class='n'>0.988</td></tr><tr><td>Claude (2023) vs human</td><td class='n'>1400</td><td class='n'>51.3%<span class='ci'>46.5–56.1</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.981</td></tr><tr><td>ChatGPT, plain prompt vs human</td><td class='n'>1401</td><td class='n'>74.4%<span class='ci'>70.0–78.4</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.987</td></tr><tr class='ood'><td>Humanizer-paraphrased AI (unseen source)</td><td class='n'>100</td><td class='n'>50.0%<span class='ci'>40.4–59.6</span></td><td class='n'>—</td><td class='n'>—</td></tr><tr class='ood'><td>GPTZero sample set (unseen source)</td><td class='n'>66</td><td class='n'>16.1%<span class='ci'>7.1–32.6</span></td><td class='n'>0.0%<span class='ci'>0.0–9.9</span></td><td class='n'>0.716</td></tr></tbody></table></div>
@@ -664,7 +769,7 @@ footer{border-top:1px solid var(--line)}
     <p><b>Open risk: prompt-following human writing.</b> On Beemo, a set of answers written in 2023 by paid annotators to chatbot-style prompts, ALETHEIA V1.0 gives an AI verdict on 12% of the human stories and poems and 16% of the human rewrites (deep-0.4.0: 9% and 16%). These texts score far higher than any other human writing we have tested, so either the detector over-flags this style or some of the "human" answers were written with AI help, a known problem with crowdsourced data. Until we can tell which, treat a positive result on short writing produced to a prompt with extra caution.</p>
     <p><b>What still gets through.</b> Text run through AI "humanizers" and back-translation is detected far less often (back-translation about 30%, DIPPER paraphrasing about 50%, humanized o1-pro news articles 57%), and some highly literary single samples score in the review range rather than above the threshold. We report those as <i>Inconclusive</i> instead of lowering thresholds, because lowering them would flag more human writers.</p>
     <p><b>V1.7.4–V1.7.7 (steps).</b> 1.7.4: donated texts are logged with the donor's consent statement (texts without written consent from every author are never used for training; they may be used only for internal false-positive checks; labels and ages are as stated by the donor and are not verified), and a paired table records Turnitin's percentage next to ours. 1.7.5: lines that are mostly equations or formulas are shown but not scored, which removes a known false-positive source in mathematics reports. 1.7.6: measured the headline figure at each sensitivity level against Turnitin on the first paired documents (no model change). 1.7.7: cleaner options and result text. With only two paired documents so far, nothing is calibrated to Turnitin yet.</p>
-    <p><b>V1.7.8 detection levels.</b> In Student assignment mode you can pick the level directly: <b>T</b> (strict student threshold only, fewest false alarms: 2 of 1,857 held-out human essays reach 20%), <b>High</b> (the default; adds amber screening leads: 22 of 1,857, 1.2%, as of V1.7; the V1.6 table below shows 20) or <b>Very high</b> (about 2%). We have compared T with Turnitin on only two documents so far, so we cannot yet say how closely it matches. High catches more AI text but flags more human writing: in our own checks, two self-declared human school reports (one of them scored 0% by Turnitin) reached about 30% at High and showed under 20% at T. Read amber passages as leads, and check at T before acting on a result.</p>
+    <p><b>V1.7.8 detection levels.</b> In Student assignment mode you can pick the level directly: <b>T</b> (strict student threshold only, fewest false alarms: 2 of 1,857 held-out human essays reach 20%), <b>High</b> (the default; adds amber screening leads: 22 of 1,857, 1.2%, as of V1.7; the V1.6 table below shows 20) or <b>Very high</b> (about 2%). We have compared T with Turnitin on only two documents so far, so we cannot yet say how closely it matches. High catches more AI text but flags more human writing: in our own checks, two self-declared human school reports (one of them scored 0% by Turnitin) reached about 30% at High and showed under 20% at T (with V1.8.2 one of them reaches 22% at T). Read amber passages as leads, and check at T before acting on a result.</p>
     <p><b>V1.7.9.</b> Release checks now include an independent cross-review: two separate reviewers check the code and this page, then verify each other's findings before release. Fixes from the first review: the floating donate button no longer appears on other pages or after "New scan", and a donation always contains the text that was scanned; the share menu should open more reliably on iPhone, and Android can fall back to sharing the donation as a .txt file (both tested only in a desktop test browser so far); level buttons announce their state to screen readers; clearer instructions for Thunderbird and Apple Mail; the equation filter now needs at least two maths symbols and works for non-English text; this page's level figures and wording were corrected.</p>
     <p><b>V1.7.3.</b> Interface motion reworked for long sessions: one easing curve, short fades instead of snaps, a gauge that fills once, no looping animation on the donate banner, a soft cross-fade when switching light/dark, clear keyboard focus rings, and full respect for the system "reduce motion" setting.  V1.7.2: the donation form now asks two clearer questions (how AI was used, including "AI only taught or gave feedback", and who wrote the text, including group work) and has an optional field for the Turnitin AI percentage, which lets us measure how close ALETHEIA is to it.  V1.7.1: the "Donate this article" call is now a large banner above the results (with a floating button), and the email is prepared for you: on phones and tablets one tap opens the share menu with the donation file already attached; on desktop a ready-made email file (.eml) opens in Outlook, Thunderbird and similar apps with the address, subject and attachment filled in, and for Gmail and other webmail the file can be dragged in. A browser cannot attach a file to an email silently, so these are the closest it can get; a copy-and-paste fallback remains.</p>
     <h2>V1.7: short AI passages, annotated Word files, feedback</h2>
@@ -774,6 +879,159 @@ footer{border-top:1px solid var(--line)}
       <li><b>Then</b><span>Accounts, saved reports and paid scans (USD $2), payment provider in test mode first.</span></li>
     </ul>
   </div>
+</div>
+<div class="zh-v" lang="zh-CN">
+  <div class="page-head"><p class="eyebrow">研究与开发</p><h1>研究笔记。</h1><p>我们如何测量 ALETHEIA、数据从哪里来，以及哪些数据我们拒绝使用。</p></div>
+  <div class="content">
+    <h2>V1.8.2：用新一代 AI 写的学生作业重新训练（seg-0.7）</h2>
+    <p>AI 百分比模型重新训练为 seg-0.7。捐献的作文显示，当代模型模仿普通 12 年级学生写的作业几乎从不被检出。我们加入了 25 篇按真实 12 年级任务单写的 AI 作业（关于澳大利亚种族主义的议论文由 Gemini、ChatGPT、DeepSeek 和 Perplexity 写，共 20 篇；物理研究报告由 Gemini 写，共 5 篇；每个模型都写五种风格：自然、普通学生、高水平学生、赶工草稿和人工改写）。因为其中 20 篇是同一个题目，模型一开始学到的是题目本身，也会把讨论种族主义的人写作文判成 AI 式，所以我们又给 534 篇同题材的人写文本加了权重。阈值没有改变。</p>
+    <div class="tscroll"><table class="data"><tr><th>达到 20% 的数量，学生档位（T · 高 · 极高）</th><th>seg-0.6</th><th>seg-0.7</th></tr>
+      <tr><td>AI 写的化学研究报告，训练中从未用过的任务（DeepSeek 5 篇、Perplexity 5 篇）</td><td class="mono">1 · 4 · 6</td><td class="mono">2 · 6 · 7</td></tr>
+      <tr><td>两篇捐献的 AI 议论文（与训练题目相同）</td><td class="mono">0 · 0 · 1</td><td class="mono">2 · 2 · 2</td></tr>
+      <tr><td>300 词以上的预留人写文本（4,581 篇）</td><td class="mono">85 · 196 · 296</td><td class="mono">84 · 190 · 285</td></tr>
+      <tr><td>真实学生作文，PERSUADE 2.0（2,437 篇）</td><td class="mono">3 · 23 · 41</td><td class="mono">2 · 23 · 42</td></tr>
+      <tr><td>与新训练作文同题材的人写文本（21 篇）</td><td class="mono">0 · 0 · 2</td><td class="mono">0 · 1 · 3</td></tr>
+      <tr><td>较旧的 AI 测试集（8,903 篇），高档</td><td class="mono">91.0%</td><td class="mono">90.6%</td></tr>
+      <tr><td>较旧的 AI 测试集，通用档（不开学生开关）</td><td class="mono">62.1%</td><td class="mono">60.2%</td></tr></table></div>
+    <p><b>请谨慎看待这些数字。</b>我们训练了四个候选版本，并用同样这 10 篇化学研究报告挑出了这一个，所以表中的提升偏乐观。两篇捐献作文和 20 篇训练作文题目相同，它们的大幅提升不能说明对新题目的效果。一份捐献的人写学校报告现在在 T 档达到 22%（以前是 14%）。我们仍然发布了这一版，因为达到 20% 的人写文本整体下降了，而漏掉 AI 写的作业是更大的问题；变差的群体都列在上表中。大多数"普通学生"或"赶工草稿"风格的 AI 作文仍然会漏掉。下一步需要更多按新任务单写的 AI 作业和人写作业。</p>
+    <h2>基准测试：引擎 0.2.0</h2>
+    <p>只在一个预留的测试集上测量一次，测试集按题目和作者与训练集分开。斜体行来自完全没有参与训练的数据源。灰色小字是 95% 置信区间。</p>
+    <div class="tscroll"><table class='data'><thead><tr><th>预留测试集</th><th class='n'>n</th><th class='n'>AI 检出</th><th class='n'>人写误判</th><th class='n'>ROC-AUC</th></tr></thead><tbody><tr><td>全部预留测试文档</td><td class='n'>3482</td><td class='n'>83.2%<span class='ci'>81.7–84.6</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.993</td></tr><tr><td>学生作文</td><td class='n'>956</td><td class='n'>91.2%<span class='ci'>89.1–93.0</span></td><td class='n'>2.2%<span class='ci'>0.8–6.3</span></td><td class='n'>0.990</td></tr><tr><td>新闻（按作者预留）</td><td class='n'>847</td><td class='n'>79.5%<span class='ci'>76.4–82.3</span></td><td class='n'>0.0%<span class='ci'>0.0–3.1</span></td><td class='n'>0.988</td></tr><tr><td>创意写作</td><td class='n'>1108</td><td class='n'>79.1%<span class='ci'>76.4–81.6</span></td><td class='n'>0.0%<span class='ci'>0.0–2.4</span></td><td class='n'>0.988</td></tr><tr><td>Claude（2023）对比人写</td><td class='n'>1400</td><td class='n'>51.3%<span class='ci'>46.5–56.1</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.981</td></tr><tr><td>ChatGPT 普通提示对比人写</td><td class='n'>1401</td><td class='n'>74.4%<span class='ci'>70.0–78.4</span></td><td class='n'>0.3%<span class='ci'>0.1–0.9</span></td><td class='n'>0.987</td></tr><tr class='ood'><td>经人性化工具改写的 AI 文本（未见过的来源）</td><td class='n'>100</td><td class='n'>50.0%<span class='ci'>40.4–59.6</span></td><td class='n'>—</td><td class='n'>—</td></tr><tr class='ood'><td>GPTZero 样本集（未见过的来源）</td><td class='n'>66</td><td class='n'>16.1%<span class='ci'>7.1–32.6</span></td><td class='n'>0.0%<span class='ci'>0.0–9.9</span></td><td class='n'>0.716</td></tr></tbody></table></div>
+    <p>作为对比，手工调参的 v0.1 规则能抓到 46.5% 的 AI 文本，同时误判 3.7% 的人写文本，其中人写学生作文的误判率是 17.8%。</p>
+    <p><b>局限。</b>基准中的 AI 文本是 2023 年由 GPT-3.5 和 Claude 生成的。这个基准（引擎 0.2.0）不包含更新的模型；新模型的表现见下面 Deep Scan 各节。对没见过的数据源，泛化能力较弱。之前公布过一个非母语写作者的数据，但它依赖许可受限的语料，在我们拿到可商用的评估集之前已撤回。</p>
+    <h2>Deep Scan（deep-0.7.0，ALETHEIA V1.0）</h2>
+    <p>Deep 和 Supreme 扫描把一个字符级和词级的 n-gram 模型与标准文档模型结合起来。训练文本来自<b>2023 到 2026 年间发布的 120 多个语言模型</b>（来自公开创意写作基准的短篇小说，包括 GPT-5.x、Claude 4–5、Gemini 2.5–4、DeepSeek、Kimi、Qwen、Grok、Llama 和 Mistral）、真实的 ChatGPT 回答（WildChat）、当代模型写的作文、新闻和摘要（DACTYL）、问答（HC3）、合成教材和指南（Cosmopedia）、对抗样本集（DetectRL、RAID：改写、回译、同义词替换、拼写错误），以及来自公版小说、维基百科、学习者作文和新闻的人写文本。一个小型文体模型把每篇文本归入三种文体之一，每种有自己的阈值：<b>学术摘要</b>（最严格）、<b>创意写作</b>（用人写小说校准）和<b>其他</b>。V1.0 中，第三类还多了一个只用非虚构文本训练的模型；两个模型投票，合并后的分数重新校准。每个阈值都在校准集上设定，保证任何人群中被判为 AI 的人写文本不超过 1%。</p>
+    <div class="tscroll"><table class="data"><thead><tr><th>预留数据，从未用于训练</th><th class="n">AI 检出</th><th class="n">人写误判</th></tr></thead><tbody>
+      <tr class="ood"><td>10 个训练中从未出现过的最新模型（GPT-5.5、Claude Opus 4.8、Claude Fable 5.1、Gemini 3.1 Pro、DeepSeek V4 Pro、Kimi、GLM、Mistral、Seed）</td><td class="n">96.5%</td><td class="n">—</td></tr>
+      <tr><td>2023–26 年模型写的小说，预留题目</td><td class="n">82–99%</td><td class="n">—</td></tr>
+      <tr><td>预留作者的公版小说（n = 600）· 维基百科（n = 600）</td><td class="n">—</td><td class="n">0.0% · 0.0%</td></tr>
+      <tr><td>8–12 年级英语学习者的作文（n = 3,879）</td><td class="n">—</td><td class="n">0.0%</td></tr>
+      <tr><td>Profiler（EMNLP 2025），全部领域</td><td class="n">94.0%</td><td class="n">0.0%</td></tr>
+      <tr><td>DACTYL（2025 年模型：GPT-4o、Claude 3.5、Gemini 1.5、DeepSeek-V3、Llama 3）</td><td class="n">60.9%</td><td class="n">0.2%</td></tr>
+      <tr><td>真实 ChatGPT 回答（WildChat）· 合成指南和故事（Cosmopedia）</td><td class="n">55.5% · 89.3%</td><td class="n">—</td></tr>
+      <tr><td>人与 ChatGPT 分别回答的问题（HC3）</td><td class="n">42.7%</td><td class="n">0.0%</td></tr>
+      <tr><td>人写的学术摘要（n = 585）</td><td class="n">30%</td><td class="n">1.7%</td></tr>
+      <tr><td>对抗攻击（DetectRL · RAID）</td><td class="n">57.2% · 56.8%</td><td class="n">0.0% · 0.0%</td></tr>
+      <tr class="ood"><td>2024 年 AP / 纽约时报风格新闻 vs GPT-4o、Claude、o1-pro（预留的一半，n = 110）</td><td class="n">76.4%</td><td class="n">1.8%</td></tr>
+      <tr class="ood"><td>&nbsp;&nbsp;同一批文本：Pangram / GPTZero（其公布的成绩）</td><td class="n">98.2% / 81.8%</td><td class="n">3.6% / 0.0%</td></tr>
+    </tbody></table></div>
+    <p>与 deep-0.4.0 相比，V1.0 在每个预留组中都找到了更多 AI 文本（问答 1.6% → 42.7%，真实 ChatGPT 回答 46.6% → 55.5%，当代模型新闻 41.5% → 56.8%），小说和学术摘要保持不变。两个用一个模型统一训练所有文体的早期候选版本在 GPT-5.5 小说上表现变差，没有发布。</p>
+    <p>作为对比，2023 年的标准模型只能找到 0–13% 的现代 AI 小说。标准模式（V1.8 已删除）也会参考 n-gram 模型：当该模型超过对应文体的阈值时给出 AI 判断，两者意见不一时不下判断。带行号的文本（独白、剧本）现在按正文处理；以前这些行会被当成列表项排除。</p>
+    <p><b>弱点：旧模型和开源模型写的非虚构文本。</b>由旧的或小型开源模型（BLOOMz、Dolly、Flan-T5）写的维基百科式文章、操作指南和论坛回答很少被检出（0–5%）；ChatGPT 写的能检出 12–39%。这些风格的人写文本几乎从不被误判（0–0.3%）。</p>
+    <p><b>未解决的风险：按提示写作的人写文本。</b>Beemo 是 2023 年由付费标注员按聊天机器人式提示写的回答集。ALETHEIA V1.0 把其中 12% 的人写故事和诗歌、16% 的人工改写判为 AI（deep-0.4.0：9% 和 16%）。这些文本的分数远高于我们测过的任何其他人写文本，所以要么检测器对这种风格过度敏感，要么部分"人写"回答其实用了 AI，这是众包数据的已知问题。在我们弄清楚之前，对按提示写成的短文给出的阳性结果要格外谨慎。</p>
+    <p><b>仍然漏掉的。</b>经过 AI "人性化"工具和回译处理的文本检出率低得多（回译约 30%，DIPPER 改写约 50%，人性化处理过的 o1-pro 新闻 57%），一些文学性很强的单篇样本落在复核区间而不是超过阈值。我们把这些报告为<i>无法判断</i>，而不是降低阈值，因为降低阈值会误判更多人写作者。</p>
+    <p><b>V1.7.4–V1.7.7（逐步改进）。</b>1.7.4：捐献文本会连同捐献者的同意声明一起记录（没有每位作者书面同意的文本永远不用于训练，只能用于内部误判检查；标签和年龄以捐献者所述为准，未经核实），并用一张配对表把 Turnitin 的百分比和我们的并列记录。1.7.5：主要是方程或公式的行会显示但不计分，消除了数学报告中一个已知的误判来源。1.7.6：在首批配对文档上，按每个灵敏度档位把主数字与 Turnitin 对比（模型未改）。1.7.7：选项和结果文字更清晰。目前只有两份配对文档，所以还没有按 Turnitin 校准任何东西。</p>
+    <p><b>V1.7.8 检测档位。</b>在学生作业模式下可以直接选择档位：<b>T</b>（只用严格的学生阈值，误报最少：1,857 篇预留人写作文中有 2 篇达到 20%）、<b>高</b>（默认；增加琥珀色筛查线索：V1.7 时为 1,857 篇中 22 篇，1.2%；下面 V1.6 的表格是 20 篇）或<b>极高</b>（约 2%）。到目前为止我们只在两份文档上把 T 档和 Turnitin 对比过，所以还不能说两者有多接近。高档能抓到更多 AI 文本，但也会误判更多人写文本：在我们自己的检查中，两份自称人写的学校报告（其中一份 Turnitin 给 0%）在高档达到约 30%，在 T 档低于 20%（V1.8.2 中其中一份在 T 档达到 22%）。把琥珀色段落当作线索，采取行动前先用 T 档复查。</p>
+    <p><b>V1.7.9。</b>发布检查现在包括独立交叉审查：两名独立审查者分别检查代码和本页，再互相核对对方的发现后才发布。第一次审查后的修复：悬浮的捐献按钮不再出现在其他页面或点"新扫描"之后，捐献内容总是包含被扫描的文本；iPhone 上的分享菜单应该更容易打开，Android 可以退回到以 .txt 文件分享捐献（目前都只在桌面测试浏览器中测过）；档位按钮会向屏幕阅读器报告状态；Thunderbird 和 Apple Mail 的说明更清楚；方程过滤现在需要至少两个数学符号，并且适用于非英文文本；本页的档位数字和措辞已更正。</p>
+    <p><b>V1.7.3。</b>为长时间使用重做了界面动效：统一的缓动曲线、用短淡入淡出代替跳变、仪表只填充一次、捐献横幅不再循环动画、切换明暗主题时平滑过渡、清晰的键盘焦点框，并完全遵守系统的"减少动态效果"设置。V1.7.2：捐献表单现在问两个更清楚的问题（AI 怎么用的，包括"AI 只用来讲解或给反馈"；以及谁写的，包括小组作业），还有一个可选栏填 Turnitin 的 AI 百分比，方便我们测量 ALETHEIA 与它有多接近。V1.7.1："捐献这篇文章"的入口改为结果上方的大横幅（加一个悬浮按钮），邮件也替你准备好：手机和平板上点一下就打开分享菜单，捐献文件已附上；电脑上会打开一个现成的邮件文件（.eml），Outlook、Thunderbird 等应用会自动填好地址、主题和附件；Gmail 等网页邮箱可以把文件拖进去。浏览器无法悄悄给邮件加附件，这已是能做到的最接近的方式；复制粘贴的备用方式仍然保留。</p>
+    <h2>V1.7：短 AI 段落、带标注的 Word 文件、反馈</h2>
+    <p><b>短 AI 段落。</b>我们建了一个带标签的混合学生作文测试集：插入一段 AI 段落的人写作文、加了 AI 结论的作文、人写开头加 AI 正文、人写和 AI 各一半，以及逐句交替。我们 250 词的片段几乎完全稀释了短的 AI 段落。从 V1.7 起，学生作业模式还会给 100 词窗口打分，任一轮达到阈值的句子都会高亮；阈值的设定保证人写校准作文中被高亮的词最多增加四分之一。</p>
+    <div class="tscroll"><table class="data"><tr><th>混合作文中被高亮的 AI 词比例（高灵敏度）</th><th>V1.6</th><th>V1.7</th></tr>
+    <tr><td>人写作文中插入一段 AI 段落（60–150 词）</td><td>5%</td><td>21%</td></tr>
+    <tr><td>人写作文加了 AI 结论</td><td>24%</td><td>35%</td></tr>
+    <tr><td>前半人写，后半 AI</td><td>78%</td><td>85%</td></tr>
+    <tr><td>人写句子与 AI 句子交替</td><td>42%</td><td>48%</td></tr>
+    <tr><td>预留人写学生作文中达到 20% 的</td><td>1,857 篇中 20 篇</td><td>1,857 篇中 22 篇</td></tr></table></div>
+    <p>对于我们在浏览器里运行的每个模型，交替出现的单句仍然接近随机，紧挨 AI 段落的人写句子也常被一起高亮。把高亮的段落当作需要查看的地方，永远不要当作证据。</p>
+    <p><b>带标注的 Word 文件。</b>对上传的 .docx 做完 Deep 或 Supreme 扫描后，可以下载你自己的文档，其中被标注的句子加了底色（青绿色，筛查线索为琥珀色）。文件在你的浏览器里生成；文字、格式、公式和图片保持原样。文本框或修订中的句子可能不会加底色；网页和 PDF 始终显示完整结果。</p>
+    <p><b>反馈和捐献。</b>你可以报告你认为错误的结果（只发数字，从不发文本），或捐献一篇文本，都通过你自己的邮件应用发送。反馈帮助我们发现问题，但从不直接用作训练标签。</p>
+    <h2>V1.6：学生模式优先保证查全</h2>
+    <p>我们的原则是漏掉 AI 文本比多标几篇作文更糟。从 V1.6 起，打开<b>学生作业</b>会默认同时开启<b>高灵敏度</b>，新增的<b>极高灵敏度</b>档再进一步。在 300 词以上的学生作业范围文档上测量，误判只统计从未用于选择设定的人写作文：</p>
+    <div class="tscroll"><table class="data"><tr><th>300 词以上的预留文档</th><th>学生阈值</th><th>高（默认）</th><th>极高</th></tr>
+    <tr><td>人写学生作文达到 20%</td><td>1,857 篇中 2 篇（0.1%）</td><td>1,857 篇中 20 篇（1.1%）</td><td>1,857 篇中 38 篇（2.0%）</td></tr>
+    <tr><td>AI 写的和 AI 编辑过的作文达到 20%</td><td>78.0%</td><td>84.3%</td><td>86.5%</td></tr>
+    <tr><td>2026 年模型写的作文</td><td>86.3%</td><td>94.5%</td><td>96.3%</td></tr>
+    <tr><td>改写过或"人性化"处理过的 AI 作文</td><td>58.6%</td><td>67.5%</td><td>71.2%</td></tr></table></div>
+    <p>在极高档，表现最弱的人写群体是 Ghostbuster 学生作文（36 篇校准作文中 7 篇被标出），所以单篇作文的高百分比是仔细查看并和作者沟通的理由，绝不能证明是谁写的。</p>
+    <h2>V1.5：高灵敏度筛查，以及组合模型能做和不能做的</h2>
+    <p>有些用户宁愿多查几篇作文，也不想漏掉 AI 文本。V1.5 在学生作业模式中加入可选的<b>高灵敏度</b>设置。它把片段阈值再降低 0.80 logit，这是能保证校准集一半中的人写学生作文整体不超过 2%、且没有任何作文集超过 10% 达到 20% 的最大调整。只有这个设置才找到的片段以琥珀色显示为<i>筛查线索</i>；青绿色仍表示单用学生作业阈值就会标出的部分，两个数字都会报告。</p>
+    <table class="data"><tr><th>300 词以上的预留文档，达到 20% 的比例</th><th>学生作业</th><th>+ 高灵敏度</th></tr>
+      <tr><td>人写学生作文（从未用于选择的那一半）</td><td>1,857 篇中 2 篇（0.1%）</td><td>1,857 篇中 20 篇（1.1%）</td></tr>
+      <tr><td>英语学习者作文（ELLIPSE）</td><td>353 篇中 0 篇</td><td>353 篇中 0 篇</td></tr>
+      <tr><td>全部 AI 生成或 AI 编辑的作文（4,412）</td><td>78.0%</td><td>84.3%</td></tr>
+      <tr><td>2026 年模型写的作文和回答</td><td>86.3%</td><td>94.5%</td></tr>
+      <tr><td>改写过或人性化处理过的 AI 作文</td><td>58.6%</td><td>67.5%</td></tr></table>
+    <p><b>浏览器模型的组合。</b>我们测试了规则并集、排名平均投票和堆叠分类器（逻辑回归和梯度提升树），用到浏览器已计算的所有信号：全文分、2023 年特征模型，以及 100、160、250 词窗口的三个片段头。在校准文档上训练、在上面的预留作文上测试，最好的组合在相同误判率下只比简单的阈值调整高约一个百分点。大部分信号已经在一个片段模型里了，所以 V1.5 保留更简单、可审计的阈值。</p>
+    <p><b>与 transformer 组合。</b>把学生作业规则和一个开源的 DeBERTa-v3-large 检测器（MIT 许可）堆叠起来确实有帮助：在 798 篇人写作文和 284 篇难检 AI 作文上做交叉验证，它能检出 84% 的 AI 作文，人写作文误判 0.25%，而单用浏览器规则只有 56%。这个模型需要服务器，所以是未来付费版的基础，不在本次发布中。</p>
+    <h2>V1.4：学生作业模式</h2>
+    <p>Turnitin 的 AI 指标只为一种文本设计：至少 300 词的学生作业。ALETHEIA 的标准阈值要对用户粘贴的所有文本都成立，包括新闻、报告和杂志专题，这会降低对作文的查全率。V1.4 增加一个可选的<b>学生作业</b>开关。它沿用同样的模型，只降低 AI 百分比的阈值（降 1.10 logit），降到校准集一半中任何人写学生作文群体达到 20% AI 的文档都不超过 1% 的最大幅度。它只适用于至少有 300 词正文的文档。</p>
+    <table class="data"><tr><th>300 词以上的预留文档</th><th>标准</th><th>学生作业</th></tr>
+      <tr><td>人写学生作文达到 20%（PERSUADE、ELLIPSE 英语学习者、DACTYL、Ghostbuster、OUTFOX、BAWE、OpAI、wasitai）</td><td>3,752 篇中 1 篇</td><td>3,752 篇中 5 篇（0.13%）；未用于校准的一半中 1,857 篇中 2 篇</td></tr>
+      <tr><td>英语学习者作文（ELLIPSE）达到 20%</td><td>353 篇中 0 篇</td><td>353 篇中 0 篇</td></tr>
+      <tr><td>完全由 AI 生成的作文（GPT-3.5 到 GPT-4o 时期，1,590）</td><td>80.1%</td><td>85.8%</td></tr>
+      <tr><td>2026 年模型写的作文和回答（945）</td><td>66.3%</td><td>86.3%</td></tr>
+      <tr><td>经 AI 编辑或改写的人写作文（944）</td><td>67.1%</td><td>75.5%</td></tr>
+      <tr><td>改写过或人性化处理过的 AI 作文（933）</td><td>52.2%</td><td>58.6%</td></tr>
+      <tr><td>学生作文中被高亮的人写词</td><td>0.02%</td><td>0.14%</td></tr></table>
+    <p>作为参考，Turnitin 报告在其自有测试集上，误判率低于 1% 时文档级查全率为 84.2%。那是另一批文档，所以这些数字不是直接对比。</p>
+    <p><b>只用于学生作业。</b>在 300 词以上、不是学生作文的人写文本上，学生阈值标出的文档约为标准阈值的三倍：6,354 篇中 65 篇（1.0%），标准阈值是 20 篇（0.3%），不含 Beemo 集。受影响最大的是杂志专题（150 篇中 11 篇）和正式报告（246 篇中 10 篇）。不是学生作业的文本请关闭这个开关。</p>
+    <p><b>它解决不了的。</b>人写文本中的单个 AI 段落仍然很少被高亮（混合文档中 AI 词约 16–28%，而 Turnitin 报告句子级为 92%），DIPPER 改写的作文大多仍被漏掉。我们测试过更短的窗口、多尺度堆叠和种子扩展式高亮，都没能把这些数字提高到值得发布的程度。在一个小的作文样本中，开源的 DeBERTa-v3-large 检测器（MIT 许可）能抓到很多 ALETHEIA 漏掉的，但它太大，无法在浏览器里运行，而且会误判很多人写新闻和杂志文本，所以它是未来服务器端学生模式的候选，不在 V1.4 中。</p>
+    <h2>V1.3：片段模型学会最新的模型（seg-0.6）</h2>
+    <p>V1.3 用约 40,000 篇 2026 年写的新文档重新训练 AI 百分比模型：50 个当代模型（GPT-6 Astra、Luna 和 Sol，Claude Opus 5 和 Fable 5，Gemini 3.5，Kimi K3，Qwen 3.8，GLM 5.3 等）对 100 个聊天提示的回答，7 个模型写的讲解，GPT-6 Luna 和 Claude Opus 5.5 写的论文段落及其人写原文，以及由 GPT-5.4 和 Gemini 改写的学生作文、新闻、政府报告和摘要（OpAI-Bench）。第一个候选版本学到"清晰的讲解式写作本身就像 AI"，误判了更多人写杂志专题，因此被否决。V1.3 加入 4,600 篇 2022 年前发表的人写新闻、作文和开放教材页面作为平衡。阈值现在还必须保证任何校准群体被标出的频率不高于 V1.2。</p>
+    <table class="data"><tr><th>同一批预留文档，达到 20% AI 的比例</th><th>V1.2</th><th>V1.3</th></tr>
+      <tr><td>50 个 2026 年模型对训练中从未用过的聊天提示的回答</td><td class="mono">15%</td><td class="mono">54%</td></tr>
+      <tr><td>7 个 2026 年模型写的讲解（GPT-5.6 Luna Pro、Gemini 3.7 Flash、Grok 4.6 …）</td><td class="mono">1%</td><td class="mono">61%</td></tr>
+      <tr><td>GPT-6 Luna、Claude Opus 5.5 / Sonnet 5.5、DeepSeek V4.1 写的论文和一般文章</td><td class="mono">17%</td><td class="mono">33%</td></tr>
+      <tr><td>wasitaigenerated 2026 测试生成器（仍未进入训练的：42% → 48%）</td><td class="mono">29%</td><td class="mono">33%</td></tr>
+      <tr><td>人写文档，14 个群体共 8,934 篇预留文本</td><td class="mono">63</td><td class="mono">45</td></tr>
+      <tr><td>人写政府报告、作文、新闻和摘要（OpAI-Bench 原文）</td><td class="mono">3.6%</td><td class="mono">0.0%</td></tr>
+      <tr><td>2022 年前发表的人写新闻、作文和教材页面（测试集）</td><td class="mono">1.2%</td><td class="mono">0.1%</td></tr>
+      <tr><td>真实学生作文，6–12 年级，从未用过的题目（PERSUADE 2.0）</td><td class="mono">3,940 篇中 0 篇</td><td class="mono">3,940 篇中 1 篇</td></tr>
+      <tr><td>部分人写、部分 AI 的文档：高亮词中确实是 AI 的比例</td><td class="mono">91%（找到 20%）</td><td class="mono">93%（找到 16%）</td></tr>
+      <tr><td>人性化工具输出，未见过的 2026 年 11 月批次</td><td class="mono">51%</td><td class="mono">43%</td></tr>
+      <tr><td>经 DIPPER 改写的学生作文</td><td class="mono">41%</td><td class="mono">29%</td></tr>
+      <tr><td>较旧的（2023–24）AI 测试集</td><td class="mono">62.4%</td><td class="mono">62.1%</td></tr>
+    </table>
+    <p><b>V1.3 放弃了什么。</b>对人性化工具和改写工具输出的检出率下降了（51% 到 43%，41% 到 29%）。在当代模型上的提升来自不含人性化文本的训练数据，而一个偏重人性化文本的变体误判了更多人写文本，所以没有发布。全文判断与 V1.2 相同。我们再次测试了"AI 百分比高时也给出 AI 判断"的规则并否决了它：在校准中，文档模型已经对略多于 1% 的人写政府报告和 Ghostbuster 创意写作给出 AI 判断。人写论文中的单个 AI 段落（约占全文三分之一）仍几乎从不被高亮，因为每个 250 词片段大部分仍是人写的。</p>
+    <p><b>测试中发现的。</b>V1.2 给 259 份人写政府报告中的 27 份（10%）打出 20% 以上的 AI 百分比。V1.3 是 259 份中 0 份。如果你用 V1.2 扫描过正式报告，请重新扫描。</p>
+    <h2>AI 百分比与高亮片段（seg-0.2，ALETHEIA V1.2，已被取代）</h2>
+    <p>Deep 和 Supreme 扫描会报告一个 <b>AI 百分比</b>：看起来像 AI 生成的部分中合格词所占的比例，这是 Turnitin 推广的衡量方式。文档被切成约 250 词、相互重叠的片段；片段模型给每个片段打分，每个句子取它所属片段的平均分。1% 到 19% 的值像 Turnitin 一样显示为 <span class="mono">*%</span>，因为这个区间更容易误判。全文的 Deep 分数仍会显示；两者回答的是不同的问题。</p>
+    <p>V1.2 用 2026 年的材料重新训练片段模型：截至 2026 年底发布的 33 个生成器写的文本（wasitaigenerated 基准）、12 款商业"人性化"工具的输出（AI Humanizer Benchmark，2026 年 9 月和 10 月），以及 8 种 AI 参与程度的学生作文（GEDE）。下面每项测试用的都是模型从未见过的生成器、人性化批次或作文题目。</p>
+    <table class="data"><tr><th>预留测试</th><th>V1.1</th><th>V1.2</th></tr>
+      <tr><td>来自未见过生成器的 2026 年 AI 文本（GPT-6、Claude Opus 5.5、Gemini 3.7 …）达到 20% AI</td><td class="mono">22%</td><td class="mono">29%</td></tr>
+      <tr><td>人性化工具输出，未见过的 2026 年 11 月批次</td><td class="mono">27%</td><td class="mono">51%</td></tr>
+      <tr><td>经改写型"人性化"工具（DIPPER）处理的学生作文</td><td class="mono">26%</td><td class="mono">41%</td></tr>
+      <tr><td>人写文档达到 20% AI，14 个群体共 9,008 篇</td><td class="mono">0.80%</td><td class="mono">0.71%（不含 Beemo 为 0.11%）</td></tr>
+      <tr><td>人写学生作文（OUTFOX/PERSUADE、ELLIPSE、GEDE/BAWE）和 2026 年人写文本</td><td class="mono">0–1.0%</td><td class="mono">0–0.6%</td></tr>
+      <tr><td>真实学生作文，6–12 年级，题目从未用于训练或校准（PERSUADE 2.0）</td><td class="mono">3,940 篇中 0 篇</td><td class="mono">3,940 篇中 0 篇</td></tr>
+      <tr><td>部分人写、部分 AI 的文档：高亮词中确实是 AI 的比例</td><td class="mono">88%</td><td class="mono">91%（找到 20% 的 AI 词）</td></tr>
+      <tr><td>较旧的（2023–24）AI 测试集达到 20%</td><td class="mono">66.5%</td><td class="mono">62.4%</td></tr>
+    </table>
+    <p>V1.2 在旧 AI 文本上少了几个百分点，换来在当代模型和人性化工具上的大幅提升。它整体误判的人写文本更少（Beemo 以外的 8,425 篇中，V1.1 为 12 篇，V1.2 为 9 篇）；有一个群体略有变差（M4 人写回答：1,697 篇中 3 → 5 篇）。阈值在人写文本上校准（任何群体达到 20% 的文档不超过 1%），在测试中有一份人写简历越线后，又固定上调了一小段。</p>
+    <p><b>我们的现状。</b>在最新前沿模型写的短文上，独立的 2026 年基准报告 Pangram 和 GPTZero 能在误判接近零的情况下抓到约 80%，而 ALETHEIA 的全文判断约为 21%，AI 百分比（V1.3）能标出约三分之一，长文会更多。面对人性化工具，没有哪个检测器可靠：在同一批输出上，GPTZero、Originality 和 Copyleaks 根据工具不同在 0% 到 88% 之间。ALETHEIA 在你的浏览器里运行小型统计模型，服务器从不接触你的文本；要缩小与前沿模型的差距，需要更大的服务器端模型，这在计划中。在那之前，短文得分低只是"人写"的弱证据。</p>
+    <h3>早期发现：学术摘要</h3>
+    <p>deep-0.2.0 在一个独立语料库（Mendeley Data，2025）中把 1,834 篇人写学术摘要的 25.7% 判为 AI，2023 年的标准模型判了 11.1%。两者都在这个文体上撤回；现在它有自己的、严格得多的阈值。</p>
+    <h2>其他检测器和"人性化"工具如何工作</h2>
+    <p><b>Turnitin</b> 把提交的文本切成几百词、相互重叠的窗口，用一个基于开源基础模型微调的 transformer 分类器给每个句子打 0–1 分，然后取平均。它要求至少 300 词，1–19% 的分数只显示为星号，并接受最多漏掉约 15% 的 AI 文本，以保证在 AI 写作超过 20% 的文档上误判率低于 1%。第二个模型只在已被标为 AI 的片段上运行，标出看起来经过 AI 改写的部分（QuillBot 之类）。Turnitin 在 2025 年增加了针对人性化文本的"AI 绕过工具"检测。</p>
+    <p><b>人性化工具</b>（HumanizeAI.pro、Undetectable AI、StealthGPT 等很多）会改写 AI 输出以改变其统计特征。一项对 19 款此类工具的审计发现：同义词替换、拆句、改变阅读难度、故意制造语法和标点错误、拼写错误、插入人称代词和无意义内容；HumanizeAI.pro 是最流畅的之一。只靠困惑度的检测器在这类文本上大部分准确度都会丧失，而用人性化样本训练过的检测器能恢复大部分，前提是经过同样工具处理的人写文本也标为人写，这样检测器学到的是作者信号，而不是改写痕迹。</p>
+    <p><b>我们的差距。</b>ALETHEIA 完全在你的浏览器里运行，没有 transformer 语言模型，也没有来自商业工具的人性化训练数据。缩小这个差距需要服务器端模型和有许可的人性化数据，已列入下面的路线图。</p>
+    <p><b>关于时间的说明。</b>扫描更久更准确，只是因为它做了更多分析，不是因为它在等待。Deep 和 Supreme 用同一个更强的模型。Supreme 额外做 2,000 次自助法（bootstrap）重分析、三种窗口尺寸和段落影响分析，使不确定度估计和段落分布图更可靠，然后生成 PDF。在笔记本电脑上这需要几秒到约一分钟；在手机上或文档很长时会更久。</p>
+    <p><b>注意事项。</b>每个群体的人写样本较少，所以区间较宽。我们人写数据很少的文体（个人随笔、博客、现代出版小说、学生创意写作）使用保守阈值，真实误判率尚未测量。Deep 模型用的研究数据，其上游版权仍在审查中，所以在付费上线前必须用已获商业许可的数据重新训练。</p>
+    <h2>数据：哪些已获许可，哪些在审查中</h2>
+    <div class="kv"><div><b>38</b><span>个已审查的数据源（含 16 个 2025–26 年的）</span></div><div><b>6</b><span>个获准用于商业训练</span></div><div><b>17</b><span>个在来源版权审查前隔离</span></div></div>
+    <div class="lic">
+      <div class="ok"><b>获准商用</b>Wikipedia · Stack Exchange · arXiv &amp; PMC（逐条 CC 许可）· AI Text Detection Benchmark 2026 · WasItAIGenerated 2026-09（逐行）</div>
+      <div><b>来源版权审查中（已隔离）</b>RAID · HC3 · HC3-Chinese · TXD-22 · OpenLLMText · APT-Eval · Ghostbuster · Academic Text 2026 · ITAIS v2 · IndicTextFake · GRADTEX · DeHAT · Śmigiel · QuillBot Academic · AH&amp;AITD · Profiler · Human-AI Parallel</div>
+      <div><b>非商用</b>AuTexTification · PERSUADE 2.0 · OUTFOX · unified_tell · ALHD · AIGTxt</div>
+      <div><b>许可未知</b>COLING-2025 MGT · M4 · ArguGPT · Ateeqq · AITDNA · EditLens · Napier parliamentary · 两个 HF 镜像</div>
+    </div>
+    <p>数据集自己的许可不够：我们还检查其中人写文本的来源。由抓取的新闻、评论、作文或论坛帖子构成的数据集，即使数据集本身是 MIT 或 CC BY，在来源版权理清之前也放在隔离区。每次导入都会重新检查许可、记录校验和与版本、保留逐条署名，并且从不把未知标签当作"人写"或"AI"。纯人写语料只用 2022 年 11 月 30 日之前写的文本。</p>
+    <h2>上线门槛</h2>
+    <p>一个模型只有在以下条件都满足时才会上线：它的训练文本没有出现在评估数据中，整体误判的人写文本不超过 1%，任何写作群体不超过 2%，并且与线上版本相比没有任何退步。</p>
+    <table class="sig"><tr><th>候选版本</th><th>决定</th><th>原因</th></tr>
+      <tr><td class="mono">v0.2.0</td><td><span class="tag strong">否决</span></td><td>864 篇评估文本与其训练数据重叠，评估结果会虚高。</td></tr>
+      <tr><td class="mono">v0.3.0</td><td><span class="tag strong">否决</span></td><td>人写误判率 1.36%（220 篇中 3 篇；95% 置信区间 0.46–3.93%）超过 1% 的上限。线上版本不变。</td></tr></table>
+    <h2>路线图</h2>
+    <ul class="roadmap">
+      <li><b>现在</b><span>大规模导入已获许可的语料；用当代模型和已审查的提示自行生成 AI 文本；只用商业数据池重新训练。</span></li>
+      <li><b>现在</b><span>为最有价值的隔离数据集（GRADTEX、ITAIS、DeHAT、Profiler）以及 PERSUADE 2.0（学生作文）申请许可。</span></li>
+      <li><b>下一步</b><span>对当代模型（GPT-4o/5、Claude、Gemini、DeepSeek、Llama）、AI 编辑过的人写文本和人性化工具输出做基准测试。</span></li>
+      <li><b>下一步</b><span>服务器端 transformer 分类器（像 Turnitin 一样按句子窗口），加上语言模型层；做抗人性化训练，把人性化处理过的人写文本标为人写。</span></li>
+      <li><b>下一步</b><span>在清晰许可下收集学生和当代作者的人写创意写作，用来测量和保护创意文体。</span></li>
+      <li><b>之后</b><span>账号、保存报告和付费扫描（2 美元），先在测试模式下接入支付服务商。</span></li>
+    </ul>
+  </div>
+</div>
 </div></main>
 
 <!-- ================= EVALUATE ================= -->
@@ -797,20 +1055,24 @@ footer{border-top:1px solid var(--line)}
 
 <!-- ================= CHANGELOG ================= -->
 <main class="page" id="p-changelog"><div class="wrap">
-  <p class="zhnote" data-zhnote hidden>本页目前只有英文版本。</p>
+<div class="en-v">
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
-  <h2>V1.8 (6 November 2026)</h2>
+  <h2>V1.8 (6–7 November 2026)</h2>
+  <div class="cl"><h3>V1.8.2 <span>7 Nov 2026 · retrained model, every page in Chinese</span></h3><ul>
+    <li><b>New model (seg-0.7):</b> retrained with 25 AI-written Year 12 assignments made by Gemini, ChatGPT, DeepSeek and Perplexity. On AI-written chemistry research investigations from a task it never saw, High finds 6 of 10 (was 4); we trained four candidates and chose this one on these same 10 essays, so this is optimistic. Both donated AI essays, on the same topic as 20 training essays, now reach 20% at every student level (was 0 · 0 · 1).</li>
+    <li><b>Cost and limits:</b> human texts reaching 20% are about the same overall (High 196 → 190 of 4,581), but one donated human school report now reaches 22% at T, and human texts on the same topics as the new training essays went from 0 · 0 · 2 to 0 · 1 · 3 (T · High · Very high, of 21). AI essays written in an "average student" or "rushed draft" style are still mostly missed. Samples are small; see Research.</li>
+    <li><b>中文:</b> in Chinese mode every page is now in Chinese: Home, Technology, Research, Changelog, Evaluate, History, Privacy and Brand.</li></ul></div>
   <div class="cl"><h3>V1.8.1 <span>6 Nov 2026 · full Chinese on the Detect page</span></h3><ul>
     <li><b>中文:</b> in Chinese mode the whole Detect page is now in Chinese, including progress steps, results, evidence explanations, sentence details, error messages and the donation and feedback steps. Only your own document text stays as written.</li>
-    <li><b>Hard cases added to testing:</b> two AI-generated student essays donated on 6 November score like human writing in every current model (whole-document score 1/100; Very high finds 0% and 40%). They are now part of the regression set: no future model is accepted unless it catches them without flagging more human essays. The detection models are unchanged in this version.</li></ul></div>
+    <li><b>Hard cases added to testing:</b> two AI-generated student essays donated on 6 November score like human writing in every current model (whole-document score 1/100; Very high finds 0% and 40%). They are now part of the regression set: no future model is accepted unless it catches them without flagging more human essays overall. The detection models are unchanged in this version.</li></ul></div>
   <div class="cl"><h3>V1.8.0 <span>6 Nov 2026 · a cleaner, simpler ALETHEIA</span></h3><ul>
     <li><b>Two modes only:</b> the quick Standard check is gone. Every scan is now a <b>Deep Scan</b> (two trained models, window re-scoring, bootstrap re-analysis) or <b>Supreme</b> (everything plus a PDF report).</li>
     <li><b>Level picker:</b> one button opens a list of levels with a short description each: General, <b>T mode</b> (strict student threshold, Turnitin-style scope), High (default for students) and Very high.</li>
     <li><b>Student assignment</b> is now an on/off switch. The student levels unlock when it is on.</li>
     <li><b>Clearer results:</b> one column of separate, numbered cards (Result, Details, Document, Paragraphs, Evidence, Passages). The AI percentage comes first; model internals are folded away.</li>
     <li><b>New look:</b> new light and dark colour palettes, softer shapes, fewer lines and a shorter menu.</li>
-    <li><b>中文 / English:</b> the main interface can be switched to Chinese. Research pages stay in English for now.</li>
+    <li><b>中文 / English:</b> the main interface can be switched to Chinese. Research pages stay in English for now (changed in V1.8.2).</li>
     <li><b>Accounts (beta):</b> you can create an account and sign in. For now the account lives only in this browser on this device (the password is stored as a salted hash) and signing in does not change your results. Nothing is sent to a server.</li>
     <li><b>Reports:</b> the copied and downloaded reports and the History page now show the AI percentage you see on screen.</li>
     <li><b>Not changed:</b> the detection models and thresholds are the same as V1.7.9. Recent donated essays show that some AI-written student essays are still missed, even at Very high; improving that needs more labelled data and is the next priority.</li></ul></div>
@@ -872,11 +1134,92 @@ footer{border-top:1px solid var(--line)}
     <li>Known risk: human answers written to chatbot-style prompts are flagged 12–16% of the time.</li></ul></div>
   <p class="count" style="margin-top:24px">Full methods and tables: see <a href="#research">Research</a>. A score is never proof of authorship.</p>
   </div>
+</div>
+<div class="zh-v" lang="zh-CN">
+  <div class="page-head"><p class="eyebrow">更新日志</p><h1>V1.0 以来的每一次更新。</h1><p>最新的在最上面。每一条都写明改了什么、为什么改，以及对你的结果意味着什么。除非另有说明，数字都来自模型从未见过的测试文本；样本很小的会标出来。</p></div>
+  <div class="content changelog">
+  <h2>V1.8（2026 年 11 月 6–7 日）</h2>
+  <div class="cl"><h3>V1.8.2 <span>2026 年 11 月 7 日 · 重新训练的模型，所有页面中文化</span></h3><ul>
+    <li><b>新模型（seg-0.7）：</b>用 Gemini、ChatGPT、DeepSeek 和 Perplexity 写的 25 篇 12 年级 AI 作业重新训练。对一个从未见过的任务写的 AI 化学研究报告，高档能找到 10 篇中的 6 篇（以前是 4 篇）；我们训练了四个候选版本，并用这同样 10 篇报告挑出了这一个，所以这个数字偏乐观。两篇捐献的 AI 作文和 20 篇训练作文题目相同，现在在每个学生档位都达到 20%（以前是 0 · 0 · 1）。</li>
+    <li><b>代价和局限：</b>达到 20% 的人写文本整体大致不变（高档 4,581 篇中 196 → 190），但一份捐献的人写学校报告现在在 T 档达到 22%，与新训练作文同题材的 21 篇人写文本从 0 · 0 · 2 变为 0 · 1 · 3（T · 高 · 极高）。"普通学生"或"赶工草稿"风格的 AI 作文大多仍会漏掉。样本很小；详见研究页。</li>
+    <li><b>中文：</b>中文模式下所有页面都是中文了：首页、技术、研究、更新日志、评估、历史、隐私和品牌。</li></ul></div>
+  <div class="cl"><h3>V1.8.1 <span>2026 年 11 月 6 日 · 检测页全部中文</span></h3><ul>
+    <li><b>中文：</b>中文模式下，整个检测页都变成中文，包括进度步骤、结果、证据说明、句子详情、错误提示，以及捐献和反馈的步骤。只有你自己的文档原文保持原样。</li>
+    <li><b>测试中加入难题：</b>11 月 6 日捐献的两篇 AI 生成的学生作文，在当前所有模型中得分都和人写文本一样（全文分 1/100；极高档分别是 0% 和 40%）。它们现在进入回归测试集：今后任何新模型，必须抓到它们、又不在整体上多误判人写作文，才能上线。本版本没有改动检测模型。</li></ul></div>
+  <div class="cl"><h3>V1.8.0 <span>2026 年 11 月 6 日 · 更干净、更简单的 ALETHEIA</span></h3><ul>
+    <li><b>只剩两种模式：</b>快速的标准检测已删除。现在每次扫描都是 <b>Deep Scan</b>（两个训练好的模型、窗口重新打分、自助法重分析）或 <b>Supreme</b>（全部功能，再加一份 PDF 报告）。</li>
+    <li><b>档位选择：</b>一个按钮打开档位列表，每个档位都有简短说明：通用、<b>T 档</b>（严格的学生阈值，适用范围和 Turnitin 一样）、高（学生默认）和极高。</li>
+    <li><b>学生作业</b>现在是一个开关。打开后才能使用学生档位。</li>
+    <li><b>结果更清楚：</b>一列独立的、带编号的卡片（结果、详情、文档、段落、证据、片段）。AI 百分比放在最前面；模型内部数据折叠起来。</li>
+    <li><b>新外观：</b>新的明暗配色，更柔和的形状，更少的线条，更短的菜单。</li>
+    <li><b>中文 / English：</b>主界面可以切换成中文。研究类页面暂时只有英文（V1.8.2 起已全部中文）。</li>
+    <li><b>账号（测试版）：</b>可以注册和登录。目前账号只保存在这台设备的这个浏览器里（密码以加盐哈希保存），登录不会改变你的结果。不会向服务器发送任何东西。</li>
+    <li><b>报告：</b>复制和下载的报告以及历史记录页，现在显示的都是你在屏幕上看到的 AI 百分比。</li>
+    <li><b>没有改变的：</b>检测模型和阈值与 V1.7.9 相同。最近捐献的作文显示，一些 AI 写的学生作文即使在极高档也会漏掉；改进这一点需要更多带标签的数据，这是下一步的重点。</li></ul></div>
+  <h2>V1.7 系列（2026 年 11 月 5–6 日）</h2>
+  <div class="cl"><h3>V1.7.9 <span>2026 年 11 月 6 日 · 质量关口和修复</span></h3><ul>
+    <li><b>新的发布检查：</b>每次发布前，两名独立审查者检查代码和公开文字，互相核对对方的发现，最后还要通过一次终审。</li>
+    <li><b>修复：</b>捐献内容现在总是包含被扫描的那段文本。以前扫描后再改文本框，可能把旧结果和新文本配在一起。</li>
+    <li><b>修复：</b>悬浮的捐献按钮不再出现在其他页面、点"新扫描"之后或打印时。</li>
+    <li><b>改进：</b>分享菜单的打开方式改为 iPhone 能接受的方式；Android 可以把捐献作为 .txt 文件分享。尚未在真机上测试。</li>
+    <li><b>改进：</b>档位按钮会告诉屏幕阅读器当前选中哪个；深色模式对比度更好；Thunderbird 和 Apple Mail 的步骤更清楚。</li>
+    <li><b>改动：</b>方程过滤至少需要两个数学符号（或一行没有真正单词的数学符号），并且适用于非英文文本。</li>
+    <li><b>措辞更正：</b>T 档不再叫"可与 Turnitin 对比"（只有两份配对文档）；隐私页现在说明捐献的文本可能用于训练；说明了高档会误判更多人写文本。</li></ul></div>
+  <div class="cl"><h3>V1.7.8 <span>2026 年 11 月 6 日 · 自己选档位</span></h3><ul>
+    <li><b>新功能：</b>在学生作业模式下，点一下就能选档位：<b>T · 严格</b>（误报最少）、<b>高</b>（默认）或<b>极高</b>。</li>
+    <li><b>需要知道的（样本很小）：</b>4 份 300 词以上、都说是人写的学校报告中，有 3 份在高档达到 20% 以上。其中两份（一份 Turnitin 给 0%）在高档约 30%，在 T 档低于 20%。采取行动前先用 T 档复查。</li>
+    <li>页脚显示构建编号。</li></ul></div>
+  <div class="cl"><h3>V1.7.4 – V1.7.7 <span>2026 年 11 月 5–6 日 · 数据和整理</span></h3><ul>
+    <li><b>V1.7.4：</b>捐献文本会连同捐献者的同意声明一起记录；一张配对表把 Turnitin 的 AI 百分比和我们的并列记录。</li>
+    <li><b>V1.7.5：</b>主要是方程的行会显示但不计分。这消除了数学报告中的一个误判来源。</li>
+    <li><b>V1.7.6：</b>在首批配对文档上把每个档位和 Turnitin 对比。模型未改：两份文档不足以校准。</li>
+    <li><b>V1.7.7：</b>选项面板和结果文字更简洁。</li></ul></div>
+  <div class="cl"><h3>V1.7.3 <span>2026 年 11 月 5 日 · 更安静的界面</span></h3><ul>
+    <li>统一的缓动曲线、短淡入淡出、只填充一次的仪表、没有循环动画、柔和的明暗切换、清晰的焦点框，完全支持"减少动态效果"。</li></ul></div>
+  <div class="cl"><h3>V1.7.2 <span>2026 年 11 月 5 日 · 更好的捐献表单</span></h3><ul>
+    <li>两个清楚的问题：AI 怎么用的（包括"AI 只是教我"），以及谁写的（包括小组作业）。</li>
+    <li>可选填写 Turnitin 的 AI 百分比，方便我们测量和它有多接近。</li></ul></div>
+  <div class="cl"><h3>V1.7.1 <span>2026 年 11 月 5 日 · 捐献更方便</span></h3><ul>
+    <li>结果上方有一个大的"捐献这篇文章"横幅，还有一个悬浮按钮。</li>
+    <li>邮件替你准备好：手机上打开分享菜单并附好文件，电脑上是现成的 .eml 邮件，网页邮箱可以把文件拖进去，最后还有复制的方式。</li></ul></div>
+  <div class="cl"><h3>V1.7 <span>2026 年 11 月 5 日 · 短 AI 段落、Word 文件、反馈</span></h3><ul>
+    <li><b>新功能：</b>学生模式还会检查 100 词窗口，所以人写作文中的单个 AI 段落更容易被找到（高档下其词语的 5% → 21%）。</li>
+    <li><b>新功能：</b>下载标出可疑句子的 Word 文件；文字不会被改动。</li>
+    <li><b>新功能：</b>"报告错误结果"和"捐献这篇文章"，都通过你自己的邮箱。</li>
+    <li>代价：达到 20% 的人写作文略有增加：1,857 篇中 T 档 2 → 3，高档 20 → 22，极高档 39 → 46。</li></ul></div>
+  <h2>V1.1 – V1.6（2026 年 11 月 4–5 日）</h2>
+  <div class="cl"><h3>V1.6 <span>2026 年 11 月 5 日 · 漏掉的 AI 作文更少</span></h3><ul><li>漏掉的 AI 作文更少，代价是误报更多。</li>
+    <li>学生模式默认打开高灵敏度；新增极高档。</li>
+    <li>达到 20% 的人写作文：学生档 0.1%，高档 1.1%，极高档 2.0%。找到的 AI 作文：78.0%、84.3%、86.5%。</li></ul></div>
+  <div class="cl"><h3>V1.5 <span>2026 年 11 月 5 日 · 高灵敏度（可选）</span></h3><ul>
+    <li>较弱的 AI 式片段（信号较弱，值得一看）以琥珀色标为"筛查线索"并计入统计。</li>
+    <li>测试了多个模型的组合：查全率约提高 1 个百分点，不值得增加复杂度，没有发布。</li></ul></div>
+  <div class="cl"><h3>V1.4 <span>2026 年 11 月 5 日 · 学生作业模式</span></h3><ul>
+    <li>阈值在 300 词以上的人写学生作文上校准，适用范围和 Turnitin 一样。</li>
+    <li>找到的 AI 作文：80.1% → 85.8%；达到 20% 的人写作文：0.13%。其他类型的文本在这个模式下更容易被标出。</li></ul></div>
+  <div class="cl"><h3>V1.3 <span>2026 年 11 月 5 日 · 新模型，最新的 AI 系统</span></h3><ul>
+    <li>新的模型版本，训练数据加入了 50 个 2026 年模型的回答，GPT-6 Luna、Claude Opus/Sonnet 5.5 和 DeepSeek V4.1 写的论文和文章，以及开放许可的人写文本。</li>
+    <li>未见过提示的 2026 年 AI 文本检出：15% → 54%。被误判的人写政府报告：259 份中 27 → 0。</li>
+    <li>代价：人性化文本检出 51% → 43%；改写（DIPPER）作文检出 41% → 29%。</li></ul></div>
+  <div class="cl"><h3>V1.2 <span>2026 年 11 月 4 日 · 新模型，2026 年数据</span></h3><ul>
+    <li>加入 33 个较新的生成器和两个月的人性化工具数据。</li>
+    <li>未见过的 2026 年生成器检出：21.8% → 29.0%；人性化文本 27% → 51%。3,977 篇真实学生作文中 0 篇被误判。</li><li>代价：较旧的 AI 文本检出 66.5% → 62.4%。</li></ul></div>
+  <div class="cl"><h3>V1.1 <span>2026 年 11 月 4 日 · AI 百分比和报告</span></h3><ul>
+    <li>新的 AI 百分比：落在 AI 式 250 词片段中的文本比例（1–19% 显示为 *%）。</li>
+    <li>两部分的 PDF 报告；我们自己的 Word 读取器保留公式和表格。</li>
+    <li>起因是一份数学报告，ALETHEIA 给了 9/100，Turnitin 给了 39%。</li></ul></div>
+  <div class="cl"><h3>V1.0 <span>2026 年 11 月 4 日 · 首次发布</span></h3><ul>
+    <li>Deep 模型（0.7.0 版），三种文体（学术、创意、通用），每种都校准到每个群体中被判为 AI 的人写文本不超过 1%。</li>
+    <li>标准、Deep 和 Supreme 三种扫描模式；全部在你的浏览器里运行。</li>
+    <li>已知风险：按聊天机器人式提示写的人写回答有 12–16% 会被误判。</li></ul></div>
+  <p class="count" style="margin-top:24px">完整的方法和表格见<a href="#research">研究</a>页。分数永远不能证明是谁写的。</p>
+  </div>
+</div>
 </div></main>
 
 <!-- ================= PRIVACY ================= -->
 <main class="page" id="p-privacy"><div class="wrap">
-  <p class="zhnote" data-zhnote hidden>本页目前只有英文版本。中文要点：扫描完全在你的浏览器里完成，文字不会上传。捐献的文字由你自己的邮箱发给我们，最多保存 3 年，用于测试和训练检测器，不会公开或出售；随时可以发邮件附上捐献 ID 要求删除。捐献者必须年满 18 岁，并获得所有作者的同意。测试版账号只保存在这个浏览器里，不会发送到任何服务器，也不能保护这台设备上的历史记录。</p>
+<div class="en-v">
   <div class="page-head"><p class="eyebrow">Privacy</p><h1>Your writing stays yours.</h1><p>Privacy, terms of use and frequently asked questions.</p></div>
   <div class="content">
     <ul>
@@ -884,7 +1227,7 @@ footer{border-top:1px solid var(--line)}
       <li><b>Accounts (beta).</b> If you create an account, your name, email and a salted hash of your password are stored only in this browser on this device. They are not sent to us or to any server, and clearing your browser data deletes them. A beta account does not lock or protect anything: anyone using this browser can see your scan history, so on a shared computer clear it when you finish.</li>
       <li><b>No training on your work.</b> Text you scan is never used to train or tune ALETHEIA unless you choose to donate it (see below).</li>
       <li><b>Minimal history.</b> Scan summaries only, in your browser's local storage; clear them at any time.</li>
-      <li><b>No cookies, analytics or third-party requests</b> in the free beta. Fonts and libraries are served from this site. Settings, scan summaries and beta accounts use this browser's local storage.</li>
+      <li><b>No cookies, analytics or third-party requests</b> in the free beta. Fonts and libraries are served from this site. Settings, scan summaries and beta accounts use this browser's local storage. We plan to apply to show Google ads. No advertising code runs on this site yet. If ads are added, they will appear only on information pages, never on Detect or your results, and this page will be updated first.</li>
       <li><b>Feedback and donations (optional, from V1.7).</b> "Report a wrong result" prepares an email with the result numbers and your answer only, never your text. "Donate this article" saves a file on your device that you attach to an email yourself (or, if attaching is not possible, you may paste the copied donation text into the email body); it is offered only to people aged 18 or older who wrote the text or have permission from every author. Both are sent by you, from your own email app, to feedback@aletheiadetect.com, so we also see the sending address, which we use only to reply. Donated texts are kept for up to 3 years, used only to test and train the detector, never published or sold, and deleted on request (quote the donation ID). Feedback is used to find problems and is never used directly as training labels.</li>
       <li><b>Annotated Word files.</b> The highlighted copy of an uploaded .docx is built in your browser; the file never leaves your device.</li>
       <li><b>Hosting.</b> The site is hosted on GitHub Pages. Like any web host, GitHub receives standard request logs (such as IP address and browser) when a page is loaded; it never receives the text you analyse.</li>
@@ -894,7 +1237,7 @@ footer{border-top:1px solid var(--line)}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.8.1 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.8.2 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -906,10 +1249,43 @@ footer{border-top:1px solid var(--line)}
     <p><b>Which languages work?</b> English prose only, at least 80 words; 300+ words gives more reliable results.</p>
     <p><b>Why do Deep Scan and Supreme results differ slightly?</b> Supreme runs more bootstrap re-analyses and several window sizes, so its interval is estimated more precisely and can differ slightly; the AI percentage uses the same thresholds in both.</p>
   </div>
+</div>
+<div class="zh-v" lang="zh-CN">
+  <div class="page-head"><p class="eyebrow">隐私</p><h1>你的文字始终属于你。</h1><p>隐私、使用条款和常见问题。</p></div>
+  <div class="content">
+    <ul>
+      <li><b>不上传。</b>文本提取（TXT、DOCX、PDF）和分析都在你的设备上完成。</li>
+      <li><b>账号（测试版）。</b>如果你注册账号，你的名字、邮箱和加盐哈希后的密码只保存在这台设备的这个浏览器里。它们不会发送给我们或任何服务器，清除浏览器数据就会删除。测试版账号不会锁定或保护任何东西：任何使用这个浏览器的人都能看到你的扫描历史，所以在公用电脑上用完请清除。</li>
+      <li><b>不用你的作品训练。</b>你扫描的文本永远不会用于训练或调整 ALETHEIA，除非你选择捐献（见下文）。</li>
+      <li><b>最少的历史记录。</b>只保存扫描摘要，存在你浏览器的本地存储里；随时可以清除。</li>
+      <li><b>没有 cookie、统计分析或第三方请求</b>（免费测试版）。字体和程序库都由本站提供。设置、扫描摘要和测试版账号使用这个浏览器的本地存储。我们计划申请展示 Google 广告。本站目前没有运行任何广告代码。如果以后加入广告，只会出现在介绍类页面，绝不会出现在检测页或你的结果中，并且会先更新本页。</li>
+      <li><b>反馈和捐献（可选，自 V1.7 起）。</b>"报告错误结果"会准备一封只含结果数字和你的回答的邮件，从不包含你的文本。"捐献这篇文章"会在你的设备上保存一个文件，由你自己附到邮件里（如果无法添加附件，也可以把复制的捐献内容粘贴到邮件正文）；只向年满 18 岁、本人写了这篇文本或得到每位作者许可的人提供。两者都由你从自己的邮件应用发送到 feedback@aletheiadetect.com，所以我们也会看到发件地址，只用于回复。捐献的文本最多保存 3 年，只用于测试和训练检测器，从不公开或出售，可应要求删除（请注明捐献 ID）。反馈用于发现问题，从不直接用作训练标签。</li>
+      <li><b>带标注的 Word 文件。</b>上传的 .docx 的高亮副本在你的浏览器里生成；文件从不离开你的设备。</li>
+      <li><b>托管。</b>本站托管在 GitHub Pages 上。和任何网站托管一样，页面加载时 GitHub 会收到标准请求日志（例如 IP 地址和浏览器）；它从不会收到你分析的文本。</li>
+      <li>未来的服务器端功能将使用加密传输、可设置保留期的自动删除，以及从不保存文档内容的审计日志，并按照澳大利亚隐私原则（Australian Privacy Principles）设计。</li>
+    </ul>
+    <h2>合理使用结果</h2>
+    <p>ALETHEIA 的结果不是不当行为的证据，不能作为任何学术或雇佣决定的唯一依据。</p>
+    <h2>使用条款（免费测试版）</h2>
+    <ul>
+      <li>ALETHEIA V1.8.2 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
+      <li>用它来开启一次对话，而不是结束对话：看看草稿、笔记和版本历史，并和作者谈谈。</li>
+      <li>只分析你有权查看的文本：你自己写的，或你有正当理由审阅的文本。</li>
+      <li>检测模型用研究数据集训练，这些数据集的上游版权仍在审查中；付费版将用已获许可的数据重新训练。</li>
+    </ul>
+    <h2>常见问题</h2>
+    <p><b>100/100 能证明是 AI 写的吗？</b>不能。分数描述的是这段文字与模型见过的 AI 生成文本有多相似。某些风格的人写文本（正式、套路化、按提示写作）也可能得分很高。</p>
+    <p><b>为什么显示"无法判断"？</b>因为证据在两个方向上都不够强，或者这种写作风格（例如学术摘要）中 AI 和人写文本很难区分。我们宁愿直说，也不去猜。</p>
+    <p><b>AI "人性化"工具能骗过它吗？</b>经常可以。改写过和人性化处理过的 AI 文本检出的可靠性低得多（见研究页）。ALETHEIA 会还原某些工具插入的不可见字符和形近字母。</p>
+    <p><b>支持哪些语言？</b>只支持英文正文，至少 80 词；300 词以上结果更可靠。</p>
+    <p><b>为什么 Deep Scan 和 Supreme 的结果略有不同？</b>Supreme 做更多次自助法重分析，并使用几种窗口尺寸，所以它的区间估计更精确，可能略有不同；两者的 AI 百分比使用相同的阈值。</p>
+  </div>
+</div>
 </div></main>
 
 <!-- ================= BRAND ================= -->
 <main class="page" id="p-brand"><div class="wrap">
+<div class="en-v">
   <div class="page-head"><p class="eyebrow">Brand</p><h1>The ALETHEIA identity.</h1><p>The symbol is an aperture shaped like an “A”: two dark blades with a narrow beam of light passing through, crossed by a line of text being uncovered.</p></div>
   <div class="content" style="max-width:none">
     <div class="logos">
@@ -928,6 +1304,28 @@ footer{border-top:1px solid var(--line)}
     <div class="split" style="margin-top:40px"><div><p style="font:500 56px/1 var(--serif);margin:0">Aa</p><p class="mono" style="color:var(--fg-3);font-size:12px">Cormorant Garamond · editorial headings</p></div>
       <div><p style="font:500 22px var(--sans);margin:0">Inter: interface &amp; body</p><p class="mono" style="font-size:16px;margin:8px 0 0">IBM Plex Mono: technical data 0.993</p></div></div>
   </div>
+</div>
+<div class="zh-v" lang="zh-CN">
+
+  <div class="page-head"><p class="eyebrow">品牌</p><h1>ALETHEIA 的形象。</h1><p>标志是一个"A"形的光圈：两片深色叶片之间透过一束窄光，一行正在显露的文字从中穿过。</p></div>
+  <div class="content" style="max-width:none">
+    <div class="logos">
+      <div style="background:#101114"><svg width="88" height="88" viewBox="0 0 48 48" style="color:#F2F0E9;--beam:#B99A5B"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><small>标志 · 深色</small></div>
+      <div style="background:#FAFAF7"><svg width="88" height="88" viewBox="0 0 48 48" style="color:#252832;--beam:#8F7440"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><small style="color:#7C7F88">标志 · 浅色</small></div>
+      <div style="background:var(--bg-2)"><svg width="88" height="88" viewBox="0 0 48 48" style="color:var(--fg);--beam:var(--fg)"><path d="M21.4 4.5 L9.947 30.5 L21.4 30.5 Z" fill="currentColor"/><path d="M8.802 33.1 L4 44 L21.4 44 L21.4 33.1 Z" fill="currentColor"/><path d="M26.600 4.5 L38.053 30.5 L26.600 30.5 Z" fill="currentColor"/><path d="M39.198 33.1 L44.000 44 L26.600 44 L26.600 33.1 Z" fill="currentColor"/><rect x="22.5" y="9" width="3.0" height="35" style="fill:var(--beam)"/></svg><small>单色</small></div>
+      <div style="background:#101114;grid-column:span 2"><div style="display:flex;align-items:center;gap:18px;color:#F2F0E9;--beam:#B99A5B"><svg width="54" height="54" viewBox="0 0 48 48"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span style="font:600 40px var(--serif);letter-spacing:.3em">ALETHEIA</span></div><small>文字标志 · 深色</small></div>
+      <div style="background:#101114"><div style="display:flex;gap:22px;align-items:end"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI5IiBmaWxsPSIjMTAxMTE0Ii8+PHBhdGggZD0iTTIxLjQgNC41IEw5Ljk0NyAzMC41IEwyMS40IDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik04LjgwMiAzMy4xIEw0IDQ0IEwyMS40IDQ0IEwyMS40IDMzLjEgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0yNi42MDAgNC41IEwzOC4wNTMgMzAuNSBMMjYuNjAwIDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0zOS4xOTggMzMuMSBMNDQuMDAwIDQ0IEwyNi42MDAgNDQgTDI2LjYwMCAzMy4xIFoiIGZpbGw9IiNGMkYwRTkiLz48cmVjdCB4PSIyMi41IiB5PSI5IiB3aWR0aD0iMy4wIiBoZWlnaHQ9IjM1IiBmaWxsPSIjQjk5QTVCIi8+PC9zdmc+Cg==" width="48" height="48" alt=""><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI5IiBmaWxsPSIjMTAxMTE0Ii8+PHBhdGggZD0iTTIxLjQgNC41IEw5Ljk0NyAzMC41IEwyMS40IDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik04LjgwMiAzMy4xIEw0IDQ0IEwyMS40IDQ0IEwyMS40IDMzLjEgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0yNi42MDAgNC41IEwzOC4wNTMgMzAuNSBMMjYuNjAwIDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0zOS4xOTggMzMuMSBMNDQuMDAwIDQ0IEwyNi42MDAgNDQgTDI2LjYwMCAzMy4xIFoiIGZpbGw9IiNGMkYwRTkiLz48cmVjdCB4PSIyMi41IiB5PSI5IiB3aWR0aD0iMy4wIiBoZWlnaHQ9IjM1IiBmaWxsPSIjQjk5QTVCIi8+PC9zdmc+Cg==" width="32" height="32" alt=""><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij48cmVjdCB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHJ4PSI5IiBmaWxsPSIjMTAxMTE0Ii8+PHBhdGggZD0iTTIxLjQgNC41IEw5Ljk0NyAzMC41IEwyMS40IDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik04LjgwMiAzMy4xIEw0IDQ0IEwyMS40IDQ0IEwyMS40IDMzLjEgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0yNi42MDAgNC41IEwzOC4wNTMgMzAuNSBMMjYuNjAwIDMwLjUgWiIgZmlsbD0iI0YyRjBFOSIvPjxwYXRoIGQ9Ik0zOS4xOTggMzMuMSBMNDQuMDAwIDQ0IEwyNi42MDAgNDQgTDI2LjYwMCAzMy4xIFoiIGZpbGw9IiNGMkYwRTkiLz48cmVjdCB4PSIyMi41IiB5PSI5IiB3aWR0aD0iMy4wIiBoZWlnaHQ9IjM1IiBmaWxsPSIjQjk5QTVCIi8+PC9zdmc+Cg==" width="16" height="16" alt=""></div><small>网站图标 48 · 32 · 16</small></div>
+    </div>
+    <div class="swatches">
+      <div class="swatch" style="background:#101114;color:#F2F0E9">黑曜石<br>#101114</div><div class="swatch" style="background:#181A20;color:#F2F0E9">炭黑<br>#181A20</div>
+      <div class="swatch" style="background:#252832;color:#F2F0E9">石墨<br>#252832</div><div class="swatch" style="background:#F2F0E9;color:#252832">象牙白<br>#F2F0E9</div>
+      <div class="swatch" style="background:#FAFAF7;color:#252832">柔白<br>#FAFAF7</div><div class="swatch" style="background:#C9B98D;color:#101114">香槟金<br>#C9B98D</div>
+      <div class="swatch" style="background:#B99A5B;color:#101114">暖金<br>#B99A5B</div>
+    </div>
+    <div class="split" style="margin-top:40px"><div><p style="font:500 56px/1 var(--serif);margin:0">Aa</p><p class="mono" style="color:var(--fg-3);font-size:12px">Cormorant Garamond · 编辑式标题</p></div>
+      <div><p style="font:500 22px var(--sans);margin:0">Inter：界面与正文</p><p class="mono" style="font-size:16px;margin:8px 0 0">IBM Plex Mono：技术数据 0.993</p></div></div>
+  </div>
+</div>
 </div></main>
 
 <footer><div class="wrap">
@@ -940,8 +1338,8 @@ footer{border-top:1px solid var(--line)}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.8.1"></script>
-<script src="engine.js?v=1.8.1"></script>
+<script src="model.js?v=1.8.2"></script>
+<script src="engine.js?v=1.8.2"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -1020,7 +1418,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.8.1"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.8.2"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -1729,9 +2127,20 @@ document.getElementById("themeBtn").addEventListener("click",function(){var d=do
 <div class="modal" id="acctModal" hidden role="dialog" aria-modal="true" aria-label="Account"><div class="mbox"></div></div>
 <script>
 /* V1.8: Chinese/English switch and on-device accounts. English is the source text; Chinese is applied by
-   replacing exact text nodes and attributes, so dynamic results are translated too. Research pages stay English. */
+   replacing exact text nodes and attributes, so dynamic results are translated too. Long pages (Technology, Research, Changelog, Privacy, Brand) carry a written Chinese version in .zh-v blocks. */
 (function(){
 var ZH = {
+"Test ALETHEIA on your own data.":"用你自己的数据测试 ALETHEIA。",
+"Upload labelled samples the detector has never seen. You'll get false-positive rate, recall, ROC-AUC and calibration with confidence intervals, all computed in your browser.":"上传检测器从未见过、带标签的样本。你会得到误判率、查全率、ROC-AUC 和校准结果，并附置信区间，全部在你的浏览器里计算。",
+"1. Load samples":"1. 载入样本","CSV with":"CSV 格式，列为","or JSON Lines":"，或 JSON Lines 格式",". Labels: human / ai (or 0/1). Optional":"。标签：human / ai（或 0/1）。可选的","column for per-group false-positive rates.":"列用于按群体计算误判率。",
+"…or paste:":"…或者粘贴：","Threshold":"阈值","Run evaluation":"运行评估","2. Results":"2. 结果","No evaluation run yet.":"还没有运行评估。",
+"False-positive rate":"误判率","Recall (TPR)":"查全率（TPR）","Precision":"精确率","Brier score":"Brier 分数","lower is better":"越低越好","False-negative rate":"漏检率",
+"Confusion matrix":"混淆矩阵","Flagged AI-like":"标为 AI 式","Not flagged":"未标出","Actually AI":"实际为 AI","Actually human":"实际为人写",
+"Calibration (share actually AI, per score band)":"校准（每个分数段中实际为 AI 的比例）","Score band":"分数段","% AI":"AI 占比",
+"False-positive rate by group (human samples)":"按群体的误判率（人写样本）","Group":"群体","FPR":"误判率",
+"No scans yet.":"还没有扫描记录。","Run your first scan.":"开始第一次扫描。",
+"· engine":"· 引擎","· free beta.":"· 免费测试版。",
+"Obsidian":"黑曜石","Charcoal":"炭黑","Graphite":"石墨","Ivory":"象牙白","Soft White":"柔白","Champagne":"香槟金","Warm Gold":"暖金",
 "Detect":"检测","Technology":"技术","Research":"研究","Changelog":"更新日志","History":"历史","Home":"首页","Privacy":"隐私","Sign in":"登录",
 "AI Writing Intelligence":"AI 写作分析",
 "Understand the patterns behind written language through advanced AI writing analysis. ALETHEIA shows you the evidence, sentence by sentence. It never hands down a verdict.":"通过 AI 写作分析，理解文字背后的模式。ALETHEIA 逐句展示证据，但从不下定论。",
@@ -1761,7 +2170,7 @@ var ZH = {
 "How to read this report.":"如何阅读这份报告。",
 "ALETHEIA measures patterns, not authorship. Formal, technical, template-based and non-native English writing can show AI-like patterns, and edited AI text can look human. Never use this score alone to accuse anyone of misconduct. Treat it as the start of a conversation, alongside drafts, notes and version history.":"ALETHEIA 测量的是写作模式，不能判断是谁写的。正式、技术性、模板化以及非母语的英文写作都可能出现 AI 式的模式，而编辑过的 AI 文本也可能看起来像人写的。绝不要只凭这个分数指控任何人作弊。请把它当作一次对话的开始，并结合草稿、笔记和修改记录。",
 "Your scans.":"你的扫描记录。","Only summaries (date, result, word count) are kept, and only in this browser. Document text is never stored.":"只保存摘要（日期、结果、字数），而且只存在这个浏览器里。文档文字从不保存。",
-"Intelligence. Language. Authenticity.":"智能 · 语言 · 真实。","ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship.":"ALETHEIA 报告与文本生成方式有关的模式，无法证明作者身份。",
+"Intelligence. Language. Authenticity.":"智能 · 语言 · 真实。","ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship.":"ALETHEIA 报告与文本生成方式有关的模式，不能证明是谁写的。",
 "Product":"产品","Evaluate":"评估","Benchmarks":"基准测试","Data licensing":"数据授权","Company":"公司","Privacy & terms":"隐私与条款","FAQ":"常见问题","Brand":"品牌","Source files":"源文件",
 "Donate this article":"捐献这篇文章","Please donate this article's data":"请捐献这篇文章的数据","It helps you, and it helps us. This really matters to us.":"这既帮助你，也帮助我们。这对我们真的很重要。",
 "Every text you donate, with a label of who wrote it, is used to test ALETHEIA and make it fairer and more accurate for the next student. It takes about a minute and it is optional. The email is prepared for you: on phones one tap attaches the file; on a computer you attach it yourself.":"你捐献的每篇文字（附上是谁写的）都会用来测试 ALETHEIA，让它对下一个学生更公平、更准确。大约一分钟，完全自愿。邮件已经为你准备好：手机上点一下就会附上文件，电脑上需要你自己附上。",
@@ -1840,6 +2249,8 @@ var ZH2 = {
 "Detected language: Not English (or very little running prose). This free version only analyses English prose.":"检测到的语言：不是英文（或连贯正文很少）。免费版只分析英文正文。"
 };
 var RX2 = [
+[/^(\d+) scored \((\d+) AI, (\d+) human\) · (\d+) skipped as too short or unsupported · threshold ([\d.]+) · engine (.+)$/, function(m,a,b,c,d,e,f){ return a+" 篇已打分（AI "+b+" 篇，人写 "+c+" 篇）· "+d+" 篇因太短或不支持而跳过 · 阈值 "+e+" · 引擎 "+f; }],
+[/^Only (\d+) scored samples\. Confidence intervals are wide, so don't treat these numbers as an established accuracy figure\.$/, function(m,a){ return "只有 "+a+" 个已打分样本。置信区间很宽，不要把这些数字当作确定的准确率。"; }],
  [/^Bootstrap resampling, (full engine|n-gram model) \((\d+)\/(\d+)\)$/, function(m,a,b,c){ return "自助法重抽样，"+(a==="full engine"?"完整引擎":"n-gram 模型")+"（"+b+"/"+c+"）"; }],
  [/^Window re-scoring \(([^)]*)\)$/, "窗口重评分（$1）"],
  [/^Deep Scan model \((.+)\)$/, "深度扫描模型（$1）"],
@@ -1902,7 +2313,7 @@ for (var k2 in ZH2) if (!ZH[k2]) ZH[k2] = ZH2[k2];
 var LANG = "en"; try { LANG = localStorage.getItem("aletheia.lang") || (/^zh/i.test(navigator.language || "") ? "zh" : "en"); } catch (e) {}
 var orig = new WeakMap(), origAttr = new WeakMap();
 var ALLOW = "#doc .blk-x>em,#tops small";
-var SKIP = "script,style,textarea,#doc,#detail>div:first-child,#tops,table.hist td,#p-research,#p-changelog,#p-technology,#p-evaluate,#p-brand,#p-privacy,.mono.v";
+var SKIP = "script,style,textarea,#doc,#detail>div:first-child,#tops,table.hist td,.en-v,.zh-v,.mono.v";
 function skipped(e){ return !!(e && e.closest(SKIP) && !e.closest(ALLOW)); }
 var ALLRX = null;
 function tr(s){ var k = s.trim().replace(/\s+/g, " "); if (ZH[k]) { var zk = ZH[k]; return s.replace(s.trim(), function(){ return zk; }); }
@@ -1927,7 +2338,9 @@ function observe(){ mo.observe(document.body, { childList: true, subtree: true, 
 function setLang(l){ LANG = l; try { localStorage.setItem("aletheia.lang", l); } catch (e) {} document.documentElement.lang = l === "zh" ? "zh-CN" : "en";
   var b = document.getElementById("langBtn"); if (b) { b.textContent = l === "zh" ? "EN" : "中"; }
   if (l === "zh") { apply(document.body); } else revert();
-  document.querySelectorAll("[data-zhnote]").forEach(function(n){ n.hidden = l !== "zh"; }); }
+  document.querySelectorAll("[data-zhnote]").forEach(function(n){ n.hidden = l !== "zh"; }); copyRefs(); }
+function copyRefs(){ document.querySelectorAll("[data-copy]").forEach(function(e){ var s = document.getElementById(e.getAttribute("data-copy")); if (s) e.textContent = s.textContent; }); }
+window.addEventListener("load", copyRefs);
 window.AletheiaLang = { set: setLang, get: function(){ return LANG; } };
 document.getElementById("langBtn").addEventListener("click", function(){ setLang(LANG === "zh" ? "en" : "zh"); });
 observe(); setLang(LANG);
