@@ -249,6 +249,40 @@
     });
     cov.why = [...agg.values()].sort((p, q) => q.c - p.c).slice(0, 8);
   }
+
+  // ---- V1.9: evidence for the verdict. Three kinds of evidence (not independent: seg-0.6 shares features and much training data), each with the rate at which it occurs in
+  // held-out human and AI documents, so a reader can see how much a given result is worth.
+  //  (1) the current segment model's AI percentage; (2) a second opinion from seg-0.6, an older model trained before the
+  //  2026 school-task data; (3) style indicators from the standard engine.
+  const EVT = { phrase: 1.636, lex: 34.6, opener: 0.143, transition: 6.47, cv: 0.311 };  // q90 of human (q10 for cv), see notes
+  const EV_LABEL = {
+    phrase: "Stock AI phrases (\"it is important to note\", \"plays a crucial role\")",
+    lex: "Dense AI-typical vocabulary",
+    opener: "Many sentences open with formula transitions (However, Moreover, Overall)",
+    transition: "High rate of transition words",
+    cv: "Unusually even sentence lengths",
+  };
+  function styleIndicators(prose) {
+    const S = prose.filter((s) => s.f), W = S.reduce((a, s) => a + s.f.wc, 0);
+    if (W < 150 || S.length < 6) return null;
+    const per = (k) => 1000 * S.reduce((a, s) => a + (s.f[k] || 0), 0) / W;
+    const L = S.map((s) => s.f.wc), m = L.reduce((a, x) => a + x, 0) / L.length;
+    const sd = Math.sqrt(L.reduce((a, x) => a + (x - m) ** 2, 0) / L.length);
+    let lex = 0; for (const s of S) for (const w of (s.text.toLowerCase().match(/[a-z]+(?:'[a-z]+)?/g) || [])) if (AI_LEX[w]) lex++;
+    const opener = S.filter((s) => /^(however|moreover|furthermore|additionally|in addition|overall|ultimately|in conclusion|consequently|therefore|thus|this (?:shows|highlights|demonstrates|suggests|means))\b/i.test(s.text)).length / S.length;
+    const v = { phrase: per("phrase"), lex: 1000 * lex / W, opener, transition: per("transition"), cv: sd / m };
+    return Object.keys(EVT).map((k) => ({ key: k, label: EV_LABEL[k], value: +v[k].toFixed(3), threshold: EVT[k], fired: k === "cv" ? v[k] < EVT[k] : v[k] > EVT[k] }));
+  }
+  // Calibration of the evidence tiers (High level, documents of 150+ words). Filled from the V1.9 validation run.
+  const EV_CAL = {"A": {"human": "0.3%", "ai": "40%"}, "B": {"human": "0.7%", "ai": "21%"}, "C": {"human": "0.2%", "ai": "3%"}};  // 2,774 human / 591 AI held-out docs, seg-0.9, V1.9.0
+  function evidence(cov, cross, style, crossRan) {
+    if (!cov || !cov.reportable) return null;
+    const flagged = cov.pct >= 0.2, agree = cross != null && cross >= 0.2, nStyle = style ? style.filter((x) => x.fired).length : 0;
+    const tier = !flagged ? "none" : agree && nStyle >= 1 ? "A" : agree || nStyle >= 2 ? "B" : "C";
+    // the calibration was measured at High (student mode, sensitivity 1) with the cross-check on; show it only then
+    const calOk = crossRan && cov.student && cov.sensitive && cov.sensitiveLevel === 1;
+    return { tier, flagged, current: cov.pct, cross, crossModel: "seg-0.6", crossRan: !!crossRan, agree, style, nStyle, cal: calOk && EV_CAL ? EV_CAL[tier] : null, calLevelMismatch: !calOk };
+  }
   const quant = (a, q) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]; };
   const tick = () => new Promise((r) => setTimeout(r, 0));
 
@@ -288,6 +322,7 @@
     await stage("AI coverage: overlapping segment scoring", 0.12);
     const cov = coverage(prose, sc, REG.name, opts.student, opts.sensitive);
     if (cov && which === "current") addWhy(prose, cov);  // the wording list was built on seg-0.8
+    if (opts.coverageOnly) return { status: "ok", coverage: cov, base, model: which };  // V1.9: fast path for the cross-check and calibration
 
     await stage("Window re-scoring (sentence neighbourhoods)", 0.14);
     const winProb = prose.map(() => []);
@@ -374,10 +409,20 @@
     let confidence = base.evidence === "Limited" ? "Low" : stability >= 0.95 ? "High" : stability >= 0.8 ? "Medium" : "Low";
     if (catKey === "inconclusive" || catKey === "mixed-authorship") confidence = confidence === "High" ? "Medium" : confidence;
     const flagged = prose.filter((s) => s.deepCat === "strong" || s.deepCat === "moderate").reduce((a, s) => a + s.f.wc, 0) / Math.max(1, base.qualifyingWords);
+    let ev = null;
+    if (which === "current" && !opts.coverageOnly) {
+      let cross = null, crossRan = false;
+      if (opts.crossCheck && (root.AletheiaDeepModelSeg06 || typeof require === "function")) {
+        await stage("Cross-check with the older seg-0.6 model", 0.98);
+        try { const X = await run(text, Object.assign({}, opts, { model: "seg06", coverageOnly: true, onProgress: null })); cross = X.coverage && X.coverage.reportable ? X.coverage.pct : null; crossRan = true; }
+        catch (e) { cross = null; if (cancelled()) { setModel("current"); throw e; } } finally { setModel("current"); model(); }
+      }
+      ev = evidence(cov, cross, styleIndicators(prose), crossRan);
+    }
     prog({ stage: "Done", frac: 1 });
     return { status: "ok", level: opts.level || "deep", levelLabel: L.label, base, deepScore, pGbm, pNgram: pDoc, pGeneral: useGen ? docSc.gen : null, ci, stability, catKey, category, confidence,
              flaggedShare: flagged, paragraphs: paras, influence, thresholds: { high: tH, low: tL }, bootstrap: { ngram: ngB.length, full: dB.length },
-             stages, elapsedMs: Date.now() - t0, modelVersion: M_.version, modelPool: M_.pool, windows: L.windows, register: REG, coverage: cov, byCoverage };
+             stages, elapsedMs: Date.now() - t0, modelVersion: M_.version, modelPool: M_.pool, windows: L.windows, register: REG, coverage: cov, byCoverage, evidence: ev };
   }
 
   // ---------------------------------------------------------------- PDF report (jsPDF)
@@ -440,7 +485,7 @@
     y = 150;
     setF("normal", 9, C.mute); doc.text("AI WRITING REPORT", MX, y); y += 26;
     setF("bold", 24); doc.splitTextToSize(clean(title), W - 2 * MX).slice(0, 3).forEach((l) => { doc.text(l, MX, y); y += 28; });
-    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.7`), MX, y); y += 40;
+    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.9`), MX, y); y += 40;
     setF("bold", 12); doc.text("Document details", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
     const pages = meta.pages ? String(meta.pages) : `${Math.max(1, Math.round(b.totalWords / 450))} (estimated)`;
     kv([["Scan ID", scanId], ["Scan date", meta.date || ""], ["File name", meta.file || "(pasted text)"], ["File size", fmtBytes(meta.fileSize)],
@@ -493,6 +538,23 @@
     if (cov && cov.reportable && cov.pct >= 0.2 && R.deepScore < R.thresholds.low)
       para("The two measures disagree: some sections look AI-generated, while the document as a whole does not. This pattern fits partly AI-assisted writing, and also formulaic human sections (templates, repeated sentence frames, evaluation checklists). Review the highlighted segments individually.", 8.8, C.ink, "italic");
     // FAQ
+    // V1.9: evidence behind the result
+    const EVR = R.evidence;
+    if (EVR) {
+      y += 6; setF("bold", 12); need(60); doc.text("Evidence behind this result", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
+      const tierTxt = { A: "Strong: the current model, the older model and the writing style all point the same way.", B: "Moderate: the current model plus one other kind of evidence.", C: "Weak: only the current model; nothing else backs it up.", none: "No AI result at this level." }[EVR.tier];
+      para(tierTxt, 10, EVR.tier === "A" ? C.red : EVR.tier === "B" ? C.warn : C.ink, "bold");
+      if (EVR.cal) para(`In our validation set (High level; 2,774 human and 591 AI documents), ${EVR.cal.human} of human documents and ${EVR.cal.ai} of AI documents ended up in this tier.`, 8.8, C.mute);
+      else para("The tier rates were measured at the High level with the cross-check on; they are not shown for this setting.", 8.8, C.mute);
+      y += 4;
+      const pc = (x) => (x == null ? "not run" : `${Math.round(x * 100)}%`);
+      kv([["Current model (" + ((R.coverage && R.coverage.version) || "") + ")", `${pc(EVR.current)} · ${EVR.flagged ? "reaches 20%" : "below 20%"}`],
+          ["Second opinion: seg-0.6", EVR.cross == null ? "not run" : `${pc(EVR.cross)} · ${EVR.agree ? "agrees" : "does not flag it"}`],
+          ["Writing-style indicators", `${EVR.nStyle} of ${(EVR.style || []).length} fired`]], false);
+      for (const x of (EVR.style || []).filter((x) => x.fired)) para("- " + x.label, 8.8, C.ink);
+      para("seg-0.6 is an older model trained before the 2026 school-task data. It shares features and much training data with the current model, so it is a second opinion, not independent proof: it agrees with most of the current model's false alarms too, and it misses many AI-written humanities essays, so 'does not flag it' does not mean the text is human. Each style indicator fires in about 3 to 9% of human documents overall and up to about 14% in some sets of student essays. None of this proves who wrote the text.", 8.5, C.mute);
+      y += 10;
+    }
     y += 6; setF("bold", 12); need(30); doc.text("Frequently asked questions", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 18;
     const cal = cov && cov.calibration;
     const faq = [
@@ -645,6 +707,6 @@
     return doc.output("blob");
   }
 
-  const api = { run, pdf, ngramProb, counts, murmur3, LEVELS, guard, scoresFromCounts, segWindows, coverage, explain, occurrencesOf, addWhy, AI_LEX, setModel };
+  const api = { run, pdf, ngramProb, counts, murmur3, LEVELS, guard, scoresFromCounts, segWindows, coverage, explain, occurrencesOf, addWhy, AI_LEX, setModel, styleIndicators, evidence };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.AletheiaDeep = api;
 })(typeof window !== "undefined" ? window : globalThis);

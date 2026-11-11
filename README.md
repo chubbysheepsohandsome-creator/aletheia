@@ -1,7 +1,7 @@
-# ALETHEIA V1.3
+# ALETHEIA V1.8.2
 
 ALETHEIA analyses English prose for statistical and stylistic patterns associated with AI-generated text.
-Everything runs in your browser: documents are never uploaded, and the site makes no third-party requests.
+Everything runs in your browser: documents are never uploaded. The only third-party request is Google's AdSense script (no ads are shown yet); see the Privacy section on the site.
 
 **Free beta. A score is never proof of authorship.** Formal, technical, prompt-following and non-native English writing
 can show AI-like patterns, and edited or paraphrased AI text can look human. Do not use a result as the sole basis for
