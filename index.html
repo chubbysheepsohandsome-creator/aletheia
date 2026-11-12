@@ -454,7 +454,7 @@ footer{border-top:1px solid var(--line)}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.0</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.1</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
@@ -623,7 +623,7 @@ footer{border-top:1px solid var(--line)}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.9.0 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.9.1 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
     <div class="modelbar" id="modelBar"><span class="mb-l">Model</span>
       <div class="mb-seg" role="radiogroup" aria-label="Model version">
@@ -1111,6 +1111,10 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
   <h2>V1.8 (6–7 November 2026)</h2>
+  <div class="cl"><h3>V1.9.1 <span>12 Nov 2026 · evidence rates at every level, and groundwork for the paid version</span></h3><ul>
+    <li><b>Evidence rates at every level.</b> The "Evidence behind this result" section now shows how often each tier occurred in validation at the General, High and Very high levels, as counts as well as percentages, with the seg-0.6 second opinion run at the same level. General uses all 2,774 human and 591 AI documents. High and Very high use only the 1,725 human and 406 AI documents long enough for student mode (shorter documents fall back to General thresholds). Strong: General 5 human (0.2%) and 188 AI (32%), High 7 (0.4%) and 193 (48%), Very high 11 (0.6%) and 202 (50%). Moderate: 1 (&lt;0.1%) and 80 (14%), 20 (1.2%) and 116 (29%), 31 (1.8%) and 120 (30%). Weak: 0 and 21 (3.6%), 5 (0.3%) and 14 (3.4%), 10 (0.6%) and 18 (4.4%). The counts are small, so the human rates are rough. <b>Correction:</b> V1.9.0 measured its High rates on all documents, including short ones that never reach the High threshold, which understated the human rates (Strong 0.3% → 0.4%, Moderate 0.7% → 1.2%). T mode (student threshold with screening off) was not measured and shows no rates.</li>
+    <li><b>Groundwork for the paid version (not used in this release).</b> We checked the licence of every training source. Only about 13% of the training documents (13,793 of 104,556) come from text whose open licence we could verify, or that we generated ourselves; the rest come from research datasets whose texts belong to third parties or whose licence is unknown, and one (GEDE, 5,310 documents) is non-commercial. We trained a trial segment model on a mostly openly licensed subset (it still includes three sets whose licences are unverified). At the current High threshold it flags about three times as many human documents (102 against 36; Very high 190 against 56), so it needs its own calibration. In a rough comparison with a document cutoff chosen on the same test sets (33 against 36 human documents flagged), it catches about as much 2026 AI text in two small sets (Perplexity 24 of 25, humanities 14 of 20) but less older benchmark AI text (246 against 339 of 546 scored). The models in this release are unchanged (seg-0.9).</li>
+  </ul></div>
   <div class="cl"><h3>V1.9.0 <span>11 Nov 2026 · evidence behind each result, and a better humanities model</span></h3><ul>
     <li><b>New: "Evidence behind this result".</b> Deep Scan and Supreme now show three kinds of evidence: the current model's AI percentage; a second opinion from seg-0.6, an older model trained before the 2026 school-task data; and five writing-style indicators (stock AI phrases, dense AI-typical vocabulary, formula sentence openers, transition rate, even sentence lengths), each firing in about 3–9% of human documents overall and up to about 14% in some sets of student essays. They are not independent: seg-0.6 shares features and much training data with the current model and agrees with most of its false alarms. The result is graded Strong, Moderate or Weak. In validation (High level, 2,774 human and 591 AI documents), 0.3% of human and 40% of AI documents were graded Strong, 0.7% and 21% Moderate, 0.2% and 3% Weak; these rates are shown only at the High level. The same section is in the PDF report.</li>
     <li><b>New model seg-0.9.</b> The segment model behind the AI percentage now has topic words blanked out in training as well as in scoring (V1.8.7 did it only in scoring; the whole-document and short-text heads are unchanged and still trained without the mask). 60 AI-written humanities essays on 30 topics were added, with about 1,600 human student essays as a counterweight. Humanities AI essays on 10 topics not used in training, reaching 20% at High: 10 → 14 of 20 (mean 41% → 56%); Perplexity set 19 → 24 of 25; older AI test set 337 → 339 of 600. These test sets were also used to choose between three candidate models, so the figures are slightly optimistic. The racism essay from V1.8.7 went from 43% to 100%, but racism in Australia is one of the training topics, so that is not a held-out result.</li>
@@ -1213,6 +1217,10 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">更新日志</p><h1>V1.0 以来的每一次更新。</h1><p>最新的在最上面。每一条都写明改了什么、为什么改，以及对你的结果意味着什么。除非另有说明，数字都来自模型从未见过的测试文本；样本很小的会标出来。</p></div>
   <div class="content changelog">
   <h2>V1.8（2026 年 11 月 6–7 日）</h2>
+  <div class="cl"><h3>V1.9.1 <span>2026 年 11 月 12 日 · 各档都显示判断依据的比例，并为付费版打基础</span></h3><ul>
+    <li><b>每一档都显示分档比例。</b>“判断依据”一节现在在通用、高、极高三档都会显示每一档在验证中出现的频率，同时给出篇数和百分比，seg-0.6 第二意见在同一档位运行。通用档使用全部 2,774 篇人写和 591 篇 AI 文档；高档和极高档只使用长度足以进入学生模式的 1,725 篇人写和 406 篇 AI 文档（更短的文档会退回通用阈值）。“强”：通用档人写 5 篇（0.2%）、AI 188 篇（32%）；高档 7 篇（0.4%）、193 篇（48%）；极高档 11 篇（0.6%）、202 篇（50%）。“中”：1 篇（&lt;0.1%）、80 篇（14%）；20 篇（1.2%）、116 篇（29%）；31 篇（1.8%）、120 篇（30%）。“弱”：0 篇、21 篇（3.6%）；5 篇（0.3%）、14 篇（3.4%）；10 篇（0.6%）、18 篇（4.4%）。篇数很少，人写比例只是粗略估计。<b>更正：</b>V1.9.0 的高档比例是用全部文档测的，其中包括根本达不到高档阈值的短文档，因此低估了人写比例（“强”从 0.3% 改为 0.4%，“中”从 0.7% 改为 1.2%）。T 档（学生阈值、关闭筛查）没有测过，不显示比例。</li>
+    <li><b>为付费版打基础（本版未使用）。</b>我们核查了每个训练数据来源的授权。只有约 13% 的训练文档（104,556 篇中的 13,793 篇）来自我们能确认开放授权的文本，或我们自己生成的文本；其余来自研究数据集，其中的文本版权属于第三方或授权不明，另有一个（GEDE，5,310 篇）仅限非商业用途。我们用一个以开放授权为主的子集训练了试验版分段模型（其中仍有三个授权未确认的数据集）。在现有高档阈值下，它标出的人写文档约是现在的三倍（102 篇对 36 篇；极高档 190 篇对 56 篇），所以需要单独校准阈值。粗略比较时（文档截断值是在同一批测试集上选的，人写误判 33 篇对 36 篇），它在两个小测试集上对 2026 年 AI 文本的检出与 seg-0.9 相当（Perplexity 25 篇中 24 篇，文科 20 篇中 14 篇），但对较旧的基准 AI 文本检出较少（可评分的 546 篇中 246 篇，seg-0.9 为 339 篇）。本版使用的模型没有变化（仍是 seg-0.9）。</li>
+  </ul></div>
   <div class="cl"><h3>V1.9.0 <span>2026 年 11 月 11 日 · 每个结果附上判断依据，文科模型改进</span></h3><ul>
     <li><b>新增“判断依据”。</b>深度扫描和至尊扫描会给出三类证据：当前模型的 AI 百分比；旧模型 seg-0.6 的第二意见（它训练于 2026 年学校作业数据之前）；五项行文指标（AI 套话、AI 常用词密度、套路化句首、过渡词比例、句长过于均匀），每项在人写文档里总体约有 3% 到 9% 会触发，在某些学生作文集合里可达约 14%。这三类证据并不独立：seg-0.6 和当前模型共用特征和大部分训练数据，当前模型的误判它大多也会误判。结果分为强、中、弱三档。验证中（High 档，2,774 篇人写、591 篇 AI），人写文档有 0.3%、AI 文档有 40% 落在“强”档；“中”档分别为 0.7% 和 21%；“弱”档为 0.2% 和 3%；这些比例只在 High 档显示。PDF 报告里也有这一节。</li>
     <li><b>新模型 seg-0.9。</b>决定 AI 百分比的分段模型，现在在训练和打分时都会清空题目词（V1.8.7 只在打分时清空；整篇评分和短文本模型没有改，仍是未清空题目词时训练的）。另加入 30 个题目的 60 篇 AI 文科作文，并用约 1,600 篇人写学生作文对冲。未用于训练的 10 个题目的文科 AI 作文，在 High 档达到 20% 的：20 篇中从 10 篇升到 14 篇（平均 41% → 56%）；Perplexity 集合 25 篇中从 19 升到 24；旧 AI 测试集 600 篇中从 337 升到 339。这些测试集也用来在三个候选模型中做选择，所以数字略偏乐观。V1.8.7 里那篇种族主义议论文从 43% 升到 100%，但“澳大利亚的种族主义”是训练题目之一，所以这不是留出测试的结果。</li>
@@ -1333,7 +1341,7 @@ footer{border-top:1px solid var(--line)}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.9.0 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.9.1 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -1364,7 +1372,7 @@ footer{border-top:1px solid var(--line)}
     <p>ALETHEIA 的结果不是不当行为的证据，不能作为任何学术或雇佣决定的唯一依据。</p>
     <h2>使用条款（免费测试版）</h2>
     <ul>
-      <li>ALETHEIA V1.9.0 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
+      <li>ALETHEIA V1.9.1 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
       <li>用它来开启一次对话，而不是结束对话：看看草稿、笔记和版本历史，并和作者谈谈。</li>
       <li>只分析你有权查看的文本：你自己写的，或你有正当理由审阅的文本。</li>
       <li>检测模型用研究数据集训练，这些数据集的上游版权仍在审查中；付费版将用已获许可的数据重新训练。</li>
@@ -1434,8 +1442,8 @@ footer{border-top:1px solid var(--line)}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.9.0"></script>
-<script src="engine.js?v=1.9.0"></script>
+<script src="model.js?v=1.9.1"></script>
+<script src="engine.js?v=1.9.1"></script>
 <script src="mammoth.browser.min.js" defer></script>
 <script>
 (function(){
@@ -1514,7 +1522,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.9.0"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.9.1"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -1950,7 +1958,8 @@ function evHtml(R){
     B: b("Moderate: the current model plus one other kind of evidence", "中：当前模型加上另一类证据"),
     C: b("Weak: only the current model; nothing else backs it up", "弱：只有当前模型，没有其他证据支持"),
     none: b("No AI result at this level", "此级别没有 AI 结论") }[E.tier];
-  const cal = E.cal ? `<div class="covnote">${b(`In our validation set (High level; 2,774 human and 591 AI documents), ${E.cal.human} of human documents and ${E.cal.ai} of AI documents ended up in this tier.`, `在我们的验证样本里（High 档；人写 2,774 篇、AI 591 篇），人写文档有 ${E.cal.human}、AI 文档有 ${E.cal.ai} 落在这一档。`)}</div>` : E.tier !== "none" ? `<div class="covnote">${b("The tier rates were measured at the High level with the cross-check on, so they are not shown for this setting.", "分档比例是在 High 档、开启交叉验证时测得的，所以这个设置下不显示。")}</div>` : "";
+  const LV = { General: ["General", "通用"], High: ["High", "高"], VH: ["Very high", "极高"] };
+  const cal = E.cal ? `<div class="covnote">${b(`In our validation set (${LV[E.cal.level][0]} level; ${E.cal.nh.toLocaleString("en")} human and ${E.cal.na} AI documents), ${E.cal.kh} human documents (${E.cal.human}) and ${E.cal.ka} AI documents (${E.cal.ai}) ended up in this tier. These rates come from our own test sets and may be lower or higher on other writing.`, `在我们的验证样本里（${LV[E.cal.level][1]}档；人写 ${E.cal.nh.toLocaleString("en")} 篇、AI ${E.cal.na} 篇），有 ${E.cal.kh} 篇人写文档（${E.cal.human}）和 ${E.cal.ka} 篇 AI 文档（${E.cal.ai}）落在这一档。这些比例来自我们自己的测试集，换成别的文章可能更高或更低。`)}</div>` : E.tier !== "none" ? `<div class="covnote">${b("The tier rates were measured at the General, High and Very high levels with the cross-check on, so they are not shown for this setting.", "分档比例是在通用、高、极高三档并开启交叉验证时测得的，这个设置下不显示。")}</div>` : "";
   const fired = (E.style || []).filter(x => x.fired);
   const ZL = { phrase: "常见 AI 套话（如“值得注意的是”“起着关键作用”）", lex: "AI 常用词密度高", opener: "很多句子用套路过渡词开头（However、Moreover、Overall）", transition: "过渡词比例高", cv: "句子长短异常均匀" };
   const rows = [

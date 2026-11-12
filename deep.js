@@ -273,15 +273,25 @@
     const v = { phrase: per("phrase"), lex: 1000 * lex / W, opener, transition: per("transition"), cv: sd / m };
     return Object.keys(EVT).map((k) => ({ key: k, label: EV_LABEL[k], value: +v[k].toFixed(3), threshold: EVT[k], fired: k === "cv" ? v[k] < EVT[k] : v[k] > EVT[k] }));
   }
-  // Calibration of the evidence tiers (High level, documents of 150+ words). Filled from the V1.9 validation run.
-  const EV_CAL = {"A": {"human": "0.3%", "ai": "40%"}, "B": {"human": "0.7%", "ai": "21%"}, "C": {"human": "0.2%", "ai": "3%"}};  // 2,774 human / 591 AI held-out docs, seg-0.9, V1.9.0
+  // Calibration of the evidence tiers: counts of held-out documents (150+ words) that landed in each tier, by level.
+  // seg-0.9 with the seg-0.6 cross-check at the same level (V1.9.1 validation run). General: all 2,774 human / 591 AI
+  // documents. High and Very high: only the 1,725 / 406 documents long enough for student mode (shorter ones fall back to General).
+  const EV_N = { General: { human: 2774, ai: 591 }, High: { human: 1725, ai: 406 }, VH: { human: 1725, ai: 406 } };
+  const EV_CAL = { General: { A: [5, 188], B: [1, 80], C: [0, 21] }, High: { A: [7, 193], B: [20, 116], C: [5, 14] }, VH: { A: [11, 202], B: [31, 120], C: [10, 18] } };
+  const evPct = (k, n) => { const p = 100 * k / n; return k === 0 ? "0%" : p < 0.1 ? "<0.1%" : p < 10 ? p.toFixed(1) + "%" : Math.round(p) + "%"; };
+  function evLevel(cov) {
+    if (!cov.student && !cov.sensitive) return "General";
+    if (cov.student && cov.sensitive) return cov.sensitiveLevel === 2 ? "VH" : "High";
+    return null;   // student mode with screening off: not measured
+  }
   function evidence(cov, cross, style, crossRan) {
     if (!cov || !cov.reportable) return null;
     const flagged = cov.pct >= 0.2, agree = cross != null && cross >= 0.2, nStyle = style ? style.filter((x) => x.fired).length : 0;
     const tier = !flagged ? "none" : agree && nStyle >= 1 ? "A" : agree || nStyle >= 2 ? "B" : "C";
-    // the calibration was measured at High (student mode, sensitivity 1) with the cross-check on; show it only then
-    const calOk = crossRan && cov.student && cov.sensitive && cov.sensitiveLevel === 1;
-    return { tier, flagged, current: cov.pct, cross, crossModel: "seg-0.6", crossRan: !!crossRan, agree, style, nStyle, cal: calOk && EV_CAL ? EV_CAL[tier] : null, calLevelMismatch: !calOk };
+    // the rates were measured with the cross-check on at General, High and Very high
+    const lv = crossRan ? evLevel(cov) : null, c = lv && tier !== "none" ? EV_CAL[lv][tier] : null;
+    const N = lv ? EV_N[lv] : null, cal = c ? { level: lv, human: evPct(c[0], N.human), ai: evPct(c[1], N.ai), kh: c[0], ka: c[1], nh: N.human, na: N.ai } : null;
+    return { tier, flagged, current: cov.pct, cross, crossModel: "seg-0.6", crossRan: !!crossRan, agree, style, nStyle, cal, calLevel: lv, calLevelMismatch: !lv };
   }
   const quant = (a, q) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]; };
   const tick = () => new Promise((r) => setTimeout(r, 0));
@@ -500,7 +510,7 @@
     newPage();
     const big = !cov ? "--" : cov.display;
     setF("bold", 30); doc.text(clean(`${big} detected as AI`), MX, y + 8); y += 30;
-    if (cov && cov.sensitive) { setF("bold", 10, C.warn); doc.text(clean(`${cov.sensitiveLevel === 2 ? "Very-high" : "High"}-sensitivity screening: ${cov.displayStrong} at the student-assignment threshold; the rest are screening leads (amber).`), MX, y); y += 16; }
+    if (cov && cov.sensitive) { setF("bold", 10, C.warn); doc.text(clean(`${cov.sensitiveLevel === 2 ? "Very high" : "High"} sensitivity screening: ${cov.displayStrong} at the student-assignment threshold; the rest are screening leads (amber).`), MX, y); y += 16; }
     setF("normal", 9.5, C.mute);
     para(!cov ? "The segment model is not available in this version." : !cov.reportable
       ? `Not enough qualifying prose for an AI percentage: ${cov.qualifyingWords} words were found and at least ${model().segment.min_words} are needed.`
@@ -544,8 +554,9 @@
       y += 6; setF("bold", 12); need(60); doc.text("Evidence behind this result", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
       const tierTxt = { A: "Strong: the current model, the older model and the writing style all point the same way.", B: "Moderate: the current model plus one other kind of evidence.", C: "Weak: only the current model; nothing else backs it up.", none: "No AI result at this level." }[EVR.tier];
       para(tierTxt, 10, EVR.tier === "A" ? C.red : EVR.tier === "B" ? C.warn : C.ink, "bold");
-      if (EVR.cal) para(`In our validation set (High level; 2,774 human and 591 AI documents), ${EVR.cal.human} of human documents and ${EVR.cal.ai} of AI documents ended up in this tier.`, 8.8, C.mute);
-      else para("The tier rates were measured at the High level with the cross-check on; they are not shown for this setting.", 8.8, C.mute);
+      const LVN = { General: "General", High: "High", VH: "Very high" };
+      if (EVR.cal) para(`In our validation set (${LVN[EVR.cal.level]} level; ${EVR.cal.nh.toLocaleString("en")} human and ${EVR.cal.na} AI documents), ${EVR.cal.kh} human documents (${EVR.cal.human}) and ${EVR.cal.ka} AI documents (${EVR.cal.ai}) ended up in this tier. These rates come from our own test sets and may be lower or higher on other writing.`, 8.8, C.mute);
+      else if (EVR.tier !== "none") para("The tier rates were measured at the General, High and Very high levels with the cross-check on; they are not shown for this setting.", 8.8, C.mute);
       y += 4;
       const pc = (x) => (x == null ? "not run" : `${Math.round(x * 100)}%`);
       kv([["Current model (" + ((R.coverage && R.coverage.version) || "") + ")", `${pc(EVR.current)} · ${EVR.flagged ? "reaches 20%" : "below 20%"}`],
