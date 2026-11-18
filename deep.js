@@ -32,7 +32,7 @@
     return h | 0;
   }
 
-  // V1.8.5/6: earlier models kept for comparison. current = seg-0.8; seg07 = V1.8.2 (deep_model_v182.js); seg06 = V1.3 to V1.8.1 (deep_model_seg06.js)
+  // V1.8.5/6: earlier models kept for comparison. current = seg-0.9; seg07 = V1.8.2 (deep_model_v182.js); seg06 = V1.3 to V1.8.1 (deep_model_seg06.js)
   const MODEL_SRC = { current: ["AletheiaDeepModel", "./deep_model.js"], seg07: ["AletheiaDeepModelLegacy", "./deep_model_v182.js"], seg06: ["AletheiaDeepModelSeg06", "./deep_model_seg06.js"] };
   let which = "current";
   let M = null, IDF = null, COEF = null, RCOEF = null, CCOEF = null, GCOEF = null, SCOEF = null, TOKRE = null;
@@ -176,9 +176,11 @@
     });
     runs.forEach((r, k) => { r.n = k + 1; r.prob = 1 / (1 + Math.exp(-r.lg)); prose.slice(r.from, r.to + 1).forEach((s) => { s.segRun = k + 1; }); });
     const reportable = total >= S.min_words;
+    // V1.9.4: below the minimum there is no AI percentage, so show no segment highlights or segment list either
+    if (!reportable) { prose.forEach((s) => { s.segAI = false; s.segLead = false; s.segShort = false; s.segRun = undefined; }); runs.length = 0; }
     const fmt = (p) => (!reportable ? "--" : p === 0 ? "0%" : p < S.report_from ? "*%" : `${Math.round(p * 100)}%`);
     const pct = total ? flagged / total : 0, pctStrong = total ? strong / total : 0;
-    return { pct, reportable, display: fmt(pct), pctStrong, displayStrong: fmt(pctStrong),
+    return { pct, reportable, minWords: S.min_words, display: fmt(pct), pctStrong, displayStrong: fmt(pctStrong),
              flaggedWords: flagged, strongWords: strong, qualifyingWords: total, runs, windows: wins.length, W: S.W, threshold: t, screenThreshold: sens ? tLow : null,
              register: regName, version: S.version, calibration: S.calibration || null,
              student: stu, studentRequested: !!student, studentMinWords: S.student_min_words || 300, studentCalibration: stu ? (S.student_calibration || null) : null,
@@ -274,10 +276,10 @@
     return Object.keys(EVT).map((k) => ({ key: k, label: EV_LABEL[k], value: +v[k].toFixed(3), threshold: EVT[k], fired: k === "cv" ? v[k] < EVT[k] : v[k] > EVT[k] }));
   }
   // Calibration of the evidence tiers: counts of held-out documents (150+ words) that landed in each tier, by level.
-  // seg-0.9 with the seg-0.6 cross-check at the same level (V1.9.1 validation run). General: all 2,774 human / 591 AI
+  // seg-0.9 with the seg-0.6 cross-check at the same level (V1.9.2 validation run; General re-measured after the threshold change). General: all 2,774 human / 591 AI
   // documents. High and Very high: only the 1,725 / 406 documents long enough for student mode (shorter ones fall back to General).
   const EV_N = { General: { human: 2774, ai: 591 }, High: { human: 1725, ai: 406 }, VH: { human: 1725, ai: 406 } };
-  const EV_CAL = { General: { A: [5, 188], B: [1, 80], C: [0, 21] }, High: { A: [7, 193], B: [20, 116], C: [5, 14] }, VH: { A: [11, 202], B: [31, 120], C: [10, 18] } };
+  const EV_CAL = { General: { A: [5, 195], B: [4, 101], C: [2, 40] }, High: { A: [7, 193], B: [20, 116], C: [5, 14] }, VH: { A: [11, 202], B: [31, 120], C: [10, 18] } };
   const evPct = (k, n) => { const p = 100 * k / n; return k === 0 ? "0%" : p < 0.1 ? "<0.1%" : p < 10 ? p.toFixed(1) + "%" : Math.round(p) + "%"; };
   function evLevel(cov) {
     if (!cov.student && !cov.sensitive) return "General";
@@ -495,7 +497,7 @@
     y = 150;
     setF("normal", 9, C.mute); doc.text("AI WRITING REPORT", MX, y); y += 26;
     setF("bold", 24); doc.splitTextToSize(clean(title), W - 2 * MX).slice(0, 3).forEach((l) => { doc.text(l, MX, y); y += 28; });
-    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V1.9`), MX, y); y += 40;
+    y += 4; setF("normal", 10, C.mute); doc.text(clean(`${R.levelLabel} · ALETHEIA V${meta.version || "1.9"}`), MX, y); y += 40;
     setF("bold", 12); doc.text("Document details", MX, y); y += 8; doc.setDrawColor(...C.line); doc.line(MX, y, W - MX, y); y += 18;
     const pages = meta.pages ? String(meta.pages) : `${Math.max(1, Math.round(b.totalWords / 450))} (estimated)`;
     kv([["Scan ID", scanId], ["Scan date", meta.date || ""], ["File name", meta.file || "(pasted text)"], ["File size", fmtBytes(meta.fileSize)],
@@ -509,11 +511,11 @@
     // ===================== PART A · page 2: overview
     newPage();
     const big = !cov ? "--" : cov.display;
-    setF("bold", 30); doc.text(clean(`${big} detected as AI`), MX, y + 8); y += 30;
+    setF("bold", 30); doc.text(clean(cov && cov.reportable ? `${big} detected as AI` : "No AI percentage"), MX, y + 8); y += 30;
     if (cov && cov.sensitive) { setF("bold", 10, C.warn); doc.text(clean(`${cov.sensitiveLevel === 2 ? "Very high" : "High"} sensitivity screening: ${cov.displayStrong} at the student-assignment threshold; the rest are screening leads (amber).`), MX, y); y += 16; }
     setF("normal", 9.5, C.mute);
     para(!cov ? "The segment model is not available in this version." : !cov.reportable
-      ? `Not enough qualifying prose for an AI percentage: ${cov.qualifyingWords} words were found and at least ${model().segment.min_words} are needed.`
+      ? `Not enough qualifying prose for an AI percentage: ${cov.qualifyingWords} words were found and at least ${cov.minWords} are needed. The whole-document assessment below still applies.`
       : "The share of qualifying text that ALETHEIA's segment model highlights as likely AI-generated (or AI-generated and then edited). Percentages from 1% to 19% are shown as *% because false positives are more likely in that range.", 9.5, C.mute);
     y += 10;
     // caution box
@@ -536,7 +538,7 @@
       if (cov.sensitive) grow(C.hlLead, String(nLead), nLead === 1 ? "sentence marked as a screening lead" : "sentences marked as screening leads", `+${Math.round((cov.pct - cov.pctStrong) * 100)}%`,
            "High-sensitivity screening only: weaker AI-like patterns that the student-assignment threshold does not count. More human text reaches this level, so treat these as places to look, not as evidence.");
       grow([170, 170, 178], "—", "AI-generated, then paraphrased or humanized", "not separated",
-           "ALETHEIA V1.7 does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
+           "ALETHEIA does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
     } else grow([170, 170, 178], "—", "No AI percentage for this document", "--", "See the note above.");
     // whole-document assessment (ALETHEIA's own measure)
     y += 4; setF("bold", 12); doc.text("Whole-document assessment", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 20;
@@ -571,9 +573,9 @@
     const faq = [
       ...(cov && cov.sensitive ? [["What is high-sensitivity screening?", `A setting inside student-assignment mode (on by default there) that prefers catching more AI text over avoiding false alarms; the very-high level goes further.${cov.sensitiveLevel === 2 ? " This report used the very-high level." : ""} It also highlights weaker AI-like segments (screening leads, amber), and the percentage at the top counts them.${cov.screenCalibration ? ` On held-out human student essays never used to choose the setting, ${cov.screenCalibration.hold_student_over20} reached 20% (student-assignment threshold alone: ${cov.screenCalibration.hold_student_over20_base}); AI-generated essays and answers reached 20% in ${cov.screenCalibration.ai_over20} of cases (student-assignment threshold alone: ${cov.screenCalibration.ai_over20_base}).` : ""} Use it to decide where to look, never as evidence on its own.`]] : []),
       ...(cov && cov.studentRequested ? [["What does student-assignment mode change?", cov.student
-        ? `The AI percentage used thresholds calibrated only on human student essays of at least ${cov.studentMinWords} words, the kind of text Turnitin is designed for.${cov.studentCalibration ? ` On held-out human student essays never used to choose the thresholds, ${cov.studentCalibration.hold_student_over20} reached 20%. Fully AI-generated essays reached 20% in ${cov.studentCalibration.hold_ai_essay_over20} of cases (standard thresholds: ${cov.studentCalibration.std_ai_essay_over20}), and essays and answers by 2026 models in ${cov.studentCalibration.ai2026_over20} (standard: ${cov.studentCalibration.std_ai2026_over20}).` : ""} Use it only for student assignments: on other kinds of writing (news, reports, magazine features) these thresholds flag human text more often.`
+        ? `The AI percentage used thresholds calibrated only on human student essays of at least ${cov.studentMinWords} words, the kind of text Turnitin is designed for.${cov.studentCalibration ? ` On held-out human student essays never used to choose the thresholds, ${cov.studentCalibration.hold_student_over20} reached 20%. Fully AI-generated essays reached 20% in ${cov.studentCalibration.hold_ai_essay_over20} of cases (V1.9.1 standard thresholds: ${cov.studentCalibration.std_ai_essay_over20}), and essays and answers by 2026 models in ${cov.studentCalibration.ai2026_over20} (V1.9.1 standard: ${cov.studentCalibration.std_ai2026_over20}).` : ""} Use it only for student assignments: on other kinds of writing (news, reports, magazine features) these thresholds flag human text more often.`
         : `Student-assignment mode was requested, but the document has fewer than ${cov.studentMinWords} qualifying words, so the standard thresholds were used.`]] : []),
-      ["How should I read the AI percentage and false positives?", `The percentage is the share of qualifying words in highlighted segments. Thresholds were set on human writing so that at most 1% of the human documents in each calibration group (and at most 0.5% overall) reach 20%.${cal ? ` On held-out documents never used for any choice, ${cal.hold_human_over20} of human documents reached 20% (including ${cal.hold_student_over20} of student essays), and AI-generated documents averaged ${cal.hold_ai_mean} coverage.` : ""} A highlight means the text resembles AI output, not that it was produced by AI.`],
+      ["How should I read the AI percentage and false positives?", `The percentage is the share of qualifying words in highlighted segments.${cal ? ` On our held-out test sets at the standard (General) thresholds, ${cal.hold_human_over20} of human documents reached 20% (PERSUADE student essays: ${cal.persuade_test_over20}; human answers to instructions are the weakest group, ${cal.beemo_human_over20}), and ${cal.hold_ai_over20} of AI-generated documents did. These sets were also used to choose the thresholds, so the figures are optimistic.` : ""} A highlight means the text resembles AI output, not that it was produced by AI.`],
       ["What counts as qualifying text?", "Sentences in paragraphs of prose. Headings, short labels, lists of fragments, tables of numbers, equations, captions and reference lists are shown in the document view but are not scored."],
       ["Why can the percentage and the deep score differ?", "The percentage looks at overlapping sections of about " + (cov ? cov.W : 250) + " words; the deep score looks at the whole document with a stricter threshold. A document can contain a few AI-like sections without being AI-like overall, and short formulaic passages can look AI-like on their own."],
       ["How is this different from Turnitin?", "Turnitin's AI percentage comes from a transformer model trained on student writing; ALETHEIA runs smaller statistical models entirely in your browser. The two tools are trained on different data and will not always agree. Neither can prove authorship."],
@@ -660,7 +662,7 @@
         ["Quoted words excluded", String(b.quotedWords)], ["Sentences", String(b.stats.sentences)], ["Language", b.language.name], ["Evidence amount", b.evidence]]);
     h2("How the result was reached");
     kv([["Standard engine (GBM document model)", `${(R.pGbm * 100).toFixed(1)} / 100`], ["n-gram stylometric model", `${(R.pNgram * 100).toFixed(1)} / 100`], ...(R.pGeneral != null ? [["General-writing n-gram model", `${(R.pGeneral * 100).toFixed(1)} / 100`]] : []),
-        ["Combined deep score", `${(R.deepScore * 100).toFixed(1)} / 100`], ...(cov ? [["AI percentage (segment model)", `${(cov.pct * 100).toFixed(1)}% of ${cov.qualifyingWords} words · ${cov.runs.length} segments · ${cov.windows} windows of ~${cov.W} words`]] : []),
+        ["Combined deep score", `${(R.deepScore * 100).toFixed(1)} / 100`], ...(cov ? [["AI percentage (segment model)", cov.reportable ? `${(cov.pct * 100).toFixed(1)}% of ${cov.qualifyingWords} words · ${cov.runs.length} segments · ${cov.windows} windows of ~${cov.W} words` : `not reported: ${cov.qualifyingWords} words of prose, at least ${cov.minWords} needed`]] : []),
         ["Bootstrap re-analyses (n-gram / full engine)", `${R.bootstrap.ngram} / ${R.bootstrap.full}`],
         ["Window sizes (sentences)", R.windows.join(", ")], ["Writing register", R.register.academic ? `academic (p=${R.register.pAcademic.toFixed(2)}): strictest threshold` : R.register.creative ? `creative writing (p=${R.register.pCreative.toFixed(2)}): threshold calibrated on human fiction` : `general (academic p=${R.register.pAcademic.toFixed(2)}, creative p=${R.register.pCreative.toFixed(2)}): conservative threshold`],
         ["Engine / Deep model", `${b.version} / ${R.modelVersion}`]]);
@@ -701,7 +703,7 @@
     h2("Limitations and fair use");
     para("ALETHEIA measures statistical and stylistic patterns associated with AI-generated text. It cannot prove who wrote a document, and its scores are not the probability that a particular person used AI. Formal, technical, template-based and non-native English writing can show AI-like patterns; edited or paraphrased AI text can look human. Do not use this report as the sole basis for any academic or employment decision; consider drafts, notes, version history and a conversation with the writer.", 9);
     y += 6;
-    para(`Model provenance: the deep model (${R.modelVersion}) and the segment model (${cov ? cov.version : "n/a"}) were trained and calibrated on research datasets (Ghostbuster; Profiler, EMNLP 2025; DetectRL; a human / ChatGPT / QuillBot academic-abstract corpus; short fiction from 120+ language models, 2023-2026, from public creative-writing benchmarks; DACTYL, WildChat, HC3, RAID, Cosmopedia, M4; OUTFOX and GEDE student essays; 2026 text from 33 generators and 12 humanizers (wasitaigenerated and AI Humanizer benchmarks); 2026 text from about 60 further models (arena-prose, ELI5, research-paper and OpAI-Bench sets, incl. GPT-6, Claude Opus 5.5, Gemini 3.7); public-domain fiction, Wikipedia, learner essays and pre-2022 openly licensed news and textbooks) whose upstream rights are under review. Whole-document thresholds are calibrated separately for three writing registers (academic, creative, everything else) so that at most 1% of human texts in each calibration group are flagged; on held-out data the deep score flagged 0.14% of human texts overall. The AI percentage is calibrated so that at most 1% of human documents in each group reach 20%, and no calibration group is flagged more often than with the previous version. Performance on genres outside the training data and on humanizer-rewritten text is lower.`, 8, C.mute);
+    para(`Model provenance: the deep model (${R.modelVersion}) and the segment model (${cov ? cov.version : "n/a"}) were trained and calibrated on research datasets (Ghostbuster; Profiler, EMNLP 2025; DetectRL; a human / ChatGPT / QuillBot academic-abstract corpus; short fiction from 120+ language models, 2023-2026, from public creative-writing benchmarks; DACTYL, WildChat, HC3, RAID, Cosmopedia, M4; OUTFOX and GEDE student essays; 2026 text from 33 generators and 12 humanizers (wasitaigenerated and AI Humanizer benchmarks); 2026 text from about 60 further models (arena-prose, ELI5, research-paper and OpAI-Bench sets, incl. GPT-6, Claude Opus 5.5, Gemini 3.7); public-domain fiction, Wikipedia, learner essays and pre-2022 openly licensed news and textbooks) whose upstream rights are under review. Whole-document thresholds are calibrated separately for three writing registers (academic, creative, everything else) so that at most 1% of human texts in each calibration group are flagged; on held-out data the deep score flagged 0.14% of human texts overall. The AI percentage thresholds were set on calibration data and checked on held-out test sets; the measured false-positive rates are in the FAQ above. Performance on genres outside the training data and on humanizer-rewritten text is lower.`, 8, C.mute);
 
     // headers and footers on every page except the cover's header
     const N = doc.getNumberOfPages();

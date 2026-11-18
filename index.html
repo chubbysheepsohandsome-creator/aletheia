@@ -454,7 +454,7 @@ footer{border-top:1px solid var(--line)}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.1</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.4</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
@@ -511,7 +511,7 @@ footer{border-top:1px solid var(--line)}
       <div class="tech"><div class="n">04</div><h3>Multi-model evaluation</h3><p>Benchmarks across generator families, with whole models held out to test generalisation to systems never seen in training.</p></div>
       <div class="tech"><div class="n">05</div><h3>Writing-style analysis</h3><p>Template phrases, inflated significance and chatbot artefacts, weighed against signals of genuine human writing.</p></div>
       <div class="tech"><div class="n">06</div><h3>Hybrid authorship analysis</h3><p>Sentence- and paragraph-level evidence that separates sections, so mixed or edited documents are shown as mixed.</p></div>
-      <div class="tech"><div class="n">07</div><h3>Confidence calibration</h3><p>Thresholds set on validation data so that at most 1% of human texts per writer group are flagged; low evidence is stated plainly.</p></div>
+      <div class="tech"><div class="n">07</div><h3>Confidence calibration</h3><p>Thresholds set on calibration data and checked on held-out human writing, with the measured false-positive rates published per group (some groups, such as human answers to instructions, are flagged more often); low evidence is stated plainly.</p></div>
       <div class="tech note"><div class="n">—</div><h3>A note on certainty</h3><p>No single method, and no score, can conclusively establish who wrote a document. ALETHEIA reports patterns and their strength, never proof.</p></div>
     </div>
   </div></section>
@@ -576,7 +576,7 @@ footer{border-top:1px solid var(--line)}
       <div class="tech"><div class="n">04</div><h3>多模型评估</h3><p>覆盖多个生成器家族的基准测试，整个模型都可以预留出来，测试对训练中从未见过的系统的泛化能力。</p></div>
       <div class="tech"><div class="n">05</div><h3>写作风格分析</h3><p>套话、夸大的重要性和聊天机器人残留，与真实人写的信号相互权衡。</p></div>
       <div class="tech"><div class="n">06</div><h3>混合作者分析</h3><p>句子和段落级别的证据能把不同部分分开，所以混合或编辑过的文档会显示为混合。</p></div>
-      <div class="tech"><div class="n">07</div><h3>置信度校准</h3><p>阈值在验证数据上设定，保证每个写作者群体中被标出的人写文本不超过 1%；证据不足时会直接说明。</p></div>
+      <div class="tech"><div class="n">07</div><h3>置信度校准</h3><p>阈值在校准数据上设定，并在留出的人写文本上检验，各群体实测的误判率都会公布（有些群体被标出得更多，例如人写的指令回答）；证据不足时会直接说明。</p></div>
       <div class="tech note"><div class="n">—</div><h3>关于确定性</h3><p>没有任何单一方法或分数能确定一篇文档是谁写的。ALETHEIA 报告的是模式及其强度，但不能证明是谁写的。</p></div>
     </div>
   </div></section>
@@ -623,8 +623,8 @@ footer{border-top:1px solid var(--line)}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.9.1 free beta</p><h1>Analyze a document.</h1>
-      <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.</p></div>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.9.4 free beta</p><h1>Analyze a document.</h1>
+      <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words (150 for an AI percentage), 300+ recommended.</p></div>
     <div class="modelbar" id="modelBar"><span class="mb-l">Model</span>
       <div class="mb-seg" role="radiogroup" aria-label="Model version">
         <button class="on" data-model="current" role="radio" aria-checked="true">Current<small>seg-0.9 · latest training</small></button><button data-model="seg07" role="radio" aria-checked="false">Previous<small>seg-0.7 · before the latest training</small></button><button data-model="seg06" role="radio" aria-checked="false">Older<small>seg-0.6 · V1.3 to V1.8.1</small></button>
@@ -902,7 +902,7 @@ footer{border-top:1px solid var(--line)}
     </div>
     <p>A dataset's own licence is not enough: we also check where its human text came from. Datasets built from scraped news, reviews, essays or forum posts are kept in a quarantine area until their source rights are cleared, even when the dataset itself is MIT or CC BY. Every import re-checks the licence, records checksums and versions, keeps per-record attribution, and never turns an unknown label into "human" or "AI". Human-only corpora are limited to text written before 30 November 2022.</p>
     <h2>The promotion gate</h2>
-    <p>A model is promoted only if none of its training texts appear in the evaluation data, at most 1% of human texts are flagged overall and at most 2% in any writer group, and nothing regresses against production.</p>
+    <p>A model is promoted only if none of its training texts appear in the evaluation data and at most 1% of human texts are flagged overall. Any writer group that gets worse, or that is flagged more than 2% of the time, is published with the release (V1.9.2: human answers to instructions, 10 of 65).</p>
     <table class="sig"><tr><th>Candidate</th><th>Decision</th><th>Why</th></tr>
       <tr><td class="mono">v0.2.0</td><td><span class="tag strong">Rejected</span></td><td>864 evaluation texts overlapped its training data, so the evaluation would be inflated.</td></tr>
       <tr><td class="mono">v0.3.0</td><td><span class="tag strong">Rejected</span></td><td>Human FPR 1.36% (3 of 220; 95% CI 0.46–3.93%) exceeds the 1% limit. Production is unchanged.</td></tr></table>
@@ -1069,7 +1069,7 @@ footer{border-top:1px solid var(--line)}
     </div>
     <p>数据集自己的许可不够：我们还检查其中人写文本的来源。由抓取的新闻、评论、作文或论坛帖子构成的数据集，即使数据集本身是 MIT 或 CC BY，在来源版权理清之前也放在隔离区。每次导入都会重新检查许可、记录校验和与版本、保留逐条署名，并且从不把未知标签当作"人写"或"AI"。纯人写语料只用 2022 年 11 月 30 日之前写的文本。</p>
     <h2>上线门槛</h2>
-    <p>一个模型只有在以下条件都满足时才会上线：它的训练文本没有出现在评估数据中，整体误判的人写文本不超过 1%，任何写作群体不超过 2%，并且与线上版本相比没有任何退步。</p>
+    <p>一个模型只有在以下条件都满足时才会上线：它的训练文本没有出现在评估数据中，整体误判的人写文本不超过 1%。任何变差的写作群体，或误判超过 2% 的群体，都会随版本公布（V1.9.2：人写的指令回答，65 篇中 10 篇）。</p>
     <table class="sig"><tr><th>候选版本</th><th>决定</th><th>原因</th></tr>
       <tr><td class="mono">v0.2.0</td><td><span class="tag strong">否决</span></td><td>864 篇评估文本与其训练数据重叠，评估结果会虚高。</td></tr>
       <tr><td class="mono">v0.3.0</td><td><span class="tag strong">否决</span></td><td>人写误判率 1.36%（220 篇中 3 篇；95% 置信区间 0.46–3.93%）超过 1% 的上限。线上版本不变。</td></tr></table>
@@ -1110,7 +1110,26 @@ footer{border-top:1px solid var(--line)}
 <div class="en-v">
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
-  <h2>V1.8 (6–7 November 2026)</h2>
+  <h2>V1.9 (11–18 November 2026)</h2>
+  <div class="cl"><h3>V1.9.4 <span>18 Nov 2026 · clearer results for short texts, faster first load</span></h3><ul>
+    <li><b>Short texts no longer show “detected as AI” without a number.</b> With 80–149 words of prose (quotations, headings and lists are not counted), ALETHEIA gives a whole-document score but no AI percentage. The result used to show “-- detected as AI” in bold, which could be read as an AI verdict. It now says “No AI percentage”, gives the 150-word minimum and the number of words found, and says that the whole-document score still applies. Segment highlights and the segment list are no longer shown for these texts, because they are not counted. The PDF report, the copied report and annotated Word files say the same. Example from our tests: a 232-word passage with 126 words of quoted dialogue leaves 106 words of prose.</li>
+    <li><b>The word counter warns earlier.</b> Between 80 and 149 words it now says that an AI percentage needs 150. It counts every word in the box; quotations, headings and lists are only left out during the scan, so a text with long quotations can still fall short, and the result then says so.</li>
+    <li><b>Chinese mode:</b> the short-text message was shown in English; it is now translated.</li>
+    <li><b>Faster first visit:</b> the page no longer downloads the 627 KB Word library (Mammoth) on every visit. ALETHEIA reads Word files with its own reader and loads Mammoth only if that reader fails. Before a scan the page now downloads about 830 KB instead of 1,450 KB (before compression).</li>
+    <li><b>PDF report:</b> shows the exact version (it showed “V1.9”), and the row about paraphrased AI text no longer says “ALETHEIA V1.7”.</li>
+    <li><b>Changelog:</b> the V1.9 releases have their own heading; they were listed under V1.8.</li>
+    <li><b>No change to models, thresholds or results.</b> We scored 63 documents from our evaluation sets with V1.9.3 and V1.9.4 at all four levels (General, T mode, High, Very high): every result was identical.</li>
+  </ul></div>
+  <div class="cl"><h3>V1.9.3 <span>16 Nov 2026 · fix: level picker on iPhone, iPad and Safari on Mac</span></h3><ul>
+    <li><b>The Level picker works on iOS again.</b> On iPhone and iPad (and probably Safari on Mac), tapping a level (General, T mode, High, Very high) closed the list before the tap registered, so the level never changed. iOS Safari does not give a tapped button keyboard focus, and the picker treated that as "focus left the menu". It now closes only when focus really moves elsewhere or you tap outside it, including taps on plain text or background. No change to models, thresholds or results.</li>
+  </ul></div>
+  <div class="cl"><h3>V1.9.2 <span>13 Nov 2026 · more sensitive General level</span></h3><ul>
+    <li><b>The General level (student mode off) now catches more AI text, at the cost of more false positives.</b> Its thresholds were still the ones set for seg-0.6. We lowered them by 0.75 logits for general and academic writing and 0.5 for creative writing (logits are the units of the model's score). A separate calibration set (8,276 scorable documents; GEDE left out because it is non-commercial and will be removed) ruled out larger shifts; the held-out test sets were then used to choose among the three settings that remained, so all figures below are optimistic. Student mode, High and Very high are unchanged, except for documents with fewer than 300 qualifying words, which fall back to General and so are also affected.</li>
+    <li><b>Results on the held-out test sets, General level, documents reaching 20%:</b> AI test set 264 → 305 of 546 scored (48% → 56%); Perplexity 18 → 21 of 25; humanities essays on topics not in training 7 → 10 of 20 (both small sets). No document flagged before is missed now. <b>Cost:</b> human false positives nearly doubled, 6 → 11 of 1,680 scored human documents (0.36% → 0.65%). 10 of the 11 are Beemo human answers to instructions, now 10 of 65 (about 1 in 7) in that group; the other is a magazine feature. PERSUADE student essays stay at 0 of 1,000. The 6 donated human documents score at most 8%.</li>
+    <li><b>Evidence rates at General were re-measured</b> with the new thresholds (same caveat). Strong: 5 human (0.2%) and 195 AI (33%). Moderate: 4 (0.1%) and 101 (17%). Weak: 2 (&lt;0.1%) and 40 (6.8%).</li>
+    <li><b>Report text updated:</b> the PDF's false-positive answer now shows these V1.9.2 figures (it previously showed the old ones and two blank fields), and the site's calibration and promotion rules now say that groups flagged more often are published.</li>
+    <li><b>Known weak spot:</b> science reports written by DeepSeek and research summaries written by Perplexity are still mostly missed at General (most score 0–25%). This is the next training target.</li>
+  </ul></div>
   <div class="cl"><h3>V1.9.1 <span>12 Nov 2026 · evidence rates at every level, and groundwork for the paid version</span></h3><ul>
     <li><b>Evidence rates at every level.</b> The "Evidence behind this result" section now shows how often each tier occurred in validation at the General, High and Very high levels, as counts as well as percentages, with the seg-0.6 second opinion run at the same level. General uses all 2,774 human and 591 AI documents. High and Very high use only the 1,725 human and 406 AI documents long enough for student mode (shorter documents fall back to General thresholds). Strong: General 5 human (0.2%) and 188 AI (32%), High 7 (0.4%) and 193 (48%), Very high 11 (0.6%) and 202 (50%). Moderate: 1 (&lt;0.1%) and 80 (14%), 20 (1.2%) and 116 (29%), 31 (1.8%) and 120 (30%). Weak: 0 and 21 (3.6%), 5 (0.3%) and 14 (3.4%), 10 (0.6%) and 18 (4.4%). The counts are small, so the human rates are rough. <b>Correction:</b> V1.9.0 measured its High rates on all documents, including short ones that never reach the High threshold, which understated the human rates (Strong 0.3% → 0.4%, Moderate 0.7% → 1.2%). T mode (student threshold with screening off) was not measured and shows no rates.</li>
     <li><b>Groundwork for the paid version (not used in this release).</b> We checked the licence of every training source. Only about 13% of the training documents (13,793 of 104,556) come from text whose open licence we could verify, or that we generated ourselves; the rest come from research datasets whose texts belong to third parties or whose licence is unknown, and one (GEDE, 5,310 documents) is non-commercial. We trained a trial segment model on a mostly openly licensed subset (it still includes three sets whose licences are unverified). At the current High threshold it flags about three times as many human documents (102 against 36; Very high 190 against 56), so it needs its own calibration. In a rough comparison with a document cutoff chosen on the same test sets (33 against 36 human documents flagged), it catches about as much 2026 AI text in two small sets (Perplexity 24 of 25, humanities 14 of 20) but less older benchmark AI text (246 against 339 of 546 scored). The models in this release are unchanged (seg-0.9).</li>
@@ -1120,6 +1139,7 @@ footer{border-top:1px solid var(--line)}
     <li><b>New model seg-0.9.</b> The segment model behind the AI percentage now has topic words blanked out in training as well as in scoring (V1.8.7 did it only in scoring; the whole-document and short-text heads are unchanged and still trained without the mask). 60 AI-written humanities essays on 30 topics were added, with about 1,600 human student essays as a counterweight. Humanities AI essays on 10 topics not used in training, reaching 20% at High: 10 → 14 of 20 (mean 41% → 56%); Perplexity set 19 → 24 of 25; older AI test set 337 → 339 of 600. These test sets were also used to choose between three candidate models, so the figures are slightly optimistic. The racism essay from V1.8.7 went from 43% to 100%, but racism in Australia is one of the training topics, so that is not a held-out result.</li>
     <li><b>Cost:</b> human documents reaching 20% at High: held-out set 26 → 27 of 2,000, PERSUADE student essays 0 → 4 of 1,000 (Very high 6 → 9), lab and topic humans unchanged. The new humanities essays were all written by one AI system, so the humanities gain may be smaller for other systems.</li>
   </ul></div>
+  <h2>V1.8 (6–7 November 2026)</h2>
   <div class="cl"><h3>V1.8.7 <span>7 Nov 2026 · topic words no longer move the score</span></h3><ul>
     <li><b>Fixed:</b> words that belong to a topic rather than to a writing style (racism, Australian, school, university, Hitler, Macbeth, voltage and about 125 words in all, with their plurals) are now blanked out before the current model scores a text. On a racism-in-Australia essay the result fell from 100% to 43%.</li>
     <li><b>Cost:</b> on a 25-text AI test set that shares topics with the training data, texts flagged fell from 24 to 19; on 150 other AI texts from 111 to 109. Human texts: essentially unchanged (4 to 5 of 400, 4 of 102 flagged). Average AI coverage fell more than the flagged counts show: 90% to 54% on the 25-text set, 71% to 69% on the 150 others. This is the expected price of removing topic leakage; a topic-balanced retraining is still needed.</li>
@@ -1216,7 +1236,26 @@ footer{border-top:1px solid var(--line)}
 <div class="zh-v" lang="zh-CN">
   <div class="page-head"><p class="eyebrow">更新日志</p><h1>V1.0 以来的每一次更新。</h1><p>最新的在最上面。每一条都写明改了什么、为什么改，以及对你的结果意味着什么。除非另有说明，数字都来自模型从未见过的测试文本；样本很小的会标出来。</p></div>
   <div class="content changelog">
-  <h2>V1.8（2026 年 11 月 6–7 日）</h2>
+  <h2>V1.9（2026 年 11 月 11–18 日）</h2>
+  <div class="cl"><h3>V1.9.4 <span>2026 年 11 月 18 日 · 短文本的结果更清楚，首次打开更快</span></h3><ul>
+    <li><b>短文本不再显示没有数字的“被检测为 AI”。</b>正文只有 80–149 词时（引文、标题和列表不计入），ALETHEIA 能给出全文得分，但给不出 AI 百分比。以前结果会用粗体显示“-- 被检测为 AI”，容易被误读成 AI 判定。现在会显示“没有 AI 百分比”，写明需要 150 词、这篇实际有多少词，并说明下面的全文得分仍然适用。这类文本也不再显示片段标注和片段列表，因为它们并不计入。PDF 报告、复制的报告和带标注的 Word 文件也同样处理。测试中的例子：一段 232 词的文字，其中 126 词是引号里的对话，只剩 106 词正文。</li>
+    <li><b>字数提示更早。</b>输入 80 到 149 词时，会提示 AI 百分比需要 150 词。字数统计包括框里的所有词；引文、标题和列表要到扫描时才会排除，所以引文很多的文字仍可能不够，这时结果会说明原因。</li>
+    <li><b>中文模式：</b>这条短文本提示以前显示英文，现在已经翻译。</li>
+    <li><b>首次打开更快：</b>页面不再每次都下载 627 KB 的 Word 读取库（Mammoth）。ALETHEIA 用自己的读取器读 Word 文件，只有读取失败时才加载 Mammoth。扫描前页面的下载量从约 1,450 KB 降到约 830 KB（未压缩时）。</li>
+    <li><b>PDF 报告：</b>现在显示准确的版本号（以前只写“V1.9”）；关于改写过的 AI 文本那一行不再写“ALETHEIA V1.7”。</li>
+    <li><b>更新日志：</b>V1.9 的各个版本有了自己的标题（以前放在 V1.8 下面）。</li>
+    <li><b>模型、阈值和结果都没有变化。</b>我们用 V1.9.3 和 V1.9.4 对评测集里的 63 篇文档在全部四个档位（通用、T 档、高、极高）上打分，所有结果完全一致。</li>
+  </ul></div>
+  <div class="cl"><h3>V1.9.3 <span>2026 年 11 月 16 日 · 修复：iPhone、iPad 和 Mac 版 Safari 上无法切换档位</span></h3><ul>
+    <li><b>iOS 上的档位选择恢复正常。</b>在 iPhone 和 iPad 上（Mac 版 Safari 很可能也是）轻点某个档位（通用、T 档、高、极高）时，列表会在点击生效前就关上，所以档位一直切换不了。原因是 iOS Safari 轻点按钮时不会让按钮获得焦点，选择器误以为“焦点离开了菜单”。现在只有焦点真正移到别处、或点击菜单以外的地方（包括空白处和普通文字）时才会关闭。模型、阈值和结果都没有变化。</li>
+  </ul></div>
+  <div class="cl"><h3>V1.9.2 <span>2026 年 11 月 13 日 · 通用档更灵敏</span></h3><ul>
+    <li><b>通用档（不开学生模式）现在能抓到更多 AI 文本，代价是误判也更多。</b>它沿用的是 seg-0.6 时定下的阈值。我们把一般写作和学术写作的分界降低了 0.75 个 logit，创意写作降低 0.5 个 logit（logit 是模型打分的单位）。一个单独的校准集（可评分的 8,276 篇；剔除了 GEDE，因为它仅限非商业用途，之后会移除）排除了更大的调整；剩下的三个候选设置是用留出测试集挑选的，所以下面所有数字都偏乐观。学生模式、高档和极高档不变；但合格词不足 300 个的文档会退回通用档，所以它们也受影响。</li>
+    <li><b>在留出测试集上的结果（通用档，达到 20% 的文档）：</b>AI 测试集可评分的 546 篇中 264 → 305 篇（48% → 56%）；Perplexity 25 篇中 18 → 21 篇；训练中未出现题目的文科作文 20 篇中 7 → 10 篇（这两个测试集都很小）。之前能抓到的文档一篇都没有漏掉。<b>代价：</b>人写误判几乎翻倍，可评分的 1,680 篇人写文档中 6 → 11 篇（0.36% → 0.65%）。11 篇中有 10 篇是 Beemo 中人写的指令回答，这一类现在是 65 篇中 10 篇（约七分之一）；另一篇是杂志文章。PERSUADE 学生作文仍是 1,000 篇中 0 篇。6 篇捐赠的人写文档最高为 8%。</li>
+    <li><b>通用档各证据等级的比例已用新阈值重新测量</b>（同样偏乐观）。“强”：人写 5 篇（0.2%）、AI 195 篇（33%）。“中”：4 篇（0.1%）、101 篇（17%）。“弱”：2 篇（&lt;0.1%）、40 篇（6.8%）。</li>
+    <li><b>报告文字已更新：</b>PDF 中关于误判的问答现在显示 V1.9.2 的数字（之前显示的是旧数字，还有两处空白字段）；网站上的校准和上线规则现在写明：被标出更多的群体会公布。</li>
+    <li><b>已知弱点：</b>DeepSeek 写的理科报告和 Perplexity 写的研究综述，在通用档仍大多漏判（多数只有 0–25%）。这是下一步训练的重点。</li>
+  </ul></div>
   <div class="cl"><h3>V1.9.1 <span>2026 年 11 月 12 日 · 各档都显示判断依据的比例，并为付费版打基础</span></h3><ul>
     <li><b>每一档都显示分档比例。</b>“判断依据”一节现在在通用、高、极高三档都会显示每一档在验证中出现的频率，同时给出篇数和百分比，seg-0.6 第二意见在同一档位运行。通用档使用全部 2,774 篇人写和 591 篇 AI 文档；高档和极高档只使用长度足以进入学生模式的 1,725 篇人写和 406 篇 AI 文档（更短的文档会退回通用阈值）。“强”：通用档人写 5 篇（0.2%）、AI 188 篇（32%）；高档 7 篇（0.4%）、193 篇（48%）；极高档 11 篇（0.6%）、202 篇（50%）。“中”：1 篇（&lt;0.1%）、80 篇（14%）；20 篇（1.2%）、116 篇（29%）；31 篇（1.8%）、120 篇（30%）。“弱”：0 篇、21 篇（3.6%）；5 篇（0.3%）、14 篇（3.4%）；10 篇（0.6%）、18 篇（4.4%）。篇数很少，人写比例只是粗略估计。<b>更正：</b>V1.9.0 的高档比例是用全部文档测的，其中包括根本达不到高档阈值的短文档，因此低估了人写比例（“强”从 0.3% 改为 0.4%，“中”从 0.7% 改为 1.2%）。T 档（学生阈值、关闭筛查）没有测过，不显示比例。</li>
     <li><b>为付费版打基础（本版未使用）。</b>我们核查了每个训练数据来源的授权。只有约 13% 的训练文档（104,556 篇中的 13,793 篇）来自我们能确认开放授权的文本，或我们自己生成的文本；其余来自研究数据集，其中的文本版权属于第三方或授权不明，另有一个（GEDE，5,310 篇）仅限非商业用途。我们用一个以开放授权为主的子集训练了试验版分段模型（其中仍有三个授权未确认的数据集）。在现有高档阈值下，它标出的人写文档约是现在的三倍（102 篇对 36 篇；极高档 190 篇对 56 篇），所以需要单独校准阈值。粗略比较时（文档截断值是在同一批测试集上选的，人写误判 33 篇对 36 篇），它在两个小测试集上对 2026 年 AI 文本的检出与 seg-0.9 相当（Perplexity 25 篇中 24 篇，文科 20 篇中 14 篇），但对较旧的基准 AI 文本检出较少（可评分的 546 篇中 246 篇，seg-0.9 为 339 篇）。本版使用的模型没有变化（仍是 seg-0.9）。</li>
@@ -1226,6 +1265,7 @@ footer{border-top:1px solid var(--line)}
     <li><b>新模型 seg-0.9。</b>决定 AI 百分比的分段模型，现在在训练和打分时都会清空题目词（V1.8.7 只在打分时清空；整篇评分和短文本模型没有改，仍是未清空题目词时训练的）。另加入 30 个题目的 60 篇 AI 文科作文，并用约 1,600 篇人写学生作文对冲。未用于训练的 10 个题目的文科 AI 作文，在 High 档达到 20% 的：20 篇中从 10 篇升到 14 篇（平均 41% → 56%）；Perplexity 集合 25 篇中从 19 升到 24；旧 AI 测试集 600 篇中从 337 升到 339。这些测试集也用来在三个候选模型中做选择，所以数字略偏乐观。V1.8.7 里那篇种族主义议论文从 43% 升到 100%，但“澳大利亚的种族主义”是训练题目之一，所以这不是留出测试的结果。</li>
     <li><b>代价：</b>High 档达到 20% 的人写文档：保留集 2,000 篇中从 26 升到 27，PERSUADE 学生作文 1,000 篇中从 0 升到 4（Very high 从 6 升到 9），实验报告和同题材人写文本不变。新加的文科作文都由同一个 AI 系统写成，换成其他系统时，文科的提升可能更小。</li>
   </ul></div>
+  <h2>V1.8（2026 年 11 月 6–7 日）</h2>
   <div class="cl"><h3>V1.8.7 <span>2026 年 11 月 7 日 · 题目词不再影响分数</span></h3><ul>
     <li><b>修复：</b>属于题目而不是文风的词（racism、Australian、school、university、Hitler、Macbeth、voltage 等共约 125 个词（含复数形式））在当前模型打分前会被清空。一篇澳大利亚种族主义的文章，结果从 100% 降到 43%。</li>
     <li><b>代价：</b>在与训练数据题目重合的 25 篇 AI 测试集上，被标出的从 24 篇降到 19 篇；另外 150 篇 AI 文本从 111 降到 109。人写文本：基本不变（400 篇中 4 到 5 篇，102 篇中 4 篇被标出）。AI 平均覆盖率的下降比被标出的篇数更明显：25 篇的集合从 90% 降到 54%，另外 150 篇从 71% 降到 69%。这是去掉题目泄漏的预期代价，仍需要按题目均衡的重新训练。</li>
@@ -1341,7 +1381,7 @@ footer{border-top:1px solid var(--line)}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.9.1 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.9.4 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -1372,7 +1412,7 @@ footer{border-top:1px solid var(--line)}
     <p>ALETHEIA 的结果不是不当行为的证据，不能作为任何学术或雇佣决定的唯一依据。</p>
     <h2>使用条款（免费测试版）</h2>
     <ul>
-      <li>ALETHEIA V1.9.1 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
+      <li>ALETHEIA V1.9.4 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
       <li>用它来开启一次对话，而不是结束对话：看看草稿、笔记和版本历史，并和作者谈谈。</li>
       <li>只分析你有权查看的文本：你自己写的，或你有正当理由审阅的文本。</li>
       <li>检测模型用研究数据集训练，这些数据集的上游版权仍在审查中；付费版将用已获许可的数据重新训练。</li>
@@ -1442,9 +1482,8 @@ footer{border-top:1px solid var(--line)}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.9.1"></script>
-<script src="engine.js?v=1.9.1"></script>
-<script src="mammoth.browser.min.js" defer></script>
+<script src="model.js?v=1.9.4"></script>
+<script src="engine.js?v=1.9.4"></script>
 <script>
 (function(){
 "use strict";
@@ -1506,7 +1545,7 @@ function wordCount(t){ return (t.match(/[A-Za-zÀ-ɏ㐀-鿿]+(?:['’-][A-Za-z]+
 function updateCount(){
   const n = wordCount(input.value);
   $("#wc").textContent = n.toLocaleString();
-  $("#wchint").textContent = n === 0 ? "" : n < 80 ? `· need ${80-n} more` : n < 300 ? "· 300+ recommended" : "";
+  $("#wchint").textContent = n === 0 ? "" : n < 80 ? `· need ${80-n} more` : n < 150 ? "· 150+ for an AI percentage" : n < 300 ? "· 300+ recommended" : "";
   go.disabled = n === 0;
 }
 input.addEventListener("input", updateCount);
@@ -1522,7 +1561,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.9.1"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.9.4"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -1679,12 +1718,17 @@ syncSens();
       if (n !== "g") { sm.checked = n !== "0"; vm.disabled = n === "0"; vm.checked = n === "2"; }
       syncSens(); close(); pb.focus();
     });
-    document.addEventListener("click", (e) => { if (!e.target.closest || !e.target.closest("#picker")) close(); });
+    const outside = (e) => { if (!e.target.closest || !e.target.closest("#picker")) close(); };
+    document.addEventListener("click", outside);
+    document.addEventListener("pointerdown", outside); // iOS sends no click for taps on plain text or background
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !pl.hidden) { close(); pb.focus(); } });
     pl.addEventListener("keydown", (e) => { if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return; e.preventDefault();
       const opts = [...pl.querySelectorAll("button:not(:disabled)")], i = opts.indexOf(document.activeElement);
       const n = opts[(i + (e.key === "ArrowDown" ? 1 : -1) + opts.length) % opts.length]; if (n) n.focus(); });
-    document.getElementById("picker").addEventListener("focusout", (e) => { if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest("#picker")) close(); });
+    // iOS Safari does not focus a tapped <button>, so focusout fires with relatedTarget = null before the tap's click.
+    // Closing on that null target hid the list mid-tap and the level never changed. Close only when focus moves to a
+    // known element outside the picker; taps outside are handled by the document click listener above.
+    document.getElementById("picker").addEventListener("focusout", (e) => { const t = e.relatedTarget; if (t && t.closest && !t.closest("#picker")) close(); });
   }
 }
 document.addEventListener("change", (e) => {
@@ -1797,7 +1841,8 @@ function resultNumbers(r){
   const L = [`ALETHEIA ${BUILD}`, `Mode: ${R ? R.levelLabel : "Deep Scan"}`, `Highlighted share (sentence engine): ${Math.round(r.flaggedShare * 100)}%`,
     `Words: ${r.totalWords} total, ${r.qualifyingWords} qualifying`, `Language: ${r.language.name}`];
   if (R) L.push(`Deep score: ${Math.round(R.deepScore * 100)}/100`, `Register: ${R.register && R.register.academic ? "academic" : R.register && R.register.creative ? "creative" : "general"}`);
-  if (cv) L.push(`AI percentage: ${cv.display}${cv.sensitive ? ` (student threshold ${cv.displayStrong})` : ""}`, `Thresholds: ${cv.student ? (cv.sensitive ? (cv.sensitiveLevel === 2 ? "student, very high sensitivity" : "student, high sensitivity") : "student, T mode") : "general"}`);
+  if (cv && !cv.reportable) L.push(`AI percentage: none (needs at least ${cv.minWords || 150} words of prose, found ${cv.qualifyingWords}); the whole-document score still applies`);
+  else if (cv) L.push(`AI percentage: ${cv.display}${cv.sensitive ? ` (student threshold ${cv.displayStrong})` : ""}`, `Thresholds: ${cv.student ? (cv.sensitive ? (cv.sensitiveLevel === 2 ? "student, very high sensitivity" : "student, high sensitivity") : "student, T mode") : "general"}`);
   if (currentFile) L.push(`File type: ${(currentFile.split(".").pop() || "").toLowerCase()}`);
   return L;
 }
@@ -1924,7 +1969,7 @@ function docxBox(R){
       if (!window.AletheiaDocx || !window.AletheiaDocx.annotate) await loadScript("docx.js?v=" + BUILD);
       const cv = R.coverage, marks = R.base.sentences.filter((s) => s.segAI).map((s) => ({ text: s.text, lead: !!s.segLead }));
       const mode = cv.student ? (cv.sensitive ? (cv.sensitiveLevel === 2 ? "student assignment, very high sensitivity" : "student assignment, high sensitivity") : "student assignment") : "standard thresholds";
-      const notice = [`ALETHEIA ${BUILD} · ${cv.display} detected as AI (${R.levelLabel}, ${mode}) · ${new Date().toLocaleDateString()}`,
+      const notice = [`ALETHEIA ${BUILD} · ${cv.reportable ? `${cv.display} detected as AI` : "no AI percentage (too little prose)"} (${R.levelLabel}, ${mode}) · ${new Date().toLocaleDateString()}`,
         cv.sensitive ? `Teal: AI-like at the student-assignment threshold (${cv.displayStrong}). Amber: screening leads, weaker signals shown only in high-sensitivity mode.` : "Teal: sentences in segments the model scores as AI-generated.",
         "This highlighting is a statistical estimate, not proof of authorship. Delete these lines before reusing the file."];
       const r = await window.AletheiaDocx.annotate(docxSrc.buf, marks, notice);
@@ -1940,7 +1985,7 @@ async function buildPdf(R){
   const box = $("#pdfBox"); box.innerHTML = '<span class="count">Building PDF report…</span>';
   await ensureDeep(true);
   const when = new Date();
-  pdfBlob = window.AletheiaDeep.pdf(R, { date: when.toLocaleString(), file: currentFile || "", fileSize: currentMeta.fileSize, pages: currentMeta.pages });
+  pdfBlob = window.AletheiaDeep.pdf(R, { version: BUILD, date: when.toLocaleString(), file: currentFile || "", fileSize: currentMeta.fileSize, pages: currentMeta.pages });
   const name = "ALETHEIA-" + (R.level === "supreme" ? "Supreme" : "Deep") + "-Report-" + when.toISOString().slice(0, 16).replace(/[:T]/g, "-") + ".pdf";
   box.innerHTML = `<button class="btn primary" id="pdfSave">Download PDF report <span class="arr">↓</span></button> <span class="count">${(pdfBlob.size / 1024).toFixed(0)} KB · ready</span><div class="count" id="pdfMsg" style="margin-top:8px"></div>`;
   $("#pdfSave").onclick = async () => {
@@ -1975,8 +2020,8 @@ function renderDeepPanel(R, level){
   const pct = (x) => (x * 100).toFixed(1);
   const infl = R.influence.slice(0, 4).map(x => `<tr><td class="mono">P${x.para + 1}</td><td class="mono">${x.delta >= 0 ? "+" : ""}${(x.delta * 100).toFixed(1)}</td><td>${esc(x.preview)}…</td></tr>`).join("");
   const cv = R.coverage;
-  const covHtml = cv ? `<div class="covbox"><div class="covpct">${esc(cv.display)}</div><div><b>detected as AI</b> · ${cv.reportable ? `${cv.runs.length} highlighted segment${cv.runs.length === 1 ? "" : "s"} (teal underline in the text above)` : `needs at least 150 words of prose (found ${cv.qualifyingWords})`}
-      <div class="covnote">${cv.sensitive ? `${cv.displayStrong} at the student threshold (teal); the rest of this figure is amber screening leads: places to look, not evidence.` : cv.student ? "Share of prose in segments that look AI-generated, at the student-assignment threshold." : "Share of prose in segments that look AI-generated."}</div><details class="covmore"><summary>How to read this</summary><p>Share of qualifying words in overlapping ~${cv.W}-word segments that the segment model scores as AI-generated. 1–19% is shown as *% because false positives are more likely there. ${cv.sensitive ? `High-sensitivity screening: ${cv.displayStrong} at the student-assignment threshold (teal); amber segments are screening leads that only this setting counts. About 1 in 100 human student essays reaches 20% here, so check amber passages against drafts and notes before drawing any conclusion. ` : ""}${cv.student ? "Student-assignment thresholds: calibrated on human student essays only, so that at most 1% of each group reaches 20%. Do not use them for other kinds of writing." : cv.studentRequested ? `Student-assignment mode needs at least ${cv.studentMinWords} words of prose, so the standard thresholds were used.` : "Calibrated so that at most 1% of human documents in each test group reach 20%."}</p></details></div></div>` : "";
+  const covHtml = cv ? `<div class="covbox"><div class="covpct"${cv.reportable ? "" : ' aria-hidden="true"'}>${esc(cv.display)}</div><div>${cv.reportable ? `<b>detected as AI</b> · ${cv.runs.length} highlighted segment${cv.runs.length === 1 ? "" : "s"} (teal underline in the text above)` : `<b>No AI percentage</b> · <span>The AI percentage needs at least ${cv.minWords || 150} words of prose (found ${cv.qualifyingWords}). The whole-document score below still applies.</span>`}
+      ${!cv.reportable ? "" : `<div class="covnote">${cv.sensitive ? `${cv.displayStrong} at the student threshold (teal); the rest of this figure is amber screening leads: places to look, not evidence.` : cv.student ? "Share of prose in segments that look AI-generated, at the student-assignment threshold." : "Share of prose in segments that look AI-generated."}</div>`}<details class="covmore"><summary>How to read this</summary><p>Share of qualifying words in overlapping ~${cv.W}-word segments that the segment model scores as AI-generated. 1–19% is shown as *% because false positives are more likely there. ${cv.sensitive ? `High-sensitivity screening: ${cv.displayStrong} at the student-assignment threshold (teal); amber segments are screening leads that only this setting counts. About 1 in 100 human student essays reaches 20% here, so check amber passages against drafts and notes before drawing any conclusion. ` : ""}${cv.student ? "Student-assignment thresholds: calibrated on human student essays only, so that at most 1% of each group reaches 20%. Do not use them for other kinds of writing." : cv.studentRequested ? `Student-assignment mode needs at least ${cv.studentMinWords} words of prose, so the standard thresholds were used.` : "Calibrated so that at most 1% of human documents in each test group reach 20%."}</p></details></div></div>` : "";
   const whyHtml = cv && cv.why && cv.why.length ? `<div class="whybox"><b>Wording that raised the score</b><div class="whyw">${cv.why.map(w => `<span class="whyc">${esc(w.t)}<small>${w.n}×</small></span>`).join("")}</div><div class="covnote">In our samples these words appear in AI-written text at least twice as often as in human writing, and they pulled the highlighted segments’ scores up. People use them too, so this shows where the model is looking, not who wrote the text.</div></div>` : "";
   P.innerHTML = `<p class="sec-k">01 · Result · ${esc(R.levelLabel)}</p>${R.model === "seg07" ? `<div class="legacybar"><b>Previous model</b><span>This result comes from the model used before the latest training (seg-0.7). Switch back to the current model at the top of the page to compare.</span></div>` : R.model === "seg06" ? `<div class="legacybar"><b>Older model</b><span>This result comes from the older seg-0.6 model, used from V1.3 to V1.8.1. Switch back to the current model at the top of the page to compare.</span></div>` : ""}${covHtml}${evHtml(R)}${whyHtml}<h2 style="margin-top:18px">Whole-document score ${Math.round(R.deepScore * 100)}<span style="font-size:18px;color:var(--fg-3)"> / 100</span></h2>
     <p class="sub">90% bootstrap interval ${Math.round(R.ci[0] * 100)}–${Math.round(R.ci[1] * 100)} · verdict stable in ${Math.round(R.stability * 100)}% of ${R.bootstrap.full} re-analyses · ${(R.elapsedMs / 1000).toFixed(1)} s</p>
@@ -2143,7 +2188,8 @@ function reportText(r){
   if (currentFile) L.push("File: " + currentFile);
   L.push("");
   { const R = lastDeep && last === r ? lastDeep : null, cv = R && R.coverage;
-    if (cv) L.push(`AI percentage: ${cv.display} detected as AI (${R.levelLabel}; ${cv.student ? (cv.sensitive ? (cv.sensitiveLevel === 2 ? "student, very high" : "student, high") : "student, T mode") : "general"} level)`);
+    if (cv && !cv.reportable) L.push(`AI percentage: none (needs at least ${cv.minWords || 150} words of prose, found ${cv.qualifyingWords}); the whole-document score still applies`);
+    else if (cv) L.push(`AI percentage: ${cv.display} detected as AI (${R.levelLabel}; ${cv.student ? (cv.sensitive ? (cv.sensitiveLevel === 2 ? "student, very high" : "student, high") : "student, T mode") : "general"} level)`);
     L.push(`Whole-document score: ${Math.round(r.score*100)}/100` + (r.thresholds ? ` (flagging threshold ${Math.round(r.thresholds.high*100)})` : "")); }
   L.push("Assessment: " + r.category + " — " + (CAT_SUB[r.catKey] || ""));
   L.push(`Confidence: ${r.confidence} | Evidence: ${r.evidence}`);
@@ -2300,7 +2346,7 @@ var ZH = {
 "Analyze a Document":"分析文档","Explore the Technology":"了解技术","Start Analyzing":"开始分析","Read the research notes →":"阅读研究说明 →",
 "See beyond the words.":"看见文字背后。","Open Detect":"打开检测","Follow the research":"关注研究",
 "Analyze a document.":"分析一篇文档。",
-"Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words, 300+ recommended.":"粘贴文字或上传文件。分析完全在你的浏览器里运行，文档不会离开你的设备。仅支持英文正文；至少 80 词，建议 300 词以上。",
+"Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words (150 for an AI percentage), 300+ recommended.":"粘贴文字或上传文件。分析完全在你的浏览器里运行，文档不会离开你的设备。仅支持英文正文；至少 80 词（AI 百分比需要 150 词），建议 300 词以上。",
 "Paste text":"粘贴文字","Upload file":"上传文件","Load a demo sample…":"载入示例…","Demo: assistant-style essay":"示例：助手风格的文章","Demo: casual personal writing":"示例：随意的个人写作","Demo: plain lab report":"示例：普通实验报告","Demo: mixed document":"示例：混合文档",
 "Drop a document here":"把文档拖到这里","or click to choose · .docx, .pdf or .txt · up to 10 MB · text is extracted on your device and shown for review":"或点击选择 · .docx、.pdf 或 .txt · 最大 10 MB · 文字在你的设备上提取并显示供检查",
 "Deep Scan":"深度扫描","thorough · about 10–40 s":"更彻底 · 约 10–40 秒","Supreme":"至尊","everything + PDF report":"全部分析 + PDF 报告",
@@ -2334,7 +2380,7 @@ var ZH = {
 "I am 18 or older.":"我已年满 18 岁。","I wrote this text, or all of its authors agreed that I may donate it.":"这篇文字是我写的，或所有作者都同意我捐献。",
 "ALETHEIA may keep this text for up to 3 years to test and train its detector. It will never be published or sold. I can ask for it to be deleted at any time by emailing the donation ID.":"ALETHEIA 可以保存这篇文字最多 3 年，用于测试和训练检测器。绝不会公开或出售。我可以随时通过邮件发送捐献 ID 要求删除。",
 "Please remove names, student numbers and other personal details from the text box above before donating.":"捐献前请先在上面的文本框里删掉姓名、学号等个人信息。",
-"Save donation file and open email":"保存捐献文件并打开邮件","detected as AI":"被检测为 AI","How to read this":"怎么理解这个数字",
+"Save donation file and open email":"保存捐献文件并打开邮件","detected as AI":"被检测为 AI","No AI percentage":"没有 AI 百分比","How to read this":"怎么理解这个数字",
 "Model details":"模型细节","Standard model":"标准模型","n-gram model":"n-gram 模型","General-writing model":"通用写作模型","Combined":"综合","Flag threshold":"标记阈值","Create PDF report":"生成 PDF 报告",
 "Document details":"文档详情","Whole-document score":"全文得分","Total words":"总词数","Qualifying prose":"计分正文","Excluded (refs, headings, lists, equations)":"已排除（引用、标题、列表、公式）","Quoted words excluded":"已排除的引文词数","Sentences":"句子数","Language":"语言","English":"英语","Engine version":"引擎版本","Analysed":"分析时间",
 "Copy report":"复制报告","Download report":"下载报告","Print / PDF":"打印 / PDF","New scan":"新的扫描","Help improve ALETHEIA":"帮助改进 ALETHEIA","· optional. Nothing is sent unless you send it yourself from your own email.":"· 可选。除非你自己用邮箱发送，否则什么都不会发出。","Report a wrong result":"报告错误结果",
@@ -2395,7 +2441,7 @@ var ZH2 = {
 ", or use the paperclip, then press Send. In Outlook, choose \"Attach as copy\", not a OneDrive link, because we cannot open links.":"，或用回形针附加，然后点发送。在 Outlook 里请选“作为副本附加”，不要用 OneDrive 链接，因为我们打不开链接。",
 "Sends to feedback@aletheiadetect.com from your own email; we see your email address only to reply.":"用你自己的邮箱发送到 feedback@aletheiadetect.com；你的邮箱地址只用于回复你。",
 "Report a wrong result":"报告错误结果","Run Supreme Scan":"开始至尊扫描","Upload file":"上传文件","Supreme Deep Scan":"至尊深度扫描",
-"· 300+ recommended":"· 建议 300 词以上","Human-like:":"像人写：","Informal word":"口语词","Spelling slip / missing apostrophe":"拼写错误 / 缺少撇号","Expressive punctuation":"情绪化标点","Lowercase pronoun":"小写代词","Doubled word":"重复的词","Repeated punctuation":"重复标点","lowercase “i”":"小写的 “i”",
+"· 300+ recommended":"· 建议 300 词以上","· 150+ for an AI percentage":"· AI 百分比需要 150 词以上","Human-like:":"像人写：","Informal word":"口语词","Spelling slip / missing apostrophe":"拼写错误 / 缺少撇号","Expressive punctuation":"情绪化标点","Lowercase pronoun":"小写代词","Doubled word":"重复的词","Repeated punctuation":"重复标点","lowercase “i”":"小写的 “i”",
 "Trailing “, highlighting …” clause":"句尾 “, highlighting …” 分句",
 "Abstract framing.":"抽象化表述。","Abstract promotional phrasing.":"抽象的宣传式措辞。","Audience-broadening template.":"扩大受众的套话。","Cliché.":"陈词滥调。","Common filler (weak).":"常见填充语（弱）。","Common in assistant prose (weak).":"AI 助手文字中常见（弱）。","Emphasis on wider significance.":"强调更广泛的意义。","Formulaic abstract metaphor.":"套路化的抽象比喻。","Formulaic conclusion opener":"套路化的结论开头","Formulaic emphasis on significance.":"套路化地强调重要性。","Formulaic prescriptive framing.":"套路化的规定式表述。","Generic change framing.":"泛泛的“变化”表述。","Generic emotional framing.":"泛泛的情感表述。","Generic forward-looking close.":"泛泛的展望式结尾。","Generic hedge.":"泛泛的含糊措辞。","Generic importance claim.":"泛泛地声称重要。","Generic scene-setting opener.":"泛泛的铺垫式开头。","Generic scene-setting.":"泛泛的铺垫。","Generic value claim.":"泛泛的价值判断。","Inflated legacy statement.":"夸大的“影响深远”式说法。","Inflated symbolism.":"夸大的象征意义。","Journey metaphor cliché.":"“旅程”比喻套话。","Negative-parallelism template.":"“不是……而是……”式模板。","Over-used abstract framing.":"被滥用的抽象表述。","Parallel construction used heavily by LLMs.":"大模型常用的排比结构。","Promotional generic phrase.":"宣传式套话。","Promotional, generic description.":"宣传式的泛泛描述。","Puffery about significance.":"吹捧意义。","Stock framing phrase common in assistant-style prose.":"AI 助手风格文字中常见的固定表述。","Stock phrase.":"固定套话。","Strongly over-represented in LLM text.":"在大模型文字中出现得特别多。","Superficial significance analysis.":"肤浅的意义分析。","Template causal link.":"模板化的因果连接。","Template-like conclusion signpost.":"模板化的结论提示语。","Templated summary phrase.":"模板化的总结语。","Vague quantity phrase.":"模糊的数量表述。",
 "Academic-abstract writing style detected. Thresholds for this style are stricter because AI-rewritten abstracts are hard to tell apart from human ones.":"检测到学术摘要文体。这种文体的阈值更严格，因为 AI 改写的摘要很难和人写的区分。",
@@ -2442,7 +2488,7 @@ var RX2 = [
  [/^Confidence: (.+)$/, function(m,a){ return "可信度：" + ({ "High":"高","Medium-high":"中高","Medium":"中","Low":"低" }[a] || a); }],
  [/^Evidence: (.+)$/, function(m,a){ return "证据量：" + ({ "Substantial":"充足","Moderate":"中等","Limited":"有限" }[a] || a); }],
  [/^High-sensitivity screening: (\S+) at the student-assignment threshold .*$/, "高灵敏度排查：其中 $1 达到学生作业阈值（青色）；琥珀色片段是只有这个档位才计入的排查线索。每 100 篇人写的论文中约有 1 篇在这里达到 20%，所以请把琥珀色当作值得一看的地方，而不是证据。"],
- [/^Share of qualifying words in overlapping ~(\d+)-word segments that the segment model scores as AI-generated\. 1–19% is shown as \*% because false positives are more likely there\.(.*)$/, function(m,a,b){ return "在约 " + a + " 词的重叠片段中，被片段模型判为 AI 生成的计分词所占比例。1–19% 显示为 *%，因为这个区间更容易误报。" + (b ? " " + (b.indexOf("High-sensitivity") >= 0 ? "高灵敏度排查会额外计入较弱的片段（琥珀色），只作为线索。" : b.indexOf("Student-assignment") >= 0 ? "学生作业阈值只用人写的学生论文校准。" : b.trim()) : ""); }],
+ [/^Share of qualifying words in overlapping ~(\d+)-word segments that the segment model scores as AI-generated\. 1–19% is shown as \*% because false positives are more likely there\.(.*)$/, function(m,a,b){ return "在约 " + a + " 词的重叠片段中，被片段模型判为 AI 生成的计分词所占比例。1–19% 显示为 *%，因为这个区间更容易误报。" + (b ? " " + (b.indexOf("High-sensitivity") >= 0 ? "高灵敏度排查会额外计入较弱的片段（琥珀色），只作为线索。" : /Student-assignment mode needs at least (\d+) words/.test(b) ? "学生作业模式至少需要 " + b.match(/at least (\d+) words/)[1] + " 词正文，所以这里用的是标准阈值。" : b.indexOf("Student-assignment") >= 0 ? "学生作业阈值只用人写的学生论文校准。" : b.indexOf("Calibrated so that at most 1%") >= 0 ? "校准目标：每个测试组中最多 1% 的人写文档达到 20%。" : b.trim()) : ""); }],
  [/^Teal: AI-like at the student-assignment threshold \((\S+)\)\. Amber: screening leads, weaker signals shown only in high-sensitivity mode\.$/, "青色：达到学生作业阈值的 AI 式信号（$1）。琥珀色：排查线索，只在高灵敏度档位显示的较弱信号。"],
  [/^AI percentage: (\S+) of qualifying text in (\d+) highlighted segments? \(teal underline\)\. This is a separate, section-level measure; the score above is for the whole document\.$/, "AI 百分比：$1 的计分正文落在 $2 个标注片段里（青色下划线）。这是按片段计算的单独指标；上面的分数针对全文。"],
  [/^AI percentage: (\S+) of qualifying text in (\d+) highlighted segments? \(teal underline = .*\)\. This is a separate, section-level measure; the score above is for the whole document\.$/, "AI 百分比：$1 的计分正文落在 $2 个标注片段里（青色 = 学生作业阈值，琥珀色 = 高灵敏度排查线索）。这是按片段计算的单独指标；上面的分数针对全文。"],
@@ -2453,6 +2499,7 @@ var RX2 = [
 var RX = [
  [/^(\d[\d,]*) words$/, "$1 词"],
  [/^· (\d+) highlighted segments? \(teal underline in the text above\)$/, "· $1 个标注片段（上文中的青色下划线）"],
+ [/^The AI percentage needs at least (\d+) words of prose \(found (\d+)\)\. The whole-document score below still applies\.$/, "AI 百分比至少需要 $1 词正文（只找到 $2 词）。下面的全文得分仍然适用。"],
  [/^Whole-document score (\d+)$/, "全文得分 $1"],
  [/^(\d+) · (Result|Details|Document|Paragraphs|Evidence|Passages)(.*)$/, function(m,a,b,c){return a+" · "+({Result:"结果",Details:"详情",Document:"文档",Paragraphs:"段落",Evidence:"证据",Passages:"关键句"}[b])+(c||"").replace("Deep Scan","深度扫描").replace("Supreme","至尊");}],
  [/^(\*%|\d+%) at the student threshold \(teal\); the rest of this figure is amber screening leads: places to look, not evidence\.$/, "其中 $1 达到学生阈值（青色）；其余是琥珀色的排查线索：值得一看的地方，不是证据。"],
