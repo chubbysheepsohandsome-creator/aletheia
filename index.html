@@ -454,9 +454,9 @@ footer{border-top:1px solid var(--line)}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.5</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.6</small></a>
     <nav class="links">
-      <a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
+      <a href="#detect" data-p="detect">Detect</a><a href="#tools" data-p="tools">Tools</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
     <button class="iconbtn langbtn" id="langBtn" aria-label="切换到中文 / Switch language" title="中文 / English">中</button>
     <button class="iconbtn" id="themeBtn" aria-label="Switch light or dark theme" title="Switch theme">
@@ -465,7 +465,7 @@ footer{border-top:1px solid var(--line)}
     <button class="btn small acctbtn" id="acctBtn" aria-haspopup="dialog"><span class="acct-dot" aria-hidden="true"></span><span id="acctLbl">Sign in</span></button>
   </div>
 </header>
-<div class="mobile-nav"><a href="#home" data-p="home">Home</a><a href="#detect" data-p="detect">Detect</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a></div>
+<div class="mobile-nav"><a href="#home" data-p="home">Home</a><a href="#detect" data-p="detect">Detect</a><a href="#tools" data-p="tools">Tools</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a><a href="#privacy" data-p="privacy">Privacy</a></div>
 
 <!-- ================= HOME ================= -->
 <main class="page" id="p-home">
@@ -623,7 +623,7 @@ footer{border-top:1px solid var(--line)}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.9.5 free beta</p><h1>Analyze a document.</h1>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.9.6 free beta</p><h1>Analyze a document.</h1>
       <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words (150 for an AI percentage), 300+ recommended.</p></div>
     <div class="modelbar" id="modelBar"><span class="mb-l">Model</span>
       <div class="mb-seg" role="radiogroup" aria-label="Model version">
@@ -695,6 +695,32 @@ footer{border-top:1px solid var(--line)}
     </section>
   </div>
 </main>
+
+<!-- ================= TOOLS ================= -->
+<main class="page" id="p-tools"><div class="wrap">
+<div class="en-v">
+  <div class="page-head"><p class="eyebrow">Tools</p><h1>More ways to look at a document.</h1><p>Three separate tools that sit beside the detector. Like the detector, they show observations for a person to review. None of them can prove who wrote a text.</p></div>
+  <div class="content" style="max-width:none">
+    <h2><a href="similarity.html">Similarity Check</a></h2>
+    <p>Compare a set of documents with each other (for example a class set of essays), or compare one submission with sources you add yourself, such as the readings. Matching passages are highlighted (side by side when you compare a set). Everything runs in your browser; nothing is uploaded. Matches show shared wording, not misconduct: quotations, common phrases and shared task instructions also match.</p>
+    <h2><a href="process.html">Writing Process</a></h2>
+    <p>Reads the editing history Word keeps inside a .docx file: recorded editing time, editing sessions, paragraphs added in one session, tracked changes and comments. You can load several drafts of the same work to see how it grew. Names are hidden by default. Everything runs in your browser. Pasting the text into a new file, Google Docs exports or some "Save as" formats can reset or remove this history, so treat it as a starting point for a conversation, never as proof.</p>
+    <h2><a href="references.html">Reference Check</a></h2>
+    <p>Splits a reference list and looks each entry up in Crossref and OpenAlex, two public scholarly databases, to see whether the cited work exists and matches the details given. Only the reference entries are sent (plus an email if you choose to enter one, to Crossref only), and only after you press the check button. Your document is not sent. Like any website, these services also see your IP address. Books, reports, very new work and non-English work are often missing from these databases, so "Not found" means "check it yourself", not "fabricated".</p>
+  </div>
+</div>
+<div class="zh-v" lang="zh-CN">
+  <div class="page-head"><p class="eyebrow">工具</p><h1>从更多角度看一份文档。</h1><p>检测器旁边的三个独立工具。和检测器一样，它们只给出需要由人来判断的观察结果，都不能证明文本是谁写的。</p></div>
+  <div class="content" style="max-width:none">
+    <h2><a href="similarity.html">相似度检查</a></h2>
+    <p>把一组文档互相比较（例如全班的作文），或者把一份作业和你自己加入的来源（例如阅读材料）比较。相同的段落会被高亮（比较一组文档时并排显示）。全部在你的浏览器里运行，不上传任何内容。匹配只说明用词相同，不代表学术不端：引语、常见说法和相同的任务要求也会匹配。</p>
+    <h2><a href="process.html">写作过程</a></h2>
+    <p>读取 Word 在 .docx 文件里保存的编辑记录：记录的编辑时长、编辑会话、在一次会话里整段加入的段落、修订和批注。可以加载同一作业的多个草稿，看它是怎样写出来的。人名默认隐藏。全部在你的浏览器里运行。把文字粘贴到新文件、从 Google Docs 导出或某些"另存为"格式都可能重置或清除这些记录，所以只能作为沟通的起点，不能作为证据。</p>
+    <h2><a href="references.html">参考文献核查</a></h2>
+    <p>拆分参考文献列表，并在 Crossref 和 OpenAlex 这两个公开学术数据库里逐条查找，看被引用的作品是否存在、信息是否一致。只有在你点击核查按钮后，才会发送参考文献条目（如果你填写了邮箱，邮箱只发给 Crossref）；你的文档不会被发送。和任何网站一样，这些服务也会看到你的 IP 地址。图书、报告、很新的作品和非英文作品常常不在这些数据库里，所以"未找到"的意思是"请自己核对"，不是"编造"。</p>
+  </div>
+</div>
+</div></main>
 
 <!-- ================= TECHNOLOGY ================= -->
 <main class="page" id="p-technology"><div class="wrap">
@@ -1111,7 +1137,14 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
   <h2>V1.9 (11–25 November 2026)</h2>
-  <div class="cl"><h3>V1.9.5 <span>25 Nov 2026 · new AI-percentage model (seg-1.0): catches more AI-written science work</span></h3><ul>
+  <div class="cl"><h3>V1.9.6 <span>25 Nov 2026 · three new tools: Similarity Check, Writing Process, Reference Check</span></h3><ul>
+<li><b>New Tools page</b> (in the menu) with three separate tools. The detector itself is unchanged: same models, thresholds and results as V1.9.5.</li>
+<li><b>Similarity Check</b> compares a set of documents with each other, or one submission with sources you add. Matching passages of at least 8 words are highlighted. It runs in your browser.</li>
+<li><b>Writing Process</b> reads the editing history inside a Word .docx (editing time, sessions, paragraphs added in one session, tracked changes, comments) and can compare drafts. It runs in your browser and hides names by default.</li>
+<li><b>Reference Check</b> looks up each reference in Crossref and OpenAlex. Only the reference entries are sent (plus an optional email, to Crossref only), and only after you press the button. "Not found" is a reason to check, not proof of a fabricated source.</li>
+<li>None of these tools can prove who wrote a text. They show observations for a person to review.</li>
+</ul></div>
+<div class="cl"><h3>V1.9.5 <span>25 Nov 2026 · new AI-percentage model (seg-1.0): catches more AI-written science work</span></h3><ul>
     <li><b>New model seg-1.0 behind the AI percentage</b> (Deep Scan and Supreme). The thresholds are the same as in V1.9.2, and the whole-document and short-text scores are unchanged.</li>
     <li><b>What we added to training.</b> About 3,000 AI-written science reports, practical logbooks, short answers and essays that we generated ourselves, on our own computer, with three open models (IBM Granite 3.3 2B, Qwen3 1.7B and SmolLM2 1.7B, all Apache-2.0). To stop real science writing from being flagged more often, we also added about 2,400 sections of human science writing from iGEM 2022 team wikis (CC BY 4.0, written before ChatGPT was released).</li>
     <li><b>AI text, on test sets never used for training</b> (share of documents reaching 20% at the General level, seg-0.9 → seg-1.0):
@@ -1258,7 +1291,14 @@ footer{border-top:1px solid var(--line)}
   <div class="page-head"><p class="eyebrow">更新日志</p><h1>V1.0 以来的每一次更新。</h1><p>最新的在最上面。每一条都写明改了什么、为什么改，以及对你的结果意味着什么。除非另有说明，数字都来自模型从未见过的测试文本；样本很小的会标出来。</p></div>
   <div class="content changelog">
   <h2>V1.9（2026 年 11 月 11–25 日）</h2>
-  <div class="cl"><h3>V1.9.5 <span>2026 年 11 月 25 日 · 新的 AI 百分比模型（seg-1.0）：能抓到更多 AI 写的理科作业</span></h3><ul>
+  <div class="cl"><h3>V1.9.6 <span>2026 年 11 月 25 日 · 三个新工具：相似度检查、写作过程、参考文献核查</span></h3><ul>
+<li><b>新增"工具"页面</b>（在菜单里），包含三个独立工具。检测器本身没有改变：模型、阈值和结果都和 V1.9.5 相同。</li>
+<li><b>相似度检查</b>把一组文档互相比较，或把一份作业和你加入的来源比较，高亮至少 8 个词的相同段落。在你的浏览器里运行。</li>
+<li><b>写作过程</b>读取 Word .docx 里的编辑记录（编辑时长、编辑会话、整段加入的段落、修订、批注），并可以比较多个草稿。在你的浏览器里运行，人名默认隐藏。</li>
+<li><b>参考文献核查</b>在 Crossref 和 OpenAlex 里查找每条参考文献。只有在你点击按钮后才会发送参考文献条目（以及你选择填写的邮箱，只发给 Crossref）。"未找到"是需要核对的理由，不是来源被编造的证据。</li>
+<li>这些工具都不能证明文本是谁写的，只给出需要由人来判断的观察结果。</li>
+</ul></div>
+<div class="cl"><h3>V1.9.5 <span>2026 年 11 月 25 日 · 新的 AI 百分比模型（seg-1.0）：能抓到更多 AI 写的理科作业</span></h3><ul>
     <li><b>AI 百分比换成了新模型 seg-1.0</b>（深度扫描和 Supreme）。阈值和 V1.9.2 相同，全文得分和短文本得分没有变化。</li>
     <li><b>训练里加了什么。</b>约 3,000 篇 AI 写的理科报告、实验日志、简答和作文，是我们在自己的电脑上用三个开源模型生成的（IBM Granite 3.3 2B、Qwen3 1.7B、SmolLM2 1.7B，均为 Apache-2.0 授权）。为了不让真人写的理科文字更容易被误判，我们同时加入了约 2,400 段来自 iGEM 2022 团队维基的真人理科写作（CC BY 4.0 授权，写于 ChatGPT 发布之前）。</li>
     <li><b>AI 文本，在从未用于训练的测试集上</b>（通用档下达到 20% 的文档比例，seg-0.9 → seg-1.0）：
@@ -1416,6 +1456,7 @@ footer{border-top:1px solid var(--line)}
       <li><b>No analytics.</b> Fonts and libraries are served from this site. Settings, scan summaries and beta accounts use this browser's local storage. The page loads Google's AdSense script, which is a third-party request and may set cookies. We have applied to show Google ads and none are displayed yet. If ads are approved, they will appear only on information pages, never on Detect or your results. The text you analyse stays in your browser and is never sent to Google.</li>
       <li><b>Feedback and donations (optional, from V1.7).</b> "Report a wrong result" prepares an email with the result numbers and your answer only, never your text. "Donate this article" saves a file on your device that you attach to an email yourself (or, if attaching is not possible, you may paste the copied donation text into the email body); it is offered only to people aged 18 or older who wrote the text or have permission from every author. Both are sent by you, from your own email app, to feedback@aletheiadetect.com, so we also see the sending address, which we use only to reply. Donated texts are kept for up to 3 years, used only to test and train the detector, never published or sold, and deleted on request (quote the donation ID). Feedback is used to find problems and is never used directly as training labels.</li>
       <li><b>Annotated Word files.</b> The highlighted copy of an uploaded .docx is built in your browser; the file never leaves your device.</li>
+      <li><b>Tools.</b> Similarity Check and Writing Process run entirely in your browser. Reference Check is the one exception: when you press its check button, the reference entries only (not your document) are sent to Crossref (api.crossref.org) and OpenAlex (api.openalex.org) to look them up, plus an optional email you may enter (sent to Crossref only). Like any website, these services also receive your IP address.</li>
       <li><b>Hosting.</b> The site is hosted on GitHub Pages. Like any web host, GitHub receives standard request logs (such as IP address and browser) when a page is loaded; it never receives the text you analyse.</li>
       <li>Future server-side features will use encrypted transport, automatic deletion with configurable retention, and audit logs that never store document contents. They will be designed around the Australian Privacy Principles.</li>
     </ul>
@@ -1423,7 +1464,7 @@ footer{border-top:1px solid var(--line)}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.9.5 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.9.6 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -1447,6 +1488,7 @@ footer{border-top:1px solid var(--line)}
       <li><b>没有统计分析。</b>字体和程序库都由本站提供。设置、扫描摘要和测试版账号使用这个浏览器的本地存储。页面会加载 Google AdSense 脚本，这是第三方请求，可能会设置 cookie。我们已申请展示 Google 广告，目前尚未显示任何广告。如果通过审核，广告只会出现在介绍类页面，绝不会出现在检测页或你的结果中。你分析的文字只在浏览器里处理，不会发送给 Google。</li>
       <li><b>反馈和捐献（可选，自 V1.7 起）。</b>"报告错误结果"会准备一封只含结果数字和你的回答的邮件，从不包含你的文本。"捐献这篇文章"会在你的设备上保存一个文件，由你自己附到邮件里（如果无法添加附件，也可以把复制的捐献内容粘贴到邮件正文）；只向年满 18 岁、本人写了这篇文本或得到每位作者许可的人提供。两者都由你从自己的邮件应用发送到 feedback@aletheiadetect.com，所以我们也会看到发件地址，只用于回复。捐献的文本最多保存 3 年，只用于测试和训练检测器，从不公开或出售，可应要求删除（请注明捐献 ID）。反馈用于发现问题，从不直接用作训练标签。</li>
       <li><b>带标注的 Word 文件。</b>上传的 .docx 的高亮副本在你的浏览器里生成；文件从不离开你的设备。</li>
+      <li><b>工具。</b>相似度检查和写作过程完全在你的浏览器里运行。参考文献核查是唯一的例外：当你点击核查按钮时，只有参考文献条目（不是你的文档）会被发送到 Crossref（api.crossref.org）和 OpenAlex（api.openalex.org）进行查找；如果你填写了邮箱，邮箱只发送给 Crossref。和任何网站一样，这些服务也会收到你的 IP 地址。</li>
       <li><b>托管。</b>本站托管在 GitHub Pages 上。和任何网站托管一样，页面加载时 GitHub 会收到标准请求日志（例如 IP 地址和浏览器）；它从不会收到你分析的文本。</li>
       <li>未来的服务器端功能将使用加密传输、可设置保留期的自动删除，以及从不保存文档内容的审计日志，并按照澳大利亚隐私原则（Australian Privacy Principles）设计。</li>
     </ul>
@@ -1454,7 +1496,7 @@ footer{border-top:1px solid var(--line)}
     <p>ALETHEIA 的结果不是不当行为的证据，不能作为任何学术或雇佣决定的唯一依据。</p>
     <h2>使用条款（免费测试版）</h2>
     <ul>
-      <li>ALETHEIA V1.9.5 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
+      <li>ALETHEIA V1.9.6 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
       <li>用它来开启一次对话，而不是结束对话：看看草稿、笔记和版本历史，并和作者谈谈。</li>
       <li>只分析你有权查看的文本：你自己写的，或你有正当理由审阅的文本。</li>
       <li>检测模型用研究数据集训练，这些数据集的上游版权仍在审查中；付费版将用已获许可的数据重新训练。</li>
@@ -1518,14 +1560,14 @@ footer{border-top:1px solid var(--line)}
   <div><a class="brand" href="#home" style="display:flex"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span></a>
     <div class="tag-line">See beyond the words.</div><div class="mono" style="font-size:11px;letter-spacing:.08em">Intelligence. Language. Authenticity.</div>
     <p style="margin-top:22px;max-width:360px">ALETHEIA reports patterns associated with how text may have been produced. It cannot prove authorship. <span class="mono" id="verApp"></span> · engine <span class="mono" id="ver2"></span> · free beta.</p></div>
-  <div><h4>Product</h4><a href="#detect">ALETHEIA Detect</a><a href="#home">ALETHEIA Trace</a><a href="#evaluate">Evaluate</a><a href="#history">History</a></div>
+  <div><h4>Product</h4><a href="#detect">ALETHEIA Detect</a><a href="#home">ALETHEIA Trace</a><a href="#tools">Tools</a><a href="#evaluate">Evaluate</a><a href="#history">History</a></div>
   <div><h4>Research</h4><a href="#technology">Technology</a><a href="#research">Benchmarks</a><a href="#research">Data licensing</a><a href="#changelog">Changelog</a></div>
   <div><h4>Company</h4><a href="#privacy">Privacy &amp; terms</a><a href="#privacy">FAQ</a><a href="#brand">Brand</a><a href="https://github.com/chubbysheepsohandsome-creator/aletheia" rel="noopener">Source files</a></div>
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.9.5"></script>
-<script src="engine.js?v=1.9.5"></script>
+<script src="model.js?v=1.9.6"></script>
+<script src="engine.js?v=1.9.6"></script>
 <script>
 (function(){
 "use strict";
@@ -1541,7 +1583,7 @@ const store = {
 $("#ver1").textContent = E.VERSION; $("#ver2").textContent = E.VERSION;
 
 // ---------- Routing ----------
-const PAGES = ["home","detect","technology","research","changelog","evaluate","history","privacy","brand"];
+const PAGES = ["home","detect","tools","technology","research","changelog","evaluate","history","privacy","brand"];
 const ALIAS = {"detector":"detect","how-it-works":"technology"};
 function route(){
   let h = (location.hash || "").replace("#","");
@@ -1603,7 +1645,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.9.5"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.9.6"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -2382,7 +2424,7 @@ var ZH = {
 "No scans yet.":"还没有扫描记录。","Run your first scan.":"开始第一次扫描。",
 "· engine":"· 引擎","· free beta.":"· 免费测试版。",
 "Obsidian":"黑曜石","Charcoal":"炭黑","Graphite":"石墨","Ivory":"象牙白","Soft White":"柔白","Champagne":"香槟金","Warm Gold":"暖金",
-"Detect":"检测","Technology":"技术","Research":"研究","Changelog":"更新日志","History":"历史","Home":"首页","Privacy":"隐私","Sign in":"登录",
+"Detect":"检测","Tools":"工具","Technology":"技术","Research":"研究","Changelog":"更新日志","History":"历史","Home":"首页","Privacy":"隐私","Sign in":"登录",
 "AI Writing Intelligence":"AI 写作分析",
 "Understand the patterns behind written language through advanced AI writing analysis. ALETHEIA shows you the evidence, sentence by sentence. It never hands down a verdict.":"通过 AI 写作分析，理解文字背后的模式。ALETHEIA 逐句展示证据，但从不下定论。",
 "Analyze a Document":"分析文档","Explore the Technology":"了解技术","Start Analyzing":"开始分析","Read the research notes →":"阅读研究说明 →",

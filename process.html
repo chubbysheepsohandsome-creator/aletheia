@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ALETHEIA — Writing Process</title>
+<style>
+@font-face{font-family:'Inter';src:url('inter-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('inter-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('inter-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Cormorant Garamond';src:url('cormorant-garamond-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Cormorant Garamond';src:url('cormorant-garamond-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('ibm-plex-mono-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+:root{
+  --bg:#101114;--bg-2:#181A20;--bg-3:#252832;--fg:#F2F0E9;--fg-2:#B9B6AC;--fg-3:#86847D;
+  --line:rgba(242,240,233,.10);--accent:#C9B98D;--gold:#B99A5B;
+}
+[data-theme="light"]{
+  --bg:#FAFAF7;--bg-2:#F2F0E9;--bg-3:#E6E3D8;--fg:#101114;--fg-2:#3C3B37;--fg-3:#6B6962;
+  --line:rgba(16,17,20,.12);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 14px/1.55 'Inter',system-ui,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:16px 20px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.wordmark{font:600 22px/1 'Cormorant Garamond',Georgia,serif;letter-spacing:.14em;color:var(--accent)}
+.page-title{font:500 22px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--fg)}
+.badge-local{font:400 11px/1 'IBM Plex Mono',monospace;color:var(--fg-3);border:1px solid var(--line);padding:4px 8px;border-radius:999px}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.btn{background:var(--bg-2);border:1px solid var(--line);color:var(--fg);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:13px;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--bg-3);border-color:var(--accent)}
+.btn-sm{padding:4px 9px;font-size:12px}
+.panel{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:16px}
+.dropzone{border:1.5px dashed var(--line);border-radius:8px;padding:22px;text-align:center;cursor:pointer;background:var(--bg);transition:border-color .15s,background .15s}
+.dropzone.drag{border-color:var(--accent);background:var(--bg-3)}
+.dropzone p{margin:4px 0;color:var(--fg-2);font-size:13px}
+.status{margin-top:10px;font:400 12.5px/1.4 'IBM Plex Mono',monospace;color:var(--accent)}
+.notice{border-left:3px solid var(--gold);background:var(--bg-2);padding:11px 14px;border-radius:0 8px 8px 0;color:var(--fg-2);font-size:13px;margin-top:16px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+.toolbar-grp{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.file-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.file-tab{background:var(--bg-2);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:8px}
+.file-tab[aria-selected="true"]{border-color:var(--accent);background:var(--bg-3);color:var(--accent);font-weight:600}
+h2{margin:0 0 12px;font:600 19px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--accent)}
+h3{margin:0 0 8px;font:500 14px/1.3 'Inter',sans-serif;color:var(--fg-2);text-transform:uppercase;letter-spacing:.05em;font-size:12px}
+.grid-meta{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px}
+.kv{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+.kv .k{font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:.04em}
+.kv .v{font:400 13.5px/1.35 'IBM Plex Mono',monospace;margin-top:3px;word-break:break-word}
+.signals{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.sig{background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:10px 12px}
+.sig.warn{border-left-color:#ce6856}
+.sig-title{font-weight:600;font-size:13.5px;margin-bottom:4px}
+.sig-desc{font-size:12.5px;color:var(--fg-2)}
+.strip-wrap{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px}
+.strip{display:flex;height:28px;border-radius:6px;overflow:hidden;background:var(--bg-3);gap:1px}
+.strip-seg{height:100%;min-width:3px;cursor:pointer;transition:opacity .15s}
+.strip-seg:hover{opacity:.8}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;max-height:110px;overflow-y:auto}
+.leg-item{display:inline-flex;align-items:center;gap:6px;font:400 11.5px/1 'IBM Plex Mono',monospace;background:var(--bg-2);border:1px solid var(--line);padding:4px 7px;border-radius:5px;cursor:pointer}
+.leg-dot{width:10px;height:10px;border-radius:2px;display:inline-block}
+.para-map{display:flex;flex-direction:column;gap:4px;max-height:360px;overflow-y:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+.p-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;border-radius:5px;border:1px solid var(--line);cursor:pointer;font-size:12.5px}
+.p-bar:hover,.p-bar.active{outline:1.5px solid var(--accent)}
+.p-tag{font:400 11px/1 'IBM Plex Mono',monospace;padding:2px 6px;border-radius:4px;background:rgba(16,17,20,.55);color:#F2F0E9}
+.inspector{margin-top:10px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px}
+.inspector-text{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);white-space:pre-wrap;word-break:break-word;font-size:13.5px;color:var(--fg-2)}
+.timeline{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto}
+.tl-item{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 11px;font-size:12.5px}
+.tl-head{display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accent);flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--fg-3);font-size:12px;font-weight:500}
+.mono{font-family:'IBM Plex Mono',monospace}
+.hidden{display:none!important}
+@media print{
+  header .hdr-actions,#upload-panel,.toolbar,.file-tabs{display:none!important}
+  body{background:#fff;color:#111}
+  .panel,.kv,.sig,.strip-wrap,.para-map,.inspector,.tl-item{border-color:#ccc;max-height:none}
+}
+</style>
+<script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <a class="wordmark" href="index.html#tools">ALETHEIA</a>
+      <span class="page-title" data-i18n="pageTitle">Writing Process</span>
+      <span class="badge-local" data-i18n="localBadge">100% LOCAL · NO UPLOAD</span>
+    </div>
+    <div class="hdr-actions">
+      <button class="btn" id="btn-theme" type="button" aria-label="Toggle theme">☀ / ☾</button>
+      <button class="btn" id="btn-lang" type="button" aria-label="Switch language">中文</button>
+    </div>
+  </header>
+
+  <section id="upload-panel" class="panel">
+    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Select or drop Word .docx files">
+      <strong data-i18n="dropTitle">Drop one or more Word (.docx) files here</strong>
+      <p data-i18n="dropSub">or click to browse — load multiple drafts to compare revision progression</p>
+      <input type="file" id="file-input" multiple accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="hidden">
+    </div>
+    <div id="status-msg" class="status" aria-live="polite"></div>
+  </section>
+
+  <div id="main-results" class="hidden">
+    <div class="notice" data-i18n="caution">These are editing traces, not proof of who wrote the text. Pasting the text into a new file, using another editor, Google Docs exports or some 'Save as' formats reset or remove this history. Use it only to start a conversation.</div>
+
+    <div class="toolbar">
+      <div class="toolbar-grp">
+        <button class="btn btn-sm" id="btn-reveal" type="button" data-i18n="revealNames">Reveal names</button>
+        <button class="btn btn-sm" id="btn-show-text" type="button" data-i18n="showText">Show paragraph text</button>
+        <button class="btn btn-sm" id="btn-clear" type="button" data-i18n="clearBtn">Clear files</button>
+      </div>
+      <div class="toolbar-grp">
+        <button class="btn btn-sm" id="btn-dl-json" type="button" data-i18n="dlJson">Download JSON</button>
+        <button class="btn btn-sm" id="btn-dl-html" type="button" data-i18n="dlHtml">Download HTML report</button>
+        <button class="btn btn-sm" onclick="window.print()" type="button" data-i18n="printBtn">Print</button>
+      </div>
+    </div>
+
+    <div id="file-tabs" class="file-tabs" role="tablist" aria-label="Loaded drafts"></div>
+
+    <section id="drafts-panel" class="panel hidden">
+      <h2 data-i18n="draftCompTitle">Draft Progression (Ordered by Revision / Dates)</h2>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr>
+            <th data-i18n="colDraft">Draft</th>
+            <th data-i18n="colRev">Rev / Created</th>
+            <th data-i18n="colWords">Words</th>
+            <th data-i18n="colSessDelta">Sessions (Carried / New)</th>
+            <th data-i18n="colParaDiff">Paragraph Diff vs Prev</th>
+          </tr></thead>
+          <tbody id="drafts-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 data-i18n="signalsTitle">Process Observations</h2>
+      <div id="signals-grid" class="signals"></div>
+    </section>
+
+    <section class="panel">
+      <h2 data-i18n="metaTitle">Document Properties &amp; Settings</h2>
+      <div id="meta-grid" class="grid-meta"></div>
+    </section>
+
+    <section class="panel">
+      <h2 data-i18n="sessionsTitle">Editing Sessions (w:rsid)</h2>
+      <div id="no-rsid-box" class="notice hidden" style="margin-top:0"></div>
+      <div id="session-visuals">
+        <div class="strip-wrap">
+          <div id="session-strip" class="strip" role="img" aria-label="Session word distribution strip"></div>
+          <div id="session-legend" class="legend"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 data-i18n="paraMapTitle">Paragraph Session Map</h2>
+      <div id="para-map" class="para-map" role="list"></div>
+      <div id="para-inspector" class="inspector hidden">
+        <div id="para-insp-meta" class="mono" style="font-size:12px;color:var(--accent)"></div>
+        <div id="para-insp-text" class="inspector-text hidden"></div>
+      </div>
+    </section>
+
+    <section id="tc-panel" class="panel hidden">
+      <h2 data-i18n="tcTitle">Tracked Changes &amp; Comments</h2>
+      <div id="tc-summary" class="grid-meta" style="margin-bottom:12px"></div>
+      <div id="tc-timeline" class="timeline"></div>
+    </section>
+  </div>
+</div>
+
+<script>
+(() => {
+  const I18N = {
+    en: {
+      pageTitle: 'Writing Process',
+      localBadge: '100% LOCAL · NO UPLOAD',
+      dropTitle: 'Drop one or more Word (.docx) files here',
+      dropSub: 'or click to browse — load multiple drafts to compare revision progression. File names are shown and exported as they are, so rename files first if they contain a student\'s name.',
+      caution: "These are editing traces, not proof of who wrote the text. Pasting the text into a new file, using another editor, Google Docs exports or some 'Save as' formats reset or remove this history. Use it only to start a conversation.",
+      revealNames: 'Reveal names',
+      hideNames: 'Hide names',
+      showText: 'Show paragraph text',
+      hideText: 'Hide paragraph text',
+      clearBtn: 'Clear files',
+      dlJson: 'Download JSON',
+      dlHtml: 'Download HTML report',
+      printBtn: 'Print',
+      draftCompTitle: 'Draft Progression (Ordered by Revision / Dates)',
+      colDraft: 'Draft',
+      colRev: 'Rev / Created',
+      colWords: 'Words',
+      colSessDelta: 'Sessions (Carried / New)',
+      colParaDiff: 'Paragraph Diff vs Prev',
+      signalsTitle: 'Process Observations',
+      metaTitle: 'Document Properties & Settings',
+      sessionsTitle: 'Editing Sessions (w:rsid)',
+      paraMapTitle: 'Paragraph Session Map',
+      tcTitle: 'Tracked Changes & Comments',
+      rejectNonDocx: 'Skipped "{name}": only .docx Word files are supported (legacy .doc or PDF files cannot be unpacked).',
+      parseErr: 'Could not read "{name}": {err}',
+      hiddenVal: 'hidden',
+      addedOneSess: 'added in one session',
+      noRsidExplain: 'No Word revision session IDs (w:rsid) were found in this file. This typically happens when a document was exported from Google Docs, LibreOffice, Pandoc, or a third-party tool rather than saved incrementally in Microsoft Word.',
+      clickParaHint: 'Click any paragraph bar above to inspect its session ID and word count.',
+      obsEditTime: 'Editing time recorded: {m} min for {w} words',
+      obsEditTimeDesc: 'Word increments TotalTime while the document window is open. Low time can reflect offline drafting or pasting; high time can reflect leaving the file open.',
+      obsOneSess: '{pct}% of words were added in a single session',
+      obsOneSessDesc: 'Paragraphs of more than 60 words that carry a single session ID were entered in one editing session and not edited later. This is also normal when a piece is written in one sitting, or drafted elsewhere (notes, another app) and pasted in.',
+      obsFewSess: 'Few editing sessions ({s}) for a {w}-word document',
+      obsFewSessDesc: 'Documents drafted in Word across several sittings usually collect several session IDs. Few sessions is also normal for work written in one sitting or drafted in another app.',
+      obsMultiSess: 'Incremental editing across {s} sessions',
+      obsMultiSessDesc: 'Multiple distinct rsid tags appear across paragraphs and runs, consistent with multi-session editing in Word.',
+      obsTemplate: 'Template or copied-file indicators present',
+      obsTemplateDesc: 'Details: {detail}. Using an existing file or template preserves its original creation date or rsidRoot.',
+      obsNoRsid: 'No Word session history (rsid) present',
+      obsNoRsidDesc: 'Generated or re-saved by a non-Word editor (such as Google Docs or LibreOffice), which strips Word session identifiers.',
+      obsTracked: 'Tracked changes or comments recorded ({n} items)',
+      obsTrackedDesc: 'Contains revision markup (w:ins / w:del) or review comments in word/comments.xml.',
+      insLabel: 'Insertion',
+      delLabel: 'Deletion',
+      comLabel: 'Comment'
+    },
+    zh: {
+      pageTitle: '写作过程',
+      localBadge: '纯本地运行 · 绝不上传',
+      dropTitle: '将 Word (.docx) 文件拖放到此处（支持多份草稿）',
+      dropSub: '或点击选择文件 — 加载同一作品的多个草稿可对比修订过程。文件名会原样显示和导出，如果文件名里有学生姓名，请先改名。',
+      caution: '这些只是编辑痕迹，不能证明文本是谁写的。把文字粘贴到新文件、使用其他编辑器、从 Google Docs 导出或某些“另存为”格式都会重置或清除这些记录。只能作为沟通的起点。',
+      revealNames: '显示人名',
+      hideNames: '隐藏人名',
+      showText: '显示段落文本',
+      hideText: '隐藏段落文本',
+      clearBtn: '清空文件',
+      dlJson: '下载 JSON',
+      dlHtml: '下载 HTML 报告',
+      printBtn: '打印',
+      draftCompTitle: '多草稿演进对比（按修订号/日期排序）',
+      colDraft: '草稿文件',
+      colRev: '修订号 / 创建时间',
+      colWords: '总词数',
+      colSessDelta: '会话数（继承 / 新增）',
+      colParaDiff: '较上一稿段落变化',
+      signalsTitle: '过程观察',
+      metaTitle: '文档属性与设置',
+      sessionsTitle: '编辑会话 (w:rsid)',
+      paraMapTitle: '段落会话分布图',
+      tcTitle: '修订记录与批注',
+      rejectNonDocx: '已跳过 “{name}”：仅支持 .docx 格式的 Word 文档（不支持旧版 .doc 或 PDF）。',
+      parseErr: '无法解析 “{name}”：{err}',
+      hiddenVal: '已隐藏',
+      addedOneSess: '单次会话整段加入',
+      noRsidExplain: '此文件中未发现 Word 修订会话标识 (w:rsid)。这通常表示文档是由 Google Docs、LibreOffice、Pandoc 等工具导出，而非在 Microsoft Word 中逐步保存。',
+      clickParaHint: '点击上方任意段落条以查看其所属会话 ID 与词数。',
+      obsEditTime: '记录的编辑时长：{m} 分钟（共 {w} 词）',
+      obsEditTimeDesc: 'Word 在文档窗口打开期间累计 TotalTime。时长较短可能因离线起草后转入，较长也可能因窗口长时间挂起。',
+      obsOneSess: '{pct}% 的词是在单次会话中整段加入的',
+      obsOneSessDesc: '超过 60 词、只带一个会话标识的段落，是在一次编辑会话里写入、之后没有再改动的。一次写完的作业，或先在别处（笔记、其他软件）写好再粘贴进来，也会这样。',
+      obsFewSess: '篇幅 {w} 词但仅有 {s} 个编辑会话',
+      obsFewSessDesc: '在 Word 里分几次写的文档通常会积累多个会话标识。一次写完或在其他软件里起草的作业，会话少也很正常。',
+      obsMultiSess: '跨越 {s} 个编辑会话逐步修改',
+      obsMultiSessDesc: '段落与文本片段包含多个不同的 rsid 标记，符合在 Word 中分阶段编辑的特征。',
+      obsTemplate: '存在基于模板或复制旧文件的迹象',
+      obsTemplateDesc: '详情：{detail}。基于已有文件或模板创建文档会保留原始创建时间或 rsidRoot。',
+      obsNoRsid: '无 Word 会话历史记录 (rsid)',
+      obsNoRsidDesc: '由非 Word 编辑器（如 Google Docs 或 LibreOffice）生成或转存，Word 会话标识已被移除。',
+      obsTracked: '包含修订记录或批注（共 {n} 项）',
+      obsTrackedDesc: '文档内保留了修订标记 (w:ins / w:del) 或 word/comments.xml 批注。',
+      insLabel: '插入',
+      delLabel: '删除',
+      comLabel: '批注'
+    }
+  };
+
+  const COLORS = [
+    '#C9B98D','#5C9EAD','#CE6856','#82B366','#B07AA1',
+    '#D6894F','#6883BA','#A3A85C','#5BA88F','#C77D8A',
+    '#8E9BAE','#B99A5B'
+  ];
+
+  let lang = /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
+  try {
+    const s = localStorage.getItem('aletheia.lang');
+    if (s === 'zh' || s === 'en') lang = s;
+  } catch (e) {}
+
+  let filesData = [];
+  let activeIdx = 0;
+  let revealNames = false;
+  let showParaText = false;
+  let selectedParaIdx = -1;
+
+  const $ = id => document.getElementById(id);
+  const t = (k, vars) => {
+    let s = (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
+    if (vars) for (const key in vars) s = s.replace('{' + key + '}', vars[key]);
+    return s;
+  };
+
+  function applyI18n() {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    $('btn-lang').textContent = lang === 'en' ? '中文' : 'EN';
+    $('btn-reveal').textContent = revealNames ? t('hideNames') : t('revealNames');
+    $('btn-show-text').textContent = showParaText ? t('hideText') : t('showText');
+    if (filesData.length) renderAll();
+  }
+
+  $('btn-lang').addEventListener('click', () => {
+    lang = lang === 'en' ? 'zh' : 'en';
+    try { localStorage.setItem('aletheia.lang', lang); } catch (e) {}
+    applyI18n();
+  });
+
+  $('btn-theme').addEventListener('click', () => {
+    const d = document.documentElement, n = d.dataset.theme === 'light' ? 'dark' : 'light';
+    d.dataset.theme = n;
+    try { localStorage.setItem('aletheia.theme', n); } catch (e) {}
+    if (typeof drawMatrix === 'function' && typeof lastSetResult !== 'undefined' && lastSetResult) drawMatrix();
+  });
+
+  $('btn-reveal').addEventListener('click', () => {
+    revealNames = !revealNames;
+    $('btn-reveal').textContent = revealNames ? t('hideNames') : t('revealNames');
+    if (filesData.length) renderActiveFile();
+  });
+
+  $('btn-show-text').addEventListener('click', () => {
+    showParaText = !showParaText;
+    $('btn-show-text').textContent = showParaText ? t('hideText') : t('showText');
+    if (filesData.length) renderInspector();
+  });
+
+  $('btn-clear').addEventListener('click', () => {
+    filesData = [];
+    activeIdx = 0;
+    selectedParaIdx = -1;
+    $('main-results').classList.add('hidden');
+    $('status-msg').textContent = '';
+  });
+
+  // Minimal ZIP central-directory reader + DecompressionStream('deflate-raw')
+  async function unzipDocx(arrayBuffer) {
+    const view = new DataView(arrayBuffer);
+    const bytes = new Uint8Array(arrayBuffer);
+    let eocdOffset = -1;
+    const minSearch = Math.max(0, bytes.length - 65557);
+    for (let i = bytes.length - 22; i >= minSearch; i--) {
+      if (view.getUint32(i, true) === 0x06054b50) {
+        eocdOffset = i;
+        break;
+      }
+    }
+    if (eocdOffset < 0) throw new Error('Not a valid ZIP archive');
+    const entryCount = view.getUint16(eocdOffset + 10, true);
+    const cdOffset = view.getUint32(eocdOffset + 16, true);
+    const decoder = new TextDecoder('utf-8');
+    const entries = new Map();
+    let ptr = cdOffset;
+
+    for (let i = 0; i < entryCount; i++) {
+      if (ptr + 46 > bytes.length || view.getUint32(ptr, true) !== 0x02014b50) break;
+      const method = view.getUint16(ptr + 10, true);
+      const compSize = view.getUint32(ptr + 20, true);
+      const nameLen = view.getUint16(ptr + 28, true);
+      const extraLen = view.getUint16(ptr + 30, true);
+      const commentLen = view.getUint16(ptr + 32, true);
+      const localOffset = view.getUint32(ptr + 42, true);
+      const name = decoder.decode(bytes.subarray(ptr + 46, ptr + 46 + nameLen));
+      entries.set(name, { method, compSize, localOffset });
+      ptr += 46 + nameLen + extraLen + commentLen;
+    }
+
+    async function readTextEntry(entryName) {
+      const meta = entries.get(entryName);
+      if (!meta) return null;
+      const lp = meta.localOffset;
+      if (lp + 30 > bytes.length || view.getUint32(lp, true) !== 0x04034b50) return null;
+      const lNameLen = view.getUint16(lp + 26, true);
+      const lExtraLen = view.getUint16(lp + 28, true);
+      const dataStart = lp + 30 + lNameLen + lExtraLen;
+      const slice = bytes.subarray(dataStart, dataStart + meta.compSize);
+      if (meta.method === 0) {
+        return decoder.decode(slice);
+      }
+      if (meta.method === 8) {
+        if (typeof DecompressionStream === 'undefined') {
+          throw new Error('DecompressionStream not supported in this browser');
+        }
+        const ds = new DecompressionStream('deflate-raw');
+        const stream = new Blob([slice]).stream().pipeThrough(ds);
+        const outBuf = await new Response(stream).arrayBuffer();
+        return decoder.decode(outBuf);
+      }
+      throw new Error('Unsupported ZIP compression method: ' + meta.method);
+    }
+
+    return { entries, readTextEntry };
+  }
+
+  function parseXml(xmlStr) {
+    if (!xmlStr) return null;
+    const doc = new DOMParser().parseFromString(xmlStr, 'application/xml');
+    if (doc.querySelector('parsererror')) return null;
+    return doc;
+  }
+
+  function firstText(doc, localNames) {
+    if (!doc) return '';
+    for (const ln of localNames) {
+      const els = doc.getElementsByTagName('*');
+      for (let i = 0; i < els.length; i++) {
+        if (els[i].localName === ln && els[i].textContent.trim()) {
+          return els[i].textContent.trim();
+        }
+      }
+    }
+    return '';
+  }
+
+  function getWAttr(el, name) {
+    return el.getAttribute('w:' + name) || el.getAttribute(name) || '';
+  }
+
+  function countWords(str) {
+    const m = str.trim().match(/\S+/g);
+    return m ? m.length : 0;
+  }
+
+  function normParaHash(str) {
+    return str.normalize('NFKC').toLowerCase().replace(/\s+/g, ' ').trim();
+  }
+
+  // A run belongs to the closest enclosing w:p (text boxes nest paragraphs inside paragraphs).
+  function nearestPara(node) {
+    for (let n = node.parentNode; n; n = n.parentNode) if (n.localName === 'p') return n;
+    return null;
+  }
+  // Word stores a duplicate of some content in mc:AlternateContent/mc:Fallback for older readers; skip it.
+  function insideFallback(node) {
+    for (let n = node.parentNode; n; n = n.parentNode) if (n.localName === 'Fallback') return true;
+    return false;
+  }
+
+  async function analyzeDocx(file) {
+    const buf = await file.arrayBuffer();
+    const zip = await unzipDocx(buf);
+    const [coreXml, appXml, settingsXml, docXml, commentsXml] = await Promise.all([
+      zip.readTextEntry('docProps/core.xml'),
+      zip.readTextEntry('docProps/app.xml'),
+      zip.readTextEntry('word/settings.xml'),
+      zip.readTextEntry('word/document.xml'),
+      zip.readTextEntry('word/comments.xml')
+    ]);
+
+    if (!docXml) throw new Error('Missing word/document.xml');
+    const coreDoc = parseXml(coreXml);
+    const appDoc = parseXml(appXml);
+    const setDoc = parseXml(settingsXml);
+    const bodyDoc = parseXml(docXml);
+    const comDoc = parseXml(commentsXml);
+
+    const meta = {
+      created: firstText(coreDoc, ['created']),
+      modified: firstText(coreDoc, ['modified']),
+      creator: firstText(coreDoc, ['creator']),
+      lastModifiedBy: firstText(coreDoc, ['lastModifiedBy']),
+      revision: firstText(coreDoc, ['revision']),
+      totalTime: firstText(appDoc, ['TotalTime']),
+      application: firstText(appDoc, ['Application']),
+      appVersion: firstText(appDoc, ['AppVersion']),
+      template: firstText(appDoc, ['Template']),
+      pages: firstText(appDoc, ['Pages']),
+      wordsApp: firstText(appDoc, ['Words']),
+      charsApp: firstText(appDoc, ['Characters'])
+    };
+
+    let rsidRoot = '';
+    const settingsRsids = [];
+    if (setDoc) {
+      const all = setDoc.getElementsByTagName('*');
+      for (let i = 0; i < all.length; i++) {
+        const el = all[i];
+        if (el.localName === 'rsidRoot') rsidRoot = getWAttr(el, 'val');
+        else if (el.localName === 'rsid') {
+          const v = getWAttr(el, 'val');
+          if (v) settingsRsids.push(v);
+        }
+      }
+    }
+
+    const sessionWords = new Map();
+    const sessionOrder = [];
+    const noteSession = id => {
+      if (!id) return;
+      if (!sessionWords.has(id)) {
+        sessionWords.set(id, 0);
+        sessionOrder.push(id);
+      }
+    };
+    settingsRsids.forEach(noteSession);
+
+    const paragraphs = [];
+    const trackedChanges = [];
+    let totalWords = 0;
+    let oneSessionBlockWords = 0;
+
+    if (bodyDoc) {
+      const pEls = bodyDoc.getElementsByTagName('*');
+      for (let i = 0; i < pEls.length; i++) {
+        const el = pEls[i];
+        if (el.localName === 'ins' || el.localName === 'del') {
+          const author = getWAttr(el, 'author');
+          const date = getWAttr(el, 'date');
+          const txt = el.textContent.trim();
+          if (txt || date || author) {
+            trackedChanges.push({
+              kind: el.localName === 'ins' ? 'ins' : 'del',
+              author,
+              date,
+              preview: txt.slice(0, 120)
+            });
+          }
+        }
+        if (el.localName !== 'p') continue;
+        if (insideFallback(el)) continue;
+        const pRsidR = getWAttr(el, 'rsidR');
+        const pRsidDef = getWAttr(el, 'rsidRDefault');
+        noteSession(pRsidR);
+        noteSession(pRsidDef);
+
+        const runRsids = new Set();
+        const textParts = [];
+        const descendants = el.getElementsByTagName('*');
+        for (let j = 0; j < descendants.length; j++) {
+          const d = descendants[j];
+          if (d.localName === 'r' && nearestPara(d) === el && !insideFallback(d)) {
+            const rr = getWAttr(d, 'rsidR') || pRsidDef || pRsidR || 'none';
+            runRsids.add(rr);
+            let rText = '';
+            const kids = d.getElementsByTagName('*');
+            for (let k = 0; k < kids.length; k++) {
+              if (kids[k].localName === 't') {
+                rText += kids[k].textContent;
+              } else if (kids[k].localName === 'tab') {
+                rText += '\t';
+              } else if (kids[k].localName === 'br') {
+                rText += '\n';
+              }
+            }
+            if (rText) {
+              textParts.push(rText);
+              const wc = countWords(rText);
+              if (rr !== 'none') {
+                noteSession(rr);
+                sessionWords.set(rr, (sessionWords.get(rr) || 0) + wc);
+              }
+            }
+          }
+        }
+        const fullText = textParts.join('');
+        const wc = countWords(fullText);
+        if (!wc && !fullText.trim()) continue;
+        totalWords += wc;
+        const activeRunSessions = [...runRsids].filter(x => x !== 'none');
+        const primarySession = activeRunSessions[0] || pRsidR || pRsidDef || 'none';
+        const singleSessionBulk = activeRunSessions.length === 1 && wc > 60;
+        if (singleSessionBulk) oneSessionBlockWords += wc;
+
+        paragraphs.push({
+          index: paragraphs.length + 1,
+          rsidR: pRsidR,
+          rsidRDefault: pRsidDef,
+          runRsids: activeRunSessions,
+          primarySession,
+          words: wc,
+          singleSessionBulk,
+          text: fullText,
+          hash: normParaHash(fullText)
+        });
+      }
+    }
+
+    const comments = [];
+    if (comDoc) {
+      const cEls = comDoc.getElementsByTagName('*');
+      for (let i = 0; i < cEls.length; i++) {
+        if (cEls[i].localName === 'comment') {
+          comments.push({
+            kind: 'comment',
+            author: getWAttr(cEls[i], 'author'),
+            date: getWAttr(cEls[i], 'date'),
+            preview: cEls[i].textContent.trim().slice(0, 140)
+          });
+        }
+      }
+    }
+
+    const allSessions = sessionOrder.map((id, idx) => ({
+      id,
+      words: sessionWords.get(id) || 0,
+      color: COLORS[idx % COLORS.length]
+    }));
+
+    return {
+      fileName: file.name,
+      meta,
+      rsidRoot,
+      settingsRsids,
+      allSessions,
+      paragraphs,
+      totalWords,
+      oneSessionBlockWords,
+      trackedChanges,
+      comments
+    };
+  }
+
+  function sortDrafts(list) {
+    return list.slice().sort((a, b) => {
+      const ra = parseInt(a.meta.revision, 10);
+      const rb = parseInt(b.meta.revision, 10);
+      if (!isNaN(ra) && !isNaN(rb) && ra !== rb) return ra - rb;
+      const ca = Date.parse(a.meta.created || a.meta.modified || '');
+      const cb = Date.parse(b.meta.created || b.meta.modified || '');
+      if (!isNaN(ca) && !isNaN(cb) && ca !== cb) return ca - cb;
+      return a.fileName.localeCompare(b.fileName);
+    });
+  }
+
+  async function handleFiles(fileList) {
+    if (!fileList || !fileList.length) return;
+    const msgs = [];
+    for (const f of fileList) {
+      if (!f.name.toLowerCase().endsWith('.docx')) {
+        msgs.push(t('rejectNonDocx', { name: f.name }));
+        continue;
+      }
+      try {
+        const parsed = await analyzeDocx(f);
+        filesData.push(parsed);
+      } catch (err) {
+        msgs.push(t('parseErr', { name: f.name, err: err.message }));
+      }
+    }
+    $('status-msg').textContent = msgs.join(' ');
+    if (filesData.length) {
+      filesData = sortDrafts(filesData);
+      activeIdx = filesData.length - 1;
+      selectedParaIdx = -1;
+      renderAll();
+    }
+  }
+
+  const dz = $('dropzone'), fi = $('file-input');
+  dz.addEventListener('click', () => fi.click());
+  dz.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fi.click(); } });
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+  dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag'); handleFiles(Array.from(e.dataTransfer.files)); });
+  fi.addEventListener('change', () => { const files = Array.from(fi.files); fi.value = ''; handleFiles(files); });
+
+  function buildSignals(doc) {
+    const sigs = [];
+    const sessCount = doc.allSessions.length;
+    const words = doc.totalWords || parseInt(doc.meta.wordsApp, 10) || 0;
+    const mins = parseInt(doc.meta.totalTime, 10);
+
+    if (!isNaN(mins)) {
+      sigs.push({
+        warn: mins <= 2 && words > 250,
+        title: t('obsEditTime', { m: mins, w: words }),
+        desc: t('obsEditTimeDesc')
+      });
+    }
+
+    if (sessCount === 0) {
+      sigs.push({
+        warn: false,
+        title: t('obsNoRsid'),
+        desc: t('obsNoRsidDesc')
+      });
+    } else {
+      const bulkPct = words > 0 ? Math.round((doc.oneSessionBlockWords / words) * 100) : 0;
+      if (bulkPct > 0) {
+        sigs.push({
+          warn: bulkPct >= 40,
+          title: t('obsOneSess', { pct: bulkPct }),
+          desc: t('obsOneSessDesc')
+        });
+      }
+      if (sessCount <= 2 && words >= 300) {
+        sigs.push({
+          warn: true,
+          title: t('obsFewSess', { s: sessCount, w: words }),
+          desc: t('obsFewSessDesc')
+        });
+      } else if (sessCount >= 3) {
+        sigs.push({
+          warn: false,
+          title: t('obsMultiSess', { s: sessCount }),
+          desc: t('obsMultiSessDesc')
+        });
+      }
+    }
+
+    const tplDetails = [];
+    if (doc.meta.template && !/^normal(\.dotm?)?$/i.test(doc.meta.template)) {
+      tplDetails.push('Template: ' + doc.meta.template);
+    }
+    if (doc.rsidRoot && doc.settingsRsids.length && !doc.settingsRsids.includes(doc.rsidRoot)) {
+      tplDetails.push('rsidRoot ' + doc.rsidRoot + ' differs from current sessions');
+    }
+    const cTime = Date.parse(doc.meta.created || '');
+    const mTime = Date.parse(doc.meta.modified || '');
+    if (!isNaN(cTime) && !isNaN(mTime) && (mTime - cTime) > 1000 * 86400 * 30) {
+      tplDetails.push('Created >30 days before modified');
+    }
+    if (tplDetails.length) {
+      sigs.push({
+        warn: false,
+        title: t('obsTemplate'),
+        desc: t('obsTemplateDesc', { detail: tplDetails.join('; ') })
+      });
+    }
+
+    const tcTotal = doc.trackedChanges.length + doc.comments.length;
+    if (tcTotal > 0) {
+      sigs.push({
+        warn: false,
+        title: t('obsTracked', { n: tcTotal }),
+        desc: t('obsTrackedDesc')
+      });
+    }
+    return sigs;
+  }
+
+  function renderDraftComparison() {
+    const panel = $('drafts-panel');
+    if (filesData.length < 2) { panel.classList.add('hidden'); return; }
+    panel.classList.remove('hidden');
+    const tbody = $('drafts-tbody');
+    tbody.textContent = '';
+
+    filesData.forEach((doc, idx) => {
+      const tr = document.createElement('tr');
+      const prev = idx > 0 ? filesData[idx - 1] : null;
+      const curSess = new Set(doc.allSessions.map(s => s.id));
+      let sessText = String(curSess.size);
+      let diffText = '—';
+      let wordDelta = '';
+
+      if (prev) {
+        const prevSess = new Set(prev.allSessions.map(s => s.id));
+        let carried = 0, addedS = 0;
+        curSess.forEach(id => { if (prevSess.has(id)) carried++; else addedS++; });
+        sessText = `${carried} / +${addedS}`;
+
+        const dw = doc.totalWords - prev.totalWords;
+        wordDelta = ` (${dw >= 0 ? '+' : ''}${dw})`;
+
+        const prevHashes = new Map();
+        prev.paragraphs.forEach(p => prevHashes.set(p.hash, (prevHashes.get(p.hash) || 0) + 1));
+        const curHashes = new Map();
+        doc.paragraphs.forEach(p => curHashes.set(p.hash, (curHashes.get(p.hash) || 0) + 1));
+
+        let same = 0, addedP = 0, removedP = 0;
+        curHashes.forEach((cnt, h) => {
+          const pCnt = prevHashes.get(h) || 0;
+          same += Math.min(cnt, pCnt);
+          if (cnt > pCnt) addedP += cnt - pCnt;
+        });
+        prevHashes.forEach((cnt, h) => {
+          const cCnt = curHashes.get(h) || 0;
+          if (cnt > cCnt) removedP += cnt - cCnt;
+        });
+        diffText = `+${addedP} / -${removedP} / =${same}`;
+      }
+
+      const cells = [
+        doc.fileName,
+        `r${doc.meta.revision || '?'} · ${(doc.meta.created || '—').slice(0, 10)}`,
+        `${doc.totalWords}${wordDelta}`,
+        sessText,
+        diffText
+      ];
+      cells.forEach((val, ci) => {
+        const td = document.createElement('td');
+        if (ci > 0) td.className = 'mono';
+        td.textContent = val;
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderInspector() {
+    const box = $('para-inspector');
+    const doc = filesData[activeIdx];
+    if (!doc || selectedParaIdx < 0 || selectedParaIdx >= doc.paragraphs.length) {
+      box.classList.add('hidden');
+      return;
+    }
+    box.classList.remove('hidden');
+    const p = doc.paragraphs[selectedParaIdx];
+    const parts = [
+      `¶${p.index}`,
+      `${p.words} words`,
+      `rsidR=${p.rsidR || 'none'}`,
+      `runs=[${p.runRsids.join(', ') || 'none'}]`
+    ];
+    if (p.singleSessionBulk) parts.push(`[${t('addedOneSess')}]`);
+    $('para-insp-meta').textContent = parts.join('  ·  ');
+
+    const txtEl = $('para-insp-text');
+    txtEl.classList.toggle('hidden', !showParaText);
+    txtEl.textContent = showParaText ? p.text : '';
+  }
+
+  function renderActiveFile() {
+    const doc = filesData[activeIdx];
+    if (!doc) return;
+
+    // Signals
+    const sGrid = $('signals-grid');
+    sGrid.textContent = '';
+    buildSignals(doc).forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'sig' + (s.warn ? ' warn' : '');
+      const st = document.createElement('div');
+      st.className = 'sig-title';
+      st.textContent = s.title;
+      const sd = document.createElement('div');
+      sd.className = 'sig-desc';
+      sd.textContent = s.desc;
+      card.append(st, sd);
+      sGrid.appendChild(card);
+    });
+
+    // Metadata grid
+    const mGrid = $('meta-grid');
+    mGrid.textContent = '';
+    const maskName = val => !val ? '—' : (revealNames ? val : t('hiddenVal'));
+    const entries = [
+      ['Created', doc.meta.created || '—'],
+      ['Modified', doc.meta.modified || '—'],
+      ['Creator', maskName(doc.meta.creator)],
+      ['Last Modified By', maskName(doc.meta.lastModifiedBy)],
+      ['Revision', doc.meta.revision || '—'],
+      ['TotalTime (min)', doc.meta.totalTime || '—'],
+      ['Application', [doc.meta.application, doc.meta.appVersion].filter(Boolean).join(' ') || '—'],
+      ['Template', doc.meta.template || '—'],
+      ['Pages / Words / Chars', `${doc.meta.pages || '—'} / ${doc.meta.wordsApp || doc.totalWords} / ${doc.meta.charsApp || '—'}`],
+      ['rsidRoot', doc.rsidRoot || '—'],
+      ['Session Count', String(doc.allSessions.length)]
+    ];
+    entries.forEach(([k, v]) => {
+      const kv = document.createElement('div');
+      kv.className = 'kv';
+      const ke = document.createElement('div');
+      ke.className = 'k';
+      ke.textContent = k;
+      const ve = document.createElement('div');
+      ve.className = 'v';
+      ve.textContent = v;
+      kv.append(ke, ve);
+      mGrid.appendChild(kv);
+    });
+
+    // Sessions strip
+    const colorMap = new Map();
+    doc.allSessions.forEach(s => colorMap.set(s.id, s.color));
+
+    if (!doc.allSessions.length) {
+      $('no-rsid-box').textContent = t('noRsidExplain');
+      $('no-rsid-box').classList.remove('hidden');
+      $('session-visuals').classList.add('hidden');
+    } else {
+      $('no-rsid-box').classList.add('hidden');
+      $('session-visuals').classList.remove('hidden');
+      const strip = $('session-strip');
+      const leg = $('session-legend');
+      strip.textContent = '';
+      leg.textContent = '';
+      const totalAssigned = doc.allSessions.reduce((acc, s) => acc + s.words, 0) || 1;
+
+      doc.allSessions.forEach((s, idx) => {
+        const seg = document.createElement('div');
+        seg.className = 'strip-seg';
+        seg.style.background = s.color;
+        seg.style.flex = `${Math.max(1, s.words)} 1 0%`;
+        seg.title = `S${idx + 1} (${s.id}): ${s.words} words`;
+        strip.appendChild(seg);
+
+        const item = document.createElement('span');
+        item.className = 'leg-item';
+        const dot = document.createElement('span');
+        dot.className = 'leg-dot';
+        dot.style.background = s.color;
+        const lbl = document.createElement('span');
+        const pct = Math.round((s.words / totalAssigned) * 100);
+        lbl.textContent = `S${idx + 1} ${s.id}: ${s.words}w (${pct}%)`;
+        item.append(dot, lbl);
+        leg.appendChild(item);
+      });
+    }
+
+    // Paragraph map
+    const pMap = $('para-map');
+    pMap.textContent = '';
+    doc.paragraphs.forEach((p, idx) => {
+      const bar = document.createElement('div');
+      bar.className = 'p-bar' + (idx === selectedParaIdx ? ' active' : '');
+      bar.tabIndex = 0;
+      bar.setAttribute('role', 'listitem');
+      const bgCol = colorMap.get(p.primarySession) || 'var(--bg-3)';
+      bar.style.background = p.primarySession === 'none'
+        ? 'var(--bg-2)'
+        : `linear-gradient(90deg, ${bgCol}38 0%, ${bgCol}18 100%)`;
+
+      const left = document.createElement('span');
+      left.className = 'mono';
+      left.textContent = `¶${p.index} · ${p.words}w · ${p.primarySession}`;
+
+      const right = document.createElement('span');
+      if (p.singleSessionBulk) {
+        const tag = document.createElement('span');
+        tag.className = 'p-tag';
+        tag.textContent = t('addedOneSess');
+        right.appendChild(tag);
+      }
+      bar.append(left, right);
+      const select = () => {
+        selectedParaIdx = idx;
+        pMap.querySelectorAll('.p-bar').forEach((el, j) => el.classList.toggle('active', j === idx));
+        renderInspector();
+      };
+      bar.addEventListener('click', select);
+      bar.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(); } });
+      pMap.appendChild(bar);
+    });
+    renderInspector();
+
+    // Tracked changes & comments
+    const tcItems = [
+      ...doc.trackedChanges.map(x => ({ ...x, label: x.kind === 'ins' ? t('insLabel') : t('delLabel') })),
+      ...doc.comments.map(x => ({ ...x, label: t('comLabel') }))
+    ].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+    const tcPanel = $('tc-panel');
+    if (!tcItems.length) {
+      tcPanel.classList.add('hidden');
+    } else {
+      tcPanel.classList.remove('hidden');
+      const sum = $('tc-summary');
+      sum.textContent = '';
+      const insCnt = doc.trackedChanges.filter(x => x.kind === 'ins').length;
+      const delCnt = doc.trackedChanges.filter(x => x.kind === 'del').length;
+      [
+        ['Insertions (w:ins)', String(insCnt)],
+        ['Deletions (w:del)', String(delCnt)],
+        ['Comments', String(doc.comments.length)]
+      ].forEach(([k, v]) => {
+        const kv = document.createElement('div');
+        kv.className = 'kv';
+        const ke = document.createElement('div'); ke.className = 'k'; ke.textContent = k;
+        const ve = document.createElement('div'); ve.className = 'v'; ve.textContent = v;
+        kv.append(ke, ve);
+        sum.appendChild(kv);
+      });
+
+      const tl = $('tc-timeline');
+      tl.textContent = '';
+      tcItems.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'tl-item';
+        const head = document.createElement('div');
+        head.className = 'tl-head';
+        const author = item.author ? (revealNames ? item.author : t('hiddenVal')) : '—';
+        head.textContent = `${item.label} · ${item.date || 'undated'} · ${author}`;
+        card.appendChild(head);
+        if (item.preview && showParaText) {
+          const body = document.createElement('div');
+          body.style.marginTop = '4px';
+          body.style.color = 'var(--fg-2)';
+          body.textContent = item.preview;
+          card.appendChild(body);
+        }
+        tl.appendChild(card);
+      });
+    }
+  }
+
+  function renderAll() {
+    $('main-results').classList.remove('hidden');
+    const tabsEl = $('file-tabs');
+    tabsEl.textContent = '';
+    filesData.forEach((doc, idx) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'file-tab';
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', String(idx === activeIdx));
+      btn.textContent = `${doc.fileName} (${doc.totalWords}w)`;
+      btn.addEventListener('click', () => {
+        activeIdx = idx;
+        selectedParaIdx = -1;
+        renderAll();
+      });
+      tabsEl.appendChild(btn);
+    });
+    renderDraftComparison();
+    renderActiveFile();
+  }
+
+  function buildExportSummary() {
+    return filesData.map(doc => ({
+      fileName: doc.fileName,
+      meta: {
+        created: doc.meta.created,
+        modified: doc.meta.modified,
+        creator: revealNames ? doc.meta.creator : '[hidden]',
+        lastModifiedBy: revealNames ? doc.meta.lastModifiedBy : '[hidden]',
+        revision: doc.meta.revision,
+        totalTimeMinutes: doc.meta.totalTime,
+        application: doc.meta.application,
+        appVersion: doc.meta.appVersion,
+        template: doc.meta.template
+      },
+      rsidRoot: doc.rsidRoot,
+      sessionCount: doc.allSessions.length,
+      sessions: doc.allSessions.map(s => ({ id: s.id, words: s.words })),
+      totalWords: doc.totalWords,
+      oneSessionBulkWords: doc.oneSessionBlockWords,
+      trackedChangesCount: doc.trackedChanges.length,
+      commentsCount: doc.comments.length,
+      observations: buildSignals(doc).map(s => s.title)
+    }));
+  }
+
+  function downloadFile(name, content, mime) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([content], { type: mime }));
+    a.download = name;
+    a.click();
+  }
+
+  $('btn-dl-json').addEventListener('click', () => {
+    if (!filesData.length) return;
+    downloadFile('aletheia-process-summary.json', JSON.stringify(buildExportSummary(), null, 2), 'application/json');
+  });
+
+  function escHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  $('btn-dl-html').addEventListener('click', () => {
+    if (!filesData.length) return;
+    const summary = buildExportSummary();
+    const sections = summary.map(d => `
+      <h2>${escHtml(d.fileName)}</h2>
+      <p>Created: ${escHtml(d.meta.created || '—')} | Modified: ${escHtml(d.meta.modified || '—')} | Rev: ${escHtml(d.meta.revision || '—')} | TotalTime: ${escHtml(d.meta.totalTimeMinutes || '—')} min</p>
+      <p>Application: ${escHtml(d.meta.application || '—')} | Template: ${escHtml(d.meta.template || '—')} | rsidRoot: ${escHtml(d.rsidRoot || '—')}</p>
+      <ul>${d.observations.map(o => `<li>${escHtml(o)}</li>`).join('')}</ul>
+      <table><tr><th>Session (rsid)</th><th>Words</th></tr>${d.sessions.map(s => `<tr><td>${escHtml(s.id)}</td><td>${s.words}</td></tr>`).join('')}</table>
+    `).join('');
+    const htmlDoc = `<!doctype html><html><head><meta charset="utf-8"><title>ALETHEIA Process Report</title>
+<style>body{font-family:system-ui,sans-serif;background:#101114;color:#F2F0E9;max-width:960px;margin:24px auto;padding:0 16px;line-height:1.55}
+h1,h2{color:#C9B98D}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{border:1px solid #333;padding:7px;text-align:left}
+.note{border-left:3px solid #B99A5B;padding:8px 12px;background:#181A20;color:#B9B6AC}</style></head><body>
+<h1>ALETHEIA — ${escHtml(t('pageTitle'))}</h1><p class="note">${escHtml(t('caution'))}</p>${sections}</body></html>`;
+    downloadFile('aletheia-process-report.html', htmlDoc, 'text/html');
+  });
+
+  applyI18n();
+})();
+</script>
+</body>
+</html>

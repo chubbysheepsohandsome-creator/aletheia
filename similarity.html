@@ -1,0 +1,1121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ALETHEIA — Similarity Check</title>
+<style>
+@font-face{font-family:'Inter';src:url('inter-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('inter-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('inter-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Cormorant Garamond';src:url('cormorant-garamond-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Cormorant Garamond';src:url('cormorant-garamond-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('ibm-plex-mono-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+:root{
+  --bg:#101114;--bg-2:#181A20;--bg-3:#252832;--fg:#F2F0E9;--fg-2:#B9B6AC;--fg-3:#86847D;
+  --line:rgba(242,240,233,.10);--accent:#C9B98D;--gold:#B99A5B;
+  --hl-strong:rgba(206,104,86,.34);--hl-moderate:rgba(201,170,96,.30);
+}
+[data-theme="light"]{
+  --bg:#FAFAF7;--bg-2:#F2F0E9;--bg-3:#E6E3D8;--fg:#101114;--fg-2:#3C3B37;--fg-3:#6B6962;
+  --line:rgba(16,17,20,.12);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 14px/1.55 'Inter',system-ui,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:16px 20px 56px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.wordmark{font:600 22px/1 'Cormorant Garamond',Georgia,serif;letter-spacing:.14em;color:var(--accent)}
+.page-title{font:500 22px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--fg)}
+.badge-local{font:400 11px/1 'IBM Plex Mono',monospace;color:var(--fg-3);border:1px solid var(--line);padding:4px 8px;border-radius:999px}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.btn{background:var(--bg-2);border:1px solid var(--line);color:var(--fg);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:13px;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--bg-3);border-color:var(--accent)}
+.btn-primary{background:var(--accent);color:#101114;border-color:var(--accent);font-weight:600}
+.btn-primary:hover{background:var(--gold);border-color:var(--gold)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.tabs{display:flex;gap:4px;margin:18px 0 14px;border-bottom:1px solid var(--line)}
+.tab{background:none;border:none;border-bottom:2px solid transparent;padding:9px 14px;color:var(--fg-2);cursor:pointer;font-weight:500}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.panel{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:780px){.grid-2{grid-template-columns:1fr}}
+.dropzone{border:1.5px dashed var(--line);border-radius:8px;padding:18px;text-align:center;cursor:pointer;background:var(--bg);transition:border-color .15s,background .15s}
+.dropzone.drag{border-color:var(--accent);background:var(--bg-3)}
+.dropzone p{margin:4px 0;color:var(--fg-2);font-size:13px}
+.row-inputs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+input[type="text"],textarea{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
+textarea{min-height:92px;resize:vertical}
+.toggles{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--fg-2)}
+.toggles label{display:flex;align-items:center;gap:6px;cursor:pointer}
+.doc-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;max-height:150px;overflow-y:auto}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--bg-3);border:1px solid var(--line);border-radius:6px;padding:4px 8px;font-size:12px}
+.chip .mono{font-family:'IBM Plex Mono',monospace;color:var(--fg-3);font-size:11px}
+.chip button{background:none;border:none;color:var(--fg-3);cursor:pointer;padding:0 2px;font-size:14px}
+.chip button:hover{color:var(--fg)}
+.actions-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.progress{height:6px;background:var(--bg-3);border-radius:999px;overflow:hidden;margin-top:10px;display:none}
+.progress.active{display:block}
+.progress-bar{height:100%;width:0%;background:var(--accent);transition:width .15s}
+.notice{border-left:3px solid var(--gold);background:var(--bg-2);padding:10px 14px;border-radius:0 8px 8px 0;color:var(--fg-2);font-size:13px;margin-bottom:16px}
+.results-hdr{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.results-hdr h2{margin:0;font:600 20px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--accent)}
+.mono{font-family:'IBM Plex Mono',monospace}
+.matrix-wrap{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:8px}
+canvas{display:block;max-width:100%;cursor:pointer}
+.slider-row{display:flex;align-items:center;gap:10px;margin:12px 0;font-size:13px;flex-wrap:wrap}
+input[type="range"]{accent-color:var(--accent);width:180px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--fg-3);font-weight:500;font-size:12px}
+tr.pair-row{cursor:pointer}
+tr.pair-row:hover,tr.pair-row.selected{background:var(--bg-3)}
+tr.pair-row.above td:nth-child(2){color:var(--accent);font-weight:600}
+.sbs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:780px){.sbs{grid-template-columns:1fr}}
+.doc-pane{background:var(--bg);border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;max-height:460px}
+.doc-pane-hdr{padding:8px 12px;border-bottom:1px solid var(--line);font-weight:600;font-size:13px;display:flex;justify-content:space-between;gap:8px}
+.doc-body{padding:12px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;font-size:13.5px;line-height:1.65}
+mark.m{border-radius:3px;padding:1px 2px;color:inherit;cursor:pointer}
+.p-tag{font:600 10px/1 'IBM Plex Mono',monospace;padding:1px 4px;border-radius:3px;margin-right:3px;background:var(--bg-3);color:var(--fg);vertical-align:baseline}
+.stats-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.stat-card{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:150px}
+.stat-card .k{font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:.05em}
+.stat-card .v{font:500 22px/1.2 'IBM Plex Mono',monospace;color:var(--accent);margin-top:4px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.legend-item{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid var(--line);background:var(--bg)}
+.swatch{width:12px;height:12px;border-radius:3px;display:inline-block}
+.hidden{display:none!important}
+@media print{
+  header .hdr-actions,.tabs,#input-area,.actions-bar,.slider-row,.progress{display:none!important}
+  body{background:#fff;color:#111}
+  .panel,.doc-pane{border-color:#ccc;max-height:none}
+  .doc-body{overflow:visible}
+}
+</style>
+<script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <a class="wordmark" href="index.html#tools">ALETHEIA</a>
+      <span class="page-title" data-i18n="pageTitle">Similarity Check</span>
+      <span class="badge-local" data-i18n="localBadge">100% LOCAL · NO UPLOAD</span>
+    </div>
+    <div class="hdr-actions">
+      <button class="btn" id="btn-theme" type="button" aria-label="Toggle color theme">☀ / ☾</button>
+      <button class="btn" id="btn-lang" type="button" aria-label="Switch language">中文</button>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Similarity modes">
+    <button class="tab" id="tab-set" role="tab" aria-selected="true" aria-controls="panel-set" tabindex="0" data-i18n="tabSet">Compare a set</button>
+    <button class="tab" id="tab-src" role="tab" aria-selected="false" aria-controls="panel-src" tabindex="-1" data-i18n="tabSrc">Check against sources</button>
+  </div>
+
+  <div id="input-area">
+    <section id="panel-set" class="panel" role="tabpanel" aria-labelledby="tab-set">
+      <div class="grid-2">
+        <div>
+          <div class="dropzone" id="dz-set" tabindex="0" role="button" aria-label="Drop or select documents">
+            <strong data-i18n="dropTitle">Drop .txt, .docx, or .pdf files here</strong>
+            <p data-i18n="dropSub">or click to browse (2–200 documents)</p>
+            <input type="file" id="file-set" multiple accept=".txt,.docx,.pdf,text/plain" class="hidden">
+          </div>
+          <div id="set-list" class="doc-list" aria-live="polite"></div>
+        </div>
+        <div>
+          <input type="text" id="paste-set-name" placeholder="Document name (optional)" data-i18n-ph="docNamePh" aria-label="Document name">
+          <textarea id="paste-set-text" style="margin-top:8px" placeholder="Paste document text here..." data-i18n-ph="pasteDocPh" aria-label="Document text"></textarea>
+          <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+            <span class="mono" style="font-size:12px;color:var(--fg-3)" id="set-count">0 / 200</span>
+            <button class="btn" id="btn-add-set" type="button" data-i18n="addDoc">Add document</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel-src" class="panel hidden" role="tabpanel" aria-labelledby="tab-src">
+      <div class="grid-2">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <strong data-i18n="subLabel">Submission (1 document)</strong>
+            <label class="btn" style="padding:4px 9px;font-size:12px;cursor:pointer">
+              <span data-i18n="loadFile">Load file</span>
+              <input type="file" id="file-sub" accept=".txt,.docx,.pdf,text/plain" class="hidden">
+            </label>
+          </div>
+          <input type="text" id="sub-name" placeholder="Submission title" data-i18n-ph="subNamePh" aria-label="Submission title">
+          <textarea id="sub-text" style="margin-top:8px;min-height:130px" placeholder="Paste or load the submission to check..." data-i18n-ph="subTextPh" aria-label="Submission text"></textarea>
+        </div>
+        <div>
+          <strong style="display:block;margin-bottom:6px" data-i18n="srcLabel">Reference sources (up to 50)</strong>
+          <div class="dropzone" id="dz-src" tabindex="0" role="button" aria-label="Drop or select source files" style="padding:12px">
+            <strong data-i18n="dropSrc">Drop source files (.txt, .docx, .pdf)</strong>
+            <input type="file" id="file-src" multiple accept=".txt,.docx,.pdf,text/plain" class="hidden">
+          </div>
+          <div class="row-inputs">
+            <input type="text" id="paste-src-name" style="flex:1;min-width:130px" placeholder="Source name" data-i18n-ph="srcNamePh" aria-label="Source name">
+            <button class="btn" id="btn-add-src" type="button" data-i18n="addSrc">Add source</button>
+          </div>
+          <textarea id="paste-src-text" style="margin-top:8px;min-height:66px" placeholder="Paste source text..." data-i18n-ph="srcTextPh" aria-label="Source text"></textarea>
+          <div id="src-list" class="doc-list" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="panel">
+      <div class="toggles">
+        <label><input type="checkbox" id="opt-quotes"> <span data-i18n="optQuotes">Ignore quoted passages ("…" / “…”)</span></label>
+        <label><input type="checkbox" id="opt-refs" checked> <span data-i18n="optRefs">Ignore reference list</span></label>
+        <label><input type="checkbox" id="opt-nums"> <span data-i18n="optNums">Ignore numbers</span></label>
+      </div>
+      <div class="actions-bar">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" id="btn-run" type="button" data-i18n="runBtn">Compare</button>
+          <button class="btn" id="btn-clear" type="button" data-i18n="clearBtn">Clear</button>
+        </div>
+        <span id="status-msg" class="mono" style="font-size:12px;color:var(--fg-2)" aria-live="polite"></span>
+      </div>
+      <div class="progress" id="progress"><div class="progress-bar" id="progress-bar"></div></div>
+    </div>
+  </div>
+
+  <div id="results-area" class="hidden">
+    <div class="notice" id="disclaimer" data-i18n="disclaimer">Similarity shows shared wording, not misconduct. Quotations, common phrases and shared task instructions can match. Review every match yourself.</div>
+
+    <div id="res-set" class="panel hidden">
+      <div class="results-hdr">
+        <h2 data-i18n="setResTitle">Pairwise Similarity</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" id="btn-dl-set" type="button" data-i18n="dlReport">Download report</button>
+          <button class="btn" onclick="window.print()" type="button" data-i18n="printBtn">Print</button>
+        </div>
+      </div>
+      <div class="slider-row">
+        <label for="thr-slider" data-i18n="thrLabel">Highlight threshold (containment):</label>
+        <input type="range" id="thr-slider" min="0" max="100" value="20">
+        <span class="mono" id="thr-val">20%</span>
+        <span class="mono" style="color:var(--fg-3);font-size:12px" id="filter-info"></span>
+      </div>
+      <div class="matrix-wrap"><canvas id="matrix-canvas" aria-label="Pairwise containment heatmap"></canvas></div>
+      <div style="overflow-x:auto;margin-top:14px">
+        <table>
+          <thead><tr>
+            <th data-i18n="colPair">Document Pair</th>
+            <th data-i18n="colCont">Containment</th>
+            <th data-i18n="colJacc">Jaccard</th>
+            <th data-i18n="colPass">Passages (≥8w)</th>
+          </tr></thead>
+          <tbody id="pairs-tbody"></tbody>
+        </table>
+      </div>
+      <div id="sbs-wrap" class="hidden">
+        <div class="sbs">
+          <div class="doc-pane">
+            <div class="doc-pane-hdr"><span id="sbs-title-a"></span><span class="mono" id="sbs-meta-a" style="color:var(--fg-3)"></span></div>
+            <div class="doc-body" id="sbs-body-a"></div>
+          </div>
+          <div class="doc-pane">
+            <div class="doc-pane-hdr"><span id="sbs-title-b"></span><span class="mono" id="sbs-meta-b" style="color:var(--fg-3)"></span></div>
+            <div class="doc-body" id="sbs-body-b"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="res-src" class="panel hidden">
+      <div class="results-hdr">
+        <h2 data-i18n="srcResTitle">Source Coverage</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" id="btn-dl-src" type="button" data-i18n="dlReport">Download report</button>
+          <button class="btn" onclick="window.print()" type="button" data-i18n="printBtn">Print</button>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="k" data-i18n="covWords">Matched word share</div><div class="v" id="src-overall-pct">0%</div></div>
+        <div class="stat-card"><div class="k" data-i18n="covPassages">Matched passages (≥8w)</div><div class="v" id="src-pass-cnt">0</div></div>
+      </div>
+      <div id="src-legend" class="legend"></div>
+      <div class="doc-pane" style="max-height:540px">
+        <div class="doc-pane-hdr"><span id="src-sub-hdr"></span><span class="mono" style="color:var(--fg-3)" id="src-sub-words"></span></div>
+        <div class="doc-body" id="src-sub-body"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="mammoth.browser.min.js"></script>
+<script src="pdf.min.js"></script>
+<script>
+(() => {
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
+  }
+
+  const I18N = {
+    en: {
+      pageTitle: 'Similarity Check',
+      localBadge: '100% LOCAL · NO UPLOAD',
+      tabSet: 'Compare a set',
+      tabSrc: 'Check against sources',
+      dropTitle: 'Drop .txt, .docx, or .pdf files here',
+      dropSub: 'or click to browse (2–200 documents)',
+      docNamePh: 'Document name (optional)',
+      pasteDocPh: 'Paste document text here...',
+      addDoc: 'Add document',
+      subLabel: 'Submission (1 document)',
+      loadFile: 'Load file',
+      subNamePh: 'Submission title',
+      subTextPh: 'Paste or load the submission to check...',
+      srcLabel: 'Reference sources (up to 50)',
+      dropSrc: 'Drop source files (.txt, .docx, .pdf)',
+      srcNamePh: 'Source name',
+      addSrc: 'Add source',
+      srcTextPh: 'Paste source text...',
+      optQuotes: 'Ignore quoted passages ("…" / “…”) ',
+      optRefs: 'Ignore reference list',
+      optNums: 'Ignore numbers',
+      runBtn: 'Compare',
+      clearBtn: 'Clear',
+      disclaimer: 'Similarity shows shared wording, not misconduct. Quotations, common phrases and shared task instructions can match. Review every match yourself.',
+      setResTitle: 'Pairwise Similarity',
+      srcResTitle: 'Source Coverage',
+      dlReport: 'Download report',
+      printBtn: 'Print',
+      thrLabel: 'Highlight threshold (containment):',
+      colPair: 'Document Pair',
+      colCont: 'Containment',
+      colJacc: 'Jaccard',
+      colPass: 'Passages (≥8w)',
+      covWords: 'Matched word share',
+      covPassages: 'Matched passages (≥8w)',
+      needTwo: 'Add at least 2 documents.',
+      needSubSrc: 'Provide a submission and at least 1 source.',
+      readingFiles: 'Reading files…',
+      computing: 'Comparing documents…',
+      doneSet: 'Compared {n} documents ({p} pairs).',
+      doneSrc: 'Checked against {n} sources.',
+      commonFiltered: 'Common 5-grams (>40% docs) ignored: {c}',
+      noMatches: 'No matched passages ≥ 8 words.',
+      words: 'words'
+    },
+    zh: {
+      pageTitle: '相似度检查',
+      localBadge: '纯本地运行 · 绝不上传',
+      tabSet: '文档集合比对',
+      tabSrc: '对照参考来源',
+      dropTitle: '将 .txt、.docx 或 .pdf 文件拖放到此处',
+      dropSub: '或点击选择文件（2–200 篇文档）',
+      docNamePh: '文档名称（可选）',
+      pasteDocPh: '在此粘贴文档正文...',
+      addDoc: '添加文档',
+      subLabel: '待检文稿（1 篇）',
+      loadFile: '导入文件',
+      subNamePh: '文稿标题',
+      subTextPh: '粘贴或导入需要比对的文稿...',
+      srcLabel: '参考来源（最多 50 篇）',
+      dropSrc: '拖放来源文件（.txt, .docx, .pdf）',
+      srcNamePh: '来源名称',
+      addSrc: '添加来源',
+      srcTextPh: '粘贴来源文本...',
+      optQuotes: '忽略引号内引文（"…" / “…”）',
+      optRefs: '忽略参考文献列表',
+      optNums: '忽略数字',
+      runBtn: '开始比对',
+      clearBtn: '清空',
+      disclaimer: '相似度仅反映相同措辞，并不代表学术不端。直接引语、常见套话和相同的任务要求均可能产生匹配，请自行核查每一处匹配内容。',
+      setResTitle: '两两相似度结果',
+      srcResTitle: '来源覆盖度结果',
+      dlReport: '下载报告',
+      printBtn: '打印',
+      thrLabel: '高亮阈值（包含度）：',
+      colPair: '文档对',
+      colCont: '包含度',
+      colJacc: 'Jaccard 系数',
+      colPass: '匹配片段 (≥8词)',
+      covWords: '匹配词数占比',
+      covPassages: '匹配片段数 (≥8词)',
+      needTwo: '请至少添加 2 篇文档。',
+      needSubSrc: '请提供待检文稿和至少 1 篇参考来源。',
+      readingFiles: '正在解析文件…',
+      computing: '正在计算相似度…',
+      doneSet: '已比对 {n} 篇文档（{p} 对）。',
+      doneSrc: '已对照 {n} 篇来源完成比对。',
+      commonFiltered: '已过滤高频 5-gram（出现于 >40% 文档）：{c}',
+      noMatches: '未发现不少于 8 个词的匹配片段。',
+      words: '词'
+    }
+  };
+
+  const PALETTE = [
+    'rgba(206,104,86,.34)','rgba(201,170,96,.32)','rgba(92,158,173,.34)',
+    'rgba(130,179,102,.32)','rgba(176,122,161,.34)','rgba(214,137,79,.34)',
+    'rgba(104,131,186,.34)','rgba(163,168,92,.34)'
+  ];
+
+  let lang = /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
+  try {
+    const saved = localStorage.getItem('aletheia.lang');
+    if (saved === 'zh' || saved === 'en') lang = saved;
+  } catch (e) {}
+
+  let mode = 'set';
+  let setDocs = [];
+  let srcDocs = [];
+  let lastSetResult = null;
+  let lastSrcResult = null;
+  let selectedPairIdx = 0;
+
+  const $ = id => document.getElementById(id);
+  const t = (key, vars) => {
+    let s = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
+    if (vars) for (const k in vars) s = s.replace('{' + k + '}', vars[k]);
+    return s;
+  };
+
+  function applyI18n() {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+    $('btn-lang').textContent = lang === 'en' ? '中文' : 'EN';
+    renderDocChips();
+    if (lastSetResult) renderSetResults();
+    if (lastSrcResult) renderSrcResults();
+  }
+
+  $('btn-lang').addEventListener('click', () => {
+    lang = lang === 'en' ? 'zh' : 'en';
+    try { localStorage.setItem('aletheia.lang', lang); } catch (e) {}
+    applyI18n();
+  });
+
+  $('btn-theme').addEventListener('click', () => {
+    const d = document.documentElement, n = d.dataset.theme === 'light' ? 'dark' : 'light';
+    d.dataset.theme = n;
+    try { localStorage.setItem('aletheia.theme', n); } catch (e) {}
+    if (typeof drawMatrix === 'function' && typeof lastSetResult !== 'undefined' && lastSetResult) drawMatrix();
+  });
+
+  const tabs = [$('tab-set'), $('tab-src')];
+  function switchTab(next) {
+    mode = next;
+    tabs.forEach(tb => {
+      const active = tb.id === 'tab-' + next;
+      tb.setAttribute('aria-selected', String(active));
+      tb.tabIndex = active ? 0 : -1;
+    });
+    $('panel-set').classList.toggle('hidden', next !== 'set');
+    $('panel-src').classList.toggle('hidden', next !== 'src');
+    $('res-set').classList.toggle('hidden', !(next === 'set' && lastSetResult));
+    $('res-src').classList.toggle('hidden', !(next === 'src' && lastSrcResult));
+    $('results-area').classList.toggle('hidden', !(next === 'set' ? lastSetResult : lastSrcResult));
+    if (next === 'set' && lastSetResult) drawMatrix();
+  }
+  tabs.forEach((tb, idx) => {
+    tb.addEventListener('click', () => switchTab(idx === 0 ? 'set' : 'src'));
+    tb.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const nextIdx = (idx + 1) % 2;
+        tabs[nextIdx].focus();
+        switchTab(nextIdx === 0 ? 'set' : 'src');
+      }
+    });
+  });
+
+  async function extractFileText(file) {
+    const name = file.name || 'untitled';
+    const lower = name.toLowerCase();
+    if (lower.endsWith('.docx')) {
+      if (!window.mammoth) throw new Error('mammoth.browser.min.js not loaded');
+      const buf = await file.arrayBuffer();
+      const res = await window.mammoth.extractRawText({ arrayBuffer: buf });
+      return { name, text: res.value || '' };
+    }
+    if (lower.endsWith('.pdf')) {
+      if (!window.pdfjsLib) throw new Error('pdf.min.js not loaded');
+      const buf = await file.arrayBuffer();
+      const pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(buf), isEvalSupported: false, disableFontFace: true }).promise;
+      const pages = [];
+      for (let p = 1; p <= pdf.numPages; p++) {
+        const page = await pdf.getPage(p);
+        const tc = await page.getTextContent();
+        pages.push(tc.items.map(it => it.str).join(' '));
+      }
+      return { name, text: pages.join('\n\n') };
+    }
+    return { name, text: await file.text() };
+  }
+
+  function wordCount(str) {
+    const m = str.trim().match(/\S+/g);
+    return m ? m.length : 0;
+  }
+
+  function renderDocChips() {
+    $('set-count').textContent = `${setDocs.length} / 200`;
+    const list = $('set-list');
+    list.textContent = '';
+    setDocs.forEach((d, i) => {
+      const chip = document.createElement('span');
+      chip.className = 'chip';
+      const nm = document.createElement('span');
+      nm.textContent = d.name;
+      const wc = document.createElement('span');
+      wc.className = 'mono';
+      wc.textContent = `${d.words}w`;
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.setAttribute('aria-label', 'Remove ' + d.name);
+      rm.textContent = '×';
+      rm.onclick = () => { setDocs.splice(i, 1); renderDocChips(); };
+      chip.append(nm, wc, rm);
+      list.appendChild(chip);
+    });
+
+    const slist = $('src-list');
+    slist.textContent = '';
+    srcDocs.forEach((d, i) => {
+      const chip = document.createElement('span');
+      chip.className = 'chip';
+      const nm = document.createElement('span');
+      nm.textContent = d.name;
+      const wc = document.createElement('span');
+      wc.className = 'mono';
+      wc.textContent = `${d.words}w`;
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.setAttribute('aria-label', 'Remove ' + d.name);
+      rm.textContent = '×';
+      rm.onclick = () => { srcDocs.splice(i, 1); renderDocChips(); };
+      chip.append(nm, wc, rm);
+      slist.appendChild(chip);
+    });
+  }
+
+  const nfkc = str => String(str || '').normalize('NFKC');
+  async function ingestFiles(files, target) {
+    if (!files || !files.length) return;
+    $('status-msg').textContent = t('readingFiles');
+    const problems = [];
+    for (const f of files) {
+      try {
+        const { name, text: rawText } = await extractFileText(f);
+        const text = nfkc(rawText);
+        if (!text.trim()) { problems.push(`${f.name}: no text found (scanned PDF?)`); continue; }
+        if (target === 'set' && setDocs.length < 200) {
+          setDocs.push({ name, text, words: wordCount(text) });
+        } else if (target === 'src' && srcDocs.length < 50) {
+          srcDocs.push({ name, text, words: wordCount(text) });
+        } else if (target === 'sub') {
+          $('sub-name').value = name;
+          $('sub-text').value = text;
+        }
+      } catch (err) {
+        problems.push(`${f.name}: ${err.message}`);
+      }
+    }
+    $('status-msg').textContent = problems.join(' · ');
+    renderDocChips();
+  }
+
+  function wireDrop(dzId, inputId, target) {
+    const dz = $(dzId), inp = $(inputId);
+    dz.addEventListener('click', () => inp.click());
+    dz.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inp.click(); } });
+    dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+    dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+    dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag'); ingestFiles(Array.from(e.dataTransfer.files), target); });
+    inp.addEventListener('change', () => { const files = Array.from(inp.files); inp.value = ''; ingestFiles(files, target); });
+  }
+  wireDrop('dz-set', 'file-set', 'set');
+  wireDrop('dz-src', 'file-src', 'src');
+  $('file-sub').addEventListener('change', e => { const files = Array.from(e.target.files); e.target.value = ''; ingestFiles(files, 'sub'); });
+
+  $('btn-add-set').addEventListener('click', () => {
+    const text = nfkc($('paste-set-text').value);
+    if (!text.trim() || setDocs.length >= 200) return;
+    const name = $('paste-set-name').value.trim() || `Doc ${setDocs.length + 1}`;
+    setDocs.push({ name, text, words: wordCount(text) });
+    $('paste-set-name').value = '';
+    $('paste-set-text').value = '';
+    renderDocChips();
+  });
+
+  $('btn-add-src').addEventListener('click', () => {
+    const text = nfkc($('paste-src-text').value);
+    if (!text.trim() || srcDocs.length >= 50) return;
+    const name = $('paste-src-name').value.trim() || `Source ${srcDocs.length + 1}`;
+    srcDocs.push({ name, text, words: wordCount(text) });
+    $('paste-src-name').value = '';
+    $('paste-src-text').value = '';
+    renderDocChips();
+  });
+
+  $('btn-clear').addEventListener('click', () => {
+    if (mode === 'set') {
+      setDocs = [];
+      lastSetResult = null;
+      $('res-set').classList.add('hidden');
+    } else {
+      srcDocs = [];
+      $('sub-name').value = '';
+      $('sub-text').value = '';
+      lastSrcResult = null;
+      $('res-src').classList.add('hidden');
+    }
+    $('results-area').classList.add('hidden');
+    $('status-msg').textContent = '';
+    renderDocChips();
+  });
+
+  const WORKER_CODE = `
+    function fnv1a(str, seed) {
+      let h = (2166136261 ^ seed) >>> 0;
+      for (let i = 0; i < str.length; i++) {
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 16777619) >>> 0;
+      }
+      return h >>> 0;
+    }
+
+    function tokenizeDoc(raw, opts) {
+      let text = raw;
+      if (opts.ignoreRefs) {
+        const refRe = /(?:^|\\n)\\s*(?:references|bibliography|works cited|reference list)\\s*(?:\\n|$)/gi;
+        let m, last = null;
+        while ((m = refRe.exec(text)) !== null) last = m;
+        if (last) text = text.slice(0, last.index);
+      }
+      const wordRe = /[\\p{L}\\p{N}]+(?:['’\\-][\\p{L}\\p{N}]+)*/gu;
+      const tokens = [];
+      let inQuote = false;
+      const quoteRe = /["“”]/g;
+      const quoteSpans = [];
+      if (opts.ignoreQuotes) {
+        let qm, start = -1;
+        while ((qm = quoteRe.exec(text)) !== null) {
+          if (start < 0) start = qm.index;
+          else { quoteSpans.push([start, qm.index + 1]); start = -1; }
+        }
+      }
+      let qIdx = 0, match;
+      while ((match = wordRe.exec(text)) !== null) {
+        const s = match.index, e = s + match[0].length;
+        if (opts.ignoreQuotes) {
+          while (qIdx < quoteSpans.length && quoteSpans[qIdx][1] <= s) qIdx++;
+          if (qIdx < quoteSpans.length && s >= quoteSpans[qIdx][0] && e <= quoteSpans[qIdx][1]) continue;
+        }
+        let norm = match[0].toLowerCase().replace(/[’‘]/g, "'").replace(/[–—]/g, '-');
+        if (opts.ignoreNums && /^\\d+(?:[.,]\\d+)*$/.test(norm)) continue;
+        tokens.push({ norm, start: s, end: e });
+      }
+      const hashes = new Uint32Array(Math.max(0, tokens.length - 4));
+      for (let i = 0; i <= tokens.length - 5; i++) {
+        const sh = tokens[i].norm + ' ' + tokens[i+1].norm + ' ' + tokens[i+2].norm + ' ' + tokens[i+3].norm + ' ' + tokens[i+4].norm;
+        hashes[i] = fnv1a(sh, 0);
+      }
+      return { tokens, hashes };
+    }
+
+    function mergeRuns(indices, minWords) {
+      if (!indices.length) return [];
+      indices.sort((a, b) => a - b);
+      const runs = [];
+      let s = indices[0], e = indices[0] + 4;
+      for (let i = 1; i < indices.length; i++) {
+        const idx = indices[i];
+        if (idx <= e + 1) e = Math.max(e, idx + 4);
+        else {
+          if (e - s + 1 >= minWords) runs.push([s, e]);
+          s = idx; e = idx + 4;
+        }
+      }
+      if (e - s + 1 >= minWords) runs.push([s, e]);
+      return runs;
+    }
+
+    function findPassages(docA, docB, commonSet) {
+      const mapB = new Map();
+      for (let j = 0; j < docB.hashes.length; j++) {
+        const h = docB.hashes[j];
+        if (commonSet && commonSet.has(h)) continue;
+        let arr = mapB.get(h);
+        if (!arr) { arr = []; mapB.set(h, arr); }
+        arr.push(j);
+      }
+      const hitsA = [], hitsB = [];
+      for (let i = 0; i < docA.hashes.length; i++) {
+        const h = docA.hashes[i];
+        if (commonSet && commonSet.has(h)) continue;
+        const js = mapB.get(h);
+        if (js) {
+          hitsA.push(i);
+          for (let k = 0; k < js.length; k++) hitsB.push(js[k]);
+        }
+      }
+      const runsA = mergeRuns(hitsA, 8);
+      const runsB = mergeRuns(hitsB, 8);
+      const passagesA = runsA.map(([w0, w1]) => ({
+        start: docA.tokens[w0].start,
+        end: docA.tokens[w1].end,
+        words: w1 - w0 + 1
+      }));
+      const passagesB = runsB.map(([w0, w1]) => ({
+        start: docB.tokens[w0].start,
+        end: docB.tokens[w1].end,
+        words: w1 - w0 + 1
+      }));
+      return { passagesA, passagesB };
+    }
+
+    self.onmessage = e => {
+      const { kind, docs, sub, sources, opts } = e.data;
+      if (kind === 'set') {
+        const n = docs.length;
+        const parsed = [];
+        const df = new Map();
+        for (let i = 0; i < n; i++) {
+          const pd = tokenizeDoc(docs[i].text, opts);
+          const uniq = new Set(pd.hashes);
+          pd.uniq = uniq;
+          for (const h of uniq) df.set(h, (df.get(h) || 0) + 1);
+          parsed.push(pd);
+          if (i % 10 === 0) self.postMessage({ type: 'prog', pct: Math.round((i / n) * 35) });
+        }
+        const commonSet = new Set();
+        // Shared task wording: a 5-gram in more than 40% of documents (and at least 3) is ignored. Small sets skip this,
+        // otherwise any phrase shared by just two documents would be filtered out.
+        const maxDf = Math.max(2, Math.floor(n * 0.4));
+        if (n >= 6) {
+          for (const [h, c] of df) if (c > maxDf) commonSet.add(h);
+        }
+        const filteredSets = parsed.map(pd => {
+          const s = new Set();
+          for (const h of pd.uniq) if (!commonSet.has(h)) s.add(h);
+          return s;
+        });
+
+
+        const matrix = Array.from({ length: n }, () => new Float32Array(n));
+        for (let i = 0; i < n; i++) matrix[i][i] = 1;
+        const pairs = [];
+        const totalSteps = (n * (n - 1)) / 2;
+        let step = 0;
+        for (let i = 0; i < n; i++) {
+          const sA = filteredSets[i];
+          for (let j = i + 1; j < n; j++) {
+            step++;
+            const sB = filteredSets[j];
+            if (!sA.size || !sB.size) continue;
+            let inter = 0;
+            const [small, large] = sA.size < sB.size ? [sA, sB] : [sB, sA];
+            for (const h of small) if (large.has(h)) inter++;
+            if (inter < 3) continue;
+            const cont = inter / small.size;
+            const jacc = inter / (sA.size + sB.size - inter);
+            matrix[i][j] = cont;
+            matrix[j][i] = cont;
+            const { passagesA, passagesB } = findPassages(parsed[i], parsed[j], commonSet);
+            pairs.push({ i, j, cont, jacc, passagesA, passagesB });
+          }
+          if (i % 5 === 0) self.postMessage({ type: 'prog', pct: 35 + Math.round((step / Math.max(1, totalSteps)) * 65) });
+        }
+        pairs.sort((a, b) => b.cont - a.cont || b.jacc - a.jacc);
+        self.postMessage({ type: 'doneSet', matrix, pairs: pairs.slice(0, 250), commonCount: commonSet.size });
+      } else {
+        const subParsed = tokenizeDoc(sub.text, opts);
+        const totalWords = subParsed.tokens.length;
+        const intervals = [];
+        const perSource = [];
+        for (let sIdx = 0; sIdx < sources.length; sIdx++) {
+          const srcParsed = tokenizeDoc(sources[sIdx].text, opts);
+          const { passagesA } = findPassages(subParsed, srcParsed, null);
+          let srcWords = 0;
+          for (const p of passagesA) {
+            srcWords += p.words;
+            intervals.push({ start: p.start, end: p.end, srcIdx: sIdx, words: p.words });
+          }
+          perSource.push({ srcIdx: sIdx, name: sources[sIdx].name, count: passagesA.length, words: srcWords });
+          self.postMessage({ type: 'prog', pct: Math.round(((sIdx + 1) / Math.max(1, sources.length)) * 100) });
+        }
+        intervals.sort((a, b) => a.start - b.start || b.end - a.end);
+        const merged = [];
+        for (const iv of intervals) {
+          if (!merged.length || iv.start > merged[merged.length - 1].end) {
+            merged.push({ start: iv.start, end: iv.end, srcIndices: [iv.srcIdx] });
+          } else {
+            const top = merged[merged.length - 1];
+            top.end = Math.max(top.end, iv.end);
+            if (!top.srcIndices.includes(iv.srcIdx)) top.srcIndices.push(iv.srcIdx);
+          }
+        }
+        let matchedWords = 0;
+        for (const tok of subParsed.tokens) {
+          for (const m of merged) {
+            if (tok.start >= m.start && tok.end <= m.end) { matchedWords++; break; }
+          }
+        }
+        const pct = totalWords ? (matchedWords / totalWords) * 100 : 0;
+        self.postMessage({ type: 'doneSrc', pct, totalWords, merged, perSource });
+      }
+    };
+  `;
+
+  let runSnapshot = null;
+  const worker = new Worker(URL.createObjectURL(new Blob([WORKER_CODE], { type: 'application/javascript' })));
+
+  worker.onmessage = e => {
+    const msg = e.data;
+    if (msg.type === 'prog') {
+      $('progress-bar').style.width = msg.pct + '%';
+    } else if (msg.type === 'doneSet') {
+      $('progress').classList.remove('active');
+      $('btn-run').disabled = false;
+      lastSetResult = { docs: runSnapshot.docs, matrix: msg.matrix, pairs: msg.pairs, commonCount: msg.commonCount };
+      selectedPairIdx = 0;
+      $('status-msg').textContent = t('doneSet', { n: runSnapshot.docs.length, p: msg.pairs.length });
+      renderSetResults();
+    } else if (msg.type === 'doneSrc') {
+      $('progress').classList.remove('active');
+      $('btn-run').disabled = false;
+      lastSrcResult = {
+        sub: runSnapshot.sub,
+        sources: runSnapshot.sources,
+        pct: msg.pct, totalWords: msg.totalWords, merged: msg.merged, perSource: msg.perSource
+      };
+      $('status-msg').textContent = t('doneSrc', { n: runSnapshot.sources.length });
+      renderSrcResults();
+    }
+  };
+
+  worker.onerror = () => {
+    $('progress').classList.remove('active');
+    $('btn-run').disabled = false;
+    $('status-msg').textContent = 'Error / 出错';
+  };
+
+  $('btn-run').addEventListener('click', () => {
+    const opts = {
+      ignoreQuotes: $('opt-quotes').checked,
+      ignoreRefs: $('opt-refs').checked,
+      ignoreNums: $('opt-nums').checked
+    };
+    if (mode === 'set') {
+      if (setDocs.length < 2) { $('status-msg').textContent = t('needTwo'); return; }
+      $('btn-run').disabled = true;
+      $('progress').classList.add('active');
+      $('progress-bar').style.width = '2%';
+      $('status-msg').textContent = t('computing');
+      runSnapshot = { docs: setDocs.slice() };
+      worker.postMessage({ kind: 'set', docs: runSnapshot.docs, opts });
+    } else {
+      const subText = nfkc($('sub-text').value);
+      if (!subText.trim() || !srcDocs.length) { $('status-msg').textContent = t('needSubSrc'); return; }
+      $('btn-run').disabled = true;
+      $('progress').classList.add('active');
+      $('progress-bar').style.width = '2%';
+      $('status-msg').textContent = t('computing');
+      runSnapshot = { sub: { name: $('sub-name').value.trim() || 'Submission', text: subText }, sources: srcDocs.slice() };
+      worker.postMessage({ kind: 'src', sub: { text: subText }, sources: runSnapshot.sources, opts });
+    }
+  });
+
+  function drawMatrix() {
+    if (!lastSetResult) return;
+    const { docs, matrix } = lastSetResult;
+    const n = docs.length;
+    const canvas = $('matrix-canvas');
+    const wrapW = canvas.parentElement.clientWidth - 18;
+    const labelW = Math.min(130, Math.max(70, Math.floor(wrapW * 0.22)));
+    const cell = Math.max(12, Math.min(34, Math.floor((wrapW - labelW) / Math.max(1, n))));
+    const w = labelW + n * cell + 8;
+    const h = labelW + n * cell + 8;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const cs = getComputedStyle(document.documentElement);
+    const fg = cs.getPropertyValue('--fg').trim();
+    const fg3 = cs.getPropertyValue('--fg-3').trim();
+    const bg3 = cs.getPropertyValue('--bg-3').trim();
+    const thr = Number($('thr-slider').value) / 100;
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.font = '11px "IBM Plex Mono", monospace';
+    ctx.textBaseline = 'middle';
+
+    for (let i = 0; i < n; i++) {
+      const short = docs[i].name.length > 14 ? docs[i].name.slice(0, 13) + '…' : docs[i].name;
+      ctx.fillStyle = fg3;
+      ctx.textAlign = 'right';
+      ctx.fillText(short, labelW - 6, labelW + i * cell + cell / 2);
+      ctx.save();
+      ctx.translate(labelW + i * cell + cell / 2, labelW - 6);
+      ctx.rotate(-Math.PI / 3);
+      ctx.textAlign = 'left';
+      ctx.fillText(short, 0, 0);
+      ctx.restore();
+
+      for (let j = 0; j < n; j++) {
+        const v = matrix[i][j];
+        const x = labelW + j * cell, y = labelW + i * cell;
+        if (i === j) {
+          ctx.fillStyle = bg3;
+        } else if (v <= 0.001) {
+          ctx.fillStyle = 'rgba(134,132,125,0.08)';
+        } else if (v >= thr) {
+          ctx.fillStyle = `rgba(206,104,86,${Math.min(0.92, 0.25 + v * 0.7)})`;
+        } else {
+          ctx.fillStyle = `rgba(201,185,141,${Math.min(0.75, 0.12 + v * 0.7)})`;
+        }
+        ctx.fillRect(x + 1, y + 1, cell - 2, cell - 2);
+        if (cell >= 24 && i !== j && v >= 0.01) {
+          ctx.fillStyle = fg;
+          ctx.textAlign = 'center';
+          ctx.fillText(Math.round(v * 100) + '%', x + cell / 2, y + cell / 2);
+        }
+      }
+    }
+    canvas._layout = { labelW, cell, n };
+  }
+
+  $('matrix-canvas').addEventListener('click', e => {
+    if (!lastSetResult || !e.currentTarget._layout) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const { labelW, cell, n } = e.currentTarget._layout;
+    const j = Math.floor((e.clientX - rect.left - labelW) / cell);
+    const i = Math.floor((e.clientY - rect.top - labelW) / cell);
+    if (i >= 0 && j >= 0 && i < n && j < n && i !== j) {
+      const a = Math.min(i, j), b = Math.max(i, j);
+      const idx = lastSetResult.pairs.findIndex(p => p.i === a && p.j === b);
+      if (idx >= 0) { selectedPairIdx = idx; renderPairsTable(); renderSideBySide(); }
+    }
+  });
+
+  window.addEventListener('resize', () => { if (mode === 'set' && lastSetResult) drawMatrix(); });
+
+  $('thr-slider').addEventListener('input', () => {
+    $('thr-val').textContent = $('thr-slider').value + '%';
+    if (lastSetResult) { drawMatrix(); renderPairsTable(); }
+  });
+
+  function renderHighlightedText(container, rawText, spans, onTagClick) {
+    container.textContent = '';
+    if (!spans.length) {
+      container.appendChild(document.createTextNode(rawText));
+      return;
+    }
+    const sorted = spans.slice().sort((a, b) => a.start - b.start);
+    let cursor = 0;
+    for (const sp of sorted) {
+      if (sp.start < cursor) continue;
+      if (sp.start > cursor) container.appendChild(document.createTextNode(rawText.slice(cursor, sp.start)));
+      const mark = document.createElement('mark');
+      mark.className = 'm';
+      mark.style.background = sp.color;
+      mark.dataset.pid = String(sp.pid);
+      if (sp.label) {
+        const tag = document.createElement('span');
+        tag.className = 'p-tag';
+        tag.textContent = sp.label;
+        mark.appendChild(tag);
+      }
+      mark.appendChild(document.createTextNode(rawText.slice(sp.start, sp.end)));
+      if (onTagClick) mark.addEventListener('click', () => onTagClick(sp.pid));
+      container.appendChild(mark);
+      cursor = sp.end;
+    }
+    if (cursor < rawText.length) container.appendChild(document.createTextNode(rawText.slice(cursor)));
+  }
+
+  function renderSideBySide() {
+    const wrap = $('sbs-wrap');
+    if (!lastSetResult || !lastSetResult.pairs.length) { wrap.classList.add('hidden'); return; }
+    wrap.classList.remove('hidden');
+    const pair = lastSetResult.pairs[selectedPairIdx] || lastSetResult.pairs[0];
+    const docA = lastSetResult.docs[pair.i], docB = lastSetResult.docs[pair.j];
+    $('sbs-title-a').textContent = docA.name;
+    $('sbs-title-b').textContent = docB.name;
+    $('sbs-meta-a').textContent = `${docA.words} ${t('words')}`;
+    $('sbs-meta-b').textContent = `${docB.words} ${t('words')}`;
+
+    const spansA = pair.passagesA.map((p, idx) => ({
+      start: p.start, end: p.end, pid: idx + 1, label: '', color: PALETTE[0]
+    }));
+    const spansB = pair.passagesB.map((p, idx) => ({
+      start: p.start, end: p.end, pid: idx + 1, label: '', color: PALETTE[0]
+    }));
+
+    const syncScroll = (targetBody, pid) => {
+      const el = targetBody.querySelector(`mark[data-pid="${pid}"]`);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+    renderHighlightedText($('sbs-body-a'), docA.text, spansA, null);
+    renderHighlightedText($('sbs-body-b'), docB.text, spansB, null);
+  }
+
+  function renderPairsTable() {
+    const tbody = $('pairs-tbody');
+    tbody.textContent = '';
+    const thr = Number($('thr-slider').value) / 100;
+    const { docs, pairs } = lastSetResult;
+    if (!pairs.length) {
+      const tr = document.createElement('tr');
+      const td = document.createElement('td');
+      td.colSpan = 4;
+      td.textContent = t('noMatches');
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+      return;
+    }
+    pairs.slice(0, 60).forEach((p, idx) => {
+      const tr = document.createElement('tr');
+      tr.className = 'pair-row' + (p.cont >= thr ? ' above' : '') + (idx === selectedPairIdx ? ' selected' : '');
+      tr.tabIndex = 0;
+      const c1 = document.createElement('td');
+      c1.textContent = `${docs[p.i].name}  ↔  ${docs[p.j].name}`;
+      const c2 = document.createElement('td');
+      c2.className = 'mono';
+      c2.textContent = (p.cont * 100).toFixed(1) + '%';
+      const c3 = document.createElement('td');
+      c3.className = 'mono';
+      c3.textContent = (p.jacc * 100).toFixed(1) + '%';
+      const c4 = document.createElement('td');
+      c4.className = 'mono';
+      c4.textContent = String(Math.max(p.passagesA.length, p.passagesB.length));
+      tr.append(c1, c2, c3, c4);
+      const pick = () => { selectedPairIdx = idx; renderPairsTable(); renderSideBySide(); };
+      tr.addEventListener('click', pick);
+      tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderSetResults() {
+    $('results-area').classList.remove('hidden');
+    $('res-set').classList.remove('hidden');
+    $('res-src').classList.add('hidden');
+    $('filter-info').textContent = t('commonFiltered', { c: lastSetResult.commonCount });
+    drawMatrix();
+    renderPairsTable();
+    renderSideBySide();
+  }
+
+  function renderSrcResults() {
+    $('results-area').classList.remove('hidden');
+    $('res-src').classList.remove('hidden');
+    $('res-set').classList.add('hidden');
+    const { sub, sources, pct, totalWords, merged, perSource } = lastSrcResult;
+    $('src-overall-pct').textContent = pct.toFixed(1) + '%';
+    $('src-pass-cnt').textContent = String(merged.length);
+    $('src-sub-hdr').textContent = sub.name;
+    $('src-sub-words').textContent = `${totalWords} ${t('words')}`;
+
+    const leg = $('src-legend');
+    leg.textContent = '';
+    perSource.forEach((ps, idx) => {
+      const item = document.createElement('span');
+      item.className = 'legend-item';
+      const sw = document.createElement('span');
+      sw.className = 'swatch';
+      sw.style.background = PALETTE[idx % PALETTE.length];
+      const lbl = document.createElement('span');
+      const share = totalWords ? ((ps.words / totalWords) * 100).toFixed(1) : '0.0';
+      lbl.textContent = `${ps.name}: ${share}% (${ps.count})`;
+      item.append(sw, lbl);
+      leg.appendChild(item);
+    });
+
+    const spans = merged.map((m, idx) => {
+      const primary = m.srcIndices[0];
+      const names = m.srcIndices.map(si => sources[si].name).join(' + ');
+      return {
+        start: m.start, end: m.end, pid: idx + 1,
+        label: names, color: PALETTE[primary % PALETTE.length]
+      };
+    });
+    renderHighlightedText($('src-sub-body'), sub.text, spans, null);
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function buildHighlightedHtml(rawText, spans) {
+    if (!spans.length) return escHtml(rawText);
+    const sorted = spans.slice().sort((a, b) => a.start - b.start);
+    let out = '', cur = 0;
+    for (const sp of sorted) {
+      if (sp.start < cur) continue;
+      if (sp.start > cur) out += escHtml(rawText.slice(cur, sp.start));
+      out += `<mark style="background:${sp.color};padding:1px 3px;border-radius:3px">${sp.label ? `<b>[${escHtml(sp.label)}]</b> ` : ''}${escHtml(rawText.slice(sp.start, sp.end))}</mark>`;
+      cur = sp.end;
+    }
+    if (cur < rawText.length) out += escHtml(rawText.slice(cur));
+    return out;
+  }
+
+  function downloadBlobHtml(filename, innerHtml) {
+    const doc = `<!doctype html><html><head><meta charset="utf-8"><title>ALETHEIA Similarity Report</title>
+<style>body{font-family:system-ui,sans-serif;background:#101114;color:#F2F0E9;max-width:1000px;margin:24px auto;padding:0 16px;line-height:1.6}
+h1,h2{color:#C9B98D}table{width:100%;border-collapse:collapse;margin:14px 0}th,td{border:1px solid #333;padding:8px;text-align:left}
+.box{background:#181A20;border:1px solid #333;border-radius:8px;padding:14px;white-space:pre-wrap;margin:12px 0}
+.note{border-left:3px solid #B99A5B;padding:8px 12px;background:#181A20;color:#B9B6AC}</style></head><body>
+<h1>ALETHEIA — ${escHtml(t('pageTitle'))}</h1><p class="note">${escHtml(t('disclaimer'))}</p>${innerHtml}</body></html>`;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
+    a.download = filename;
+    a.click();
+  }
+
+  $('btn-dl-set').addEventListener('click', () => {
+    if (!lastSetResult) return;
+    const { docs, pairs } = lastSetResult;
+    const rows = pairs.slice(0, 60).map(p =>
+      `<tr><td>${escHtml(docs[p.i].name)} ↔ ${escHtml(docs[p.j].name)}</td><td>${(p.cont*100).toFixed(1)}%</td><td>${(p.jacc*100).toFixed(1)}%</td><td>${Math.max(p.passagesA.length, p.passagesB.length)}</td></tr>`
+    ).join('');
+    let detail = '';
+    const sel = pairs[selectedPairIdx];
+    if (sel) {
+      const sA = sel.passagesA.map(p => ({ start: p.start, end: p.end, label: '', color: PALETTE[0] }));
+      const sB = sel.passagesB.map(p => ({ start: p.start, end: p.end, label: '', color: PALETTE[0] }));
+      detail = `<h2>${escHtml(docs[sel.i].name)}</h2><div class="box">${buildHighlightedHtml(docs[sel.i].text, sA)}</div>
+                <h2>${escHtml(docs[sel.j].name)}</h2><div class="box">${buildHighlightedHtml(docs[sel.j].text, sB)}</div>`;
+    }
+    downloadBlobHtml('aletheia-similarity-set.html',
+      `<table><tr><th>Pair</th><th>Containment</th><th>Jaccard</th><th>Passages</th></tr>${rows}</table>${detail}`);
+  });
+
+  $('btn-dl-src').addEventListener('click', () => {
+    if (!lastSrcResult) return;
+    const { sub, sources, pct, totalWords, merged, perSource } = lastSrcResult;
+    const rows = perSource.map(ps =>
+      `<tr><td>${escHtml(ps.name)}</td><td>${totalWords ? ((ps.words/totalWords)*100).toFixed(1) : '0.0'}%</td><td>${ps.count}</td></tr>`
+    ).join('');
+    const spans = merged.map((m, i) => ({
+      start: m.start, end: m.end,
+      label: m.srcIndices.map(si => sources[si].name).join(' + '),
+      color: PALETTE[m.srcIndices[0] % PALETTE.length]
+    }));
+    downloadBlobHtml('aletheia-similarity-sources.html',
+      `<p><strong>${escHtml(sub.name)}</strong>: ${pct.toFixed(1)}% (${merged.length} passages)</p>
+       <table><tr><th>Source</th><th>Word Share</th><th>Passages</th></tr>${rows}</table>
+       <div class="box">${buildHighlightedHtml(sub.text, spans)}</div>`);
+  });
+
+  applyI18n();
+})();
+</script>
+</body>
+</html>

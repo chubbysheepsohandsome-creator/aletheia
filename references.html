@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ALETHEIA — Reference Check</title>
+<style>
+@font-face{font-family:'Inter';src:url('inter-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('inter-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Inter';src:url('inter-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Cormorant Garamond';src:url('cormorant-garamond-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Cormorant Garamond';src:url('cormorant-garamond-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'IBM Plex Mono';src:url('ibm-plex-mono-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+:root{
+  --bg:#101114;--bg-2:#181A20;--bg-3:#252832;--fg:#F2F0E9;--fg-2:#B9B6AC;--fg-3:#86847D;
+  --line:rgba(242,240,233,.10);--accent:#C9B98D;--gold:#B99A5B;
+}
+[data-theme="light"]{
+  --bg:#FAFAF7;--bg-2:#F2F0E9;--bg-3:#E6E3D8;--fg:#101114;--fg-2:#3C3B37;--fg-3:#6B6962;
+  --line:rgba(16,17,20,.12);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 14px/1.55 'Inter',system-ui,sans-serif;min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+button,input,textarea{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:16px 20px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.wordmark{font:600 22px/1 'Cormorant Garamond',Georgia,serif;letter-spacing:.14em;color:var(--accent);text-decoration:none}
+.page-title{font:500 22px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--fg)}
+.badge-local{font:400 11px/1 'IBM Plex Mono',monospace;color:var(--fg-3);border:1px solid var(--line);padding:4px 8px;border-radius:999px}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.btn{background:var(--bg-2);border:1px solid var(--line);color:var(--fg);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:13px;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--bg-3);border-color:var(--accent)}
+.btn-primary{background:var(--accent);color:#101114;border-color:var(--accent);font-weight:600}
+.btn-primary:hover{background:var(--gold);border-color:var(--gold)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.panel{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:16px}
+h2{margin:0 0 10px;font:600 19px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--accent)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:780px){.grid-2{grid-template-columns:1fr}}
+.dropzone{border:1.5px dashed var(--line);border-radius:8px;padding:16px;text-align:center;cursor:pointer;background:var(--bg);transition:border-color .15s,background .15s}
+.dropzone.drag{border-color:var(--accent);background:var(--bg-3)}
+.dropzone p{margin:4px 0 0;color:var(--fg-2);font-size:12.5px}
+input[type="text"],input[type="email"],textarea{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
+textarea{min-height:140px;resize:vertical;line-height:1.5}
+.hint{font-size:12px;color:var(--fg-3);margin-top:6px}
+.consent-box{border:1px solid var(--gold);background:var(--bg);border-radius:8px;padding:14px;margin-top:14px}
+.consent-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.progress{height:6px;background:var(--bg-3);border-radius:999px;overflow:hidden;margin-top:10px;display:none}
+.progress.active{display:block}
+.progress-bar{height:100%;width:0%;background:var(--accent);transition:width .15s}
+.notice{border-left:3px solid var(--gold);background:var(--bg-2);padding:11px 14px;border-radius:0 8px 8px 0;color:var(--fg-2);font-size:13px;margin-top:16px}
+.stats-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.stat-card{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 13px;min-width:135px}
+.stat-card .k{font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:.04em}
+.stat-card .v{font:500 20px/1.2 'IBM Plex Mono',monospace;color:var(--accent);margin-top:3px}
+.res-hdr{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.entry-list{display:flex;flex-direction:column;gap:10px}
+.entry-card{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:780px){.entry-card{grid-template-columns:1fr}}
+.badge{display:inline-block;font:600 11px/1 'IBM Plex Mono',monospace;padding:3px 8px;border-radius:999px;margin-bottom:6px}
+.b-ver{background:rgba(130,179,102,.20);color:#9ad17b;border:1px solid rgba(130,179,102,.45)}
+.b-cls{background:rgba(201,170,96,.20);color:#e2c675;border:1px solid rgba(201,170,96,.45)}
+.b-not{background:rgba(206,104,86,.22);color:#e88c7b;border:1px solid rgba(206,104,86,.45)}
+.b-web{background:rgba(92,158,173,.20);color:#85c3d1;border:1px solid rgba(92,158,173,.45)}
+.b-err{background:rgba(134,132,125,.20);color:var(--fg-2);border:1px solid var(--line)}
+.raw-ref{font-size:13px;color:var(--fg);word-break:break-word}
+.parsed-meta{margin-top:6px;font:400 11.5px/1.4 'IBM Plex Mono',monospace;color:var(--fg-3)}
+.match-box{border-left:2px solid var(--line);padding-left:12px}
+@media(max-width:780px){.match-box{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:10px}}
+.match-title{font-weight:600;font-size:13.5px;color:var(--fg)}
+.match-sub{font-size:12.5px;color:var(--fg-2);margin-top:3px}
+.mono{font-family:'IBM Plex Mono',monospace}
+.hidden{display:none!important}
+@media print{
+  header .hdr-actions,#input-panel,.res-hdr .toolbar-grp{display:none!important}
+  body{background:#fff;color:#111}
+  .panel,.entry-card,.stat-card{border-color:#ccc}
+}
+</style>
+<script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <a class="wordmark" href="index.html#tools">ALETHEIA</a>
+      <span class="page-title" data-i18n="pageTitle">Reference Check</span>
+      <span class="badge-local" data-i18n="localBadge">LOCAL PARSE · CONSENTED LOOKUP</span>
+    </div>
+    <div class="hdr-actions">
+      <button class="btn" id="btn-theme" type="button" aria-label="Toggle color theme">☀ / ☾</button>
+      <button class="btn" id="btn-lang" type="button" aria-label="Switch language">中文</button>
+    </div>
+  </header>
+
+  <section id="input-panel" class="panel">
+    <div class="grid-2">
+      <div>
+        <h2 data-i18n="step1Title">1. Document or Reference Text</h2>
+        <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload .txt, .docx, or .pdf">
+          <strong data-i18n="dropTitle">Drop .txt, .docx, or .pdf here</strong>
+          <p data-i18n="dropSub">or click to browse — the reference section is extracted locally</p>
+          <input type="file" id="file-input" accept=".txt,.docx,.pdf,text/plain" class="hidden">
+        </div>
+        <textarea id="doc-text" style="margin-top:10px" placeholder="Paste full document text or a reference list here..." data-i18n-ph="docPh" aria-label="Document or reference text"></textarea>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn" id="btn-extract" type="button" data-i18n="extractBtn">Extract &amp; split entries</button>
+          <span id="extract-status" class="mono" style="font-size:12px;color:var(--fg-3)" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <div>
+        <h2 data-i18n="step2Title">2. Review Split Entries (1 per blank-line block or line)</h2>
+        <textarea id="entries-box" style="min-height:218px" placeholder="Extracted entries appear here (separated by blank lines). Edit if needed before checking..." data-i18n-ph="entriesPh" aria-label="Split reference entries"></textarea>
+        <div class="hint" data-i18n="splitHint">Tip: Separate entries with a blank line so multi-line citations stay together.</div>
+      </div>
+    </div>
+
+    <div class="consent-box">
+      <div style="font-size:13px;color:var(--fg)" data-i18n="consentText">To check references, only the reference entries (not your document) are sent to Crossref (api.crossref.org) and OpenAlex (api.openalex.org), plus the optional email if you enter one (sent to Crossref only). Like any website, these services also see your IP address. Nothing else leaves your browser.</div>
+      <div class="consent-row">
+        <input type="email" id="mailto-input" style="max-width:260px" placeholder="Optional polite-pool email (mailto)" data-i18n-ph="mailtoPh" aria-label="Optional email for Crossref polite pool">
+        <button class="btn btn-primary" id="btn-check" type="button" data-i18n="checkBtn">Check references</button>
+        <button class="btn hidden" id="btn-stop" type="button" data-i18n="stopBtn">Stop</button>
+        <button class="btn" id="btn-clear" type="button" data-i18n="clearBtn">Clear</button>
+        <span id="run-status" class="mono" style="font-size:12px;color:var(--accent)" aria-live="polite"></span>
+      </div>
+      <div class="progress" id="progress"><div class="progress-bar" id="progress-bar"></div></div>
+    </div>
+  </section>
+
+  <div class="notice" data-i18n="cautionBox">Note on "Not found": Books, book chapters, reports, grey literature, preprints, very recent publications, and non-English works are frequently absent or incomplete in Crossref and OpenAlex. A "Not found" result is a prompt to verify manually, not proof of fabrication.</div>
+
+  <section id="results-panel" class="panel hidden">
+    <div class="res-hdr">
+      <h2 data-i18n="resultsTitle">Verification Results</h2>
+      <div class="toolbar-grp" style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" id="btn-dl-csv" type="button" data-i18n="dlCsv">Export CSV</button>
+        <button class="btn" id="btn-dl-html" type="button" data-i18n="dlHtml">Download HTML report</button>
+        <button class="btn" onclick="window.print()" type="button" data-i18n="printBtn">Print</button>
+      </div>
+    </div>
+    <div id="stats-row" class="stats-row"></div>
+    <div id="many-missing-note" class="notice hidden" style="margin:0 0 14px"></div>
+    <div id="entry-list" class="entry-list"></div>
+  </section>
+</div>
+
+<script src="mammoth.browser.min.js"></script>
+<script src="pdf.min.js"></script>
+<script>
+(() => {
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.min.js';
+  }
+
+  const I18N = {
+    en: {
+      pageTitle: 'Reference Check',
+      localBadge: 'LOCAL PARSE · CONSENTED LOOKUP',
+      step1Title: '1. Document or Reference Text',
+      dropTitle: 'Drop .txt, .docx, or .pdf here',
+      dropSub: 'or click to browse — the reference section is extracted locally',
+      docPh: 'Paste full document text or a reference list here...',
+      extractBtn: 'Extract & split entries',
+      step2Title: '2. Review Split Entries',
+      entriesPh: 'Extracted entries appear here (separated by blank lines). Edit if needed before checking...',
+      splitHint: 'Tip: Separate entries with a blank line so multi-line citations stay together.',
+      consentText: 'To check references, only the reference entries (not your document) are sent to Crossref (api.crossref.org) and OpenAlex (api.openalex.org), plus the optional email if you enter one (sent to Crossref only). Like any website, these services also see your IP address. Nothing else leaves your browser.',
+      mailtoPh: 'Optional polite-pool email (mailto)',
+      checkBtn: 'Check references',
+      stopBtn: 'Stop',
+      clearBtn: 'Clear',
+      cautionBox: 'Note on "Not found": Books, book chapters, reports, grey literature, preprints, very recent publications, and non-English works are frequently absent or incomplete in Crossref and OpenAlex. A "Not found" result is a prompt to verify manually, not proof of fabrication.',
+      resultsTitle: 'Results',
+      dlCsv: 'Export CSV',
+      dlHtml: 'Download HTML report',
+      printBtn: 'Print',
+      foundHeading: 'Found reference heading ({h}) — {n} entries split.',
+      noHeading: 'No reference heading found — treated the pasted text as a reference list ({n} entries). Check them before sending.',
+      noHeadingDoc: 'No reference heading (References / Bibliography / Works Cited) was found, so nothing was extracted. Paste only the reference list into the box on the right.',
+      clsStopped: 'Not checked (stopped)',
+      needEntries: 'Paste or extract at least one reference entry first.',
+      checkingProg: 'Checking {done} / {total}…',
+      doneProg: 'Checked {total} entries.',
+      stoppedProg: 'Stopped at {done} / {total}.',
+      manyMissing: 'Several entries ({n} of {total}) were not found in Crossref or OpenAlex. Check whether this bibliography cites books, standards, policy documents, theses, or non-English sources that these scholarly article indexes cover less completely.',
+      clsVerified: 'Record found',
+      clsClose: 'Close match — check details',
+      clsNotFound: 'Not found',
+      clsWeb: 'Web / other — check manually',
+      clsError: 'Could not check',
+      webNote: 'Web source — check manually (domain: {d}). Websites are not fetched.',
+      noMatchNote: 'No record with title similarity ≥ 0.60 found in Crossref or OpenAlex.',
+      errNote: 'Network or timeout error while querying APIs.',
+      diffPrefix: 'Differs: '
+    },
+    zh: {
+      pageTitle: '参考文献核查',
+      localBadge: '本地解析 · 经同意后查询',
+      step1Title: '1. 文档或参考文献文本',
+      dropTitle: '将 .txt、.docx 或 .pdf 文件拖放到此处',
+      dropSub: '或点击选择文件 — 参考文献部分仅在本地提取',
+      docPh: '在此粘贴完整文档或参考文献列表...',
+      extractBtn: '提取并拆分条目',
+      step2Title: '2. 检查拆分后的条目',
+      entriesPh: '提取的条目将显示在此处（以空行分隔）。核验前可手动修改...',
+      splitHint: '提示：条目之间请保留一个空行，以确保跨行文献保持完整。',
+      consentText: '为核查参考文献，只会把拆分后的文献条目（不是你的文档正文）发送到 Crossref（api.crossref.org）和 OpenAlex（api.openalex.org）；如果你填写了邮箱，邮箱只会发送给 Crossref。和任何网站一样，这些服务也会看到你的 IP 地址。其他内容都不会离开你的浏览器。',
+      mailtoPh: '可选：礼貌池联系邮箱 (mailto)',
+      checkBtn: '开始核验参考文献',
+      stopBtn: '停止',
+      clearBtn: '清空',
+      cautionBox: '关于“未找到”的说明：图书、章节、研究报告、灰色文献、预印本、最新发表文献以及非英文文献在 Crossref 与 OpenAlex 数据库中常有缺失。“未找到”仅提示需要人工核查，不能作为虚构引文的证据。',
+      resultsTitle: '核验结果',
+      dlCsv: '导出 CSV',
+      dlHtml: '下载 HTML 报告',
+      printBtn: '打印',
+      foundHeading: '已识别参考文献标题（{h}），共拆分为 {n} 条。',
+      noHeading: '未检测到参考文献标题，已把粘贴的文本当作参考文献列表（{n} 条）。发送前请先检查。',
+      noHeadingDoc: '没有找到参考文献标题（References / Bibliography / Works Cited），因此没有提取任何内容。请只把参考文献列表粘贴到右侧的框里。',
+      clsStopped: '未核查（已停止）',
+      needEntries: '请先粘贴或提取至少一条参考文献。',
+      checkingProg: '正在核验 {done} / {total}…',
+      doneProg: '已完成 {total} 条文献核验。',
+      stoppedProg: '已在 {done} / {total} 处停止。',
+      manyMissing: '有较多条目（{n} / {total}）未在 Crossref 或 OpenAlex 中找到。请留意该文献列表是否包含图书、标准、政策报告、学位论文或非英文文献——这类文献在期刊索引中的覆盖度相对较低。',
+      clsVerified: '找到匹配记录',
+      clsClose: '高度相似 — 请核对细节',
+      clsNotFound: '未找到',
+      clsWeb: '网页/其他 — 请人工核查',
+      clsError: '无法检查',
+      webNote: '网页来源 — 请人工核查（域名：{d}）。本工具不会抓取网页内容。',
+      noMatchNote: 'Crossref 与 OpenAlex 中均未找到标题相似度 ≥ 0.60 的记录。',
+      errNote: '请求外部接口时发生网络或超时错误。',
+      diffPrefix: '差异项：'
+    }
+  };
+
+  let lang = /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
+  try {
+    const s = localStorage.getItem('aletheia.lang');
+    if (s === 'zh' || s === 'en') lang = s;
+  } catch (e) {}
+
+  let results = [];
+  let abortAll = false;
+
+  const $ = id => document.getElementById(id);
+  const t = (k, vars) => {
+    let s = (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
+    if (vars) for (const key in vars) s = s.replace('{' + key + '}', vars[key]);
+    return s;
+  };
+
+  function applyI18n() {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+    $('btn-lang').textContent = lang === 'en' ? '中文' : 'EN';
+    if (results.length) renderResults();
+  }
+
+  $('btn-lang').addEventListener('click', () => {
+    lang = lang === 'en' ? 'zh' : 'en';
+    try { localStorage.setItem('aletheia.lang', lang); } catch (e) {}
+    applyI18n();
+  });
+
+  $('btn-theme').addEventListener('click', () => {
+    const d = document.documentElement, n = d.dataset.theme === 'light' ? 'dark' : 'light';
+    d.dataset.theme = n;
+    try { localStorage.setItem('aletheia.theme', n); } catch (e) {}
+    if (typeof drawMatrix === 'function' && typeof lastSetResult !== 'undefined' && lastSetResult) drawMatrix();
+  });
+
+  async function readUploadedFile(file) {
+    const lower = (file.name || '').toLowerCase();
+    if (lower.endsWith('.docx')) {
+      if (!window.mammoth) throw new Error('mammoth.browser.min.js missing');
+      const buf = await file.arrayBuffer();
+      const res = await window.mammoth.extractRawText({ arrayBuffer: buf });
+      return res.value || '';
+    }
+    if (lower.endsWith('.pdf')) {
+      if (!window.pdfjsLib) throw new Error('pdf.min.js missing');
+      const buf = await file.arrayBuffer();
+      const pdf = await window.pdfjsLib.getDocument({ data: new Uint8Array(buf), isEvalSupported: false, disableFontFace: true }).promise;
+      const pages = [];
+      for (let p = 1; p <= pdf.numPages; p++) {
+        const page = await pdf.getPage(p);
+        const tc = await page.getTextContent();
+        pages.push(tc.items.map(it => it.str).join(' '));
+      }
+      return pages.join('\n\n');
+    }
+    return await file.text();
+  }
+
+  const dz = $('dropzone'), fi = $('file-input');
+  dz.addEventListener('click', () => fi.click());
+  dz.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fi.click(); } });
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+  dz.addEventListener('drop', async e => {
+    e.preventDefault();
+    dz.classList.remove('drag');
+    if (e.dataTransfer.files[0]) await loadDocFile(e.dataTransfer.files[0]);
+  });
+  fi.addEventListener('change', async () => {
+    if (fi.files[0]) await loadDocFile(fi.files[0]);
+    fi.value = '';
+  });
+
+  async function loadDocFile(file) {
+    try {
+      const text = await readUploadedFile(file);
+      $('doc-text').value = text;
+      extractAndSplit();
+    } catch (err) {
+      $('extract-status').textContent = err.message;
+    }
+  }
+
+  function splitReferences(rawText) {
+    const headingRe = /(?:^|\n)\s*(references|bibliography|works cited|reference list|sources)\s*:?\s*(?:\n|$)/i;
+    const headingAll = new RegExp(headingRe.source, 'gi');
+    let m = null, mm;
+    while ((mm = headingAll.exec(rawText)) !== null) m = mm;
+    let body = rawText;
+    let headingFound = '';
+    if (m) {
+      headingFound = m[1];
+      body = rawText.slice(m.index + m[0].length);
+    }
+    body = body.replace(/\r\n/g, '\n').trim();
+    if (!body) return { headingFound, entries: [] };
+
+    // Try numbered list [1] or 1. at line start
+    const numberedLines = body.split('\n');
+    const numStartRe = /^\s*(?:\[\d+\]|\d+[.)])\s+/;
+    const numCount = numberedLines.filter(l => numStartRe.test(l)).length;
+    if (numCount >= 2) {
+      const out = [];
+      let cur = '';
+      for (const line of numberedLines) {
+        if (!line.trim()) continue;
+        if (numStartRe.test(line)) {
+          if (cur) out.push(cur.trim());
+          cur = line.trim();
+        } else {
+          cur += ' ' + line.trim();
+        }
+      }
+      if (cur) out.push(cur.trim());
+      return { headingFound, entries: out };
+    }
+
+    // Blank-line separated paragraphs
+    const paras = body.split(/\n\s*\n+/).map(p => p.replace(/\s+/g, ' ').trim()).filter(Boolean);
+    if (paras.length >= 2) {
+      return { headingFound, entries: paras };
+    }
+
+    // Fallback: one per non-empty line
+    const lines = numberedLines.map(l => l.trim()).filter(Boolean);
+    return { headingFound, entries: lines };
+  }
+
+  function extractAndSplit() {
+    const raw = $('doc-text').value;
+    if (!raw.trim()) return;
+    const { headingFound, entries } = splitReferences(raw);
+    if (!headingFound && raw.split(/\n\s*\n/).length > 1 && raw.length > 1500) {
+      // Probably a whole document without a recognisable heading: do not turn its paragraphs into "references".
+      $('entries-box').value = '';
+      $('extract-status').textContent = t('noHeadingDoc');
+      return;
+    }
+    $('entries-box').value = entries.join('\n\n');
+    $('extract-status').textContent = headingFound
+      ? t('foundHeading', { h: headingFound, n: entries.length })
+      : t('noHeading', { n: entries.length });
+  }
+
+  $('btn-extract').addEventListener('click', extractAndSplit);
+
+  function parseEntry(raw) {
+    const cleaned = raw.replace(/^\s*(?:\[\d+\]|\d+[.)])\s+/, '').trim();
+    const doiMatch = cleaned.match(/\b(10\.\d{4,9}\/[^\s"<>]+)/i);
+    let doi = doiMatch ? doiMatch[1] : '';
+    // Trim trailing punctuation and any unbalanced closing brackets, but keep balanced ones inside the DOI.
+    for (let guard = 0; doi && guard < 10; guard++) {
+      const before = doi;
+      doi = doi.replace(/[.,;:]+$/, '');
+      const opens = (doi.match(/\(/g) || []).length, closes = (doi.match(/\)/g) || []).length;
+      if (/\)$/.test(doi) && closes > opens) doi = doi.slice(0, -1);
+      if (/\]$/.test(doi)) doi = doi.slice(0, -1);
+      if (doi === before) break;
+    }
+    const urlMatch = cleaned.match(/https?:\/\/[^\s<>"\)]+/i);
+    const url = urlMatch ? urlMatch[0].replace(/[.,;]+$/, '') : '';
+    let domain = '';
+    if (url) {
+      try { domain = new URL(url).hostname; } catch (e) { domain = url; }
+    }
+
+    const yearMatch = cleaned.match(/(?:^|[\s(\[,])((?:19|20)\d{2})[a-z]?(?:[\s)\],.:;]|$)/);
+    const year = yearMatch ? parseInt(yearMatch[1], 10) : null;
+
+    // First author surname heuristic
+    let surname = '';
+    const beforeYear = yearMatch ? cleaned.slice(0, yearMatch.index) : cleaned.split('.')[0];
+    const authorClean = beforeYear.replace(/^["“]+/, '').trim();
+    const commaPart = authorClean.split(',')[0].trim();
+    if (commaPart && commaPart.length < 40 && !/\d/.test(commaPart)) {
+      const parts = commaPart.split(/\s+/);
+      surname = parts[parts.length - 1].replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\-']/g, '').toLowerCase();
+    }
+
+    // Title heuristic: quoted title, or segment after (Year). before next period, or longest sentence-like segment
+    let title = '';
+    const quoted = cleaned.match(/["“]([^"”]{12,})["”]/);
+    if (quoted) {
+      title = quoted[1].trim();
+    } else if (yearMatch) {
+      const afterYear = cleaned.slice(yearMatch.index + yearMatch[0].length).replace(/^[.):\s\-–]+/, '');
+      const segs = afterYear.split(/\.\s+/);
+      title = (segs[0] || '').trim();
+    }
+    if (!title || title.length < 8) {
+      const segs = cleaned.split(/\.\s+/).filter(s => s.length >= 12 && !/^https?:/i.test(s) && !/^doi:/i.test(s));
+      title = (segs[1] || segs[0] || cleaned).slice(0, 220).trim();
+    }
+    title = title.replace(/https?:\/\/\S+/gi, '').replace(/\bdoi:\s*\S+/gi, '').replace(/[.,;:]+$/, '').trim();
+
+    // Venue / publisher heuristic
+    let venue = '';
+    if (title && cleaned.includes(title)) {
+      const afterTitle = cleaned.slice(cleaned.indexOf(title) + title.length).replace(/^[."”\s,;:]+/, '');
+      venue = (afterTitle.split(/[.,;]/)[0] || '').trim();
+    }
+
+    return { raw, cleaned, doi, url, domain, year, surname, title, venue };
+  }
+
+  function normTokens(str) {
+    return new Set(
+      (str || '')
+        .normalize('NFKC')
+        .toLowerCase()
+        .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+        .split(/\s+/)
+        .filter(w => w.length > 1)
+    );
+  }
+
+  function titleJaccard(a, b) {
+    const sa = normTokens(a), sb = normTokens(b);
+    if (!sa.size || !sb.size) return 0;
+    let inter = 0;
+    for (const w of sa) if (sb.has(w)) inter++;
+    return inter / (sa.size + sb.size - inter);
+  }
+
+  // Polite rate-limited scheduler, one per host. Crossref: 1 request/s with 1 in flight (3/s, 3 in flight with a mailto,
+  // per Crossref's REST API limits from Dec 2025). OpenAlex without a key: about 1 search/s. Honours Retry-After.
+  function createPoliteFetcher(maxInFlight, minSpacingMs) {
+    let inFlight = 0;
+    let nextSlot = 0;
+    const queue = [];
+    const ctrls = new Set();
+
+    function pump() {
+      if (abortAll) {
+        while (queue.length) queue.shift().reject(new Error('aborted'));
+        ctrls.forEach(c => c.abort());
+        return;
+      }
+      if (inFlight >= maxInFlight || !queue.length) return;
+      const now = Date.now();
+      const wait = Math.max(0, nextSlot - now);
+      nextSlot = Math.max(now, nextSlot) + minSpacingMs;
+      const job = queue.shift();
+      inFlight++;
+      setTimeout(async () => {
+        try {
+          job.resolve(await runWithRetry(job.url));
+        } catch (err) {
+          job.reject(err);
+        } finally {
+          inFlight--;
+          pump();
+        }
+      }, wait);
+      pump();
+    }
+
+    async function runWithRetry(url) {
+      let delay = 1000;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        if (abortAll) throw new Error('aborted');
+        const ctrl = new AbortController();
+        ctrls.add(ctrl);
+        const timer = setTimeout(() => ctrl.abort(), 12000);
+        let resp;
+        try {
+          resp = await fetch(url, { signal: ctrl.signal, headers: { 'Accept': 'application/json' } });
+        } catch (err) {
+          clearTimeout(timer); ctrls.delete(ctrl);
+          if (abortAll || attempt === 2) throw err;
+          await new Promise(r => setTimeout(r, delay)); delay *= 2;
+          continue;
+        }
+        clearTimeout(timer); ctrls.delete(ctrl);
+        if (resp.status === 404) return { notFound: true };
+        if (resp.status === 429 || resp.status >= 500) {
+          if (attempt === 2) throw new Error('HTTP ' + resp.status);
+          const ra = parseFloat(resp.headers.get('Retry-After') || '');
+          await new Promise(r => setTimeout(r, isFinite(ra) && ra > 0 ? Math.min(ra * 1000, 30000) : delay));
+          delay *= 2;
+          continue;
+        }
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        return await resp.json();
+      }
+    }
+
+    pumps.push(pump);
+    return url => new Promise((resolve, reject) => {
+      queue.push({ url, resolve, reject });
+      pump();
+    });
+  }
+  const pumps = [];
+
+  function normCrossrefWork(item) {
+    const title = Array.isArray(item.title) ? (item.title[0] || '') : (item.title || '');
+    const authors = (item.author || []).map(a => [a.family, a.given].filter(Boolean).join(', '));
+    const surnames = (item.author || []).map(a => (a.family || '').toLowerCase());
+    const dp = (item.published && item.published['date-parts'] && item.published['date-parts'][0]) ||
+               (item['published-print'] && item['published-print']['date-parts'] && item['published-print']['date-parts'][0]) ||
+               (item['published-online'] && item['published-online']['date-parts'] && item['published-online']['date-parts'][0]) || [];
+    const year = dp[0] || null;
+    const venue = Array.isArray(item['container-title']) ? (item['container-title'][0] || '') : (item['container-title'] || '');
+    return { source: 'Crossref', title, authors, surnames, year, venue, doi: item.DOI || '' };
+  }
+
+  function normOpenAlexWork(item) {
+    const title = item.title || item.display_name || '';
+    const authors = (item.authorships || []).map(a => (a.author && a.author.display_name) || '').filter(Boolean);
+    const surnames = authors.map(n => {
+      const p = n.trim().split(/\s+/);
+      return (p[p.length - 1] || '').toLowerCase();
+    });
+    const year = item.publication_year || null;
+    const venue = (item.primary_location && item.primary_location.source && item.primary_location.source.display_name) || '';
+    const doi = (item.doi || '').replace(/^https?:\/\/doi\.org\//i, '');
+    return { source: 'OpenAlex', title, authors, surnames, year, venue, doi };
+  }
+
+  function authorMatches(entrySurname, candSurnames) {
+    if (!entrySurname || !candSurnames.length) return true;
+    return candSurnames.some(s => s && (s.includes(entrySurname) || entrySurname.includes(s)));
+  }
+
+  async function verifyOne(entry, politeFetch, mailto) {
+    const mailParam = mailto ? `mailto=${encodeURIComponent(mailto)}` : '';
+    const appendMail = u => (mailParam && u.startsWith('https://api.crossref.org/')) ? (u + (u.includes('?') ? '&' : '?') + mailParam) : u;
+
+    // 1) DOI direct lookup
+    if (entry.doi) {
+      try {
+        const data = await politeFetch(appendMail(`https://api.crossref.org/works/${encodeURIComponent(entry.doi).replace(/%2F/gi, '/')}`));
+        if (!(data && data.notFound)) {
+        const cand = normCrossrefWork(data.message || {});
+        const sim = titleJaccard(entry.title, cand.title);
+        const diffs = [];
+        if (entry.year && cand.year && Math.abs(entry.year - cand.year) > 1) diffs.push(`year (${entry.year} vs ${cand.year})`);
+        if (!authorMatches(entry.surname, cand.surnames)) diffs.push(`author (${entry.surname})`);
+        if (sim >= 0.8 && diffs.length === 0) {
+          return { entry, status: 'verified', sim, match: cand, diffs: [] };
+        }
+        if (sim >= 0.6) {
+          if (sim < 0.8) diffs.unshift(`title similarity ${(sim * 100).toFixed(0)}%`);
+          return { entry, status: 'close', sim, match: cand, diffs };
+        }
+        return { entry, status: 'close', sim, match: cand, diffs: ['DOI resolves to a record with a different title'] };
+        }
+        // DOI not registered in Crossref: fall through to the bibliographic search below.
+      } catch (err) {
+        if (abortAll) return { entry, status: 'stopped', sim: 0, match: null, diffs: [] };
+        return { entry, status: 'error', sim: 0, match: null, diffs: [] };
+      }
+    }
+
+    // 3) Pure URL without DOI or academic title structure
+    if (entry.url && entry.title.length < 15) {
+      return { entry, status: 'web', sim: 0, match: null, diffs: [] };
+    }
+
+    // 2) Crossref + OpenAlex search
+    try {
+      const qBib = encodeURIComponent(entry.cleaned.slice(0, 300));
+      const qTitle = encodeURIComponent((entry.title || entry.cleaned).slice(0, 220));
+      const [crRes, oaRes] = await Promise.allSettled([
+        politeFetch(appendMail(`https://api.crossref.org/works?query.bibliographic=${qBib}&rows=3`)),
+        politeFetch(`https://api.openalex.org/works?search=${qTitle}&per-page=3`)
+      ]);
+
+      const candidates = [];
+      if (crRes.status === 'fulfilled' && crRes.value && crRes.value.message && crRes.value.message.items) {
+        crRes.value.message.items.forEach(it => candidates.push(normCrossrefWork(it)));
+      }
+      if (oaRes.status === 'fulfilled' && oaRes.value && oaRes.value.results) {
+        oaRes.value.results.forEach(it => candidates.push(normOpenAlexWork(it)));
+      }
+
+      if (!candidates.length && crRes.status === 'rejected' && oaRes.status === 'rejected') {
+        return { entry, status: abortAll ? 'stopped' : 'error', sim: 0, match: null, diffs: [] };
+      }
+
+      let best = null, bestSim = -1;
+      for (const c of candidates) {
+        const s = titleJaccard(entry.title, c.title);
+        if (s > bestSim) { bestSim = s; best = c; }
+      }
+
+      if (!best || bestSim < 0.6) {
+        if (entry.url) return { entry, status: 'web', sim: Math.max(0, bestSim), match: null, diffs: [] };
+        return { entry, status: 'not_found', sim: Math.max(0, bestSim), match: bestSim >= 0.4 ? best : null, diffs: [] };
+      }
+
+      const yearOk = !entry.year || !best.year || Math.abs(entry.year - best.year) <= 1;
+      const authOk = authorMatches(entry.surname, best.surnames);
+      const diffs = [];
+      if (!yearOk) diffs.push(`year (${entry.year} vs ${best.year})`);
+      if (!authOk) diffs.push(`author (${entry.surname})`);
+
+      if (bestSim >= 0.9 && yearOk && authOk) {
+        return { entry, status: 'verified', sim: bestSim, match: best, diffs: [] };
+      }
+      if (bestSim < 0.9) diffs.unshift(`title similarity ${(bestSim * 100).toFixed(0)}%`);
+      return { entry, status: 'close', sim: bestSim, match: best, diffs };
+    } catch (err) {
+      return { entry, status: abortAll ? 'stopped' : 'error', sim: 0, match: null, diffs: [] };
+    }
+  }
+
+  $('btn-check').addEventListener('click', async () => {
+    const rawBox = $('entries-box').value.trim();
+    const list = rawBox
+      ? rawBox.split(/\n\s*\n+/).map(s => s.replace(/\s+/g, ' ').trim()).filter(Boolean)
+      : [];
+    if (!list.length) {
+      $('run-status').textContent = t('needEntries');
+      return;
+    }
+
+    abortAll = false;
+    results = [];
+    $('btn-check').disabled = true;
+    $('btn-stop').classList.remove('hidden');
+    $('progress').classList.add('active');
+    $('progress-bar').style.width = '2%';
+
+    const parsed = list.map(parseEntry);
+    const mailto = $('mailto-input').value.trim();
+    pumps.length = 0;
+    const crossrefFetch = mailto ? createPoliteFetcher(3, 340) : createPoliteFetcher(1, 1000);
+    const openalexFetch = createPoliteFetcher(1, 1000);
+    const politeFetch = url => (url.startsWith('https://api.openalex.org/') ? openalexFetch : crossrefFetch)(url);
+    let done = 0;
+
+    const tasks = parsed.map(async (ent, idx) => {
+      const res = await verifyOne(ent, politeFetch, mailto);
+      results[idx] = res;
+      done++;
+      $('progress-bar').style.width = Math.round((done / parsed.length) * 100) + '%';
+      $('run-status').textContent = t('checkingProg', { done, total: parsed.length });
+    });
+
+    await Promise.all(tasks);
+    $('btn-check').disabled = false;
+    $('btn-stop').classList.add('hidden');
+    $('progress').classList.remove('active');
+    results = results.filter(Boolean);
+    if (runCleared) { runCleared = false; results = []; return; }
+    $('run-status').textContent = abortAll
+      ? t('stoppedProg', { done: results.filter(r => r.status !== 'stopped').length, total: parsed.length })
+      : t('doneProg', { total: results.length });
+    renderResults();
+  });
+
+  $('btn-stop').addEventListener('click', () => { abortAll = true; pumps.forEach(p => p()); });
+
+  let runCleared = false;
+  $('btn-clear').addEventListener('click', () => {
+    if ($('btn-check').disabled) runCleared = true;
+    abortAll = true;
+    pumps.forEach(p => p());
+    $('btn-stop').classList.add('hidden');
+    results = [];
+    $('doc-text').value = '';
+    $('entries-box').value = '';
+    $('extract-status').textContent = '';
+    $('run-status').textContent = '';
+    $('results-panel').classList.add('hidden');
+  });
+
+  function badgeMeta(status) {
+    if (status === 'verified') return ['b-ver', t('clsVerified')];
+    if (status === 'close') return ['b-cls', t('clsClose')];
+    if (status === 'not_found') return ['b-not', t('clsNotFound')];
+    if (status === 'web') return ['b-web', t('clsWeb')];
+    if (status === 'stopped') return ['b-err', t('clsStopped')];
+    return ['b-err', t('clsError')];
+  }
+
+  function renderResults() {
+    $('results-panel').classList.remove('hidden');
+    const counts = { verified: 0, close: 0, not_found: 0, web: 0, error: 0, stopped: 0 };
+    results.forEach(r => { counts[r.status] = (counts[r.status] || 0) + 1; });
+
+    const sRow = $('stats-row');
+    sRow.textContent = '';
+    [
+      [t('clsVerified'), counts.verified],
+      [t('clsClose'), counts.close],
+      [t('clsNotFound'), counts.not_found],
+      [t('clsWeb'), counts.web],
+      [t('clsError'), counts.error],
+      [t('clsStopped'), counts.stopped]
+    ].forEach(([label, val]) => {
+      const card = document.createElement('div');
+      card.className = 'stat-card';
+      const k = document.createElement('div'); k.className = 'k'; k.textContent = label;
+      const v = document.createElement('div'); v.className = 'v'; v.textContent = String(val);
+      card.append(k, v);
+      sRow.appendChild(card);
+    });
+
+    const missingNote = $('many-missing-note');
+    if (counts.not_found >= 2 && counts.not_found / Math.max(1, results.length) >= 0.25) {
+      missingNote.textContent = t('manyMissing', { n: counts.not_found, total: results.length });
+      missingNote.classList.remove('hidden');
+    } else {
+      missingNote.classList.add('hidden');
+    }
+
+    const listEl = $('entry-list');
+    listEl.textContent = '';
+    results.forEach((r, idx) => {
+      const card = document.createElement('article');
+      card.className = 'entry-card';
+
+      // Left: parsed user citation
+      const left = document.createElement('div');
+      const [bClass, bText] = badgeMeta(r.status);
+      const badge = document.createElement('span');
+      badge.className = 'badge ' + bClass;
+      badge.textContent = `#${idx + 1} · ${bText}`;
+
+      const rawDiv = document.createElement('div');
+      rawDiv.className = 'raw-ref';
+      rawDiv.textContent = r.entry.raw;
+
+      const pMeta = document.createElement('div');
+      pMeta.className = 'parsed-meta';
+      const bits = [];
+      if (r.entry.year) bits.push('year=' + r.entry.year);
+      if (r.entry.surname) bits.push('author=' + r.entry.surname);
+      if (r.entry.doi) bits.push('doi=' + r.entry.doi);
+      if (r.entry.domain) bits.push('domain=' + r.entry.domain);
+      pMeta.textContent = bits.join(' · ');
+
+      left.append(badge, rawDiv, pMeta);
+
+      // Right: matched record or status explanation
+      const right = document.createElement('div');
+      right.className = 'match-box';
+
+      if (r.status === 'web') {
+        const p = document.createElement('div');
+        p.className = 'match-sub';
+        p.textContent = t('webNote', { d: r.entry.domain || r.entry.url });
+        right.appendChild(p);
+      } else if (r.status === 'stopped') {
+        const p = document.createElement('div');
+        p.className = 'match-sub';
+        p.textContent = t('clsStopped');
+        right.appendChild(p);
+      } else if (r.status === 'error') {
+        const p = document.createElement('div');
+        p.className = 'match-sub';
+        p.textContent = t('errNote');
+        right.appendChild(p);
+      } else if (!r.match) {
+        const p = document.createElement('div');
+        p.className = 'match-sub';
+        p.textContent = t('noMatchNote');
+        right.appendChild(p);
+      } else {
+        const mTitle = document.createElement('div');
+        mTitle.className = 'match-title';
+        mTitle.textContent = r.match.title || '(untitled)';
+
+        const mMeta = document.createElement('div');
+        mMeta.className = 'match-sub';
+        const authStr = r.match.authors.slice(0, 4).join('; ') + (r.match.authors.length > 4 ? ' et al.' : '');
+        mMeta.textContent = [authStr, r.match.year, r.match.venue, `[${r.match.source} · sim ${(r.sim * 100).toFixed(0)}%]`]
+          .filter(Boolean).join(' · ');
+
+        right.append(mTitle, mMeta);
+
+        if (r.match.doi) {
+          const linkWrap = document.createElement('div');
+          linkWrap.style.marginTop = '4px';
+          const a = document.createElement('a');
+          a.className = 'mono';
+          a.style.fontSize = '12px';
+          a.href = 'https://doi.org/' + encodeURI(r.match.doi);
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          a.textContent = 'https://doi.org/' + r.match.doi;
+          linkWrap.appendChild(a);
+          right.appendChild(linkWrap);
+        }
+
+        if (r.diffs && r.diffs.length) {
+          const dEl = document.createElement('div');
+          dEl.className = 'parsed-meta';
+          dEl.style.color = '#e2c675';
+          dEl.textContent = t('diffPrefix') + r.diffs.join(', ');
+          right.appendChild(dEl);
+        }
+      }
+
+      card.append(left, right);
+      listEl.appendChild(card);
+    });
+  }
+
+  function csvCell(v) {
+    const s = String(v == null ? '' : v);
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+
+  $('btn-dl-csv').addEventListener('click', () => {
+    if (!results.length) return;
+    const header = ['index', 'status', 'similarity', 'entry', 'parsed_doi', 'parsed_year', 'matched_source', 'matched_title', 'matched_authors', 'matched_year', 'matched_venue', 'matched_doi'];
+    const lines = [header.map(csvCell).join(',')];
+    results.forEach((r, i) => {
+      const m = r.match || {};
+      lines.push([
+        i + 1,
+        r.status,
+        r.sim ? r.sim.toFixed(3) : '',
+        r.entry.raw,
+        r.entry.doi,
+        r.entry.year || '',
+        m.source || '',
+        m.title || '',
+        (m.authors || []).join('; '),
+        m.year || '',
+        m.venue || '',
+        m.doi || ''
+      ].map(csvCell).join(','));
+    });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8' }));
+    a.download = 'aletheia-references.csv';
+    a.click();
+  });
+
+  function escHtml(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  $('btn-dl-html').addEventListener('click', () => {
+    if (!results.length) return;
+    const rows = results.map((r, i) => {
+      const [, label] = badgeMeta(r.status);
+      const m = r.match;
+      const mHtml = m
+        ? `<strong>${escHtml(m.title)}</strong><br>${escHtml((m.authors || []).slice(0, 4).join('; '))} (${escHtml(m.year || '')}) — ${escHtml(m.venue || '')} [${escHtml(m.source)}, ${(r.sim * 100).toFixed(0)}%]`
+        : escHtml(r.status === 'web' ? t('webNote', { d: r.entry.domain }) : t('noMatchNote'));
+      return `<tr><td>${i + 1}</td><td>${escHtml(label)}</td><td>${escHtml(r.entry.raw)}</td><td>${mHtml}</td></tr>`;
+    }).join('');
+
+    const doc = `<!doctype html><html><head><meta charset="utf-8"><title>ALETHEIA Reference Verification</title>
+<style>body{font-family:system-ui,sans-serif;background:#101114;color:#F2F0E9;max-width:1050px;margin:24px auto;padding:0 16px;line-height:1.55}
+h1{color:#C9B98D}table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}th,td{border:1px solid #333;padding:8px;text-align:left;vertical-align:top}
+.note{border-left:3px solid #B99A5B;padding:8px 12px;background:#181A20;color:#B9B6AC}</style></head><body>
+<h1>ALETHEIA — ${escHtml(t('pageTitle'))}</h1><p class="note">${escHtml(t('cautionBox'))}</p>
+<table><tr><th>#</th><th>Status</th><th>Submitted Reference</th><th>Matched Record</th></tr>${rows}</table></body></html>`;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([doc], { type: 'text/html' }));
+    a.download = 'aletheia-references-report.html';
+    a.click();
+  });
+
+  applyI18n();
+})();
+</script>
+</body>
+</html>
