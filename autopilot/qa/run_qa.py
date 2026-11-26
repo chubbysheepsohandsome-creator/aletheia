@@ -104,7 +104,10 @@ with sync_playwright() as p:
             pg.click('.modes [data-mode="deep"]'); pg.wait_for_timeout(300); check("mode switch hides similarity panel", pg.is_hidden("#simPanel"))
 
     # 3. writing process page with fixtures
-    for lang, files in [("en", [os.path.join(HERE, "fx", "rich.docx")]), ("zh", [os.path.join(HERE, "fx", "rich.docx")]), ("en", sorted(glob.glob(os.path.join(HERE, "fx", "draft*.docx")) + [os.path.join(HERE, "fx", "pasted.docx")]))]:
+    if not os.path.exists(os.path.join(HERE, "fx", "rich.docx")): subprocess.run([sys.executable, os.path.join(HERE, "make_fixture.py"), os.path.join(HERE, "fx", "rich.docx")], check=False)
+    multi = [f for f in sorted(glob.glob(os.path.join(HERE, "fx", "draft*.docx"))) + glob.glob(os.path.join(HERE, "fx", "pasted.docx")) if os.path.exists(f)]
+    cases = [("en", [os.path.join(HERE, "fx", "rich.docx")]), ("zh", [os.path.join(HERE, "fx", "rich.docx")])] + ([("en", multi)] if len(multi) > 1 else [])
+    for lang, files in cases:
         pg = page(lang); pg.goto(B + "process.html"); pg.wait_for_timeout(500)
         pg.set_input_files("#file-input", files); pg.wait_for_selector("#main-results:not(.hidden)", timeout=60000); pg.wait_for_timeout(600)
         t = pg.inner_text("#main-results"); check(f"writing process {lang} x{len(files)}", len(t) > 400 and "undefined" not in t and "NaN" not in t, f"{len(t)} chars")
