@@ -14,7 +14,7 @@
 .hidden{display:none!important}
 .zh-i{display:none}html[lang="zh-CN"] .zh-i{display:inline}html[lang="zh-CN"] .en-i{display:none}
 </style>
-<link rel="stylesheet" href="tools.css?v=1.9.7">
+<link rel="stylesheet" href="tools.css?v=1.9.8">
 <style>
 /* Writing Process page */
 .wb-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px}
@@ -84,11 +84,21 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
 .kv div:nth-child(even){font-family:var(--mono);word-break:break-all}
 @media (max-width:640px){.kv{grid-template-columns:1fr}.kv div:nth-child(odd){border-bottom:0;padding-bottom:0}}
 .tablewrap{overflow-x:auto}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:16px}@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.h3{font:600 14px var(--sans);margin:18px 0 8px;color:var(--fg)}
+table.dt td.bar{width:38%}.sbar{height:9px;border-radius:5px;background:var(--bg-3);overflow:hidden}.sbar i{display:block;height:100%;border-radius:5px}
+.brow{display:grid;grid-template-columns:minmax(0,1fr) 70px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.brow .lbl{color:var(--fg-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.brow .lbl b{color:var(--fg);font-weight:600}
+.brow .num{font-family:var(--mono);text-align:right;color:var(--fg)}
+.brow .sbar{grid-column:1/-1;height:6px;margin-top:-2px}
+.isl{display:grid;grid-template-columns:90px minmax(0,1fr) 90px;gap:12px;padding:9px 12px;border:1px solid var(--line);border-radius:12px;margin-bottom:6px;font-size:13px;background:var(--card);cursor:pointer;text-align:left;color:var(--fg-2);width:100%}
+.isl:hover{border-color:var(--accent)}.isl b{color:var(--fg)}.isl .num{font-family:var(--mono);text-align:right}
+.chips2{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.chips2 span{font:12px var(--mono);background:var(--bg-3);border-radius:8px;padding:4px 8px;color:var(--fg-2)}
 </style>
 </head>
 <body>
 <header class="top"><div class="bar">
-  <a class="brand" href="index.html#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.7</small></a>
+  <a class="brand" href="index.html#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.8</small></a>
   <nav aria-label="Main"><a href="index.html#detect"><span class="en-i">Detect</span><span class="zh-i">检测</span></a><a href="index.html#tools" class="on"><span class="en-i">Tools</span><span class="zh-i">工具</span></a><a href="index.html#technology"><span class="en-i">Technology</span><span class="zh-i">技术</span></a><a href="index.html#research"><span class="en-i">Research</span><span class="zh-i">研究</span></a><a href="index.html#changelog"><span class="en-i">Changelog</span><span class="zh-i">更新日志</span></a><a href="index.html#history"><span class="en-i">History</span><span class="zh-i">历史</span></a></nav>
   <div class="hdr-actions"><button class="iconbtn" id="btn-lang" type="button" aria-label="Switch language / 切换语言">中文</button><button class="iconbtn" id="btn-theme" type="button" aria-label="Switch light or dark theme"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg></button></div>
 </div></header>
@@ -153,8 +163,51 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
       <div class="finds" id="finds"></div>
     </section>
 
+    <section class="panel rise" id="p-sess">
+      <span class="sec-k" data-i18n="k4s">04 · Session by session</span>
+      <h2 data-i18n="sH">What each editing session added</h2>
+      <p class="cap" data-i18n="sIntro">Sessions are listed in the order Word recorded them. “Words still in the file” counts text from that session that survived every later edit; text that was written and then deleted is not counted.</p>
+      <div class="tablewrap"><table class="dt">
+        <thead><tr><th>#</th><th data-i18n="thWordsLeft">Words still in the file</th><th data-i18n="thShare">Share</th><th data-i18n="thParasT">Paragraphs touched</th><th></th></tr></thead>
+        <tbody id="sess-tbody"></tbody>
+      </table></div>
+      <p class="cap" id="sess-cap"></p>
+    </section>
+
+    <section class="panel rise" id="p-fmt">
+      <span class="sec-k" data-i18n="k5f">05 · Formatting and source clues</span>
+      <h2 data-i18n="fmtH">Fonts, sizes, languages and hidden text</h2>
+      <p class="cap" data-i18n="fmtIntro">Text typed straight into a document usually shares one font, size and spelling language. Text pasted from a website, PDF or another file often keeps its own formatting. A mismatch is a clue to ask about, not proof of copying.</p>
+      <div class="facts" id="fmt-facts"></div>
+      <div class="grid2">
+        <div><h3 class="h3" data-i18n="fontsH">Body text formatting</h3><div id="fmt-fonts"></div></div>
+        <div><h3 class="h3" data-i18n="langH">Spelling language set on the text</h3><div id="fmt-langs"></div></div>
+      </div>
+      <h3 class="h3" data-i18n="islH">Paragraphs formatted differently from the rest</h3>
+      <div id="fmt-islands"></div>
+    </section>
+
+    <section class="panel rise hidden" id="p-rev">
+      <span class="sec-k" data-i18n="k6r">06 · Revisions and comments over time</span>
+      <h2 data-i18n="revH">When tracked changes and comments were made</h2>
+      <p class="cap" data-i18n="revIntro">Tracked changes and comments carry a date. Several dates spread over time fit a piece that was revised with feedback.</p>
+      <div class="tablewrap"><table class="dt"><thead><tr><th data-i18n="thDay">Day</th><th data-i18n="thIns">Insertions</th><th data-i18n="thDel">Deletions</th><th data-i18n="thCom">Comments</th></tr></thead><tbody id="rev-tbody"></tbody></table></div>
+      <p class="cap" id="rev-cap"></p>
+    </section>
+
+    <section class="panel rise" id="p-struct">
+      <span class="sec-k" data-i18n="k7s">07 · Structure and characters</span>
+      <h2 data-i18n="stH">What the document is made of</h2>
+      <div class="facts" id="st-facts"></div>
+      <div class="grid2">
+        <div><h3 class="h3" data-i18n="lenH">Paragraph and sentence length</h3><div class="kv" id="st-len"></div></div>
+        <div><h3 class="h3" data-i18n="chH">Punctuation and special characters</h3><div class="kv" id="st-chars"></div></div>
+      </div>
+      <div id="st-domains"></div>
+    </section>
+
     <section class="panel rise hidden" id="p-drafts">
-      <span class="sec-k" data-i18n="k4">04 · Between drafts</span>
+      <span class="sec-k" data-i18n="k4">08 · Between drafts</span>
       <h2 data-i18n="dH">How the drafts changed</h2>
       <ul class="dsum" id="dsum"></ul>
       <div class="tablewrap"><table>
@@ -164,7 +217,7 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
     </section>
 
     <section class="panel rise" id="p-tech">
-      <span class="sec-k" data-i18n="k5">05 · Technical details</span>
+      <span class="sec-k" data-i18n="k5">09 · Technical details</span>
       <details class="tech"><summary data-i18n="techSum">Show the raw values read from the file</summary>
         <div class="kv" id="kv"></div>
         <div id="tc-box"></div>
@@ -172,7 +225,7 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
     </section>
   </div>
 </div>
-<footer class="tool-foot"><span>ALETHEIA V1.9.7 · <span class="en-i">Evidence, never a verdict.</span><span class="zh-i">只给证据，不下结论。</span></span><span><a href="index.html#tools"><span class="en-i">All tools</span><span class="zh-i">全部工具</span></a> · <a href="similarity.html"><span class="en-i">Similarity Check</span><span class="zh-i">相似度检查</span></a> · <a href="process.html"><span class="en-i">Writing Process</span><span class="zh-i">写作过程</span></a> · <a href="references.html"><span class="en-i">Reference Check</span><span class="zh-i">参考文献核查</span></a></span></footer>
+<footer class="tool-foot"><span>ALETHEIA V1.9.8 · <span class="en-i">Evidence, never a verdict.</span><span class="zh-i">只给证据，不下结论。</span></span><span><a href="index.html#tools"><span class="en-i">All tools</span><span class="zh-i">全部工具</span></a> · <a href="similarity.html"><span class="en-i">Similarity Check</span><span class="zh-i">相似度检查</span></a> · <a href="process.html"><span class="en-i">Writing Process</span><span class="zh-i">写作过程</span></a> · <a href="references.html"><span class="en-i">Reference Check</span><span class="zh-i">参考文献核查</span></a></span></footer>
 <script>
 (() => {
   'use strict';
@@ -223,10 +276,35 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
       oNone: 'No Word editing record', oNoneP: 'Without session numbers there is nothing to read about how the text was written.',
       oNoneW: 'exported from Google Docs, Pages or WPS; converted online; created by a script.',
       oShort: 'Fewer than 300 words', oShortP: 'Short texts rarely build up much editing history, so the summary above means little here.',
-      k4: '04 · Between drafts', dH: 'How the drafts changed', thDraft: 'Draft', thDate: 'Created', thWords: 'Words', thSess: 'Sessions', thParas: 'Paragraphs kept / new / removed',
+      k4: '08 · Between drafts', dH: 'How the drafts changed', thDraft: 'Draft', thDate: 'Created', thWords: 'Words', thSess: 'Sessions', thParas: 'Paragraphs kept / new / removed',
       dStep: 'From {a} to {b}: {w} words, {np} new paragraph{pl1}, {rp} removed, {kp} kept unchanged, {ns} new editing session{pl2}.',
       dSame: '{b} keeps none of the session numbers of {a}, so it was probably saved as a new file rather than edited from the earlier one.',
-      k5: '05 · Technical details', techSum: 'Show the raw values read from the file',
+      k4s: '04 · Session by session', sH: 'What each editing session added', sIntro: 'Sessions are listed in the order Word recorded them. “Words still in the file” counts text from that session that survived every later edit; text that was written and then deleted is not counted.',
+      thWordsLeft: 'Words still in the file', thShare: 'Share', thParasT: 'Paragraphs touched', thBar: '',
+      sCap: '{a} of {s} sessions left words that are still in the file. Sessions with no surviving words are usually small fixes, formatting, or text that was later deleted.', sMore: '…and {n} more session{pl} with no surviving words.',
+      k5f: '05 · Formatting and source clues', fmtH: 'Fonts, sizes, languages and hidden text',
+      fmtIntro: 'Text typed straight into a document usually shares one font, size and spelling language. Text pasted from a website, PDF or another file often keeps its own formatting. A mismatch is a clue to ask about, not proof of copying.',
+      fontsH: 'Body text formatting', langH: 'Spelling language set on the text', islH: 'Paragraphs formatted differently from the rest',
+      fMain: 'Main body format', fMainS: 'font and size of most body text', fIsl: 'Differently formatted', fIslS: 'paragraphs of 15+ words in another font or size', fLang: 'Spelling languages', fLangS: 'different language tags on the text', fHid: 'Hidden, white or tiny', fHidS: 'words that are hard or impossible to see',
+      islNone: 'Every body paragraph uses the main font and size. Headings, tables and short lines are not checked.', islRow: 'Paragraph {p}', islWords: '{w} words',
+      islHint: 'Click a row to see it in the paragraph map above. Ordinary reasons: a quotation or example pasted on purpose; a section written in another document and moved over; a template’s own text.',
+      langNone: 'No spelling language is set on the text.', langUnknown: '(not set)', hlNote: '{h} words are highlighted or shaded and {c} words are in a colour other than black.',
+      k6r: '06 · Revisions and comments over time', revH: 'When tracked changes and comments were made', revIntro: 'Tracked changes and comments carry a date. Several dates spread over time fit a piece that was revised with feedback.',
+      thDay: 'Day', thIns: 'Insertions', thDel: 'Deletions', thCom: 'Comments', revCap: 'Spread over {d} day{pl}, by {a} author{pla}.',
+      k7s: '07 · Structure and characters', stH: 'What the document is made of', lenH: 'Paragraph and sentence length', chH: 'Punctuation and special characters',
+      sParas: 'Paragraphs', sParasS: '{h} headings, {l} list items', sTables: 'Tables', sTablesS: '{i} images or drawings', sLinks: 'Links', sLinksS: '{f} footnotes', sMath: 'Equations', sMathS: '{s} section{pl}',
+      lBody: 'Body paragraphs (5+ words)', lMed: 'Median paragraph length', lRange: 'Shortest / longest', lLong: 'Paragraphs of 150+ words', lSent: 'Sentences counted', lSentM: 'Average sentence length', lSentSd: 'Spread of sentence length',
+      wUnit: '{n} words', cQuotesD: 'Double quotes (curly / straight)', cQuotesS: 'Single quotes (curly / straight)', cDash: 'Em dashes / en dashes', cEll: 'Ellipsis characters', cNbsp: 'Non-breaking spaces', cZw: 'Zero-width characters', cOdd: 'Other unusual spaces', cDbl: 'Double spaces between words', cMix: 'Words mixing alphabets', cMd: 'Markdown marks (** or #)',
+      domH: 'Websites linked in the text', 
+      oIsl: '{n} paragraph{pl} ({p}% of body words) {v} a different font or size from the rest', oIslP: 'Pasted text often keeps the formatting of where it came from. Look at these paragraphs in the map and ask how they were written.', oIslW: 'a deliberate quotation or example; moved from the writer’s own other file; a template or teacher-provided text.',
+      oLang: 'The text carries {n} different spelling languages', oLangP: 'Word tags text with the spelling language of the keyboard or source it came from, for example English (Australia) and English (US).', oLangW: 'a different keyboard or device setting; text pasted from a website or another document; a template.',
+      oHid: '{n} word{pl} hidden, white or tiny', oHidP: 'Text that cannot be seen still counts for word counts and some checkers.', oHidW: 'leftover template text; notes the writer hid for themselves.',
+      oQuote: 'Both curly and straight double quotation marks are used ({c} curly, {s} straight)', oQuoteP: 'Word turns straight quotes into curly ones as you type, so a mix can mean that some text was typed or pasted elsewhere.',
+      oMix: '{n} word{pl} mixing Latin letters with Greek or Cyrillic letters', oMixP: 'Some Greek and Cyrillic letters look exactly like Latin ones. Mixing them inside a word is rare in ordinary writing.', oMixW: 'a maths or science symbol typed next to a word; text from a multilingual keyboard.', oQuoteW: 'autocorrect switched off for part of the writing; text from another app or device.',
+      oMd: '{n} Markdown mark{pl} such as ** or # left in the text', oMdP: 'These marks come from chat tools, notes apps and some websites, which use them for bold text and headings.', oMdW: 'notes written in a Markdown app; text copied from a forum or wiki.',
+      oZw: '{n} zero-width or unusual space character{pl}', oZwP: 'Invisible characters can come from web pages and PDFs, and are sometimes used to break up text so checkers miss it.', oZwW: 'copied from a web page or PDF; some languages’ keyboards.',
+      oRev: 'Tracked changes or comments on {d} different day{pl}', oRevP: 'Dated revisions spread over several days fit writing that was reviewed and revised over time.',
+      k5: '09 · Technical details', techSum: 'Show the raw values read from the file',
       kCreated: 'Created', kModified: 'Last modified', kCreator: 'Author', kLastBy: 'Last saved by', kRevision: 'Revision number', kTime: 'Total editing time (min)',
       kApp: 'Application', kAppVer: 'App version', kTemplate: 'Template', kPages: 'Pages', kWordsApp: 'Words (as counted by Word)', kRoot: 'First session id (rsidRoot)', kSess: 'Session ids (in order)',
       hidden: '[hidden — use “Show file names”]', tcH: 'Tracked changes and comments', insLabel: 'insertion', delLabel: 'deletion', comLabel: 'comment', none: '—'
@@ -277,10 +355,35 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
       oNone: '没有 Word 编辑记录', oNoneP: '没有会话编号，就无法看出文字是怎么写出来的。',
       oNoneW: '从 Google Docs、Pages 或 WPS 导出；在线转换；由程序生成。',
       oShort: '少于 300 词', oShortP: '短文本很少积累编辑记录，所以上面的总结对它意义不大。',
-      k4: '04 · 草稿之间', dH: '各份草稿是怎么变化的', thDraft: '草稿', thDate: '创建时间', thWords: '字数', thSess: '会话', thParas: '段落 保留 / 新增 / 删除',
+      k4: '08 · 草稿之间', dH: '各份草稿是怎么变化的', thDraft: '草稿', thDate: '创建时间', thWords: '字数', thSess: '会话', thParas: '段落 保留 / 新增 / 删除',
       dStep: '从 {a} 到 {b}：{w} 词，新增 {np} 段，删除 {rp} 段，{kp} 段原样保留，新增 {ns} 次编辑会话。',
       dSame: '{b} 没有沿用 {a} 的任何会话编号，所以它很可能是另存成了新文件，而不是在前一份上接着改的。',
-      k5: '05 · 技术细节', techSum: '显示从文件里读到的原始数值',
+      k4s: '04 · 每次会话', sH: '每次编辑会话写了什么', sIntro: '会话按 Word 记录的先后顺序排列。“仍在文件里的词”只算这次会话写下、而且之后没被删掉的文字；写了又删掉的不算。',
+      thWordsLeft: '仍在文件里的词', thShare: '占比', thParasT: '涉及的段落', thBar: '',
+      sCap: '{s} 次会话中有 {a} 次留下了至今仍在文件里的词。没有留下文字的会话，通常是小修改、调格式，或者写的内容后来被删掉了。', sMore: '……另有 {n} 次会话没有留下文字。',
+      k5f: '05 · 格式与来源线索', fmtH: '字体、字号、语言和隐藏文字',
+      fmtIntro: '直接在文档里打的字，通常字体、字号和拼写语言都一样。从网页、PDF 或其他文件粘贴来的文字，常常会保留原来的格式。格式不一致只是值得问一问的线索，不能证明是抄的。',
+      fontsH: '正文格式', langH: '文字上设置的拼写语言', islH: '格式和其他部分不一样的段落',
+      fMain: '正文主格式', fMainS: '大部分正文的字体和字号', fIsl: '格式不同', fIslS: '15 词以上、字体或字号不同的段落', fLang: '拼写语言', fLangS: '文字上出现的不同语言标记', fHid: '隐藏、白色或极小', fHidS: '很难看见或看不见的词',
+      islNone: '所有正文段落都使用主字体和字号。标题、表格和短行不检查。', islRow: '第 {p} 段', islWords: '{w} 词',
+      islHint: '点击一行，可以在上面的段落地图里看到它。常见的正常原因：有意粘贴的引文或例子；在另一个文档里写好再搬过来的部分；模板自带的文字。',
+      langNone: '文字上没有设置拼写语言。', langUnknown: '（未设置）', hlNote: '有 {h} 个词加了高亮或底纹，{c} 个词不是黑色。',
+      k6r: '06 · 修订和批注的时间', revH: '修订和批注是什么时候做的', revIntro: '修订和批注都带有日期。日期分散在不同的日子，符合根据反馈反复修改的作业。',
+      thDay: '日期', thIns: '插入', thDel: '删除', thCom: '批注', revCap: '分布在 {d} 天里，共 {a} 位作者。',
+      k7s: '07 · 结构与字符', stH: '文档由什么组成', lenH: '段落和句子长度', chH: '标点和特殊字符',
+      sParas: '段落', sParasS: '{h} 个标题，{l} 个列表项', sTables: '表格', sTablesS: '{i} 张图片或绘图', sLinks: '链接', sLinksS: '{f} 个脚注', sMath: '公式', sMathS: '{s} 个分节',
+      lBody: '正文段落（5 词以上）', lMed: '段落长度中位数', lRange: '最短 / 最长', lLong: '150 词以上的段落', lSent: '统计的句子数', lSentM: '平均句长', lSentSd: '句长的波动',
+      wUnit: '{n} 词', cQuotesD: '双引号（弯 / 直）', cQuotesS: '单引号（弯 / 直）', cDash: '长破折号 / 短破折号', cEll: '省略号字符', cNbsp: '不换行空格', cZw: '零宽字符', cOdd: '其他特殊空格', cDbl: '词之间的双空格', cMix: '混用字母的单词', cMd: 'Markdown 符号（** 或 #）',
+      domH: '正文里链接的网站',
+      oIsl: '有 {n} 段（占正文词数的 {p}%）字体或字号和其他部分不同', oIslP: '粘贴来的文字常常保留原来的格式。可以在段落地图里看看这些段落，再问问是怎么写的。', oIslW: '有意放的引文或例子；从作者自己的其他文件搬过来；模板或老师给的文字。',
+      oLang: '文字带有 {n} 种不同的拼写语言', oLangP: 'Word 会按输入的键盘或来源给文字标上拼写语言，比如英语（澳大利亚）和英语（美国）。', oLangW: '键盘或设备设置不同；从网页或其他文档粘贴；模板。',
+      oHid: '有 {n} 个词是隐藏、白色或极小字号', oHidP: '看不见的文字仍然会算进字数，也会被一些检查工具读到。', oHidW: '模板里残留的文字；作者给自己留的隐藏笔记。',
+      oQuote: '同时用了弯双引号和直双引号（弯 {c} 个，直 {s} 个）', oQuoteP: 'Word 打字时会自动把直引号变成弯引号，所以两种混用可能说明有些文字是在别处输入或粘贴来的。',
+      oMix: '有 {n} 个单词把拉丁字母和希腊或西里尔字母混在一起', oMixP: '有些希腊和西里尔字母和拉丁字母长得一模一样。在普通写作里，一个单词里混用它们很少见。', oMixW: '在单词旁边输入了数学或科学符号；来自多语言键盘的文字。', oQuoteW: '写到一半关掉了自动更正；文字来自其他软件或设备。',
+      oMd: '文字里留有 {n} 个 ** 或 # 之类的 Markdown 符号', oMdP: '这些符号来自聊天工具、笔记软件和一些网站，用来表示加粗和标题。', oMdW: '在 Markdown 笔记软件里写的笔记；从论坛或维基复制的文字。',
+      oZw: '有 {n} 个零宽字符或特殊空格', oZwP: '看不见的字符可能来自网页和 PDF，有时也被用来打散文字，让检查工具查不出来。', oZwW: '从网页或 PDF 复制；某些语言的键盘。',
+      oRev: '修订或批注分布在 {d} 个不同的日子', oRevP: '日期分散在几天里的修订，符合经过审阅、逐步修改的写作过程。',
+      k5: '09 · 技术细节', techSum: '显示从文件里读到的原始数值',
       kCreated: '创建时间', kModified: '最后修改', kCreator: '作者', kLastBy: '最后保存者', kRevision: '修订号', kTime: '累计编辑时间（分钟）',
       kApp: '软件', kAppVer: '软件版本', kTemplate: '模板', kPages: '页数', kWordsApp: '字数（Word 统计）', kRoot: '第一次会话编号（rsidRoot）', kSess: '会话编号（按顺序）',
       hidden: '[已隐藏，点“显示文件名”查看]', tcH: '修订和批注', insLabel: '插入', delLabel: '删除', comLabel: '批注', none: '—'
@@ -576,7 +679,10 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
       color: COLORS[idx % COLORS.length]
     }));
 
+    let detail = null;
+    try { detail = await extraDetail(zip, bodyDoc, paragraphs, trackedChanges, comments, settingsXml); } catch (e) { console.warn('detail', e); }
     return {
+      detail,
       fileName: file.name,
       meta,
       rsidRoot,
@@ -602,6 +708,172 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
     });
   }
 
+
+  // ===== V1.9.8: detailed reading of formatting, language, structure and characters =====
+  // Everything here describes the file. None of it shows who wrote the text or whether AI was used.
+  async function extraDetail(zip, bodyDoc, paragraphs, trackedChanges, comments, settingsXml) {
+    const [stylesXml, themeXml, footXml, relsXml] = await Promise.all([
+      zip.readTextEntry('word/styles.xml'), zip.readTextEntry('word/theme/theme1.xml'),
+      zip.readTextEntry('word/footnotes.xml'), zip.readTextEntry('word/_rels/document.xml.rels')]);
+    const kidsOf = (el, ln) => { const out = []; if (!el) return out; for (const c of el.children) if (c.localName === ln) out.push(c); return out; };
+    const kid = (el, ln) => kidsOf(el, ln)[0] || null;
+    const all = (doc, ln) => { const out = []; if (!doc) return out; const els = doc.getElementsByTagName('*'); for (let i = 0; i < els.length; i++) if (els[i].localName === ln) out.push(els[i]); return out; };
+    // theme fonts
+    const theme = { major: '', minor: '' };
+    const thDoc = parseXml(themeXml);
+    if (thDoc) { for (const k of ['major', 'minor']) { const f = all(thDoc, k + 'Font')[0]; const l = f && kid(f, 'latin'); if (l) theme[k] = l.getAttribute('typeface') || ''; } }
+    const fontOf = rf => {
+      if (!rf) return '';
+      const v = getWAttr(rf, 'ascii') || getWAttr(rf, 'hAnsi');
+      if (v) return v;
+      const th = getWAttr(rf, 'asciiTheme') || getWAttr(rf, 'hAnsiTheme');
+      if (th) return /major/i.test(th) ? theme.major : theme.minor;
+      return '';
+    };
+    const readRPr = rPr => {
+      const o = {};
+      if (!rPr) return o;
+      const f = fontOf(kid(rPr, 'rFonts')); if (f) o.font = f;
+      const sz = kid(rPr, 'sz'); if (sz) o.size = (+getWAttr(sz, 'val') || 0) / 2;
+      const c = kid(rPr, 'color'); if (c) o.color = (getWAttr(c, 'val') || '').toUpperCase();
+      const h = kid(rPr, 'highlight'); if (h && getWAttr(h, 'val') && getWAttr(h, 'val') !== 'none') o.highlight = getWAttr(h, 'val');
+      const sh = kid(rPr, 'shd'); if (sh) { const fl = (getWAttr(sh, 'fill') || '').toUpperCase(); if (fl && fl !== 'AUTO' && fl !== 'FFFFFF') o.shade = fl; }
+      const lg = kid(rPr, 'lang'); if (lg && getWAttr(lg, 'val')) o.lang = getWAttr(lg, 'val');
+      const v = kid(rPr, 'vanish'); if (v && getWAttr(v, 'val') !== '0' && getWAttr(v, 'val') !== 'false') o.vanish = true;
+      return o;
+    };
+    // styles
+    const styles = new Map(); let defR = {}, defStyle = '';
+    const stDoc = parseXml(stylesXml);
+    if (stDoc) {
+      const dd = all(stDoc, 'rPrDefault')[0]; if (dd) defR = readRPr(kid(dd, 'rPr'));
+      for (const s of all(stDoc, 'style')) {
+        const id = getWAttr(s, 'styleId'); if (!id) continue;
+        const nm = kid(s, 'name'), bo = kid(s, 'basedOn');
+        styles.set(id, { name: nm ? getWAttr(nm, 'val') : id, basedOn: bo ? getWAttr(bo, 'val') : '', r: readRPr(kid(s, 'rPr')), type: getWAttr(s, 'type') });
+        if (getWAttr(s, 'type') === 'paragraph' && (getWAttr(s, 'default') === '1' || getWAttr(s, 'default') === 'true')) defStyle = id;
+      }
+    }
+    let themeLang = '';
+    const setDoc = parseXml(settingsXml); const tfl = setDoc && all(setDoc, 'themeFontLang')[0]; if (tfl) themeLang = getWAttr(tfl, 'val');
+    const styleR = id => { const out = {}; const seen = new Set(); let cur = id; while (cur && styles.has(cur) && !seen.has(cur)) { seen.add(cur); const s = styles.get(cur); for (const k in s.r) if (!(k in out)) out[k] = s.r[k]; cur = s.basedOn; } return out; };
+    const styleName = id => (styles.get(id) || {}).name || id || '';
+    const isHeadingStyle = id => /^(heading|title|subtitle|caption|toc|tableofcontents)/i.test(styleName(id).replace(/\s+/g, '')) || /^(Heading|Title|Subtitle|Caption|TOC)/i.test(id || '');
+    const base = Object.assign({ font: theme.minor || '', size: 0, lang: themeLang }, defR);
+    // walk paragraphs (same filtering as analyzeDocx, so list positions match)
+    const P = [];
+    const fmtWords = new Map(), langWords = new Map();
+    let hidden = 0, white = 0, tiny = 0, highlighted = 0, coloured = 0, totalW = 0;
+    const charText = [];
+    for (const el of all(bodyDoc, 'p')) {
+      if (insideFallback(el)) continue;
+      const pPr = kid(el, 'pPr'); const ps = pPr && kid(pPr, 'pStyle'); const sid = ps ? getWAttr(ps, 'val') : defStyle;
+      const sR = Object.assign({}, base, styleR(defStyle), styleR(sid));
+      const pPrR = pPr ? readRPr(kid(pPr, 'rPr')) : {};
+      const local = new Map(); let text = '';
+      const isShd = sh => { const f = sh ? (getWAttr(sh, 'fill') || '').toUpperCase() : ''; return !!f && f !== 'AUTO' && f !== 'FFFFFF'; };
+      let inTable = false, cellShaded = false;
+      for (let n = el.parentNode; n; n = n.parentNode) if (n.localName === 'tc') { inTable = true; const tcPr = kid(n, 'tcPr'); if (tcPr && isShd(kid(tcPr, 'shd'))) cellShaded = true; break; }
+      const paraShaded = !!(pPr && isShd(kid(pPr, 'shd')));
+      const numbered = !!(pPr && kid(pPr, 'numPr'));
+      const descendants = el.getElementsByTagName('*');
+      for (let j = 0; j < descendants.length; j++) {
+        const d = descendants[j];
+        if (d.localName !== 'r' || nearestPara(d) !== el || insideFallback(d)) continue;
+        let rText = '';
+        for (const k of d.getElementsByTagName('*')) { if (k.localName === 't') rText += k.textContent; else if (k.localName === 'tab') rText += '\t'; else if (k.localName === 'br') rText += '\n'; }
+        if (!rText) continue;
+        text += rText;
+        const rs = kid(d, 'rStyle');
+        const r = Object.assign({}, sR, rs ? styleR(getWAttr(rs, 'val')) : {}, readRPr(kid(d, 'rPr')));
+        const wc = countWords(rText);
+        if (!wc) continue;
+        const key = (r.font || '?') + '|' + (r.size || '?');
+        local.set(key, (local.get(key) || 0) + wc);
+        const lg = r.lang || '?'; langWords.set(lg, (langWords.get(lg) || 0) + wc);
+        if (r.vanish) hidden += wc;
+        else if (r.color === 'FFFFFF' && !cellShaded && !paraShaded && !r.highlight && !r.shade) white += wc;
+        else if (r.size && r.size <= 3) tiny += wc;
+        if (r.highlight || r.shade) highlighted += wc;
+        if (r.color && r.color !== 'AUTO' && r.color !== '000000' && r.color !== 'FFFFFF') coloured += wc;
+        totalW += wc;
+      }
+      const wc = countWords(text);
+      if (!wc && !text.trim()) continue;
+      charText.push(text);
+      let dom = '', dw = -1; local.forEach((n, k) => { if (n > dw) { dw = n; dom = k; } });
+      const heading = isHeadingStyle(sid);
+      P.push({ key: dom, keys: local.size, style: styleName(sid), heading, inTable, numbered, words: wc });
+      if (!heading && !inTable) local.forEach((n, k) => fmtWords.set(k, (fmtWords.get(k) || 0) + n));
+    }
+    let mainKey = '', mw = -1; fmtWords.forEach((n, k) => { if (n > mw) { mw = n; mainKey = k; } });
+    const split = k => { const [f, s] = (k || '?|?').split('|'); return { font: f === '?' ? '' : f, size: s === '?' ? 0 : +s }; };
+    const islands = [];
+    P.forEach((p, i) => {
+      if (p.heading || p.inTable || p.words < 15 || !p.key || p.key === mainKey) return;
+      const a = split(p.key), b = split(mainKey);
+      if (a.font === b.font && Math.abs((a.size || 0) - (b.size || 0)) < 0.6) return;
+      islands.push({ i, para: paragraphs[i] ? paragraphs[i].index : i + 1, font: a.font, size: a.size, words: p.words, session: paragraphs[i] ? paragraphs[i].primarySession : '' });
+    });
+    const mixedParas = P.filter(p => !p.heading && p.keys > 1 && p.words >= 15).length;
+    const fmtList = [...fmtWords.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([k, n]) => Object.assign(split(k), { words: n }));
+    const langs = [...langWords.entries()].sort((a, b) => b[1] - a[1]).map(([k, n]) => ({ lang: k === '?' ? '' : k, words: n }));
+    // structure
+    const bodyAll = bodyDoc ? bodyDoc.getElementsByTagName('*') : [];
+    let tables = 0, images = 0, links = 0, maths = 0, sections = 0, fields = 0, footnotes = 0, textboxes = 0;
+    const domains = new Map();
+    const rels = new Map(); const rDoc = parseXml(relsXml);
+    if (rDoc) for (const r of all(rDoc, 'Relationship')) rels.set(r.getAttribute('Id'), { target: r.getAttribute('Target') || '', ext: r.getAttribute('TargetMode') === 'External' });
+    for (let i = 0; i < bodyAll.length; i++) {
+      const e = bodyAll[i], ln = e.localName;
+      if (insideFallback(e)) continue;
+      if (ln === 'tbl') tables++;
+      else if (ln === 'drawing' || ln === 'pict') { images++; }
+      else if (ln === 'txbxContent') textboxes++;
+      else if (ln === 'hyperlink') { links++; const id = e.getAttribute('r:id'); const rl = id && rels.get(id); if (rl && rl.ext) { const m = rl.target.match(/^https?:\/\/([^/?#]+)/i); if (m) { const d = m[1].replace(/^www\./i, '').toLowerCase(); domains.set(d, (domains.get(d) || 0) + 1); } } }
+      else if (ln === 'oMath') maths++;
+      else if (ln === 'sectPr') sections++;
+      else if (ln === 'fldSimple' || (ln === 'fldChar' && getWAttr(e, 'fldCharType') === 'begin')) fields++;
+      else if (ln === 'footnoteReference') footnotes++;
+    }
+    // paragraphs & sentences
+    const body = P.filter(p => !p.heading && !p.inTable && p.words >= 5);
+    const lens = body.map(p => p.words).sort((a, b) => a - b);
+    const med = a => a.length ? (a.length % 2 ? a[(a.length - 1) / 2] : (a[a.length / 2 - 1] + a[a.length / 2]) / 2) : 0;
+    const joined = charText.join('\n');
+    const sents = joined.replace(/([.!?])\s+(?=[A-Z"“(])/g, '$1\u0001').split('\u0001').map(s => countWords(s)).filter(n => n >= 3);
+    const sm = sents.length ? sents.reduce((a, b) => a + b, 0) / sents.length : 0;
+    const ssd = sents.length > 1 ? Math.sqrt(sents.reduce((a, b) => a + (b - sm) * (b - sm), 0) / (sents.length - 1)) : 0;
+    // characters
+    const cnt = re => (joined.match(re) || []).length;
+    const chars = {
+      curlyDouble: cnt(/[“”]/g), straightDouble: cnt(/"/g), curlySingle: cnt(/[‘’]/g), straightSingle: cnt(/'/g),
+      emDash: cnt(/—/g), enDash: cnt(/–/g), ellipsis: cnt(/…/g), nbsp: cnt(/ /g), zeroWidth: cnt(/[​-‍⁠﻿­]/g),
+      doubleSpace: cnt(/[^\s] {2,}[^\s]/g), oddSpace: cnt(/[ -   　]/g),
+      mixedAlpha: (joined.match(/[A-Za-z\u0370-\u03FF\u0400-\u04FF]+/g) || []).filter(w => /[A-Za-z]/.test(w) && /[\u0370-\u03FF\u0400-\u04FF]/.test(w)).length,
+      bullets: cnt(/^\s*[•·▪●◦-]\s/gm), markdown: cnt(/\*\*[^*\n]+\*\*|^#{1,4} /gm)
+    };
+    // sessions table
+    const sessParas = new Map();
+    paragraphs.forEach(p => p.runRsids.forEach(r => sessParas.set(r, (sessParas.get(r) || 0) + 1)));
+    // revision & comment timeline by day
+    const days = new Map();
+    const addDay = (d, k) => { const t = Date.parse(d || ''); if (isNaN(t)) return; const key = new Date(t).toISOString().slice(0, 10); const o = days.get(key) || { ins: 0, del: 0, com: 0, authors: new Set() }; o[k]++; days.set(key, o); };
+    trackedChanges.forEach(c => addDay(c.date, c.kind));
+    comments.forEach(c => addDay(c.date, 'com'));
+    const authors = new Set(); trackedChanges.forEach(c => c.author && authors.add(c.author)); comments.forEach(c => c.author && authors.add(c.author));
+    const timeline = [...days.entries()].sort((a, b) => a[0] < b[0] ? -1 : 1).map(([d, o]) => ({ day: d, ins: o.ins, del: o.del, com: o.com }));
+    const fn = parseXml(footXml); const footCount = fn ? all(fn, 'footnote').filter(f => !getWAttr(f, 'type')).length : 0;
+    return {
+      mainFont: split(mainKey), fmtList, islands, islandWords: islands.reduce((a, b) => a + b.words, 0), mixedParas,
+      langs, hidden, white, tiny, highlighted, coloured, totalW,
+      structure: { paragraphs: P.length, headings: P.filter(p => p.heading).length, listItems: P.filter(p => p.numbered).length, tableParas: P.filter(p => p.inTable).length, tables, images, textboxes, links, domains: [...domains.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10), maths, sections, fields, footnotes: Math.max(footnotes, footCount) },
+      paraLen: { n: lens.length, median: med(lens), min: lens[0] || 0, max: lens[lens.length - 1] || 0, long: lens.filter(x => x >= 150).length },
+      sentLen: { n: sents.length, mean: sm, sd: ssd },
+      chars, sessParas: [...sessParas.entries()], timeline, authors: authors.size,
+      paras: P.map(p => ({ font: split(p.key).font, size: split(p.key).size, style: p.style, heading: p.heading, inTable: p.inTable }))
+    };
+  }
 
 
   async function handleFiles(list) {
@@ -652,7 +924,7 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
       chips.appendChild(b);
     });
     const doc = filesData[activeIdx], A = assess(doc);
-    renderSummary(doc, A); renderTimeline(doc); renderFindings(doc, A); renderDrafts(); renderTech(doc); renderParaInfo();
+    renderSummary(doc, A); renderTimeline(doc); renderFindings(doc, A); renderSessions(doc); renderFormat(doc); renderRevisions(doc); renderStructure(doc); renderDrafts(); renderTech(doc); renderParaInfo();
   }
 
   function renderSummary(doc, A) {
@@ -711,7 +983,8 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
     const p = doc.paragraphs[selectedPara], idx = sessIndex(doc);
     const sess = p.runRsids.map(r => idx.has(r) ? t('pSessN', { n: idx.get(r) + 1 }) : r).join(', ');
     box.classList.remove('hidden');
-    $('pinfo-meta').textContent = t('pInfo', { i: p.index, w: p.words, s: p.runRsids.length > 1 ? t('pMany', { n: p.runRsids.length }) + ' (' + sess + ')' : t('pOne') + (sess ? ' (' + sess + ')' : '') });
+    const fd = doc.detail && doc.detail.paras && doc.detail.paras[selectedPara];
+    $('pinfo-meta').textContent = t('pInfo', { i: p.index, w: p.words, s: p.runRsids.length > 1 ? t('pMany', { n: p.runRsids.length }) + ' (' + sess + ')' : t('pOne') + (sess ? ' (' + sess + ')' : '') }) + (fd ? ' · ' + fmtFont(fd) + (fd.style ? ' · ' + fd.style : '') : '');
     const tx = $('pinfo-text'); tx.classList.toggle('hidden', !showParaText); tx.textContent = showParaText ? p.text : '';
   }
 
@@ -730,8 +1003,67 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
     const c = Date.parse(doc.meta.created || ''), m = Date.parse(doc.meta.modified || '');
     if (!isNaN(c) && !isNaN(m)) F.push({ k: m < c ? 'note' : 'info', h: t('oDates', { c: fmtDate(doc.meta.created), m: fmtDate(doc.meta.modified) }), p: m < c ? t('oDatesOdd') : t('oDatesP', { d: fmtSpan(m - c) }) });
     if (A.words < 300 && A.level !== 'short') F.push({ k: 'info', h: t('oShort'), p: t('oShortP') });
+    const D = doc.detail;
+    if (D) {
+      const bw = Math.max(1, D.totalW);
+      if (D.islands.length) F.push({ k: 'note', h: t('oIsl', { n: num(D.islands.length), pl: pl(D.islands.length), v: D.islands.length === 1 ? 'uses' : 'use', p: Math.max(1, Math.round(100 * D.islandWords / bw)) }), p: t('oIslP'), w: t('oIslW') });
+      const L = D.langs.filter(x => x.lang && x.words >= 10);
+      if (L.length > 1) F.push({ k: 'note', h: t('oLang', { n: num(L.length) }), p: t('oLangP'), w: t('oLangW') });
+      const hid = D.hidden + D.white + D.tiny; if (hid) F.push({ k: 'note', h: t('oHid', { n: num(hid), pl: hid === 1 ? ' is' : 's are' }), p: t('oHidP'), w: t('oHidW') });
+      const C = D.chars, cq = C.curlyDouble, sq = C.straightDouble;
+      if (cq >= 2 && sq >= 2) F.push({ k: 'note', h: t('oQuote', { c: num(cq), s: num(sq) }), p: t('oQuoteP'), w: t('oQuoteW') });
+      if (C.markdown) F.push({ k: 'note', h: t('oMd', { n: num(C.markdown), pl: pl(C.markdown) }), p: t('oMdP'), w: t('oMdW') });
+      if (C.zeroWidth + C.oddSpace) F.push({ k: 'note', h: t('oZw', { n: num(C.zeroWidth + C.oddSpace), pl: pl(C.zeroWidth + C.oddSpace) }), p: t('oZwP'), w: t('oZwW') });
+      if (C.mixedAlpha) F.push({ k: 'note', h: t('oMix', { n: num(C.mixedAlpha), pl: pl(C.mixedAlpha) }), p: t('oMixP'), w: t('oMixW') });
+      if (D.timeline.length >= 2) F.push({ k: 'ok', h: t('oRev', { d: num(D.timeline.length), pl: pl(D.timeline.length) }), p: t('oRevP') });
+    }
     const icon = { ok: '✓', note: '!', info: 'i' };
     $('finds').innerHTML = F.map(f => `<div class="find ${f.k}"><span class="dot" aria-hidden="true">${icon[f.k]}</span><div><h3>${esc(f.h)}</h3><p>${esc(f.p)}</p>${f.w ? `<p class="why"><b>${esc(t('whyK'))}</b> ${esc(f.w)}</p>` : ''}</div></div>`).join('');
+  }
+
+
+  const langName = code => { if (!code) return t('langUnknown'); try { return new Intl.DisplayNames([lang === 'zh' ? 'zh-CN' : 'en'], { type: 'language' }).of(code) + ' · ' + code; } catch (e) { return code; } };
+  const fmtFont = f => (f.font || (lang === 'zh' ? '默认字体' : 'default font')) + (f.size ? ' · ' + f.size + ' pt' : '');
+  const bar = (frac, col) => `<div class="sbar"><i style="width:${Math.max(1, Math.round(frac * 100))}%;background:${col}"></i></div>`;
+  function renderSessions(doc) {
+    const S = doc.allSessions, tb = $('sess-tbody'), total = Math.max(1, S.reduce((a, s) => a + s.words, 0));
+    const pc = new Map((doc.detail && doc.detail.sessParas) || []);
+    const live = S.map((s, i) => ({ s, i })).filter(x => x.s.words > 0), dead = S.length - live.length;
+    const maxW = Math.max(1, ...live.map(x => x.s.words));
+    tb.innerHTML = live.map(({ s, i }) => `<tr><td class="mono"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${COLORS[i % COLORS.length]};margin-right:6px"></span>${i + 1}</td><td class="mono">${num(s.words)}</td><td class="mono">${Math.round(100 * s.words / total)}%</td><td class="mono">${num(pc.get(s.id) || 0)}</td><td class="bar">${bar(s.words / maxW, COLORS[i % COLORS.length])}</td></tr>`).join('');
+    $('p-sess').classList.toggle('hidden', !live.length);
+    $('sess-cap').textContent = t('sCap', { a: num(live.length), s: num(S.length) }) + (dead ? ' ' + t('sMore', { n: num(dead), pl: dead === 1 ? '' : 's' }) : '');
+  }
+  function renderFormat(doc) {
+    const D = doc.detail, box = $('p-fmt');
+    if (!D) { box.classList.add('hidden'); return; } box.classList.remove('hidden');
+    const bw = Math.max(1, D.totalW), L = D.langs.filter(x => x.words > 0), hid = D.hidden + D.white + D.tiny;
+    $('fmt-facts').innerHTML = [[t('fMain'), fmtFont(D.mainFont), t('fMainS')], [t('fIsl'), num(D.islands.length), t('fIslS')], [t('fLang'), num(L.filter(x => x.lang).length), t('fLangS')], [t('fHid'), num(hid), t('fHidS')]]
+      .map(([k, v, s]) => `<div class="fact"><div class="k">${esc(k)}</div><div class="v" style="font-size:${String(v).length > 14 ? 17 : 24}px">${esc(v)}</div><div class="s">${esc(s)}</div></div>`).join('');
+    const fw = Math.max(1, D.fmtList.reduce((a, b) => a + b.words, 0));
+    $('fmt-fonts').innerHTML = D.fmtList.map((f, i) => `<div class="brow"><span class="lbl">${i === 0 ? '<b>' + esc(fmtFont(f)) + '</b>' : esc(fmtFont(f))}</span><span class="num">${Math.round(100 * f.words / fw)}%</span>${bar(f.words / fw, i === 0 ? 'var(--accent)' : 'var(--warn)')}</div>`).join('')
+      + (D.highlighted || D.coloured ? `<p class="cap">${esc(t('hlNote', { h: num(D.highlighted), c: num(D.coloured) }))}</p>` : '');
+    $('fmt-langs').innerHTML = L.length ? L.map((x, i) => `<div class="brow"><span class="lbl">${i === 0 ? '<b>' + esc(langName(x.lang)) + '</b>' : esc(langName(x.lang))}</span><span class="num">${Math.round(100 * x.words / bw)}%</span>${bar(x.words / bw, i === 0 ? 'var(--accent)' : 'var(--warn)')}</div>`).join('') : `<p class="cap">${esc(t('langNone'))}</p>`;
+    const idx = sessIndex(doc);
+    $('fmt-islands').innerHTML = D.islands.length ? D.islands.slice(0, 40).map(x => `<button type="button" class="isl" data-i="${x.i}"><b>${esc(t('islRow', { p: x.para }))}</b><span>${esc(fmtFont(x))}${idx.has(x.session) ? ' · ' + esc(t('pSessN', { n: idx.get(x.session) + 1 })) : ''}</span><span class="num">${esc(t('islWords', { w: num(x.words) }))}</span></button>`).join('') + `<p class="cap">${esc(t('islHint'))}</p>` : `<p class="cap">${esc(t('islNone'))}</p>`;
+    box.querySelectorAll('.isl').forEach(b => b.addEventListener('click', () => { selectedPara = +b.dataset.i; renderTimeline(doc); renderParaInfo(); $('pmap').scrollIntoView({ behavior: 'smooth', block: 'center' }); }));
+  }
+  function renderRevisions(doc) {
+    const D = doc.detail, box = $('p-rev');
+    if (!D || !D.timeline.length) { box.classList.add('hidden'); return; } box.classList.remove('hidden');
+    $('rev-tbody').innerHTML = D.timeline.map(r => `<tr><td class="mono">${esc(fmtDate(r.day + 'T12:00:00Z'))}</td><td class="mono">${num(r.ins)}</td><td class="mono">${num(r.del)}</td><td class="mono">${num(r.com)}</td></tr>`).join('');
+    $('rev-cap').textContent = t('revCap', { d: num(D.timeline.length), pl: D.timeline.length === 1 ? '' : 's', a: num(D.authors), pla: D.authors === 1 ? '' : 's' });
+  }
+  function renderStructure(doc) {
+    const D = doc.detail, box = $('p-struct');
+    if (!D) { box.classList.add('hidden'); return; } box.classList.remove('hidden');
+    const S = D.structure, C = D.chars, w = n => t('wUnit', { n: num(Math.round(n)) });
+    $('st-facts').innerHTML = [[t('sParas'), num(S.paragraphs), t('sParasS', { h: num(S.headings), l: num(S.listItems) })], [t('sTables'), num(S.tables), t('sTablesS', { i: num(S.images) })], [t('sLinks'), num(S.links), t('sLinksS', { f: num(S.footnotes) })], [t('sMath'), num(S.maths), t('sMathS', { s: num(S.sections), pl: S.sections === 1 ? '' : 's' })]]
+      .map(([k, v, s]) => `<div class="fact"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="s">${esc(s)}</div></div>`).join('');
+    const kv = rows => rows.map(([k, v]) => `<div>${esc(k)}</div><div>${esc(v)}</div>`).join('');
+    $('st-len').innerHTML = kv([[t('lBody'), num(D.paraLen.n)], [t('lMed'), w(D.paraLen.median)], [t('lRange'), w(D.paraLen.min) + ' / ' + w(D.paraLen.max)], [t('lLong'), num(D.paraLen.long)], [t('lSent'), num(D.sentLen.n)], [t('lSentM'), D.sentLen.n >= 5 ? w(D.sentLen.mean) : t('none')], [t('lSentSd'), D.sentLen.n >= 5 ? '± ' + w(D.sentLen.sd) : t('none')]]);
+    $('st-chars').innerHTML = kv([[t('cQuotesD'), num(C.curlyDouble) + ' / ' + num(C.straightDouble)], [t('cQuotesS'), num(C.curlySingle) + ' / ' + num(C.straightSingle)], [t('cDash'), num(C.emDash) + ' / ' + num(C.enDash)], [t('cEll'), num(C.ellipsis)], [t('cNbsp'), num(C.nbsp)], [t('cZw'), num(C.zeroWidth)], [t('cOdd'), num(C.oddSpace)], [t('cDbl'), num(C.doubleSpace)], [t('cMix'), num(C.mixedAlpha)], [t('cMd'), num(C.markdown)]]);
+    $('st-domains').innerHTML = S.domains.length ? `<h3 class="h3">${esc(t('domH'))}</h3><div class="chips2">${S.domains.map(([d, n]) => `<span>${esc(d)} × ${num(n)}</span>`).join('')}</div>` : '';
   }
 
   function renderDrafts() {
@@ -778,6 +1110,7 @@ details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[o
       file: revealNames ? doc.fileName : t('fileN', { n: i + 1 }), level: A.level, sessions: A.sess, editingMinutes: A.mins, words: A.words, writtenInOneGoPct: Math.round(A.bulk * 100),
       created: doc.meta.created, modified: doc.meta.modified, revision: doc.meta.revision, application: doc.meta.application,
       trackedChanges: doc.trackedChanges.length, comments: doc.comments.length,
+      detail: doc.detail ? { mainFormat: doc.detail.mainFont, formats: doc.detail.fmtList, differentlyFormattedParagraphs: doc.detail.islands.map(x => ({ paragraph: x.para, font: x.font, size: x.size, words: x.words })), languages: doc.detail.langs, hiddenWords: doc.detail.hidden, whiteWords: doc.detail.white, tinyWords: doc.detail.tiny, structure: doc.detail.structure, paragraphLength: doc.detail.paraLen, sentenceLength: doc.detail.sentLen, characters: doc.detail.chars, revisionDays: doc.detail.timeline } : null,
       note: 'Editing traces only. Not an AI detector and not proof of authorship.' }; });
   }
   $('btn-dl-json').addEventListener('click', () => {

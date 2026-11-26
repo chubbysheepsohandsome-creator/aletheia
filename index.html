@@ -391,7 +391,7 @@ nav.links{gap:22px}nav.links a.on{border-bottom-color:transparent;color:var(--fg
 textarea#input{border-radius:18px 18px 0 0;background:var(--card);font:400 19px/1.7 var(--serif)}
 .drop{border-radius:14px;background:var(--bg)}
 .modebar{padding:16px 20px 6px;border-top:1px solid var(--line)}
-.modes{grid-template-columns:repeat(2,1fr);border:0;background:var(--bg-3);border-radius:12px;padding:4px;gap:4px;max-width:560px}
+.modes{grid-template-columns:repeat(3,1fr);border:0;background:var(--bg-3);border-radius:12px;padding:4px;gap:4px;max-width:560px}
 .modes button{border:0!important;border-radius:9px;padding:10px 14px;transition:background-color .18s var(--ease),color .18s var(--ease)}
 .modes button.on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .ctrlrow{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:14px 0 4px}
@@ -461,6 +461,33 @@ footer{border-top:1px solid var(--line)}
 .tc-chip{display:inline-flex;align-items:center;gap:7px;font:500 12px var(--sans);color:var(--fg-2);background:var(--bg-3);border-radius:999px;padding:6px 11px}
 .tc-chip i{width:6px;height:6px;border-radius:50%;background:#5CC8A0}.tc-chip.net i{background:#F0BA5A}
 .toolcard:hover .btn{border-color:var(--fg-3)}
+
+/* V1.9.8 similarity */
+.simopts{display:grid;gap:6px;margin:12px 0 4px;max-width:760px}
+.sopt{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:10px;cursor:pointer}.sopt:hover{background:color-mix(in srgb,var(--fg) 5%,transparent)}
+.sopt input{margin-top:3px;accent-color:var(--accent)}.sopt b{display:block;font:500 13.5px/1.35 var(--sans);color:var(--fg)}.sopt small{display:block;font:12.5px/1.5 var(--sans);color:var(--fg-3)}
+.linkbtn{background:none;border:0;color:var(--accent);cursor:pointer;font:inherit;padding:0;text-decoration:underline}
+.simtop{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;margin-bottom:8px}
+.simbig{font:500 76px/1 var(--serif);letter-spacing:-.02em;color:var(--fg)}
+.simtop h2{margin:6px 0 6px}
+.simf{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--fg-2)}.simf label{display:flex;gap:6px;align-items:center}.simf select{padding:4px 8px;border-radius:8px}
+.simbad{background:color-mix(in srgb,#E06B5A 16%,var(--card))!important;color:var(--fg)!important}.simbig.dim{opacity:.45}
+.simwarn{background:color-mix(in srgb,#F0BA5A 14%,var(--card));border-radius:10px;padding:10px 14px;font-size:13px;color:var(--fg-2);margin:10px 0}
+.simgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0}@media (max-width:900px){.simgrid{grid-template-columns:1fr}}
+.simbox{background:var(--bg-3);border-radius:14px;padding:16px 18px}.simbox h3{font:600 13px var(--sans);margin:0 0 10px;letter-spacing:.01em}
+.srow{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;padding:7px 0;border-top:1px solid var(--line)}.srow:first-of-type{border-top:0}
+.srow .spct{font:500 16px var(--mono);color:var(--fg)}.srow b{display:block;font:500 13.5px var(--sans)}.srow small{display:block;font:12px/1.45 var(--sans);color:var(--fg-3)}
+.srow.flag .spct{color:#E0A040}
+.simh{font:500 22px var(--serif);margin:22px 0 10px}
+.srcs{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.srcs li{display:grid;grid-template-columns:30px minmax(0,1fr) 56px;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.srcs li.none{display:block;color:var(--fg-3)}
+.snum{width:26px;height:22px;border-radius:6px;color:#fff;display:grid;place-items:center;font:600 12px var(--mono)}
+.stxt small{display:block;font:11.5px var(--sans);color:var(--fg-3);margin-bottom:2px}.stxt a,.stxt b{font:500 14px var(--sans);color:var(--fg);word-break:break-word}.stxt a:hover{color:var(--accent)}.syr{color:var(--fg-3);font-size:13px}
+.srcs .spct{font:500 16px var(--mono);text-align:right}
+.simact{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 6px}
+.simdoc{white-space:pre-wrap;font:400 16px/1.75 var(--serif);background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:22px 24px;max-height:640px;overflow:auto}
+mark.sm{color:#141A22;border-radius:3px;padding:1px 0}mark.sm sup{color:#fff;font:600 10px var(--mono);border-radius:3px;padding:0 3px;margin-right:2px;vertical-align:2px}
 /* ===== V1.9.7 polish layer: consistent controls, clearer states, calmer depth ===== */
 [data-theme="dark"]{--shadow-btn:0 1px 0 rgba(255,255,255,.18) inset,0 6px 18px rgba(147,180,255,.18);--ring:0 0 0 3px rgba(147,180,255,.22)}
 [data-theme="light"]{--shadow-btn:0 1px 0 rgba(255,255,255,.25) inset,0 6px 16px rgba(47,91,211,.22);--ring:0 0 0 3px rgba(47,91,211,.18)}
@@ -504,7 +531,7 @@ table.evt td,table.sig td{vertical-align:top}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.7</small></a>
+    <a class="brand" href="#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.8</small></a>
     <nav class="links">
       <a href="#detect" data-p="detect">Detect</a><a href="#tools" data-p="tools">Tools</a><a href="#technology" data-p="technology">Technology</a><a href="#research" data-p="research">Research</a><a href="#changelog" data-p="changelog">Changelog</a><a href="#history" data-p="history">History</a>
     </nav>
@@ -673,8 +700,8 @@ table.evt td,table.sig td{vertical-align:top}
 <!-- ================= DETECT ================= -->
 <main class="page" id="p-detect">
   <div class="wrap">
-    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.9.7 free beta</p><h1>Analyze a document.</h1>
-      <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words (150 for an AI percentage), 300+ recommended.</p></div>
+    <div class="page-head"><p class="eyebrow">ALETHEIA Detect · V1.9.8 free beta</p><h1>Analyze a document.</h1>
+      <p>Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device (Similarity mode can send short phrases to Wikipedia and OpenAlex if you allow it). English prose only; at least 80 words (150 for an AI percentage), 300+ recommended.</p></div>
     <div class="modelbar" id="modelBar"><span class="mb-l">Model</span>
       <div class="mb-seg" role="radiogroup" aria-label="Model version">
         <button class="on" data-model="current" role="radio" aria-checked="true">Current<small>V1.9.7 · short texts by sentence</small></button><button data-model="v196" role="radio" aria-checked="false">Previous<small>V1.9.6 · window rule</small></button><button data-model="seg07" role="radio" aria-checked="false">Older<small>seg-0.9 · V1.8.7 to V1.9.4</small></button>
@@ -703,6 +730,11 @@ table.evt td,table.sig td{vertical-align:top}
           <div class="modes" role="radiogroup" aria-label="Analysis depth">
             <button class="on" data-mode="deep" role="radio" aria-checked="true">Deep Scan<small>thorough · about 10–40 s</small></button>
             <button data-mode="supreme" role="radio" aria-checked="false"><span class="gold">◆</span> Supreme<small>everything + PDF report</small></button>
+            <button data-mode="similarity" role="radio" aria-checked="false">Similarity<small>web + publications + PDF</small></button>
+          </div>
+          <div class="simopts" id="simOpts" hidden>
+            <label class="sopt"><input type="checkbox" id="simOnline" checked><span><b>Search Wikipedia and OpenAlex</b><small>Sends up to 40 phrases of 8 words (at most 320 words), never the whole document, to wikipedia.org and api.openalex.org. Like any website, they also see your IP address.</small><small id="simShare"></small></span></label>
+            <label class="sopt"><input type="checkbox" id="simLib" checked><span><b>Compare with documents saved on this device</b><small id="simLibInfo">Documents you saved here before. They never leave this browser.</small></span></label>
           </div>
           <div class="ctrlrow">
             <label class="switch" for="studentMode"><input type="checkbox" id="studentMode" role="switch"><span class="track" aria-hidden="true"><span class="thumb"></span></span><span class="swlbl"><b>Student assignment</b><small>For essays and reports of 300+ words</small></span></label>
@@ -728,6 +760,7 @@ table.evt td,table.sig td{vertical-align:top}
     <section id="results">
       <div id="resState"></div>
       <div class="dcta" id="donateCta" hidden></div>
+      <div class="panel sec simpanel" id="simPanel" hidden></div>
       <div class="res-grid res-stack" id="resGrid">
         <div class="panel sec" id="deepPanel" style="display:none"></div>
         <aside class="panel summary sec" id="summary"></aside>
@@ -1181,6 +1214,17 @@ table.evt td,table.sig td{vertical-align:top}
   <div class="page-head"><p class="eyebrow">Changelog</p><h1>Every update since V1.0.</h1><p>Newest first. Each entry says what changed, why, and what it means for your results. Numbers come from test texts the model never saw, unless stated; small samples are marked.</p></div>
   <div class="content changelog">
   <h2>V1.9 (11–26 November 2026)</h2>
+  <div class="cl"><h3>V1.9.8 <span>26 Nov 2026 · similarity check against web sources with a PDF report, much more detailed Writing Process</span></h3><ul>
+    <li><b>Similarity check on the Detect page.</b> Choose “Similarity” next to Deep Scan and Supreme. ALETHEIA picks up to 40 phrases of 8 words from the text and searches Wikipedia for each (and OpenAlex's full-text index of scholarly works for up to 15 of them, to stay within its small free daily limit). It then compares the text word for word with the Wikipedia pages it finds (up to 12) and with the abstracts of the papers; a phrase found in a paper's full text counts as an 8-word match. Passages of 8 or more words that match are highlighted and numbered by source, and each word is credited to one source only, so the overall percentage never counts a word twice.</li>
+    <li><b>A full similarity report.</b> Overall similarity, match groups (not cited or quoted, cited but not quoted, quoted but not cited, cited and quoted), top sources by type, a numbered source list with links, the whole text with coloured matches, and a downloadable PDF in the same layout. Filters recompute the result without searching again: exclude the bibliography, exclude quoted text, and the smallest match (8, 12 or 20 words).</li>
+    <li><b>Failures are shown, not hidden.</b> If more than half of the online searches fail (network problems or a service's daily limit), the result and the PDF are marked incomplete instead of showing a clean score.</li>
+    <li><b>Integrity flags.</b> The report also counts zero-width characters, unusual spaces and words that mix Latin with look-alike Greek or Cyrillic letters. For Word files it also counts hidden, white and tiny text. A flag points to something worth a look; it is not proof of anything.</li>
+    <li><b>Documents saved on this device.</b> You can save a checked document in this browser. Later checks also compare against saved documents, for example a class's earlier submissions. Saved documents never leave the browser.</li>
+    <li><b>Privacy.</b> Only the short phrases are sent, to wikipedia.org and api.openalex.org, and only when “Search Wikipedia and OpenAlex” is ticked. The whole document never leaves your browser.</li>
+    <li><b>Limits.</b> This is not a Turnitin replacement. It does not search the whole web, paywalled articles or other students' work in private databases, and only a limited number of phrases are searched online, so a low score does not mean the text is original and the percentage is not comparable with Turnitin's.</li>
+    <li><b>Writing Process, much more detail.</b> New sections: session by session (words each editing session left in the file), formatting and source clues (main font and size, paragraphs in a different font or size, spelling-language tags such as English (Australia) and English (US), hidden, white or tiny text, highlighting), revisions and comments by day, and structure and characters (headings, tables, images, links, footnotes, equations, paragraph and sentence length, curly and straight quotes, dashes, unusual spaces, Markdown marks, linked websites). New observations explain each clue with ordinary reasons. Clicking a differently formatted paragraph shows it in the paragraph map. The exported summary includes the new details.</li>
+    <li><b>Detector unchanged.</b> The AI detector models and thresholds are the same as V1.9.7, so AI percentages do not change.</li>
+  </ul></div>
   <div class="cl"><h3>V1.9.7 <span>26 Nov 2026 · short texts checked sentence by sentence at High and Very high, redesigned tools</span></h3><ul>
     <li><b>Short texts at High and Very high.</b> Texts of 150–299 words used to fall back to the General thresholds at the High and Very high levels, because the student thresholds need 300 words. They are now checked sentence by sentence: each sentence takes the average score of the ~250-word segments around it and is highlighted when that reaches 80% (High) or 75% (Very high); the percentage is the share of words in highlighted sentences and shows as *% below 30%. Texts of 300 words or more, and the General and T levels, work exactly as in V1.9.6. The model (seg-1.0) is unchanged.</li>
     <li><b>Results on 150–299-word texts, calibration set</b> (1,979 human and 1,088 AI documents; V1.9.6 counted as flagged at 20%, V1.9.7 at 30%): High: AI documents caught 468 → 716 (43.0% → 65.8%), human documents flagged 0 → 13 (0.7%). Very high: AI 468 → 766 (70.4%), human 0 → 23 (1.2%).</li>
@@ -1345,6 +1389,17 @@ table.evt td,table.sig td{vertical-align:top}
   <div class="page-head"><p class="eyebrow">更新日志</p><h1>V1.0 以来的每一次更新。</h1><p>最新的在最上面。每一条都写明改了什么、为什么改，以及对你的结果意味着什么。除非另有说明，数字都来自模型从未见过的测试文本；样本很小的会标出来。</p></div>
   <div class="content changelog">
   <h2>V1.9（2026 年 11 月 11–26 日）</h2>
+  <div class="cl"><h3>V1.9.8 <span>2026 年 11 月 26 日 · 和网络来源比对的相似度检查（带 PDF 报告），写作过程显示更详细</span></h3><ul>
+    <li><b>检测页上的相似度检查。</b>在深度扫描和至尊旁边选择“相似度”。ALETHEIA 从文本里挑出最多 40 个短语（每个 8 个词），逐个在 Wikipedia 里搜索（其中最多 15 个也在 OpenAlex 的学术全文索引里搜索，以免超出它很小的每日免费额度）。然后把文本和找到的 Wikipedia 页面（最多 12 个）以及论文摘要逐词比对；在论文全文里找到的短语算作 8 个词的匹配。至少 8 个词相同的片段会被标出颜色、按来源编号；每个词只算给一个来源，所以总百分比不会重复计算同一个词。</li>
+    <li><b>完整的相似度报告。</b>包括总相似度、匹配分组（没有引用也没加引号、有引用但没加引号、加了引号但没引用、有引用也加了引号）、按类型的主要来源、带链接的编号来源列表、标出匹配的全文，以及同样排版、可下载的 PDF。筛选项不用重新搜索就能重新计算：排除参考文献、排除引号内文字、最短匹配（8、12 或 20 词）。</li>
+    <li><b>失败会明确显示。</b>如果一半以上的在线搜索失败（网络问题或服务的每日限额），结果和 PDF 都会标为“不完整”，而不是显示一个看似干净的分数。</li>
+    <li><b>完整性标记。</b>报告还会统计零宽字符、特殊空格，以及把拉丁字母和外形相似的希腊或西里尔字母混在一起的单词。对 Word 文件，还会统计隐藏、白色和极小字号的文字。标记只是提示值得看一看，不证明任何事。</li>
+    <li><b>保存在本机的文档。</b>可以把检查过的文档保存在这个浏览器里。之后的检查也会和保存的文档比对，比如班里之前交过的作业。保存的文档不会离开浏览器。</li>
+    <li><b>隐私。</b>只有勾选“搜索 Wikipedia 和 OpenAlex”时，才会把这些短语发送到 wikipedia.org 和 api.openalex.org。整篇文档不会离开你的浏览器。</li>
+    <li><b>局限。</b>它不能代替 Turnitin。它不搜索整个互联网、付费文章，也搜不到私有数据库里其他学生的作业；在线只搜索有限数量的短语。所以分数低不代表文字是原创的，这个百分比也不能和 Turnitin 的直接比较。</li>
+    <li><b>写作过程显示更详细。</b>新增几个部分：每次会话（每次编辑会话留在文件里的词数）；格式与来源线索（正文主字体和字号、字体或字号不同的段落、英语（澳大利亚）和英语（美国）这样的拼写语言标记、隐藏、白色或极小的文字、高亮）；按日期的修订和批注；结构与字符（标题、表格、图片、链接、脚注、公式、段落和句子长度、弯直引号、破折号、特殊空格、Markdown 符号、链接的网站）。新的观察结果会给每条线索附上常见的正常原因。点击格式不同的段落，可以在段落地图里看到它。导出的摘要也包括这些新细节。</li>
+    <li><b>检测器没有变化。</b>AI 检测模型和阈值与 V1.9.7 相同，所以 AI 百分比不会变。</li>
+  </ul></div>
   <div class="cl"><h3>V1.9.7 <span>2026 年 11 月 26 日 · “高”和“极高”档下短文逐句检查，工具重新设计</span></h3><ul>
     <li><b>“高”和“极高”档下的短文。</b>以前 150–299 词的文本在“高”和“极高”档会退回通用阈值，因为学生阈值需要 300 词。现在这些文本按句子逐句检查：每个句子取它周围约 250 词片段的平均分，达到 80%（“高”档）或 75%（“极高”档）就被标出；百分比是被标出句子的词数占比，低于 30% 显示为 *%。300 词以上的文本，以及“通用”和 T 档，都和 V1.9.6 完全一样。模型（seg-1.0）没有变。</li>
     <li><b>校准集里 150–299 词文本的结果</b>（人写 1,979 篇、AI 1,088 篇；V1.9.6 以 20%、V1.9.7 以 30% 作为标出线）：“高”档：抓到的 AI 文档 468 → 716 篇（43.0% → 65.8%），被标出的人写文档 0 → 13 篇（0.7%）。“极高”档：AI 468 → 766 篇（70.4%），人写 0 → 23 篇（1.2%）。</li>
@@ -1513,14 +1568,15 @@ table.evt td,table.sig td{vertical-align:top}
   <div class="page-head"><p class="eyebrow">Privacy</p><h1>Your writing stays yours.</h1><p>Privacy, terms of use and frequently asked questions.</p></div>
   <div class="content">
     <ul>
-      <li><b>No upload.</b> Text extraction (TXT, DOCX, PDF) and analysis run on your device.</li>
+      <li><b>No upload.</b> Text extraction (TXT, DOCX, PDF) and analysis run on your device. The one exception on this page is the optional web search in Similarity mode (below).</li>
       <li><b>Accounts (beta).</b> If you create an account, your name, email and a salted hash of your password are stored only in this browser on this device. They are not sent to us or to any server, and clearing your browser data deletes them. A beta account does not lock or protect anything: anyone using this browser can see your scan history, so on a shared computer clear it when you finish.</li>
       <li><b>No training on your work.</b> Text you scan is never used to train or tune ALETHEIA unless you choose to donate it (see below).</li>
-      <li><b>Minimal history.</b> Scan summaries only, in your browser's local storage; clear them at any time.</li>
+      <li><b>Minimal history.</b> Scan summaries only, in your browser's local storage; clear them at any time. If you press “Save this document on this device” in Similarity mode, the full text of that document is kept in this browser (IndexedDB) so later checks can compare against it; delete saved documents at any time with “Delete all”.</li>
       <li><b>No analytics.</b> Fonts and libraries are served from this site. Settings, scan summaries and beta accounts use this browser's local storage. The page loads Google's AdSense script, which is a third-party request and may set cookies. We have applied to show Google ads and none are displayed yet. If ads are approved, they will appear only on information pages, never on Detect or your results. The text you analyse stays in your browser and is never sent to Google.</li>
       <li><b>Feedback and donations (optional, from V1.7).</b> "Report a wrong result" prepares an email with the result numbers and your answer only, never your text. "Donate this article" saves a file on your device that you attach to an email yourself (or, if attaching is not possible, you may paste the copied donation text into the email body); it is offered only to people aged 18 or older who wrote the text or have permission from every author. Both are sent by you, from your own email app, to feedback@aletheiadetect.com, so we also see the sending address, which we use only to reply. Donated texts are kept for up to 3 years, used only to test and train the detector, never published or sold, and deleted on request (quote the donation ID). Feedback is used to find problems and is never used directly as training labels.</li>
       <li><b>Annotated Word files.</b> The highlighted copy of an uploaded .docx is built in your browser; the file never leaves your device.</li>
-      <li><b>Tools.</b> Similarity Check and Writing Process run entirely in your browser. Reference Check is the one exception: when you press its check button, the reference entries only (not your document) are sent to Crossref (api.crossref.org) and OpenAlex (api.openalex.org) to look them up, plus an optional email you may enter (sent to Crossref only). Like any website, these services also receive your IP address.</li>
+      <li><b>Similarity mode (Detect page).</b> When “Search Wikipedia and OpenAlex” is ticked, up to 40 short phrases of 8 words taken from your text (at most 320 words, never the whole document) are sent to wikipedia.org and api.openalex.org to look for matching pages and papers. With the box unticked, nothing is sent. Like any website, these services also receive your IP address.</li>
+      <li><b>Tools.</b> Similarity Check and Writing Process run entirely in your browser. Reference Check is the exception among the tools: when you press its check button, the reference entries only (not your document) are sent to Crossref (api.crossref.org) and OpenAlex (api.openalex.org) to look them up, plus an optional email you may enter (sent to Crossref only). Like any website, these services also receive your IP address.</li>
       <li><b>Hosting.</b> The site is hosted on GitHub Pages. Like any web host, GitHub receives standard request logs (such as IP address and browser) when a page is loaded; it never receives the text you analyse.</li>
       <li>Future server-side features will use encrypted transport, automatic deletion with configurable retention, and audit logs that never store document contents. They will be designed around the Australian Privacy Principles.</li>
     </ul>
@@ -1528,7 +1584,7 @@ table.evt td,table.sig td{vertical-align:top}
     <p>An ALETHEIA result is not evidence of misconduct and must not be the sole basis for any academic or employment decision.</p>
     <h2>Terms of use (free beta)</h2>
     <ul>
-      <li>ALETHEIA V1.9.7 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
+      <li>ALETHEIA V1.9.8 is a free research beta, provided as is, without warranty of any kind. Results can be wrong in both directions.</li>
       <li>Use it to start a conversation, not to end one: look at drafts, notes and version history, and talk to the writer.</li>
       <li>Only analyse text you are allowed to share with yourself: your own writing, or writing you have a legitimate reason to review.</li>
       <li>The detection models were trained on research datasets whose upstream rights are still under review; a paid version will be retrained on cleared data.</li>
@@ -1545,14 +1601,15 @@ table.evt td,table.sig td{vertical-align:top}
   <div class="page-head"><p class="eyebrow">隐私</p><h1>你的文字始终属于你。</h1><p>隐私、使用条款和常见问题。</p></div>
   <div class="content">
     <ul>
-      <li><b>不上传。</b>文本提取（TXT、DOCX、PDF）和分析都在你的设备上完成。</li>
+      <li><b>不上传。</b>文本提取（TXT、DOCX、PDF）和分析都在你的设备上完成。检测页上唯一的例外是“相似度”模式里可选的网络搜索（见下文）。</li>
       <li><b>账号（测试版）。</b>如果你注册账号，你的名字、邮箱和加盐哈希后的密码只保存在这台设备的这个浏览器里。它们不会发送给我们或任何服务器，清除浏览器数据就会删除。测试版账号不会锁定或保护任何东西：任何使用这个浏览器的人都能看到你的扫描历史，所以在公用电脑上用完请清除。</li>
       <li><b>不用你的作品训练。</b>你扫描的文本永远不会用于训练或调整 ALETHEIA，除非你选择捐献（见下文）。</li>
-      <li><b>最少的历史记录。</b>只保存扫描摘要，存在你浏览器的本地存储里；随时可以清除。</li>
+      <li><b>最少的历史记录。</b>只保存扫描摘要，存在你浏览器的本地存储里；随时可以清除。如果你在“相似度”模式里点了“把这篇文档保存在本机”，这篇文档的全文会保存在这个浏览器里（IndexedDB），供之后的检查比对；可以随时用“全部删除”删掉。</li>
       <li><b>没有统计分析。</b>字体和程序库都由本站提供。设置、扫描摘要和测试版账号使用这个浏览器的本地存储。页面会加载 Google AdSense 脚本，这是第三方请求，可能会设置 cookie。我们已申请展示 Google 广告，目前尚未显示任何广告。如果通过审核，广告只会出现在介绍类页面，绝不会出现在检测页或你的结果中。你分析的文字只在浏览器里处理，不会发送给 Google。</li>
       <li><b>反馈和捐献（可选，自 V1.7 起）。</b>"报告错误结果"会准备一封只含结果数字和你的回答的邮件，从不包含你的文本。"捐献这篇文章"会在你的设备上保存一个文件，由你自己附到邮件里（如果无法添加附件，也可以把复制的捐献内容粘贴到邮件正文）；只向年满 18 岁、本人写了这篇文本或得到每位作者许可的人提供。两者都由你从自己的邮件应用发送到 feedback@aletheiadetect.com，所以我们也会看到发件地址，只用于回复。捐献的文本最多保存 3 年，只用于测试和训练检测器，从不公开或出售，可应要求删除（请注明捐献 ID）。反馈用于发现问题，从不直接用作训练标签。</li>
       <li><b>带标注的 Word 文件。</b>上传的 .docx 的高亮副本在你的浏览器里生成；文件从不离开你的设备。</li>
-      <li><b>工具。</b>相似度检查和写作过程完全在你的浏览器里运行。参考文献核查是唯一的例外：当你点击核查按钮时，只有参考文献条目（不是你的文档）会被发送到 Crossref（api.crossref.org）和 OpenAlex（api.openalex.org）进行查找；如果你填写了邮箱，邮箱只发送给 Crossref。和任何网站一样，这些服务也会收到你的 IP 地址。</li>
+      <li><b>相似度模式（检测页）。</b>勾选“搜索 Wikipedia 和 OpenAlex”时，会从你的文本里取最多 40 个短语（每个 8 个词，合计最多 320 个词，绝不是整篇文档），发送到 wikipedia.org 和 api.openalex.org 查找相同的页面和论文。不勾选就什么都不会发送。和任何网站一样，这些服务也会收到你的 IP 地址。</li>
+      <li><b>工具。</b>相似度检查和写作过程完全在你的浏览器里运行。参考文献核查是工具里的例外：当你点击核查按钮时，只有参考文献条目（不是你的文档）会被发送到 Crossref（api.crossref.org）和 OpenAlex（api.openalex.org）进行查找；如果你填写了邮箱，邮箱只发送给 Crossref。和任何网站一样，这些服务也会收到你的 IP 地址。</li>
       <li><b>托管。</b>本站托管在 GitHub Pages 上。和任何网站托管一样，页面加载时 GitHub 会收到标准请求日志（例如 IP 地址和浏览器）；它从不会收到你分析的文本。</li>
       <li>未来的服务器端功能将使用加密传输、可设置保留期的自动删除，以及从不保存文档内容的审计日志，并按照澳大利亚隐私原则（Australian Privacy Principles）设计。</li>
     </ul>
@@ -1560,7 +1617,7 @@ table.evt td,table.sig td{vertical-align:top}
     <p>ALETHEIA 的结果不是不当行为的证据，不能作为任何学术或雇佣决定的唯一依据。</p>
     <h2>使用条款（免费测试版）</h2>
     <ul>
-      <li>ALETHEIA V1.9.7 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
+      <li>ALETHEIA V1.9.8 是免费的研究测试版，按现状提供，不作任何担保。结果在两个方向上都可能出错。</li>
       <li>用它来开启一次对话，而不是结束对话：看看草稿、笔记和版本历史，并和作者谈谈。</li>
       <li>只分析你有权查看的文本：你自己写的，或你有正当理由审阅的文本。</li>
       <li>检测模型用研究数据集训练，这些数据集的上游版权仍在审查中；付费版将用已获许可的数据重新训练。</li>
@@ -1630,8 +1687,8 @@ table.evt td,table.sig td{vertical-align:top}
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<script src="model.js?v=1.9.7"></script>
-<script src="engine.js?v=1.9.7"></script>
+<script src="model.js?v=1.9.8"></script>
+<script src="engine.js?v=1.9.8"></script>
 <script>
 (function(){
 "use strict";
@@ -1709,7 +1766,7 @@ function setTab(t){
 }
 $$(".tabs [data-tab]").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
 let currentFile = null, currentMeta = {};
-const BUILD = "1.9.7"; // appended to script URLs so browsers fetch new models after an update
+const BUILD = "1.9.8"; // appended to script URLs so browsers fetch new models after an update
 { const va = document.getElementById("verApp"); if (va) va.textContent = "ALETHEIA V" + BUILD; }
 function setFile(name){ currentFile = name; if (!name) currentMeta = {}; $("#filechip").style.display = name ? "flex" : "none"; $("#filename").textContent = name ? "📄 " + name + " · text extracted, review or edit below" : ""; }
 $("#clearFile").addEventListener("click", () => { setFile(null); input.value=""; updateCount(); });
@@ -1817,7 +1874,7 @@ async function handleFile(f){
 
 // ---------- Analyse ----------
 let last = null;
-const MODE_LABEL = { deep: "Run Deep Scan", supreme: "Run Supreme Scan" };
+const MODE_LABEL = { deep: "Run Deep Scan", supreme: "Run Supreme Scan", similarity: "Run Similarity Check" };
 let mode = "deep";
 // V1.8.5: choose the model used before the seg-0.8 retraining, to compare results.
 let modelSel = "current";
@@ -1888,10 +1945,13 @@ $$(".modes [data-mode]").forEach(b => b.addEventListener("click", () => {
   mode = b.dataset.mode;
   $$(".modes [data-mode]").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-checked", x === b); });
   go.textContent = MODE_LABEL[mode];
-  $("#modeNote").textContent = mode === "deep" ? "Deep Scan: two trained models, window re-scoring and bootstrap re-analysis, about 10–40 seconds."
+  $("#simOpts").hidden = mode !== "similarity"; document.querySelector(".ctrlrow").style.display = mode === "similarity" ? "none" : ""; $("#modelBar").style.display = mode === "similarity" ? "none" : "";
+  if (mode === "similarity") { simLibInfo(); simShareInfo(); } else if (!$("#simPanel").hidden) { $("#simPanel").hidden = true; $("#results").style.display = "none"; }
+  $("#modeNote").textContent = mode === "similarity" ? "Similarity: looks for passages of 8+ words that also appear on Wikipedia, in OpenAlex's full-text index of scholarly works, or in documents saved on this device, then builds a similarity report you can download as a PDF. Usually 30–60 seconds."
+    : mode === "deep" ? "Deep Scan: two trained models, window re-scoring and bootstrap re-analysis, about 10–40 seconds."
     : "Everything in Deep, plus 2,000 bootstrap re-analyses, three window sizes and paragraph influence analysis, then a full PDF report. Takes as long as the analysis needs: usually under a minute, longer on phones and long documents.";
 }));
-go.addEventListener("click", () => { hideMsg(); runDeep(mode); });
+go.addEventListener("click", () => { hideMsg(); if (mode === "similarity") runSim(); else runDeep(mode); });
 
 // Academic-register guard for the Standard mode: in academic-abstract style the standard model over-flags human writing
 // (11% on an independent abstract corpus), so its AI verdicts are replaced by the separately calibrated decision.
@@ -1981,6 +2041,100 @@ async function runDeep(level){
   } finally { clearInterval(timer); prog.hidden = true; go.disabled = false; go.textContent = MODE_LABEL[mode]; updateCount(); }
 }
 $("#deepCancel").addEventListener("click", () => deepAbort && deepAbort.abort());
+try { if (localStorage.getItem("aletheia.mode") === "similarity") { localStorage.removeItem("aletheia.mode"); setTimeout(() => { const b = document.querySelector('.modes [data-mode="similarity"]'); if (b) b.click(); }, 0); } } catch (e) {}
+// ===== V1.9.8 Similarity check (simweb.js): Wikipedia + OpenAlex full text + documents saved on this device =====
+let lastSim = null, simFilters = { excludeBibliography: true, excludeQuotes: false, minWords: 8 }, simPdfBlob = null;
+async function simLibInfo(){
+  try { if (!window.AletheiaSim) await loadScript("simweb.js?v=" + BUILD); const L = await window.AletheiaSim.libList();
+    $("#simLibInfo").innerHTML = bz(`${L.length} document${L.length === 1 ? "" : "s"} saved on this device. They never leave this browser.`, `这台设备上保存了 ${L.length} 篇文档。它们不会离开这个浏览器。`) + (L.length ? ` <button type="button" class="linkbtn" id="simLibClear">${bz("Delete all", "全部删除")}</button>` : "");
+    const c = $("#simLibClear"); if (c) c.addEventListener("click", async (e) => { e.preventDefault(); await window.AletheiaSim.libDelete(); simLibInfo(); });
+  } catch (e) {}
+}
+async function simShareInfo(){
+  const el = $("#simShare"); if (!el) return;
+  try { if (!window.AletheiaSim) await loadScript("simweb.js?v=" + BUILD); const A = window.AletheiaSim, t = input.value;
+    if (!t.trim()) { el.textContent = ""; return; }
+    const P = A.prepare(t), Q = A.pickQueries(P, 40), w = Q.length * A.N, tot = P.toks.length;
+    el.innerHTML = Q.length ? bz(`For this text: ${Q.length} phrase${Q.length === 1 ? "" : "s"}, ${w} of ${tot.toLocaleString()} words (${Math.round(100 * w / Math.max(1, tot))}%).`, `这篇文本：${Q.length} 个短语，${tot.toLocaleString()} 个词中的 ${w} 个（${Math.round(100 * w / Math.max(1, tot))}%）。`)
+      : bz("For this text: no sentence has 10 or more English words, so nothing would be searched online.", "这篇文本：没有 10 个英文词以上的句子，所以不会在线搜索任何内容。");
+  } catch (e) {}
+}
+input.addEventListener("input", () => { if (mode === "similarity") { clearTimeout(simShareInfo._t); simShareInfo._t = setTimeout(simShareInfo, 400); } });
+async function runSim(){
+  if (!input.value.trim()) return;
+  const prog = $("#deepProg"), bar = $("#deepBar"), st = $("#deepStage"), el = $("#deepTime");
+  go.disabled = true; prog.hidden = false; st.textContent = "Loading the similarity checker…"; bar.style.width = "1%";
+  const t0 = Date.now(); const timer = setInterval(() => { el.textContent = ((Date.now() - t0) / 1000).toFixed(1) + " s"; }, 100);
+  deepAbort = new AbortController();
+  try {
+    if (!window.AletheiaSim) await loadScript("simweb.js?v=" + BUILD);
+    let docxXml = null;
+    if (docxSrc && input.value.trim() === (docxSrc.text || "").trim()) { try { if (!window.AletheiaDocx) await loadScript("docx.js?v=" + BUILD); docxXml = (await window.AletheiaDocx.unzip(docxSrc.buf, ["word/document.xml"]))["word/document.xml"] || null; } catch (e) {} }
+    const R = await window.AletheiaSim.check(input.value, { online: $("#simOnline").checked, useLibrary: $("#simLib").checked, signal: deepAbort.signal, docxXml, webSearch: window.ALETHEIA_WEB_SEARCH || null,
+      onProgress: (p) => { st.textContent = p.stage; bar.style.width = Math.max(1, Math.round(p.frac * 100)) + "%"; } });
+    R.file = currentFile || ""; lastSim = R; simPdfBlob = null; renderSim(true);
+  } catch (e) {
+    if (e && e.message === "cancelled") showMsg("Similarity check cancelled.", "info");
+    else { console.error(e); showMsg(bz("The similarity check could not finish: ", "相似度检查没能完成：") + esc(e && e.message ? e.message : "unknown error") + bz(". Please try again.", "。请再试一次。")); }
+  } finally { clearInterval(timer); prog.hidden = true; go.disabled = false; go.textContent = MODE_LABEL[mode]; updateCount(); }
+}
+function renderSim(scroll){
+  const R = lastSim, A = window.AletheiaSim; if (!R) return;
+  const S = A.summarise(R, simFilters), P = A.fmtPct, sp = $("#simPanel");
+  $("#results").style.display = "block"; $("#resGrid").style.display = "none"; $("#resState").innerHTML = ""; const dc = $("#donateCta"); if (dc) dc.hidden = true; sp.hidden = false;
+  const G = { none: ["Not cited or quoted", "没有引用也没加引号", "Matches with neither an in-text citation nor quotation marks", "既没有文中引用也没有引号的匹配"],
+    cited: ["Cited but not quoted", "有引用但没加引号", "An in-text citation is nearby, but no quotation marks", "旁边有文中引用，但没有引号"],
+    quoted: ["Quoted but not cited", "加了引号但没引用", "In quotation marks, without an in-text citation", "在引号里，但没有文中引用"],
+    both: ["Cited and quoted", "有引用也加了引号", "In quotation marks with an in-text citation", "在引号里，也有文中引用"] };
+  const T = { internet: ["Internet", "互联网"], publication: ["Publication", "出版物"], local: ["Saved on this device", "本机保存的文档"], provided: ["Source you added", "你添加的来源"] };
+  const F = { hidden_chars: ["Hidden characters", "隐藏字符", "Zero-width or soft-hyphen characters inside the text. They can split words so that matches are missed.", "正文里有零宽字符或软连字符，它们会把词拆开，让匹配查不出来。"],
+    odd_spaces: ["Unusual spaces", "特殊空格", "Many non-standard space characters. They can come from PDFs or web pages, or be used to break up matches.", "大量非标准空格。可能来自 PDF 或网页，也可能被用来打散匹配。"],
+    mixed_alphabet: ["Mixed alphabets", "混用字母", "Words mixing Latin letters with look-alike Greek or Cyrillic letters, a known way to hide copied text.", "单词里混用了外形相似的希腊或西里尔字母，这是一种已知的隐藏抄袭的手法。"],
+    hidden_text: ["Hidden text", "隐藏文字", "Words formatted as hidden in the Word file.", "Word 文件里被设置为隐藏的文字。"],
+    white_text: ["White text", "白色文字", "Words coloured white in the Word file, invisible on a white page.", "Word 文件里被设成白色、在白纸上看不见的文字。"],
+    tiny_text: ["Tiny text", "极小文字", "Words in a font of 3 points or smaller in the Word file.", "Word 文件里字号 3 磅或更小的文字。"] };
+  const grp = ["none", "cited", "quoted", "both"].map(g => `<div class="srow"><span class="spct">${P(S.groupsPct[g])}</span><span><b>${bz(G[g][0], G[g][1])}</b><small>${bz(G[g][2], G[g][3])}</small></span></div>`).join("");
+  const typ = [["internet", "Internet sources", "互联网来源"], ["publication", "Publications", "出版物"], ["local", "Documents saved on this device", "本机保存的文档"]].concat(S.byType.provided ? [["provided", "Sources you added", "你添加的来源"]] : [])
+    .map(([k, en, zh]) => `<div class="srow"><span class="spct">${P(S.byTypePct[k] || 0)}</span><span><b>${bz(en, zh)}</b></span></div>`).join("");
+  const flg = R.flags.length ? R.flags.map(f => `<div class="srow flag"><span class="spct">${f.n.toLocaleString()}</span><span><b>${bz(F[f.key][0], F[f.key][1])}</b><small>${bz(F[f.key][2], F[f.key][3])}</small></span></div>`).join("")
+    : `<p class="covnote">${bz("No hidden characters, mixed alphabets or hidden text were found.", "没有发现隐藏字符、混用字母或隐藏文字。")}</p>`;
+  const col = (n) => `rgb(${A.PAL[(n - 1) % A.PAL.length].join(",")})`, ink = (n) => `rgb(${A.PAL_INK[(n - 1) % A.PAL_INK.length].join(",")})`;
+  const src = S.sources.length ? S.sources.map(x => `<li><span class="snum" style="background:${ink(x.n)}">${x.n}</span><span class="stxt"><small>${bz(T[x.type][0], T[x.type][1])}${x.type === "publication" ? bz(" · phrase found in the full text; only the abstract was compared", " · 在全文中找到这个短语；只比对了摘要") : x.phraseOnly ? bz(" · phrase found in full text", " · 在全文中找到这个短语") : ""}${x.savedAt ? " · " + esc(x.savedAt.slice(0, 10)) : ""}</small>${/^https?:\/\//i.test(x.url || "") ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>` : `<b>${esc(x.title)}</b>`}${x.year ? ` <span class="syr">(${esc(String(x.year))})</span>` : ""}</span><span class="spct">${P(x.pct)}</span></li>`).join("")
+    : `<li class="none">${bz(`No source shares a passage of ${S.filters.minWords} or more words with this document.`, `没有任何来源和这篇文档有 ${S.filters.minWords} 个词以上的相同片段。`)}</li>`;
+  // highlighted document
+  const text = R.P.text; let html = "", pos = 0;
+  for (const b of S.blocks) { html += esc(text.slice(pos, b.s)); html += `<mark class="sm" style="background:${col(b.n)}"><sup style="background:${ink(b.n)}">${b.n}</sup>${esc(text.slice(b.s, b.e))}</mark>`; pos = b.e; }
+  html += esc(text.slice(pos));
+  const fails = R.failed.wiki + R.failed.openalex, tried = R.searches ? R.searches.wiki + R.searches.openalex : R.queries * 2;
+  sp.innerHTML = `<p class="sec-k">01 · ${bz("Similarity", "相似度")}</p>
+    ${R.searchFailed ? `<p class="simwarn simbad"><b>${bz("Incomplete result.", "结果不完整。")}</b> ${bz(`${fails} of ${tried} online searches failed (network problem or the services' daily limit), so the percentage below is not reliable. Try again later or on another network.`, `${tried} 次在线搜索中有 ${fails} 次失败（网络问题或服务的每日限额），所以下面的百分比不可靠。请稍后或换个网络再试。`)}</p>` : ""}
+    ${R.noQueries ? `<p class="simwarn">${bz("No phrase could be searched online: the text has no sentence of 10 or more English words. Only documents saved on this device were compared.", "没有可以在线搜索的短语：文本里没有 10 个英文词以上的句子。只和这台设备上保存的文档比较了。")}</p>` : ""}
+    <div class="simtop"><div class="simbig${R.searchFailed ? " dim" : ""}">${P(S.overall)}</div><div><h2>${bz("Overall similarity", "总相似度")}</h2><p class="covnote">${bz(`${S.matched.toLocaleString()} of ${S.denom.toLocaleString()} words are in passages of ${S.filters.minWords}+ words that also appear in a source. Each word is credited to one source only.`, `${S.denom.toLocaleString()} 个词中有 ${S.matched.toLocaleString()} 个落在和某个来源相同、至少 ${S.filters.minWords} 个词的片段里。每个词只算给一个来源。`)}</p>
+    <div class="simf"><label><input type="checkbox" id="sfBib" ${simFilters.excludeBibliography ? "checked" : ""}> ${bz("Exclude bibliography", "排除参考文献")}${S.bibliographyFound ? "" : bz(" (none found)", "（未找到）")}</label><label><input type="checkbox" id="sfQuote" ${simFilters.excludeQuotes ? "checked" : ""}> ${bz("Exclude quoted text", "排除引号内文字")}</label><label>${bz("Smallest match", "最短匹配")} <select id="sfMin">${[8, 12, 20].map(v => `<option value="${v}" ${simFilters.minWords === v ? "selected" : ""}>${v} ${window.AletheiaLang && window.AletheiaLang.get() === "zh" ? "词" : "words"}</option>`).join("")}</select></label></div></div></div>
+    ${R.online ? "" : `<p class="simwarn">${bz("Only documents saved on this device were compared; Wikipedia and OpenAlex were not searched.", "只和这台设备上保存的文档比较了，没有搜索 Wikipedia 和 OpenAlex。")}</p>`}
+    ${fails && !R.searchFailed ? `<p class="simwarn">${bz(`${fails} of ${tried} online searches failed (network or rate limit), so some matches may be missing.`, `${tried} 次在线搜索中有 ${fails} 次失败（网络或频率限制），所以可能漏掉一些匹配。`)}</p>` : ""}
+    ${R.sameInLibrary ? `<p class="simwarn">${bz("An identical copy of this document is saved on this device; it was not counted as a match.", "这台设备上保存过一份完全相同的文档，它没有被算作匹配。")}</p>` : ""}
+    <div class="simgrid"><div class="simbox"><h3>${bz("Match groups", "匹配分组")}</h3>${grp}</div><div class="simbox"><h3>${bz("Top sources by type", "各类来源占比")}</h3>${typ}</div><div class="simbox"><h3>${bz("Integrity flags", "完整性标记")}</h3>${flg}<p class="covnote">${bz("A flag is not necessarily a problem. It points to something worth a look.", "标记不一定说明有问题，只是提示值得看一看。")}</p></div></div>
+    <h3 class="simh">${bz("Sources", "来源")}</h3><ol class="srcs">${src}</ol>
+    <div class="simact"><button class="btn primary" id="simPdf">${bz("Download similarity report (PDF)", "下载相似度报告（PDF）")} <span class="arr">↓</span></button><button class="btn" id="simSave">${bz("Save this document on this device", "把这篇文档保存在本机")}</button></div>
+    <p class="covnote" id="simSaveMsg">${bz("Saving keeps a copy only in this browser, so later checks can find overlap with it (like a class's earlier submissions). Nothing is uploaded. A later draft of the same piece will match its saved earlier draft; that is expected, not copying.", "保存只会在这个浏览器里留一份副本，之后的检查就能发现和它重复的内容（类似班里之前交过的作业）。不会上传任何内容。同一篇作业的新草稿会和保存过的旧草稿匹配，这是正常的，不是抄袭。")}</p>
+    <h3 class="simh">${bz("Document with matches", "标出匹配的全文")}</h3><div class="simdoc">${html}</div>
+    <details class="covmore"><summary>${bz("What this check can and cannot do", "这个检查能做什么、不能做什么")}</summary><p>${bz("It searches open sources only: Wikipedia, OpenAlex's full-text index of scholarly works, documents saved on this device, and any sources you add. It does not search the whole web, paywalled articles, or other students' work in Turnitin's private database, so a low score does not mean the text is original. Only 40 phrases are searched on Wikipedia and 15 on OpenAlex, and only OpenAlex abstracts can be compared word for word, so copied passages between the phrases can be missed. Matches show shared wording, not misconduct: quotations, common phrases and shared task wording also match.", "它只搜索公开来源：Wikipedia、OpenAlex 的学术全文索引、这台设备上保存的文档，以及你添加的来源。它不搜索整个互联网、付费文章，也搜不到 Turnitin 私有数据库里其他学生的作业，所以分数低不代表文字是原创的。在线只在 Wikipedia 搜索 40 个短语、在 OpenAlex 搜索 15 个，而且 OpenAlex 只能逐词比对摘要，所以夹在这些短语之间的抄袭可能会漏掉。匹配只说明用词相同，不代表学术不端：引语、常见说法和相同的任务要求也会匹配。")}</p></details>`;
+  const re = () => { simFilters = { excludeBibliography: $("#sfBib").checked, excludeQuotes: $("#sfQuote").checked, minWords: +$("#sfMin").value }; simPdfBlob = null; renderSim(); };
+  ["#sfBib", "#sfQuote", "#sfMin"].forEach(k => $(k).addEventListener("change", re));
+  $("#simPdf").addEventListener("click", async () => {
+    const b = $("#simPdf"); b.disabled = true;
+    try { await ensureDeep(true); const blob = A.pdf(R, A.summarise(R, simFilters), { file: R.file, version: BUILD, date: new Date(R.at).toLocaleString(), webSearch: !!window.ALETHEIA_WEB_SEARCH });
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `ALETHEIA-similarity-${(R.file || "text").replace(/\.[^.]+$/, "").replace(/[^\w\-]+/g, "_").slice(0, 40)}.pdf`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    } catch (e) { showMsg(bz("Could not build the PDF: ", "无法生成 PDF：") + esc(e.message)); } finally { b.disabled = false; }
+  });
+  $("#simSave").addEventListener("click", async () => {
+    try { await A.libSave(R.file || ("Pasted text " + new Date(R.at).toLocaleDateString()), R.P.text); $("#simSaveMsg").innerHTML = bz("Saved on this device. Later checks with “Compare with documents saved on this device” will include it.", "已保存在本机。之后勾选“和本机保存的文档比较”时会包括它。"); simLibInfo(); }
+    catch (e) { $("#simSaveMsg").innerHTML = bz("Could not save: ", "无法保存：") + esc(e.message); }
+  });
+  if (scroll) sp.scrollIntoView({ behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth", block: "start" });
+}
+
 let pdfBlob = null, docxSrc = null;
 // V1.7: feedback (numbers only) and voluntary donation, both sent by the user from their own email app.
 const HELP_ADDR = "feedback@aletheiadetect.com";
@@ -2212,7 +2366,7 @@ const CAT_SUB = {
 };
 
 function render(r){
-  $("#results").style.display = "block";
+  $("#results").style.display = "block"; const sp0 = $("#simPanel"); if (sp0) sp0.hidden = true;
   const grid = $("#resGrid"), state = $("#resState");
   if (r.status !== "ok") {
     grid.style.display = "none";
@@ -2486,6 +2640,20 @@ document.getElementById("themeBtn").addEventListener("click",function(){var d=do
    replacing exact text nodes and attributes, so dynamic results are translated too. Long pages (Technology, Research, Changelog, Privacy, Brand) carry a written Chinese version in .zh-v blocks. */
 (function(){
 var ZH = {
+"Similarity":"相似度",
+"web + publications + PDF":"网络 + 出版物 + PDF",
+"Run Similarity Check":"开始相似度检查",
+"Search Wikipedia and OpenAlex":"搜索 Wikipedia 和 OpenAlex",
+"Sends up to 40 phrases of 8 words (at most 320 words), never the whole document, to wikipedia.org and api.openalex.org. Like any website, they also see your IP address.":"最多发送 40 个短语（每个 8 个词，合计最多 320 个词）到 wikipedia.org 和 api.openalex.org，绝不会发送整篇文档。和任何网站一样，它们也会看到你的 IP 地址。",
+"Compare with documents saved on this device":"和本机保存的文档比较",
+"Documents you saved here before. They never leave this browser.":"你之前在这里保存的文档。它们不会离开这个浏览器。",
+"Similarity: looks for passages of 8+ words that also appear on Wikipedia, in OpenAlex's full-text index of scholarly works, or in documents saved on this device, then builds a similarity report you can download as a PDF. Usually 30–60 seconds.":"相似度：查找和 Wikipedia、OpenAlex 学术全文索引或本机保存的文档相同、至少 8 个词的片段，然后生成一份可以下载为 PDF 的相似度报告。通常需要 30 到 60 秒。",
+"Loading the similarity checker…":"正在加载相似度检查…",
+"Searching Wikipedia and OpenAlex":"正在搜索 Wikipedia 和 OpenAlex",
+"Reading matched pages":"正在读取匹配到的页面",
+"Comparing":"正在比对",
+"Similarity check cancelled.":"相似度检查已取消。",
+
 "Test ALETHEIA on your own data.":"用你自己的数据测试 ALETHEIA。",
 "Upload labelled samples the detector has never seen. You'll get false-positive rate, recall, ROC-AUC and calibration with confidence intervals, all computed in your browser.":"上传检测器从未见过、带标签的样本。你会得到误判率、查全率、ROC-AUC 和校准结果，并附置信区间，全部在你的浏览器里计算。",
 "1. Load samples":"1. 载入样本","CSV with":"CSV 格式，列为","or JSON Lines":"，或 JSON Lines 格式",". Labels: human / ai (or 0/1). Optional":"。标签：human / ai（或 0/1）。可选的","column for per-group false-positive rates.":"列用于按群体计算误判率。",
@@ -2503,7 +2671,7 @@ var ZH = {
 "Analyze a Document":"分析文档","Explore the Technology":"了解技术","Start Analyzing":"开始分析","Read the research notes →":"阅读研究说明 →",
 "See beyond the words.":"看见文字背后。","Open Detect":"打开检测","Follow the research":"关注研究",
 "Analyze a document.":"分析一篇文档。",
-"Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device. English prose only; at least 80 words (150 for an AI percentage), 300+ recommended.":"粘贴文字或上传文件。分析完全在你的浏览器里运行，文档不会离开你的设备。仅支持英文正文；至少 80 词（AI 百分比需要 150 词），建议 300 词以上。",
+"Paste text or upload a file. Analysis runs entirely in your browser, so your document never leaves your device (Similarity mode can send short phrases to Wikipedia and OpenAlex if you allow it). English prose only; at least 80 words (150 for an AI percentage), 300+ recommended.":"粘贴文字或上传文件。分析完全在你的浏览器里运行，文档不会离开你的设备（如果你允许，“相似度”模式会把一些短语发送到 Wikipedia 和 OpenAlex）。仅支持英文正文；至少 80 词（AI 百分比需要 150 词），建议 300 词以上。",
 "Paste text":"粘贴文字","Upload file":"上传文件","Load a demo sample…":"载入示例…","Demo: assistant-style essay":"示例：助手风格的文章","Demo: casual personal writing":"示例：随意的个人写作","Demo: plain lab report":"示例：普通实验报告","Demo: mixed document":"示例：混合文档",
 "Drop a document here":"把文档拖到这里","or click to choose · .docx, .pdf or .txt · up to 10 MB · text is extracted on your device and shown for review":"或点击选择 · .docx、.pdf 或 .txt · 最大 10 MB · 文字在你的设备上提取并显示供检查",
 "Deep Scan":"深度扫描","thorough · about 10–40 s":"更彻底 · 约 10–40 秒","Supreme":"至尊","everything + PDF report":"全部分析 + PDF 报告",
@@ -2674,7 +2842,7 @@ for (var k2 in ZH2) if (!ZH[k2]) ZH[k2] = ZH2[k2];
 var LANG = "en"; try { LANG = localStorage.getItem("aletheia.lang") || (/^zh/i.test(navigator.language || "") ? "zh" : "en"); } catch (e) {}
 var orig = new WeakMap(), origAttr = new WeakMap();
 var ALLOW = "#doc .blk-x>em,#tops small";
-var SKIP = "script,style,textarea,#doc,#detail>div:first-child,#tops,table.hist td,.en-v,.zh-v,.en-i,.zh-i,.mono.v";
+var SKIP = "script,style,textarea,#doc,.simdoc,.srcs .stxt,#detail>div:first-child,#tops,table.hist td,.en-v,.zh-v,.en-i,.zh-i,.mono.v";
 function skipped(e){ return !!(e && e.closest(SKIP) && !e.closest(ALLOW)); }
 var ALLRX = null;
 function tr(s){ var k = s.trim().replace(/\s+/g, " "); if (ZH[k]) { var zk = ZH[k]; return s.replace(s.trim(), function(){ return zk; }); }
@@ -2696,7 +2864,7 @@ function revert(){ document.querySelectorAll("[data-zh]").forEach(function(e){ i
   document.querySelectorAll("[placeholder],[title],[aria-label]").forEach(function(e){ var m = origAttr.get(e); if (m) { Object.keys(m).forEach(function(a){ e.setAttribute(a, m[a]); }); origAttr.delete(e); } }); }
 var mo = new MutationObserver(function(ms){ if (LANG !== "zh") return; mo.disconnect(); ms.forEach(function(m){ m.addedNodes.forEach(function(x){ if (x.nodeType === 1) apply(x); else if (x.nodeType === 3 && x.parentElement) apply(x.parentElement); }); if (m.type === "characterData" && m.target.parentElement) apply(m.target.parentElement); }); observe(); });
 function observe(){ mo.observe(document.body, { childList: true, subtree: true, characterData: true }); }
-function setLang(l){ LANG = l; try { localStorage.setItem("aletheia.lang", l); } catch (e) {} document.documentElement.lang = l === "zh" ? "zh-CN" : "en";
+function setLang(l){ LANG = l; setTimeout(() => { try { if (typeof lastSim !== "undefined" && lastSim && !document.getElementById("simPanel").hidden) renderSim(); } catch (e) {} }, 0); try { localStorage.setItem("aletheia.lang", l); } catch (e) {} document.documentElement.lang = l === "zh" ? "zh-CN" : "en";
   var b = document.getElementById("langBtn"); if (b) { b.textContent = l === "zh" ? "EN" : "中"; }
   if (l === "zh") { apply(document.body); } else revert();
   document.querySelectorAll("[data-zhnote]").forEach(function(n){ n.hidden = l !== "zh"; }); copyRefs(); }

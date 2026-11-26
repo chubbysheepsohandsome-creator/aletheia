@@ -310,6 +310,6 @@
     const enc = new TextEncoder(), bytes = await rezip(b, idx, { "word/document.xml": enc.encode(out) });
     return { bytes, total: marks.length, found, partial, missed: marks.length - found };
   }
-  const api = { extract, parseDocument, toText, annotate };
+  const api = { extract, parseDocument, toText, annotate, unzip };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.AletheiaDocx = api;
 })(typeof window !== "undefined" ? window : globalThis);
