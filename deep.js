@@ -51,6 +51,12 @@
   }
 
   function setModel(w) { w = w === true ? "seg07" : (w || "current"); if (!MODEL_SRC[w]) w = "current"; if (w !== which) { which = w; M = null; } }
+  // V1.9.7: for texts of 150-299 words at High / Very high the AI percentage uses the sentence rule (each sentence's segment
+  // probability, the mean of the ~250-word windows around it, must reach SENT_RULE[level].t; flagged at SENT_RULE[level].c of its words).
+  // "v196" (Previous in the interface) = the same seg-1.0 model with the V1.9.6 window/run rule. Older models keep the window rule.
+  let RULE = "sentence";
+  const SENT_RULE = { high: { t: 0.80, c: 0.30 }, vh: { t: 0.75, c: 0.30 } };  // short texts at High / Very high only; General and T unchanged
+  function setRule(r) { RULE = r === "window" ? "window" : "sentence"; }
   // V1.8.7 topic mask: topic words (racism, australia, schools, universities ...) are blanked out, same length, before n-gram
   // counting, so a topic can no longer move the score. Current model only; older models are left exactly as they were.
   const TOPIC_RE = /\b(?:1919|1920s|1929|1930s|1936|1939|aboriginal|aboriginals|ambition|ammeter|asphalt|australia|australian|australians|beaker|berlin|bicarbonate|britain|campus|carbon|circuit|classroom|classrooms|college|colleges|colonial|colonisation|colonization|concrete|cooling|council|councils|crocodile|curriculum|digital|dioxide|discriminate|discriminated|discrimination|duncan|education|elodea|france|german|germans|germany|ghost|government|guilt|guilty|headline|hitler|homework|indigenous|islander|islanders|journalists|kindness|king|lady|lunch|macbeth|media|micrometer|minister|mobile|nationalist|nazi|nazis|newspaper|newspapers|nichrome|ohms|online|oxygen|parents|phones|photosynthesis|policy|political|politics|prejudice|racial|racially|racism|racist|racists|reparations|republic|resistance|resistivity|rhineland|roof|roofs|school|schools|segregation|settlement|settlers|shakespeare|sleepwalking|social|sodium|stereotype|stereotypes|strait|student|students|summer|sunlight|syringe|teacher|teachers|torres|treaty|universities|university|urban|vegetation|versailles|voltage|voltmeter|weimar|wire|witches)(?:'s|s|es)?\b/gi;
@@ -155,6 +161,9 @@
     const TT = stu ? S.t_student : S.t;
     const t = TT[regName] ?? TT.general, lgS = acc.map(([x, k]) => x / Math.max(1, k));
     const tLow = sens ? (TS2[regName] ?? TS2.general) : t;
+    // V1.9.7: texts of 150-299 qualifying words at High / Very high (which fell back to General thresholds before) use the sentence rule.
+    // Texts of 300+ words keep the V1.9.6 student rule (with the short-passage pass and screening leads): no loss of recall there.
+    if (RULE === "sentence" && which === "current" && student && sensitive && !stu) return sentenceCoverage(prose, S, wc, wins, lgS, sensitive === 2 ? 2 : 1, regName);
     // V1.7 (student mode): short-passage pass. 100-word windows scored by the main deep head catch AI paragraphs of
     // 60-150 words that the 250-word windows dilute; a sentence counts if either pass reaches its threshold.
     const SP = stu && S.short ? S.short : null; let l100 = null, tS = Infinity, tSLow = Infinity;
@@ -184,7 +193,30 @@
              flaggedWords: flagged, strongWords: strong, qualifyingWords: total, runs, windows: wins.length, W: S.W, threshold: t, screenThreshold: sens ? tLow : null,
              register: regName, version: S.version, calibration: S.calibration || null,
              student: stu, studentRequested: !!student, studentMinWords: S.student_min_words || 300, studentCalibration: stu ? (S.student_calibration || null) : null,
-             shortPass: !!SP, shortCalibration: SP ? (SP.calibration || null) : null, sensitive: sens, sensitiveLevel: lvl, sensitiveRequested: !!sensitive, screenCalibration: sens ? ((lvl === 2 ? S.screen2_calibration : S.screen_calibration) || null) : null };
+             shortPass: !!SP, shortCalibration: SP ? (SP.calibration || null) : null, sensitive: sens, sensitiveLevel: lvl, sensitiveRequested: !!sensitive, screenCalibration: sens ? ((lvl === 2 ? S.screen2_calibration : S.screen_calibration) || null) : null,
+             rule: "window", ruleCut: S.report_from || 0.2, hasLeads: sens, flagged: reportable && pct >= 0.2 };
+  }
+  // Applies at High and Very high (student assignment + screening) to texts of min_words (150) to 299 qualifying words.
+  function sentenceCoverage(prose, S, wc, wins, lgS, lvl, regName) {
+    const key = lvl === 2 ? "vh" : "high", SR = SENT_RULE[key], tl = lg(SR.t);
+    let total = 0, flagged = 0; const runs = []; let cur = null;
+    prose.forEach((s, i) => {
+      s.seg = 1 / (1 + Math.exp(-lgS[i])); s.segAI = lgS[i] >= tl; s.segLead = false; s.segShort = false; s.segRun = undefined;
+      if (s.f.wc >= 3) { total += s.f.wc; if (s.segAI) flagged += s.f.wc; }
+      if (s.segAI) { if (!cur) { cur = { from: i, to: i, words: 0, lg: -Infinity, lead: false }; runs.push(cur); } cur.to = i; cur.words += s.f.wc; cur.lg = Math.max(cur.lg, lgS[i]); }
+      else cur = null;
+    });
+    runs.forEach((r, k) => { r.n = k + 1; r.prob = 1 / (1 + Math.exp(-r.lg)); prose.slice(r.from, r.to + 1).forEach((s) => { s.segRun = k + 1; }); });
+    const reportable = total >= S.min_words;
+    if (!reportable) { prose.forEach((s) => { s.segAI = false; s.segRun = undefined; }); runs.length = 0; }
+    const pct = total ? flagged / total : 0;
+    const fmt = (p) => (!reportable ? "--" : p === 0 ? "0%" : p < SR.c ? "*%" : `${Math.round(p * 100)}%`);
+    return { pct, reportable, minWords: S.min_words, display: fmt(pct), pctStrong: pct, displayStrong: fmt(pct),
+             flaggedWords: flagged, strongWords: flagged, qualifyingWords: total, runs, windows: wins.length, W: S.W, threshold: tl, screenThreshold: null,
+             register: regName, version: S.version, calibration: SR.cal || null,
+             rule: "sentence", ruleKey: key, ruleT: SR.t, ruleCut: SR.c, hasLeads: false, flagged: reportable && pct >= SR.c,
+             student: true, studentRequested: true, studentMinWords: S.min_words, studentCalibration: null,
+             shortPass: false, shortCalibration: null, sensitive: true, sensitiveLevel: lvl, sensitiveRequested: true, screenCalibration: null };
   }
   const merge = (maps) => { const o = new Map(); for (const mp of maps) for (const [k, v] of mp) o.set(k, (o.get(k) || 0) + v); return o; };
   // ---- V1.8.4 (test): which words pull a window's segment score up.
@@ -288,12 +320,12 @@
   }
   function evidence(cov, cross, style, crossRan) {
     if (!cov || !cov.reportable) return null;
-    const flagged = cov.pct >= 0.2, agree = cross != null && cross >= 0.2, nStyle = style ? style.filter((x) => x.fired).length : 0;
+    const flagged = cov.flagged != null ? cov.flagged : cov.pct >= 0.2, agree = cross != null && cross >= 0.2, nStyle = style ? style.filter((x) => x.fired).length : 0;
     const tier = !flagged ? "none" : agree && nStyle >= 1 ? "A" : agree || nStyle >= 2 ? "B" : "C";
     // the rates were measured with the cross-check on at General, High and Very high
-    const lv = crossRan ? evLevel(cov) : null, c = lv && tier !== "none" ? EV_CAL[lv][tier] : null;
+    const lv = crossRan && cov.rule !== "sentence" ? evLevel(cov) : null, c = lv && tier !== "none" ? EV_CAL[lv][tier] : null;
     const N = lv ? EV_N[lv] : null, cal = c ? { level: lv, human: evPct(c[0], N.human), ai: evPct(c[1], N.ai), kh: c[0], ka: c[1], nh: N.human, na: N.ai } : null;
-    return { tier, flagged, current: cov.pct, cross, crossModel: "seg-0.6", crossRan: !!crossRan, agree, style, nStyle, cal, calLevel: lv, calLevelMismatch: !lv };
+    return { tier, flagged, current: cov.pct, cross, crossModel: "seg-0.6", crossRan: !!crossRan, agree, style, nStyle, cal, calLevel: lv, calLevelMismatch: !lv, calRuleNew: cov.rule === "sentence" };
   }
   const quant = (a, q) => { const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.max(0, Math.round(q * (s.length - 1))))]; };
   const tick = () => new Promise((r) => setTimeout(r, 0));
@@ -305,7 +337,8 @@
 
   async function run(text, opts = {}) {
     const E = root.ProseLensEngine || require("./engine.js");
-    setModel(opts.model || opts.legacy);
+    const mk = opts.model || opts.legacy;
+    setModel(mk === "v196" ? "current" : mk); setRule(mk === "v196" || opts.rule === "window" ? "window" : "sentence");
     const L = LEVELS[opts.level || "deep"], prog = opts.onProgress || (() => {}), t0 = Date.now();
     const cancelled = () => opts.signal && opts.signal.aborted;
     const stages = [];
@@ -426,8 +459,9 @@
       let cross = null, crossRan = false;
       if (opts.crossCheck && (root.AletheiaDeepModelSeg06 || typeof require === "function")) {
         await stage("Cross-check with the older seg-0.6 model", 0.98);
+        const keepRule = RULE;
         try { const X = await run(text, Object.assign({}, opts, { model: "seg06", coverageOnly: true, onProgress: null })); cross = X.coverage && X.coverage.reportable ? X.coverage.pct : null; crossRan = true; }
-        catch (e) { cross = null; if (cancelled()) { setModel("current"); throw e; } } finally { setModel("current"); model(); }
+        catch (e) { cross = null; if (cancelled()) { setModel("current"); setRule(keepRule); throw e; } } finally { setModel("current"); setRule(keepRule); model(); }
       }
       ev = evidence(cov, cross, styleIndicators(prose), crossRan);
     }
@@ -506,16 +540,17 @@
         ["Models", `${b.version} · ${R.modelVersion}${cov ? " · " + cov.version : ""}`], ["Where the analysis ran", "In the browser. The document was not uploaded."]]);
     y += 20;
     doc.setFillColor(...C.soft); doc.rect(MX, y, W - 2 * MX, 54, "F");
-    setF("normal", 8.5, C.mute); doc.splitTextToSize(clean("This report has two parts. Part A gives the AI percentage and shows the whole document with the segments that look AI-generated highlighted. Part B is ALETHEIA's deep analysis of the document as a whole. A detector result is not proof of authorship."), W - 2 * MX - 24).forEach((l, i) => doc.text(l, MX + 12, y + 18 + i * 12));
+    setF("normal", 8.5, C.mute); doc.splitTextToSize(clean((R.model === "v196" ? "Previous version (V1.9.6 window rule). " : "") + "This report has two parts. Part A gives the AI percentage and shows the whole document with the segments that look AI-generated highlighted. Part B is ALETHEIA's deep analysis of the document as a whole. A detector result is not proof of authorship."), W - 2 * MX - 24).forEach((l, i) => doc.text(l, MX + 12, y + 18 + i * 12));
 
     // ===================== PART A · page 2: overview
     newPage();
     const big = !cov ? "--" : cov.display;
     setF("bold", 30); doc.text(clean(cov && cov.reportable ? `${big} detected as AI` : "No AI percentage"), MX, y + 8); y += 30;
-    if (cov && cov.sensitive) { setF("bold", 10, C.warn); doc.text(clean(`${cov.sensitiveLevel === 2 ? "Very high" : "High"} sensitivity screening: ${cov.displayStrong} at the student-assignment threshold; the rest are screening leads (amber).`), MX, y); y += 16; }
+    if (cov && cov.hasLeads) { setF("bold", 10, C.warn); doc.text(clean(`${cov.sensitiveLevel === 2 ? "Very high" : "High"} sensitivity screening: ${cov.displayStrong} at the student-assignment threshold; the rest are screening leads (amber).`), MX, y); y += 16; }
     setF("normal", 9.5, C.mute);
     para(!cov ? "The segment model is not available in this version." : !cov.reportable
       ? `Not enough qualifying prose for an AI percentage: ${cov.qualifyingWords} words were found and at least ${cov.minWords} are needed. The whole-document assessment below still applies.`
+      : cov.rule === "sentence" ? `The share of qualifying words in sentences that ALETHEIA's segment model scores at least ${Math.round(cov.ruleT * 100)}% likely to be AI-generated (V1.9.7 sentence rule, ${cov.ruleKey === "vh" ? "Very high" : "High"} level). Percentages below ${Math.round(cov.ruleCut * 100)}% are shown as *% because false positives are more likely in that range.`
       : "The share of qualifying text that ALETHEIA's segment model highlights as likely AI-generated (or AI-generated and then edited). Percentages from 1% to 19% are shown as *% because false positives are more likely in that range.", 9.5, C.mute);
     y += 10;
     // caution box
@@ -533,9 +568,9 @@
     };
     if (cov && cov.reportable) {
       const nLead = b.sentences.filter((s) => s.segLead).length, nStrong = cov.runs.filter((r) => !r.lead).length;
-      grow(C.hlMark, String(nStrong), nStrong === 1 ? "AI-generated segment" : "AI-generated segments", cov.sensitive ? cov.displayStrong : cov.display,
+      grow(C.hlMark, String(nStrong), nStrong === 1 ? "AI-generated segment" : "AI-generated segments", cov.hasLeads ? cov.displayStrong : cov.display,
            "Text with patterns of large-language-model output. Includes AI text that was lightly edited by a person or a tool.");
-      if (cov.sensitive) grow(C.hlLead, String(nLead), nLead === 1 ? "sentence marked as a screening lead" : "sentences marked as screening leads", `+${Math.round((cov.pct - cov.pctStrong) * 100)}%`,
+      if (cov.hasLeads) grow(C.hlLead, String(nLead), nLead === 1 ? "sentence marked as a screening lead" : "sentences marked as screening leads", `+${Math.round((cov.pct - cov.pctStrong) * 100)}%`,
            "High-sensitivity screening only: weaker AI-like patterns that the student-assignment threshold does not count. More human text reaches this level, so treat these as places to look, not as evidence.");
       grow([170, 170, 178], "—", "AI-generated, then paraphrased or humanized", "not separated",
            "ALETHEIA does not yet report this group on its own. Heavily paraphrased or humanizer-rewritten AI text is either counted above or missed.");
@@ -547,7 +582,7 @@
     setF("bold", 12); doc.text(clean(R.category), MX + 120, y + 16);
     setF("normal", 8.5, C.mute); doc.splitTextToSize(clean(`How likely the document as a whole is to be AI-generated, from two trained models. Decision threshold ${Math.round(R.thresholds.high * 100)} for ${R.register.name} writing; 90% interval ${Math.round(R.ci[0] * 100)}–${Math.round(R.ci[1] * 100)}. Details in Part B.`), W - 2 * MX - 140).forEach((l, i) => doc.text(l, MX + 120, y + 30 + i * 11));
     y += 76;
-    if (cov && cov.reportable && cov.pct >= 0.2 && R.deepScore < R.thresholds.low)
+    if (cov && cov.reportable && (cov.flagged != null ? cov.flagged : cov.pct >= 0.2) && R.deepScore < R.thresholds.low)
       para("The two measures disagree: some sections look AI-generated, while the document as a whole does not. This pattern fits partly AI-assisted writing, and also formulaic human sections (templates, repeated sentence frames, evaluation checklists). Review the highlighted segments individually.", 8.8, C.ink, "italic");
     // FAQ
     // V1.9: evidence behind the result
@@ -558,10 +593,10 @@
       para(tierTxt, 10, EVR.tier === "A" ? C.red : EVR.tier === "B" ? C.warn : C.ink, "bold");
       const LVN = { General: "General", High: "High", VH: "Very high" };
       if (EVR.cal) para(`In our validation set (${LVN[EVR.cal.level]} level; ${EVR.cal.nh.toLocaleString("en")} human and ${EVR.cal.na} AI documents), ${EVR.cal.kh} human documents (${EVR.cal.human}) and ${EVR.cal.ka} AI documents (${EVR.cal.ai}) ended up in this tier (measured with seg-0.9, the model before V1.9.5). These rates come from our own test sets and may be lower or higher on other writing.`, 8.8, C.mute);
-      else if (EVR.tier !== "none") para("The tier rates were measured at the General, High and Very high levels with the cross-check on; they are not shown for this setting.", 8.8, C.mute);
+      else if (EVR.tier !== "none") para(EVR.calRuleNew ? "The tier rates were measured with the V1.9.6 window rule and have not yet been re-measured for the V1.9.7 sentence rule, so they are not shown." : "The tier rates were measured at the General, High and Very high levels with the cross-check on; they are not shown for this setting.", 8.8, C.mute);
       y += 4;
       const pc = (x) => (x == null ? "not run" : `${Math.round(x * 100)}%`);
-      kv([["Current model (" + ((R.coverage && R.coverage.version) || "") + ")", `${pc(EVR.current)} · ${EVR.flagged ? "reaches 20%" : "below 20%"}`],
+      kv([["Current model (" + ((R.coverage && R.coverage.version) || "") + ")", `${pc(EVR.current)} · ${EVR.flagged ? `reaches ${Math.round(((R.coverage && R.coverage.ruleCut) || 0.2) * 100)}%` : `below ${Math.round(((R.coverage && R.coverage.ruleCut) || 0.2) * 100)}%`}`],
           ["Second opinion: seg-0.6", EVR.cross == null ? "not run" : `${pc(EVR.cross)} · ${EVR.agree ? "agrees" : "does not flag it"}`],
           ["Writing-style indicators", `${EVR.nStyle} of ${(EVR.style || []).length} fired`]], false);
       for (const x of (EVR.style || []).filter((x) => x.fired)) para("- " + x.label, 8.8, C.ink);
@@ -571,8 +606,9 @@
     y += 6; setF("bold", 12); need(30); doc.text("Frequently asked questions", MX, y); y += 8; doc.line(MX, y, W - MX, y); y += 18;
     const cal = cov && cov.calibration;
     const faq = [
-      ...(cov && cov.sensitive ? [["What is high-sensitivity screening?", `A setting inside student-assignment mode (on by default there) that prefers catching more AI text over avoiding false alarms; the very-high level goes further.${cov.sensitiveLevel === 2 ? " This report used the very-high level." : ""} It also highlights weaker AI-like segments (screening leads, amber), and the percentage at the top counts them.${cov.screenCalibration ? ` On held-out human student essays never used to choose the setting, ${cov.screenCalibration.hold_student_over20} reached 20% (student-assignment threshold alone: ${cov.screenCalibration.hold_student_over20_base}); AI-generated essays and answers reached 20% in ${cov.screenCalibration.ai_over20} of cases (student-assignment threshold alone: ${cov.screenCalibration.ai_over20_base}).` : ""} Use it to decide where to look, never as evidence on its own.`]] : []),
-      ...(cov && cov.studentRequested ? [["What does student-assignment mode change?", cov.student
+      ...(cov && cov.hasLeads ? [["What is high-sensitivity screening?", `A setting inside student-assignment mode (on by default there) that prefers catching more AI text over avoiding false alarms; the very-high level goes further.${cov.sensitiveLevel === 2 ? " This report used the very-high level." : ""} It also highlights weaker AI-like segments (screening leads, amber), and the percentage at the top counts them.${cov.screenCalibration ? ` On held-out human student essays never used to choose the setting, ${cov.screenCalibration.hold_student_over20} reached 20% (student-assignment threshold alone: ${cov.screenCalibration.hold_student_over20_base}); AI-generated essays and answers reached 20% in ${cov.screenCalibration.ai_over20} of cases (student-assignment threshold alone: ${cov.screenCalibration.ai_over20_base}).` : ""} Use it to decide where to look, never as evidence on its own.`]] : []),
+      ...(cov && cov.rule === "sentence" ? [["How is the AI percentage worked out at this level?", `Each sentence takes the average score of the overlapping ~${cov.W}-word segments around it and is highlighted when that reaches ${Math.round(cov.ruleT * 100)}%; the percentage is the share of qualifying words in highlighted sentences (V1.9.7 rule, used at the High and Very high levels for texts of 150 to 299 words, which used to fall back to the General thresholds). On the 150-299-word texts of our calibration set, ${cov.ruleKey === "vh" ? "23 of 1,979 human documents (1.2%) and 766 of 1,088 AI documents (70.4%)" : "13 of 1,979 human documents (0.7%) and 716 of 1,088 AI documents (65.8%)"} reached ${Math.round(cov.ruleCut * 100)}% (General thresholds before: 0 human, 43.0% of AI). ${cov.ruleKey === "vh" ? "That set was also used when choosing the Very high setting, so these figures are optimistic. " : ""}Formal writing such as government reports and some science writing is flagged more often than other human writing.`]] : []),
+      ...(cov && cov.studentRequested && cov.rule !== "sentence" ? [["What does student-assignment mode change?", cov.student
         ? `The AI percentage used thresholds calibrated only on human student essays of at least ${cov.studentMinWords} words, the kind of text Turnitin is designed for.${cov.studentCalibration ? ` On held-out human student essays never used to choose the thresholds, ${cov.studentCalibration.hold_student_over20} reached 20%. Fully AI-generated essays reached 20% in ${cov.studentCalibration.hold_ai_essay_over20} of cases (V1.9.1 standard thresholds: ${cov.studentCalibration.std_ai_essay_over20}), and essays and answers by 2026 models in ${cov.studentCalibration.ai2026_over20} (V1.9.1 standard: ${cov.studentCalibration.std_ai2026_over20}).${cov.studentCalibration.measured_with ? ` These figures were measured with ${cov.studentCalibration.measured_with}.` : ""}` : ""} Use it only for student assignments: on other kinds of writing (news, reports, magazine features) these thresholds flag human text more often.`
         : `Student-assignment mode was requested, but the document has fewer than ${cov.studentMinWords} qualifying words, so the standard thresholds were used.`]] : []),
       ["How should I read the AI percentage and false positives?", `The percentage is the share of qualifying words in highlighted segments.${cal ? ` On our held-out test sets at the standard (General) thresholds, ${cal.hold_human_over20} of human documents reached 20% (PERSUADE student essays: ${cal.persuade_test_over20}; human answers to instructions are the weakest group, ${cal.beemo_human_over20}), and ${cal.hold_ai_over20} of AI-generated documents did. These sets were also used to choose the thresholds, so the figures are optimistic.` : ""} A highlight means the text resembles AI output, not that it was produced by AI.`],
@@ -662,7 +698,7 @@
         ["Quoted words excluded", String(b.quotedWords)], ["Sentences", String(b.stats.sentences)], ["Language", b.language.name], ["Evidence amount", b.evidence]]);
     h2("How the result was reached");
     kv([["Standard engine (GBM document model)", `${(R.pGbm * 100).toFixed(1)} / 100`], ["n-gram stylometric model", `${(R.pNgram * 100).toFixed(1)} / 100`], ...(R.pGeneral != null ? [["General-writing n-gram model", `${(R.pGeneral * 100).toFixed(1)} / 100`]] : []),
-        ["Combined deep score", `${(R.deepScore * 100).toFixed(1)} / 100`], ...(cov ? [["AI percentage (segment model)", cov.reportable ? `${(cov.pct * 100).toFixed(1)}% of ${cov.qualifyingWords} words · ${cov.runs.length} segments · ${cov.windows} windows of ~${cov.W} words` : `not reported: ${cov.qualifyingWords} words of prose, at least ${cov.minWords} needed`]] : []),
+        ["Combined deep score", `${(R.deepScore * 100).toFixed(1)} / 100`], ...(cov ? [["AI percentage (segment model)", cov.reportable ? `${(cov.pct * 100).toFixed(1)}% of ${cov.qualifyingWords} words · ${cov.runs.length} segments · ${cov.windows} windows of ~${cov.W} words${cov.rule === "sentence" ? ` · sentence rule (sentences >= ${Math.round(cov.ruleT * 100)}%)` : ""}` : `not reported: ${cov.qualifyingWords} words of prose, at least ${cov.minWords} needed`]] : []),
         ["Bootstrap re-analyses (n-gram / full engine)", `${R.bootstrap.ngram} / ${R.bootstrap.full}`],
         ["Window sizes (sentences)", R.windows.join(", ")], ["Writing register", R.register.academic ? `academic (p=${R.register.pAcademic.toFixed(2)}): strictest threshold` : R.register.creative ? `creative writing (p=${R.register.pCreative.toFixed(2)}): threshold calibrated on human fiction` : `general (academic p=${R.register.pAcademic.toFixed(2)}, creative p=${R.register.pCreative.toFixed(2)}): conservative threshold`],
         ["Engine / Deep model", `${b.version} / ${R.modelVersion}`]]);
@@ -720,6 +756,6 @@
     return doc.output("blob");
   }
 
-  const api = { run, pdf, ngramProb, counts, murmur3, LEVELS, guard, scoresFromCounts, segWindows, coverage, explain, occurrencesOf, addWhy, AI_LEX, setModel, styleIndicators, evidence };
+  const api = { setRule, SENT_RULE, run, pdf, ngramProb, counts, murmur3, LEVELS, guard, scoresFromCounts, segWindows, coverage, explain, occurrencesOf, addWhy, AI_LEX, setModel, styleIndicators, evidence };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.AletheiaDeep = api;
 })(typeof window !== "undefined" ? window : globalThis);

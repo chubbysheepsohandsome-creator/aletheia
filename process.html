@@ -1,355 +1,317 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ALETHEIA — Writing Process</title>
+<script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;var l=localStorage.getItem("aletheia.lang");if(l==="zh"||(!l&&/^zh/i.test(navigator.language||"")))document.documentElement.lang="zh-CN";}catch(e){}</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
 @font-face{font-family:'Inter';src:url('inter-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'Inter';src:url('inter-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:'Inter';src:url('inter-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'Cormorant Garamond';src:url('cormorant-garamond-latin-500-normal.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:'Cormorant Garamond';src:url('cormorant-garamond-latin-600-normal.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'IBM Plex Mono';src:url('ibm-plex-mono-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-:root{
-  --bg:#101114;--bg-2:#181A20;--bg-3:#252832;--fg:#F2F0E9;--fg-2:#B9B6AC;--fg-3:#86847D;
-  --line:rgba(242,240,233,.10);--accent:#C9B98D;--gold:#B99A5B;
-}
-[data-theme="light"]{
-  --bg:#FAFAF7;--bg-2:#F2F0E9;--bg-3:#E6E3D8;--fg:#101114;--fg-2:#3C3B37;--fg-3:#6B6962;
-  --line:rgba(16,17,20,.12);
-}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:400 14px/1.55 'Inter',system-ui,sans-serif;min-height:100vh}
-a{color:inherit;text-decoration:none}
-button,input{font:inherit;color:inherit}
-button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.wrap{max-width:1200px;margin:0 auto;padding:16px 20px 60px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-.wordmark{font:600 22px/1 'Cormorant Garamond',Georgia,serif;letter-spacing:.14em;color:var(--accent)}
-.page-title{font:500 22px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--fg)}
-.badge-local{font:400 11px/1 'IBM Plex Mono',monospace;color:var(--fg-3);border:1px solid var(--line);padding:4px 8px;border-radius:999px}
-.hdr-actions{display:flex;gap:8px;align-items:center}
-.btn{background:var(--bg-2);border:1px solid var(--line);color:var(--fg);padding:7px 12px;border-radius:6px;cursor:pointer;font-size:13px;transition:background .15s,border-color .15s}
-.btn:hover{background:var(--bg-3);border-color:var(--accent)}
-.btn-sm{padding:4px 9px;font-size:12px}
-.panel{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:16px;margin-top:16px}
-.dropzone{border:1.5px dashed var(--line);border-radius:8px;padding:22px;text-align:center;cursor:pointer;background:var(--bg);transition:border-color .15s,background .15s}
-.dropzone.drag{border-color:var(--accent);background:var(--bg-3)}
-.dropzone p{margin:4px 0;color:var(--fg-2);font-size:13px}
-.status{margin-top:10px;font:400 12.5px/1.4 'IBM Plex Mono',monospace;color:var(--accent)}
-.notice{border-left:3px solid var(--gold);background:var(--bg-2);padding:11px 14px;border-radius:0 8px 8px 0;color:var(--fg-2);font-size:13px;margin-top:16px}
-.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}
-.toolbar-grp{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.file-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
-.file-tab{background:var(--bg-2);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;gap:8px}
-.file-tab[aria-selected="true"]{border-color:var(--accent);background:var(--bg-3);color:var(--accent);font-weight:600}
-h2{margin:0 0 12px;font:600 19px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--accent)}
-h3{margin:0 0 8px;font:500 14px/1.3 'Inter',sans-serif;color:var(--fg-2);text-transform:uppercase;letter-spacing:.05em;font-size:12px}
-.grid-meta{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px}
-.kv{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
-.kv .k{font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:.04em}
-.kv .v{font:400 13.5px/1.35 'IBM Plex Mono',monospace;margin-top:3px;word-break:break-word}
-.signals{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
-.sig{background:var(--bg);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:10px 12px}
-.sig.warn{border-left-color:#ce6856}
-.sig-title{font-weight:600;font-size:13.5px;margin-bottom:4px}
-.sig-desc{font-size:12.5px;color:var(--fg-2)}
-.strip-wrap{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px}
-.strip{display:flex;height:28px;border-radius:6px;overflow:hidden;background:var(--bg-3);gap:1px}
-.strip-seg{height:100%;min-width:3px;cursor:pointer;transition:opacity .15s}
-.strip-seg:hover{opacity:.8}
-.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;max-height:110px;overflow-y:auto}
-.leg-item{display:inline-flex;align-items:center;gap:6px;font:400 11.5px/1 'IBM Plex Mono',monospace;background:var(--bg-2);border:1px solid var(--line);padding:4px 7px;border-radius:5px;cursor:pointer}
-.leg-dot{width:10px;height:10px;border-radius:2px;display:inline-block}
-.para-map{display:flex;flex-direction:column;gap:4px;max-height:360px;overflow-y:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
-.p-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;border-radius:5px;border:1px solid var(--line);cursor:pointer;font-size:12.5px}
-.p-bar:hover,.p-bar.active{outline:1.5px solid var(--accent)}
-.p-tag{font:400 11px/1 'IBM Plex Mono',monospace;padding:2px 6px;border-radius:4px;background:rgba(16,17,20,.55);color:#F2F0E9}
-.inspector{margin-top:10px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px}
-.inspector-text{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);white-space:pre-wrap;word-break:break-word;font-size:13.5px;color:var(--fg-2)}
-.timeline{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto}
-.tl-item{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 11px;font-size:12.5px}
-.tl-head{display:flex;justify-content:space-between;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--accent);flex-wrap:wrap}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
-th{color:var(--fg-3);font-size:12px;font-weight:500}
-.mono{font-family:'IBM Plex Mono',monospace}
 .hidden{display:none!important}
-@media print{
-  header .hdr-actions,#upload-panel,.toolbar,.file-tabs{display:none!important}
-  body{background:#fff;color:#111}
-  .panel,.kv,.sig,.strip-wrap,.para-map,.inspector,.tl-item{border-color:#ccc;max-height:none}
-}
+.zh-i{display:none}html[lang="zh-CN"] .zh-i{display:inline}html[lang="zh-CN"] .en-i{display:none}
 </style>
-<script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="tools.css?v=1.9.7">
+<style>
+/* Writing Process page */
+.wb-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.wb-row .grow{flex:1}
+.files{display:flex;gap:8px;flex-wrap:wrap}
+.fchip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:var(--card);color:var(--fg-2);border-radius:999px;padding:6px 12px;font:500 12.5px var(--sans);cursor:pointer;transition:all .18s var(--ease)}
+.fchip:hover{color:var(--fg);border-color:var(--fg-3)}
+.fchip.on{background:color-mix(in srgb,var(--accent) 14%,transparent);border-color:color-mix(in srgb,var(--accent) 50%,transparent);color:var(--fg)}
+.fchip .n{font:500 10.5px var(--mono);color:var(--fg-3)}
+.status{min-height:20px;font-size:13px;color:var(--bad);margin-top:10px}
+/* 01 summary */
+.verdict{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:880px){.verdict{grid-template-columns:1fr}}
+.vlabel{font:500 clamp(30px,3.4vw,42px)/1.08 var(--serif);letter-spacing:-.015em;margin:6px 0 12px}
+.vlabel.short{color:var(--fg-2)}.vlabel.rich{color:var(--ok)}.vlabel.some{color:var(--accent)}.vlabel.little{color:var(--warn)}.vlabel.none{color:var(--fg-2)}
+.vtext{color:var(--fg-2);font-size:15px;line-height:1.7;margin:0 0 16px;max-width:620px}
+.meter{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:420px;margin:2px 0 8px}
+.meter i{height:8px;border-radius:999px;background:var(--track);display:block}
+.meter.little i:nth-child(1){background:var(--warn)}
+.meter.some i:nth-child(-n+2){background:var(--accent)}
+.meter.rich i{background:var(--ok)}
+.meter-k{display:flex;justify-content:space-between;max-width:420px;font:500 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3)}
+.caution{display:flex;gap:12px;align-items:flex-start;background:var(--bg-3);border-radius:14px;padding:14px 16px;margin-top:18px;font-size:13.5px;color:var(--fg-2);line-height:1.6}
+.caution b{color:var(--fg)}
+.caution .ic{flex:0 0 22px;height:22px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn);font:700 12px var(--sans)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.fact{background:var(--bg-3);border-radius:14px;padding:13px 15px}
+.fact .k{font:500 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+.fact .v{font:500 24px/1.2 var(--serif);margin-top:3px;color:var(--fg)}
+.fact .s{font-size:12px;color:var(--fg-3);margin-top:1px}
+/* 02 timeline */
+.tl{display:flex;height:34px;border-radius:10px;overflow:hidden;background:var(--track);margin:8px 0 10px}
+.tl span{display:block;height:100%;min-width:3px;border-right:2px solid var(--card);position:relative;cursor:default}
+.tl span:last-child{border-right:0}
+.tl-legend{display:flex;justify-content:space-between;font:500 11px var(--mono);color:var(--fg-3);letter-spacing:.06em}
+.cap{font-size:13px;color:var(--fg-3);margin:10px 0 0;line-height:1.6}
+.pmap{display:flex;flex-wrap:wrap;gap:4px;margin-top:14px}
+.pmap button{height:22px;border:0;border-radius:5px;cursor:pointer;padding:0;opacity:.9;transition:transform .12s var(--ease),opacity .12s}
+.pmap button:hover{opacity:1;transform:translateY(-1px)}
+.pmap button.mixed{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.35) 0 3px,transparent 3px 7px)!important}
+.pmap button.sel{outline:2px solid var(--fg);outline-offset:1px}
+.pkey{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--fg-3)}
+.pkey i{display:inline-block;width:18px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--fg-3)}
+.pkey i.mx{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.45) 0 3px,transparent 3px 7px)}
+.pinfo{margin-top:14px;background:var(--bg-3);border-radius:12px;padding:12px 14px;font-size:13.5px;color:var(--fg-2)}
+.pinfo .ptxt{margin-top:8px;color:var(--fg);white-space:pre-wrap;font-size:14px;line-height:1.65;max-height:220px;overflow:auto}
+/* 03 findings */
+.finds{display:grid;gap:10px}
+.find{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--card)}
+.find .dot{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:700 12px var(--sans)}
+.find.ok .dot{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.find.note .dot{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}
+.find.info .dot{background:var(--bg-3);color:var(--fg-2)}
+.find h3{font:600 14.5px/1.4 var(--sans);margin:2px 0 4px}
+.find p{margin:0;font-size:13.5px;color:var(--fg-2);line-height:1.6}
+.find .why{margin-top:6px;font-size:13px;color:var(--fg-3)}
+.find .why b{color:var(--fg-2);font-weight:600}
+/* 04 drafts, 05 details */
+.dsum{margin:0 0 12px;color:var(--fg-2);font-size:14px;line-height:1.7}
+.dsum li{margin:4px 0}
+details.tech summary{cursor:pointer;font:500 13.5px var(--sans);color:var(--fg-2);list-style:none}
+details.tech summary::-webkit-details-marker{display:none}
+details.tech summary::before{content:"+ ";font-family:var(--mono)}details.tech[open] summary::before{content:"− "}
+.kv{display:grid;grid-template-columns:200px minmax(0,1fr);gap:0;margin-top:12px;font-size:13px}
+.kv div{padding:8px 0;border-bottom:1px solid var(--line)}
+.kv div:nth-child(odd){color:var(--fg-3)}
+.kv div:nth-child(even){font-family:var(--mono);word-break:break-all}
+@media (max-width:640px){.kv{grid-template-columns:1fr}.kv div:nth-child(odd){border-bottom:0;padding-bottom:0}}
+.tablewrap{overflow-x:auto}
+</style>
 </head>
 <body>
+<header class="top"><div class="bar">
+  <a class="brand" href="index.html#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.7</small></a>
+  <nav aria-label="Main"><a href="index.html#detect"><span class="en-i">Detect</span><span class="zh-i">检测</span></a><a href="index.html#tools" class="on"><span class="en-i">Tools</span><span class="zh-i">工具</span></a><a href="index.html#technology"><span class="en-i">Technology</span><span class="zh-i">技术</span></a><a href="index.html#research"><span class="en-i">Research</span><span class="zh-i">研究</span></a><a href="index.html#changelog"><span class="en-i">Changelog</span><span class="zh-i">更新日志</span></a><a href="index.html#history"><span class="en-i">History</span><span class="zh-i">历史</span></a></nav>
+  <div class="hdr-actions"><button class="iconbtn" id="btn-lang" type="button" aria-label="Switch language / 切换语言">中文</button><button class="iconbtn" id="btn-theme" type="button" aria-label="Switch light or dark theme"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg></button></div>
+</div></header>
 <div class="wrap">
-  <header>
-    <div class="brand">
-      <a class="wordmark" href="index.html#tools">ALETHEIA</a>
-      <span class="page-title" data-i18n="pageTitle">Writing Process</span>
-      <span class="badge-local" data-i18n="localBadge">100% LOCAL · NO UPLOAD</span>
-    </div>
-    <div class="hdr-actions">
-      <button class="btn" id="btn-theme" type="button" aria-label="Toggle theme">☀ / ☾</button>
-      <button class="btn" id="btn-lang" type="button" aria-label="Switch language">中文</button>
-    </div>
-  </header>
+  <section class="page-head">
+    <p class="eyebrow" data-i18n="eyebrow">ALETHEIA Tools · Writing Process</p>
+    <h1 data-i18n="h1">See how a Word file was written.</h1>
+    <p class="lede" data-i18n="lede">Word quietly records when a document was opened, saved and edited. This page reads that record from a .docx file and explains it in plain language. It is not an AI detector and cannot prove who wrote anything; it gives you something concrete to talk about with the writer.</p>
+    <div class="chips"><span class="hchip"><i></i><span data-i18n="chipLocal">Runs in your browser · nothing is uploaded</span></span><span class="hchip"><i></i><span data-i18n="chipDocx">Word .docx only · several drafts welcome</span></span></div>
+  </section>
 
-  <section id="upload-panel" class="panel">
-    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Select or drop Word .docx files">
-      <strong data-i18n="dropTitle">Drop one or more Word (.docx) files here</strong>
-      <p data-i18n="dropSub">or click to browse — load multiple drafts to compare revision progression</p>
-      <input type="file" id="file-input" multiple accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="hidden">
+  <section class="workbench" aria-labelledby="wb-h">
+    <span class="sec-k" id="wb-h" data-i18n="wbK">Add documents</span>
+    <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-describedby="dz-sub">
+      <div class="dz-ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="m6 10 6-6 6 6"/><path d="M4 20h16"/></svg></div>
+      <b data-i18n="dropTitle">Drop Word (.docx) files here, or click to choose</b>
+      <p id="dz-sub" data-i18n="dropSub">Add several drafts of the same piece to see how it changed between them.</p>
     </div>
-    <div id="status-msg" class="status" aria-live="polite"></div>
+    <input type="file" id="file-input" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" multiple hidden>
+    <div class="wb-row hidden" id="file-row">
+      <div class="files grow" id="file-chips" role="tablist" aria-label="Documents"></div>
+      <button class="btn btn-sm btn-ghost" id="btn-reveal" type="button"></button>
+      <button class="btn btn-sm" id="btn-dl-json" type="button" data-i18n="exportBtn">Export summary</button>
+      <button class="btn btn-sm btn-ghost" id="btn-clear" type="button" data-i18n="clearBtn">Clear</button>
+    </div>
+    <div class="status" id="status-msg" role="status"></div>
   </section>
 
   <div id="main-results" class="hidden">
-    <div class="notice" data-i18n="caution">These are editing traces, not proof of who wrote the text. Pasting the text into a new file, using another editor, Google Docs exports or some 'Save as' formats reset or remove this history. Use it only to start a conversation.</div>
-
-    <div class="toolbar">
-      <div class="toolbar-grp">
-        <button class="btn btn-sm" id="btn-reveal" type="button" data-i18n="revealNames">Reveal names</button>
-        <button class="btn btn-sm" id="btn-show-text" type="button" data-i18n="showText">Show paragraph text</button>
-        <button class="btn btn-sm" id="btn-clear" type="button" data-i18n="clearBtn">Clear files</button>
-      </div>
-      <div class="toolbar-grp">
-        <button class="btn btn-sm" id="btn-dl-json" type="button" data-i18n="dlJson">Download JSON</button>
-        <button class="btn btn-sm" id="btn-dl-html" type="button" data-i18n="dlHtml">Download HTML report</button>
-        <button class="btn btn-sm" onclick="window.print()" type="button" data-i18n="printBtn">Print</button>
-      </div>
-    </div>
-
-    <div id="file-tabs" class="file-tabs" role="tablist" aria-label="Loaded drafts"></div>
-
-    <section id="drafts-panel" class="panel hidden">
-      <h2 data-i18n="draftCompTitle">Draft Progression (Ordered by Revision / Dates)</h2>
-      <div style="overflow-x:auto">
-        <table>
-          <thead><tr>
-            <th data-i18n="colDraft">Draft</th>
-            <th data-i18n="colRev">Rev / Created</th>
-            <th data-i18n="colWords">Words</th>
-            <th data-i18n="colSessDelta">Sessions (Carried / New)</th>
-            <th data-i18n="colParaDiff">Paragraph Diff vs Prev</th>
-          </tr></thead>
-          <tbody id="drafts-tbody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2 data-i18n="signalsTitle">Process Observations</h2>
-      <div id="signals-grid" class="signals"></div>
-    </section>
-
-    <section class="panel">
-      <h2 data-i18n="metaTitle">Document Properties &amp; Settings</h2>
-      <div id="meta-grid" class="grid-meta"></div>
-    </section>
-
-    <section class="panel">
-      <h2 data-i18n="sessionsTitle">Editing Sessions (w:rsid)</h2>
-      <div id="no-rsid-box" class="notice hidden" style="margin-top:0"></div>
-      <div id="session-visuals">
-        <div class="strip-wrap">
-          <div id="session-strip" class="strip" role="img" aria-label="Session word distribution strip"></div>
-          <div id="session-legend" class="legend"></div>
+    <section class="panel rise" id="p-summary">
+      <span class="sec-k" data-i18n="k1">01 · What the file shows</span>
+      <div class="verdict">
+        <div>
+          <div class="meter" id="meter" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="meter-k"><span data-i18n="mLittle">Little</span><span data-i18n="mSome">Some</span><span data-i18n="mRich">Detailed</span></div>
+          <h2 class="vlabel" id="v-label"></h2>
+          <p class="vtext" id="v-text"></p>
+          <div class="caution"><span class="ic" aria-hidden="true">!</span><span id="v-caution"></span></div>
+          <details class="tech" style="margin-top:12px"><summary data-i18n="howSum">How this summary is worked out</summary><p class="cap" data-i18n="howTxt"></p></details>
         </div>
+        <div class="facts" id="facts"></div>
       </div>
     </section>
 
-    <section class="panel">
-      <h2 data-i18n="paraMapTitle">Paragraph Session Map</h2>
-      <div id="para-map" class="para-map" role="list"></div>
-      <div id="para-inspector" class="inspector hidden">
-        <div id="para-insp-meta" class="mono" style="font-size:12px;color:var(--accent)"></div>
-        <div id="para-insp-text" class="inspector-text hidden"></div>
-      </div>
+    <section class="panel rise" id="p-timeline">
+      <span class="sec-k" data-i18n="k2">02 · How the text got into the file</span>
+      <h2 data-i18n="tlH">Editing sessions</h2>
+      <p class="cap" id="tl-intro"></p>
+      <div class="tl" id="timeline" role="img"></div>
+      <div class="tl-legend"><span data-i18n="tlFirst">First session</span><span data-i18n="tlLast">Latest session</span></div>
+      <p class="cap" id="tl-cap"></p>
+      <h2 style="margin-top:26px" data-i18n="pmH">Paragraph map</h2>
+      <p class="cap" data-i18n="pmCap">Each block is one paragraph (wider = more words), coloured by the session it was written in. Striped blocks were changed in more than one session. Click a block for details.</p>
+      <div class="pmap" id="pmap"></div>
+      <div class="pkey"><span><i></i><span data-i18n="pkOne">Written in one session</span></span><span><i class="mx"></i><span data-i18n="pkMix">Edited across sessions</span></span></div>
+      <div class="pinfo hidden" id="pinfo"><div id="pinfo-meta"></div><button class="btn btn-sm btn-ghost" id="btn-show-text" type="button" style="margin-top:8px"></button><div class="ptxt hidden" id="pinfo-text"></div></div>
     </section>
 
-    <section id="tc-panel" class="panel hidden">
-      <h2 data-i18n="tcTitle">Tracked Changes &amp; Comments</h2>
-      <div id="tc-summary" class="grid-meta" style="margin-bottom:12px"></div>
-      <div id="tc-timeline" class="timeline"></div>
+    <section class="panel rise" id="p-finds">
+      <span class="sec-k" data-i18n="k3">03 · What we noticed</span>
+      <h2 data-i18n="fH">Observations, with ordinary explanations</h2>
+      <div class="finds" id="finds"></div>
+    </section>
+
+    <section class="panel rise hidden" id="p-drafts">
+      <span class="sec-k" data-i18n="k4">04 · Between drafts</span>
+      <h2 data-i18n="dH">How the drafts changed</h2>
+      <ul class="dsum" id="dsum"></ul>
+      <div class="tablewrap"><table>
+        <thead><tr><th data-i18n="thDraft">Draft</th><th data-i18n="thDate">Created</th><th data-i18n="thWords">Words</th><th data-i18n="thSess">Sessions</th><th data-i18n="thParas">Paragraphs kept / new / removed</th></tr></thead>
+        <tbody id="drafts-tbody"></tbody>
+      </table></div>
+    </section>
+
+    <section class="panel rise" id="p-tech">
+      <span class="sec-k" data-i18n="k5">05 · Technical details</span>
+      <details class="tech"><summary data-i18n="techSum">Show the raw values read from the file</summary>
+        <div class="kv" id="kv"></div>
+        <div id="tc-box"></div>
+      </details>
     </section>
   </div>
 </div>
-
+<footer class="tool-foot"><span>ALETHEIA V1.9.7 · <span class="en-i">Evidence, never a verdict.</span><span class="zh-i">只给证据，不下结论。</span></span><span><a href="index.html#tools"><span class="en-i">All tools</span><span class="zh-i">全部工具</span></a> · <a href="similarity.html"><span class="en-i">Similarity Check</span><span class="zh-i">相似度检查</span></a> · <a href="process.html"><span class="en-i">Writing Process</span><span class="zh-i">写作过程</span></a> · <a href="references.html"><span class="en-i">Reference Check</span><span class="zh-i">参考文献核查</span></a></span></footer>
 <script>
 (() => {
+  'use strict';
   const I18N = {
     en: {
-      pageTitle: 'Writing Process',
-      localBadge: '100% LOCAL · NO UPLOAD',
-      dropTitle: 'Drop one or more Word (.docx) files here',
-      dropSub: 'or click to browse — load multiple drafts to compare revision progression. File names are shown and exported as they are, so rename files first if they contain a student\'s name.',
-      caution: "These are editing traces, not proof of who wrote the text. Pasting the text into a new file, using another editor, Google Docs exports or some 'Save as' formats reset or remove this history. Use it only to start a conversation.",
-      revealNames: 'Reveal names',
-      hideNames: 'Hide names',
-      showText: 'Show paragraph text',
-      hideText: 'Hide paragraph text',
-      clearBtn: 'Clear files',
-      dlJson: 'Download JSON',
-      dlHtml: 'Download HTML report',
-      printBtn: 'Print',
-      draftCompTitle: 'Draft Progression (Ordered by Revision / Dates)',
-      colDraft: 'Draft',
-      colRev: 'Rev / Created',
-      colWords: 'Words',
-      colSessDelta: 'Sessions (Carried / New)',
-      colParaDiff: 'Paragraph Diff vs Prev',
-      signalsTitle: 'Process Observations',
-      metaTitle: 'Document Properties & Settings',
-      sessionsTitle: 'Editing Sessions (w:rsid)',
-      paraMapTitle: 'Paragraph Session Map',
-      tcTitle: 'Tracked Changes & Comments',
-      rejectNonDocx: 'Skipped "{name}": only .docx Word files are supported (legacy .doc or PDF files cannot be unpacked).',
-      parseErr: 'Could not read "{name}": {err}',
-      hiddenVal: 'hidden',
-      addedOneSess: 'added in one session',
-      noRsidExplain: 'No Word revision session IDs (w:rsid) were found in this file. This typically happens when a document was exported from Google Docs, LibreOffice, Pandoc, or a third-party tool rather than saved incrementally in Microsoft Word.',
-      clickParaHint: 'Click any paragraph bar above to inspect its session ID and word count.',
-      obsEditTime: 'Editing time recorded: {m} min for {w} words',
-      obsEditTimeDesc: 'Word increments TotalTime while the document window is open. Low time can reflect offline drafting or pasting; high time can reflect leaving the file open.',
-      obsOneSess: '{pct}% of words were added in a single session',
-      obsOneSessDesc: 'Paragraphs of more than 60 words that carry a single session ID were entered in one editing session and not edited later. This is also normal when a piece is written in one sitting, or drafted elsewhere (notes, another app) and pasted in.',
-      obsFewSess: 'Few editing sessions ({s}) for a {w}-word document',
-      obsFewSessDesc: 'Documents drafted in Word across several sittings usually collect several session IDs. Few sessions is also normal for work written in one sitting or drafted in another app.',
-      obsMultiSess: 'Incremental editing across {s} sessions',
-      obsMultiSessDesc: 'Multiple distinct rsid tags appear across paragraphs and runs, consistent with multi-session editing in Word.',
-      obsTemplate: 'Template or copied-file indicators present',
-      obsTemplateDesc: 'Details: {detail}. Using an existing file or template preserves its original creation date or rsidRoot.',
-      obsNoRsid: 'No Word session history (rsid) present',
-      obsNoRsidDesc: 'Generated or re-saved by a non-Word editor (such as Google Docs or LibreOffice), which strips Word session identifiers.',
-      obsTracked: 'Tracked changes or comments recorded ({n} items)',
-      obsTrackedDesc: 'Contains revision markup (w:ins / w:del) or review comments in word/comments.xml.',
-      insLabel: 'Insertion',
-      delLabel: 'Deletion',
-      comLabel: 'Comment'
+      eyebrow: 'ALETHEIA Tools · Writing Process', h1: 'See how a Word file was written.',
+      lede: 'Word quietly records when a document was opened, saved and edited. This page reads that record from a .docx file and explains it in plain language. It is not an AI detector and cannot prove who wrote anything; it gives you something concrete to talk about with the writer.',
+      chipLocal: 'Runs in your browser · nothing is uploaded', chipDocx: 'Word .docx only · several drafts welcome',
+      wbK: 'Add documents', dropTitle: 'Drop Word (.docx) files here, or click to choose',
+      dropSub: 'Add several drafts of the same piece to see how it changed between them.',
+      exportBtn: 'Export summary', clearBtn: 'Clear', revealNames: 'Show file names', hideNames: 'Hide file names',
+      showText: 'Show paragraph text', hideText: 'Hide paragraph text',
+      fileN: 'File {n}', rejectNonDocx: '{name} is not a .docx file and was skipped.', parseErr: 'Could not read {name}: {err}', aFile: 'A file',
+      k1: '01 · What the file shows', mLittle: 'Little', mSome: 'Some', mRich: 'Detailed',
+      L_short: 'Too short to judge', T_short: 'There are fewer than 300 words, and short texts rarely build up an editing history ({s} session{pl}{tm}). The details below are still shown.',
+      L_rich: 'Detailed editing history', L_some: 'Some editing history', L_little: 'Little editing history', L_none: 'No editing history recorded',
+      T_rich: 'Word recorded {s} editing sessions in this file{tm}. That is what a piece written and revised inside this file usually looks like.',
+      T_some: 'Word recorded {s} editing sessions in this file{tm}: some revision history, but not a lot.',
+      T_little: 'Word recorded {s} editing session{pl} in this file{tm}, which is little history for this much text. This is common when text is pasted in from somewhere else, written in another app, or typed in one sitting.',
+      T_none: 'This file does not contain Word’s editing record. That is normal for files exported from Google Docs, Pages, WPS or an online converter, so nothing can be read from it here.',
+      tmPart: ', about {m} minutes of editing in total',
+      howSum: 'How this summary is worked out', howTxt: 'Sessions decide the level: 6 or more is “detailed”, 3 to 5 is “some”, fewer is “little”. It drops one step if the recorded editing time is shorter than typing the text would take at 40 words a minute (a brisk typing speed, so this check is lenient). Texts under 300 words are “too short to judge”. Long paragraphs written in a single session are listed under observations from 40% of the words but do not change the level, because many people write a paragraph in one sitting.',
+      caution: '<b>Not a verdict.</b> Editing traces show how text got into a file, not who wrote it or whether AI was used. Copying text into a new file, using another editor, or some “Save as” formats remove this history. Use it as a starting point for a conversation, never as evidence on its own.',
+      fSessions: 'Editing sessions', fSessionsS: 'times saved with changes', fTime: 'Editing time', fTimeS: 'total minutes open in Word', fTimeNA: 'not recorded',
+      fWords: 'Words', fWordsS: 'in the body text', fBulk: 'Within a single session', fBulkS: 'of words, in long paragraphs written in one session and not edited later',
+      k2: '02 · How the text got into the file', tlH: 'Editing sessions',
+      tlIntro: 'Each time Word saves changes it starts a new “session” number. The bar shows the sessions in order; the wider a piece, the more of the text now in the file was written in that session.',
+      tlFirst: 'First session', tlLast: 'Latest session',
+      tlCap: '{a} of {s} sessions left text that is still in the file. The largest single session holds {p}% of the words.',
+      tlCapNone: 'No session numbers were found in this file.',
+      tlCapNoWords: '{s} session numbers were found, but no paragraph can be traced to a particular session. Another program may have rewritten the file.',
+      pmH: 'Paragraph map', pmCap: 'Each block is one paragraph (wider = more words), coloured by the session it was written in. Striped blocks were changed in more than one session. Click a block for details.',
+      pkOne: 'Written in one session', pkMix: 'Edited across sessions',
+      pInfo: 'Paragraph {i} · {w} words · {s}', pOne: 'written in one session', pMany: 'touched in {n} sessions', pSessN: 'session {n}',
+      k3: '03 · What we noticed', fH: 'Observations, with ordinary explanations', whyK: 'Ordinary reasons:',
+      oSessOk: 'Written over {s} editing sessions', oSessOkP: 'The file was saved with changes many times, which fits writing and revising over several sittings.',
+      oSessFew: 'Only {s} editing session{pl} for {w} words', oSessFewP: 'Longer pieces written inside one file usually collect more sessions over time.',
+      oSessFewW: 'written in one sitting; drafted in notes or another app and pasted in; copied into a fresh file before submitting.',
+      oBulk: '{p}% of the words sit in long paragraphs that were never edited after they appeared', oBulkP: 'These paragraphs entered the file in a single session and were not touched again.',
+      oBulkW: 'pasted from the writer’s own notes or another document; a confident writer who did not revise.',
+      oTimeShort: 'About {m} minutes of editing for {w} words', oTimeShortP: 'Typing {w} words takes roughly {need} minutes or more at a steady pace, so the text likely arrived faster than it could be typed here.',
+      oTimeShortW: 'pasted from another file the writer typed earlier; the file was copied or re-saved, which can reset the timer.',
+      oTimeOk: 'About {m} minutes of editing in total', oTimeOkP: 'Enough time to have typed the text in this file.',
+      oTimeNA: 'Editing time was not recorded', oTimeNAP: 'Some apps (LibreOffice, WPS, online editors) do not keep Word’s editing timer.',
+      oTracked: '{n} tracked change{pl} or comment{pl} kept in the file', oTrackedP: 'Visible revision marks or comments are a direct trace of editing or feedback.',
+      oApp: 'Last saved with {app}', oAppP: 'The program that last saved the file. Files from other programs often lack parts of Word’s record.',
+      oDates: 'Created {c}, last changed {m}', oDatesP: 'The file was created {d} before its last change.', oDatesOdd: 'The creation date is later than the last-change date, which happens when a file is copied or converted.',
+      oNone: 'No Word editing record', oNoneP: 'Without session numbers there is nothing to read about how the text was written.',
+      oNoneW: 'exported from Google Docs, Pages or WPS; converted online; created by a script.',
+      oShort: 'Fewer than 300 words', oShortP: 'Short texts rarely build up much editing history, so the summary above means little here.',
+      k4: '04 · Between drafts', dH: 'How the drafts changed', thDraft: 'Draft', thDate: 'Created', thWords: 'Words', thSess: 'Sessions', thParas: 'Paragraphs kept / new / removed',
+      dStep: 'From {a} to {b}: {w} words, {np} new paragraph{pl1}, {rp} removed, {kp} kept unchanged, {ns} new editing session{pl2}.',
+      dSame: '{b} keeps none of the session numbers of {a}, so it was probably saved as a new file rather than edited from the earlier one.',
+      k5: '05 · Technical details', techSum: 'Show the raw values read from the file',
+      kCreated: 'Created', kModified: 'Last modified', kCreator: 'Author', kLastBy: 'Last saved by', kRevision: 'Revision number', kTime: 'Total editing time (min)',
+      kApp: 'Application', kAppVer: 'App version', kTemplate: 'Template', kPages: 'Pages', kWordsApp: 'Words (as counted by Word)', kRoot: 'First session id (rsidRoot)', kSess: 'Session ids (in order)',
+      hidden: '[hidden — use “Show file names”]', tcH: 'Tracked changes and comments', insLabel: 'insertion', delLabel: 'deletion', comLabel: 'comment', none: '—'
     },
     zh: {
-      pageTitle: '写作过程',
-      localBadge: '纯本地运行 · 绝不上传',
-      dropTitle: '将 Word (.docx) 文件拖放到此处（支持多份草稿）',
-      dropSub: '或点击选择文件 — 加载同一作品的多个草稿可对比修订过程。文件名会原样显示和导出，如果文件名里有学生姓名，请先改名。',
-      caution: '这些只是编辑痕迹，不能证明文本是谁写的。把文字粘贴到新文件、使用其他编辑器、从 Google Docs 导出或某些“另存为”格式都会重置或清除这些记录。只能作为沟通的起点。',
-      revealNames: '显示人名',
-      hideNames: '隐藏人名',
-      showText: '显示段落文本',
-      hideText: '隐藏段落文本',
-      clearBtn: '清空文件',
-      dlJson: '下载 JSON',
-      dlHtml: '下载 HTML 报告',
-      printBtn: '打印',
-      draftCompTitle: '多草稿演进对比（按修订号/日期排序）',
-      colDraft: '草稿文件',
-      colRev: '修订号 / 创建时间',
-      colWords: '总词数',
-      colSessDelta: '会话数（继承 / 新增）',
-      colParaDiff: '较上一稿段落变化',
-      signalsTitle: '过程观察',
-      metaTitle: '文档属性与设置',
-      sessionsTitle: '编辑会话 (w:rsid)',
-      paraMapTitle: '段落会话分布图',
-      tcTitle: '修订记录与批注',
-      rejectNonDocx: '已跳过 “{name}”：仅支持 .docx 格式的 Word 文档（不支持旧版 .doc 或 PDF）。',
-      parseErr: '无法解析 “{name}”：{err}',
-      hiddenVal: '已隐藏',
-      addedOneSess: '单次会话整段加入',
-      noRsidExplain: '此文件中未发现 Word 修订会话标识 (w:rsid)。这通常表示文档是由 Google Docs、LibreOffice、Pandoc 等工具导出，而非在 Microsoft Word 中逐步保存。',
-      clickParaHint: '点击上方任意段落条以查看其所属会话 ID 与词数。',
-      obsEditTime: '记录的编辑时长：{m} 分钟（共 {w} 词）',
-      obsEditTimeDesc: 'Word 在文档窗口打开期间累计 TotalTime。时长较短可能因离线起草后转入，较长也可能因窗口长时间挂起。',
-      obsOneSess: '{pct}% 的词是在单次会话中整段加入的',
-      obsOneSessDesc: '超过 60 词、只带一个会话标识的段落，是在一次编辑会话里写入、之后没有再改动的。一次写完的作业，或先在别处（笔记、其他软件）写好再粘贴进来，也会这样。',
-      obsFewSess: '篇幅 {w} 词但仅有 {s} 个编辑会话',
-      obsFewSessDesc: '在 Word 里分几次写的文档通常会积累多个会话标识。一次写完或在其他软件里起草的作业，会话少也很正常。',
-      obsMultiSess: '跨越 {s} 个编辑会话逐步修改',
-      obsMultiSessDesc: '段落与文本片段包含多个不同的 rsid 标记，符合在 Word 中分阶段编辑的特征。',
-      obsTemplate: '存在基于模板或复制旧文件的迹象',
-      obsTemplateDesc: '详情：{detail}。基于已有文件或模板创建文档会保留原始创建时间或 rsidRoot。',
-      obsNoRsid: '无 Word 会话历史记录 (rsid)',
-      obsNoRsidDesc: '由非 Word 编辑器（如 Google Docs 或 LibreOffice）生成或转存，Word 会话标识已被移除。',
-      obsTracked: '包含修订记录或批注（共 {n} 项）',
-      obsTrackedDesc: '文档内保留了修订标记 (w:ins / w:del) 或 word/comments.xml 批注。',
-      insLabel: '插入',
-      delLabel: '删除',
-      comLabel: '批注'
+      eyebrow: 'ALETHEIA 工具 · 写作过程', h1: '看看一份 Word 文件是怎么写出来的。',
+      lede: 'Word 会悄悄记录一份文档什么时候被打开、保存和修改。这个页面读取 .docx 文件里的这些记录，并用大白话解释出来。它不是 AI 检测器，也不能证明是谁写的；它只是给你一些具体的东西，方便和作者沟通。',
+      chipLocal: '在浏览器里运行 · 不上传任何内容', chipDocx: '只支持 Word .docx · 可以放多份草稿',
+      wbK: '添加文档', dropTitle: '把 Word（.docx）文件拖到这里，或点击选择',
+      dropSub: '放入同一篇作业的几份草稿，可以看到它们之间是怎么改的。',
+      exportBtn: '导出摘要', clearBtn: '清空', revealNames: '显示文件名', hideNames: '隐藏文件名',
+      showText: '显示段落文字', hideText: '隐藏段落文字',
+      fileN: '文件 {n}', rejectNonDocx: '{name} 不是 .docx 文件，已跳过。', parseErr: '无法读取 {name}：{err}', aFile: '有一个文件',
+      k1: '01 · 文件显示了什么', mLittle: '很少', mSome: '一般', mRich: '丰富',
+      L_short: '文字太短，难以判断', T_short: '正文不到 300 词，短文本很少积累编辑记录（{s} 次编辑会话{tm}）。下面仍然列出了读到的细节。',
+      L_rich: '编辑痕迹丰富', L_some: '有一些编辑痕迹', L_little: '编辑痕迹很少', L_none: '没有编辑记录',
+      T_rich: 'Word 在这个文件里记录到 {s} 次编辑会话{tm}。在这个文件里一步步写、一遍遍改出来的作业，通常就是这样。',
+      T_some: 'Word 在这个文件里记录到 {s} 次编辑会话{tm}：有一些修改记录，但不多。',
+      T_little: 'Word 在这个文件里只记录到 {s} 次编辑会话{tm}，对这么多文字来说记录很少。从别处粘贴进来、在别的软件里写好、或一次写完，都会出现这种情况。',
+      T_none: '这个文件里没有 Word 的编辑记录。从 Google Docs、Pages、WPS 或在线转换导出的文件通常都是这样，所以这里读不出任何信息。',
+      tmPart: '，累计编辑约 {m} 分钟',
+      howSum: '这个总结是怎么得出的', howTxt: '等级由编辑会话的次数决定：6 次及以上为“丰富”，3 到 5 次为“一般”，更少为“很少”。如果记录的编辑时长比按每分钟 40 词打完这些字所需的时间还短，就降一级（每分钟 40 词已经算打字很快，所以这项检查比较宽松）。不到 300 词的文本标为“文字太短，难以判断”。在单次会话里写成的长段落，占到 40% 以上的词时会列在观察结果里，但不影响等级，因为很多人本来就会一口气写完一段。',
+      caution: '<b>这不是结论。</b>编辑痕迹只能说明文字是怎么进入文件的，不能说明是谁写的，也不能说明有没有用 AI。把文字复制到新文件、换别的软件编辑、或某些“另存为”格式都会清除这些记录。只能作为沟通的起点，不能单独当作证据。',
+      fSessions: '编辑会话', fSessionsS: '次带修改的保存', fTime: '编辑时长', fTimeS: '在 Word 里打开编辑的总分钟数', fTimeNA: '没有记录',
+      fWords: '字数', fWordsS: '正文英文词数', fBulk: '在单次会话中写成', fBulkS: '的词所在的长段落是在一次会话里写成、之后没有再改的',
+      k2: '02 · 文字是怎么进入文件的', tlH: '编辑会话',
+      tlIntro: 'Word 每次保存修改时都会开始一个新的“会话编号”。下面的条按先后顺序排列这些会话；某一段越宽，说明现在文件里有越多的文字是在那一次写进去的。',
+      tlFirst: '第一次', tlLast: '最近一次',
+      tlCap: '{s} 次会话里有 {a} 次留下了至今还在文件里的文字。字数最多的一次占全部词数的 {p}%。',
+      tlCapNone: '这个文件里没有找到会话编号。',
+      tlCapNoWords: '找到了 {s} 个会话编号，但没有任何段落能对应到具体某一次会话。文件可能被其他软件改写过。',
+      pmH: '段落地图', pmCap: '每个色块是一个段落（越宽字越多），颜色表示它是在哪一次会话里写的。带斜纹的段落在不止一次会话里被改过。点击色块看详情。',
+      pkOne: '一次写成', pkMix: '在多次会话里改过',
+      pInfo: '第 {i} 段 · {w} 词 · {s}', pOne: '在一次会话里写成', pMany: '在 {n} 次会话里改过', pSessN: '第 {n} 次会话',
+      k3: '03 · 我们注意到的', fH: '观察结果，以及常见的正常原因', whyK: '常见的正常原因：',
+      oSessOk: '分 {s} 次编辑会话写成', oSessOkP: '文件被多次保存修改，符合分几次写、反复修改的情况。',
+      oSessFew: '{w} 词只有 {s} 次编辑会话', oSessFewP: '在同一个文件里写成的较长作业，通常会随着时间积累更多会话。',
+      oSessFewW: '一次写完；先在笔记或其他软件里起草再粘贴进来；提交前复制到了新文件。',
+      oBulk: '{p}% 的词所在的长段落，出现之后再也没有改过', oBulkP: '这些段落是在一次会话里整段进入文件的，之后没有再动过。',
+      oBulkW: '从作者自己的笔记或其他文档粘贴过来；作者写得很顺、没有修改。',
+      oTimeShort: '{w} 词只有大约 {m} 分钟的编辑时间', oTimeShortP: '按正常速度打出 {w} 个词大约需要 {need} 分钟或更久，所以这些文字进入文件的速度很可能快于在这里打字的速度。',
+      oTimeShortW: '从作者之前打好的另一个文件粘贴过来；文件被复制或重新保存，计时可能被重置。',
+      oTimeOk: '累计编辑约 {m} 分钟', oTimeOkP: '这些时间足够在这个文件里把这些字打出来。',
+      oTimeNA: '没有记录编辑时长', oTimeNAP: '有些软件（LibreOffice、WPS、在线编辑器）不保存 Word 的编辑计时。',
+      oTracked: '文件里保留了 {n} 处修订或批注', oTrackedP: '看得见的修订标记或批注，是编辑或反馈的直接痕迹。',
+      oApp: '最后由 {app} 保存', oAppP: '最后保存这个文件的软件。其他软件保存的文件常常缺少部分 Word 记录。',
+      oDates: '创建于 {c}，最后修改于 {m}', oDatesP: '文件从创建到最后一次修改相隔 {d}。', oDatesOdd: '创建时间晚于最后修改时间，这在文件被复制或转换时会出现。',
+      oNone: '没有 Word 编辑记录', oNoneP: '没有会话编号，就无法看出文字是怎么写出来的。',
+      oNoneW: '从 Google Docs、Pages 或 WPS 导出；在线转换；由程序生成。',
+      oShort: '少于 300 词', oShortP: '短文本很少积累编辑记录，所以上面的总结对它意义不大。',
+      k4: '04 · 草稿之间', dH: '各份草稿是怎么变化的', thDraft: '草稿', thDate: '创建时间', thWords: '字数', thSess: '会话', thParas: '段落 保留 / 新增 / 删除',
+      dStep: '从 {a} 到 {b}：{w} 词，新增 {np} 段，删除 {rp} 段，{kp} 段原样保留，新增 {ns} 次编辑会话。',
+      dSame: '{b} 没有沿用 {a} 的任何会话编号，所以它很可能是另存成了新文件，而不是在前一份上接着改的。',
+      k5: '05 · 技术细节', techSum: '显示从文件里读到的原始数值',
+      kCreated: '创建时间', kModified: '最后修改', kCreator: '作者', kLastBy: '最后保存者', kRevision: '修订号', kTime: '累计编辑时间（分钟）',
+      kApp: '软件', kAppVer: '软件版本', kTemplate: '模板', kPages: '页数', kWordsApp: '字数（Word 统计）', kRoot: '第一次会话编号（rsidRoot）', kSess: '会话编号（按顺序）',
+      hidden: '[已隐藏，点“显示文件名”查看]', tcH: '修订和批注', insLabel: '插入', delLabel: '删除', comLabel: '批注', none: '—'
     }
   };
+  const COLORS = ['#93B4FF','#5CC8B8','#F0BA5A','#E58FB4','#9C8CF0','#7FD17F','#F07A6E','#6FB7E8','#C9B98D','#B5A0E0','#4FB3A6','#E0A86F'];
 
-  const COLORS = [
-    '#C9B98D','#5C9EAD','#CE6856','#82B366','#B07AA1',
-    '#D6894F','#6883BA','#A3A85C','#5BA88F','#C77D8A',
-    '#8E9BAE','#B99A5B'
-  ];
-
-  let lang = /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
-  try {
-    const s = localStorage.getItem('aletheia.lang');
-    if (s === 'zh' || s === 'en') lang = s;
-  } catch (e) {}
-
-  let filesData = [];
-  let activeIdx = 0;
-  let revealNames = false;
-  let showParaText = false;
-  let selectedParaIdx = -1;
-
+  let lang = document.documentElement.lang === 'zh-CN' ? 'zh' : 'en';
+  let filesData = [], activeIdx = 0, revealNames = false, showParaText = false, selectedPara = -1;
   const $ = id => document.getElementById(id);
-  const t = (k, vars) => {
-    let s = (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
-    if (vars) for (const key in vars) s = s.replace('{' + key + '}', vars[key]);
-    return s;
-  };
+  const t = (k, v) => { let s = (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k; if (v) for (const x in v) s = s.split('{' + x + '}').join(v[x]); return s; };
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const num = n => Number(n).toLocaleString(lang === 'zh' ? 'zh-CN' : 'en-US');
+  const fmtDate = s => { const d = Date.parse(s || ''); if (isNaN(d)) return t('none'); return new Date(d).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-AU', { year: 'numeric', month: 'short', day: 'numeric' }); };
+  const fmtSpan = ms => { const days = ms / 86400000; if (days >= 2) return lang === 'zh' ? Math.round(days) + ' 天' : Math.round(days) + ' days'; const h = ms / 3600000; if (h >= 1) return lang === 'zh' ? Math.round(h) + ' 小时' : Math.round(h) + ' hours'; return lang === 'zh' ? Math.max(1, Math.round(ms / 60000)) + ' 分钟' : Math.max(1, Math.round(ms / 60000)) + ' minutes'; };
+  const fileLabel = (doc, i) => revealNames ? doc.fileName : t('fileN', { n: i + 1 });
 
   function applyI18n() {
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.title = lang === 'zh' ? 'ALETHEIA — 写作过程' : 'ALETHEIA — Writing Process';
     document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     $('btn-lang').textContent = lang === 'en' ? '中文' : 'EN';
     $('btn-reveal').textContent = revealNames ? t('hideNames') : t('revealNames');
     $('btn-show-text').textContent = showParaText ? t('hideText') : t('showText');
     if (filesData.length) renderAll();
   }
-
-  $('btn-lang').addEventListener('click', () => {
-    lang = lang === 'en' ? 'zh' : 'en';
-    try { localStorage.setItem('aletheia.lang', lang); } catch (e) {}
-    applyI18n();
-  });
-
-  $('btn-theme').addEventListener('click', () => {
-    const d = document.documentElement, n = d.dataset.theme === 'light' ? 'dark' : 'light';
-    d.dataset.theme = n;
-    try { localStorage.setItem('aletheia.theme', n); } catch (e) {}
-    if (typeof drawMatrix === 'function' && typeof lastSetResult !== 'undefined' && lastSetResult) drawMatrix();
-  });
-
-  $('btn-reveal').addEventListener('click', () => {
-    revealNames = !revealNames;
-    $('btn-reveal').textContent = revealNames ? t('hideNames') : t('revealNames');
-    if (filesData.length) renderActiveFile();
-  });
-
-  $('btn-show-text').addEventListener('click', () => {
-    showParaText = !showParaText;
-    $('btn-show-text').textContent = showParaText ? t('hideText') : t('showText');
-    if (filesData.length) renderInspector();
-  });
-
-  $('btn-clear').addEventListener('click', () => {
-    filesData = [];
-    activeIdx = 0;
-    selectedParaIdx = -1;
-    $('main-results').classList.add('hidden');
-    $('status-msg').textContent = '';
-  });
+  $('btn-lang').addEventListener('click', () => { lang = lang === 'en' ? 'zh' : 'en'; try { localStorage.setItem('aletheia.lang', lang); } catch (e) {} applyI18n(); });
+  $('btn-theme').addEventListener('click', () => { const d = document.documentElement, n = d.dataset.theme === 'light' ? 'dark' : 'light'; d.dataset.theme = n; try { localStorage.setItem('aletheia.theme', n); } catch (e) {} });
+  $('btn-reveal').addEventListener('click', () => { revealNames = !revealNames; applyI18n(); });
+  $('btn-show-text').addEventListener('click', () => { showParaText = !showParaText; $('btn-show-text').textContent = showParaText ? t('hideText') : t('showText'); renderParaInfo(); });
+  $('btn-clear').addEventListener('click', () => { filesData = []; activeIdx = 0; selectedPara = -1; $('main-results').classList.add('hidden'); $('file-row').classList.add('hidden'); $('status-msg').textContent = ''; });
 
   // Minimal ZIP central-directory reader + DecompressionStream('deflate-raw')
   async function unzipDocx(arrayBuffer) {
@@ -640,30 +602,19 @@ th{color:var(--fg-3);font-size:12px;font-weight:500}
     });
   }
 
-  async function handleFiles(fileList) {
-    if (!fileList || !fileList.length) return;
+
+
+  async function handleFiles(list) {
+    if (!list || !list.length) return;
     const msgs = [];
-    for (const f of fileList) {
-      if (!f.name.toLowerCase().endsWith('.docx')) {
-        msgs.push(t('rejectNonDocx', { name: f.name }));
-        continue;
-      }
-      try {
-        const parsed = await analyzeDocx(f);
-        filesData.push(parsed);
-      } catch (err) {
-        msgs.push(t('parseErr', { name: f.name, err: err.message }));
-      }
+    for (const f of list) {
+      const nm = revealNames ? f.name : t('aFile');
+      if (!/\.docx$/i.test(f.name)) { msgs.push(t('rejectNonDocx', { name: nm })); continue; }
+      try { filesData.push(await analyzeDocx(f)); } catch (err) { msgs.push(t('parseErr', { name: nm, err: err.message })); }
     }
     $('status-msg').textContent = msgs.join(' ');
-    if (filesData.length) {
-      filesData = sortDrafts(filesData);
-      activeIdx = filesData.length - 1;
-      selectedParaIdx = -1;
-      renderAll();
-    }
+    if (filesData.length) { filesData = sortDrafts(filesData); activeIdx = filesData.length - 1; selectedPara = -1; renderAll(); }
   }
-
   const dz = $('dropzone'), fi = $('file-input');
   dz.addEventListener('click', () => fi.click());
   dz.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fi.click(); } });
@@ -672,416 +623,167 @@ th{color:var(--fg-3);font-size:12px;font-weight:500}
   dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag'); handleFiles(Array.from(e.dataTransfer.files)); });
   fi.addEventListener('change', () => { const files = Array.from(fi.files); fi.value = ''; handleFiles(files); });
 
-  function buildSignals(doc) {
-    const sigs = [];
-    const sessCount = doc.allSessions.length;
-    const words = doc.totalWords || parseInt(doc.meta.wordsApp, 10) || 0;
-    const mins = parseInt(doc.meta.totalTime, 10);
-
-    if (!isNaN(mins)) {
-      sigs.push({
-        warn: mins <= 2 && words > 250,
-        title: t('obsEditTime', { m: mins, w: words }),
-        desc: t('obsEditTimeDesc')
-      });
+  // Plain-language assessment. Levels describe how much editing history the file holds, never authorship.
+  function assess(doc) {
+    const words = doc.totalWords || 0, sess = doc.allSessions.length;
+    const minsRaw = parseInt(doc.meta.totalTime, 10), mins = isNaN(minsRaw) ? null : minsRaw;
+    const bulk = words ? doc.oneSessionBlockWords / words : 0;
+    const need = Math.ceil(words / 40);   // about 40 words a minute of steady typing
+    const timeShort = mins !== null && mins > 0 && words >= 300 && mins < need;
+    let level;
+    if (!sess) level = 'none';
+    else if (words < 300) level = 'short';
+    else {
+      let pts = sess >= 6 ? 2 : sess >= 3 ? 1 : 0;
+      if (timeShort) pts -= 1;
+      level = pts >= 2 ? 'rich' : pts >= 1 ? 'some' : 'little';
     }
-
-    if (sessCount === 0) {
-      sigs.push({
-        warn: false,
-        title: t('obsNoRsid'),
-        desc: t('obsNoRsidDesc')
-      });
-    } else {
-      const bulkPct = words > 0 ? Math.round((doc.oneSessionBlockWords / words) * 100) : 0;
-      if (bulkPct > 0) {
-        sigs.push({
-          warn: bulkPct >= 40,
-          title: t('obsOneSess', { pct: bulkPct }),
-          desc: t('obsOneSessDesc')
-        });
-      }
-      if (sessCount <= 2 && words >= 300) {
-        sigs.push({
-          warn: true,
-          title: t('obsFewSess', { s: sessCount, w: words }),
-          desc: t('obsFewSessDesc')
-        });
-      } else if (sessCount >= 3) {
-        sigs.push({
-          warn: false,
-          title: t('obsMultiSess', { s: sessCount }),
-          desc: t('obsMultiSessDesc')
-        });
-      }
-    }
-
-    const tplDetails = [];
-    if (doc.meta.template && !/^normal(\.dotm?)?$/i.test(doc.meta.template)) {
-      tplDetails.push('Template: ' + doc.meta.template);
-    }
-    if (doc.rsidRoot && doc.settingsRsids.length && !doc.settingsRsids.includes(doc.rsidRoot)) {
-      tplDetails.push('rsidRoot ' + doc.rsidRoot + ' differs from current sessions');
-    }
-    const cTime = Date.parse(doc.meta.created || '');
-    const mTime = Date.parse(doc.meta.modified || '');
-    if (!isNaN(cTime) && !isNaN(mTime) && (mTime - cTime) > 1000 * 86400 * 30) {
-      tplDetails.push('Created >30 days before modified');
-    }
-    if (tplDetails.length) {
-      sigs.push({
-        warn: false,
-        title: t('obsTemplate'),
-        desc: t('obsTemplateDesc', { detail: tplDetails.join('; ') })
-      });
-    }
-
-    const tcTotal = doc.trackedChanges.length + doc.comments.length;
-    if (tcTotal > 0) {
-      sigs.push({
-        warn: false,
-        title: t('obsTracked', { n: tcTotal }),
-        desc: t('obsTrackedDesc')
-      });
-    }
-    return sigs;
-  }
-
-  function renderDraftComparison() {
-    const panel = $('drafts-panel');
-    if (filesData.length < 2) { panel.classList.add('hidden'); return; }
-    panel.classList.remove('hidden');
-    const tbody = $('drafts-tbody');
-    tbody.textContent = '';
-
-    filesData.forEach((doc, idx) => {
-      const tr = document.createElement('tr');
-      const prev = idx > 0 ? filesData[idx - 1] : null;
-      const curSess = new Set(doc.allSessions.map(s => s.id));
-      let sessText = String(curSess.size);
-      let diffText = '—';
-      let wordDelta = '';
-
-      if (prev) {
-        const prevSess = new Set(prev.allSessions.map(s => s.id));
-        let carried = 0, addedS = 0;
-        curSess.forEach(id => { if (prevSess.has(id)) carried++; else addedS++; });
-        sessText = `${carried} / +${addedS}`;
-
-        const dw = doc.totalWords - prev.totalWords;
-        wordDelta = ` (${dw >= 0 ? '+' : ''}${dw})`;
-
-        const prevHashes = new Map();
-        prev.paragraphs.forEach(p => prevHashes.set(p.hash, (prevHashes.get(p.hash) || 0) + 1));
-        const curHashes = new Map();
-        doc.paragraphs.forEach(p => curHashes.set(p.hash, (curHashes.get(p.hash) || 0) + 1));
-
-        let same = 0, addedP = 0, removedP = 0;
-        curHashes.forEach((cnt, h) => {
-          const pCnt = prevHashes.get(h) || 0;
-          same += Math.min(cnt, pCnt);
-          if (cnt > pCnt) addedP += cnt - pCnt;
-        });
-        prevHashes.forEach((cnt, h) => {
-          const cCnt = curHashes.get(h) || 0;
-          if (cnt > cCnt) removedP += cnt - cCnt;
-        });
-        diffText = `+${addedP} / -${removedP} / =${same}`;
-      }
-
-      const cells = [
-        doc.fileName,
-        `r${doc.meta.revision || '?'} · ${(doc.meta.created || '—').slice(0, 10)}`,
-        `${doc.totalWords}${wordDelta}`,
-        sessText,
-        diffText
-      ];
-      cells.forEach((val, ci) => {
-        const td = document.createElement('td');
-        if (ci > 0) td.className = 'mono';
-        td.textContent = val;
-        tr.appendChild(td);
-      });
-      tbody.appendChild(tr);
-    });
-  }
-
-  function renderInspector() {
-    const box = $('para-inspector');
-    const doc = filesData[activeIdx];
-    if (!doc || selectedParaIdx < 0 || selectedParaIdx >= doc.paragraphs.length) {
-      box.classList.add('hidden');
-      return;
-    }
-    box.classList.remove('hidden');
-    const p = doc.paragraphs[selectedParaIdx];
-    const parts = [
-      `¶${p.index}`,
-      `${p.words} words`,
-      `rsidR=${p.rsidR || 'none'}`,
-      `runs=[${p.runRsids.join(', ') || 'none'}]`
-    ];
-    if (p.singleSessionBulk) parts.push(`[${t('addedOneSess')}]`);
-    $('para-insp-meta').textContent = parts.join('  ·  ');
-
-    const txtEl = $('para-insp-text');
-    txtEl.classList.toggle('hidden', !showParaText);
-    txtEl.textContent = showParaText ? p.text : '';
-  }
-
-  function renderActiveFile() {
-    const doc = filesData[activeIdx];
-    if (!doc) return;
-
-    // Signals
-    const sGrid = $('signals-grid');
-    sGrid.textContent = '';
-    buildSignals(doc).forEach(s => {
-      const card = document.createElement('div');
-      card.className = 'sig' + (s.warn ? ' warn' : '');
-      const st = document.createElement('div');
-      st.className = 'sig-title';
-      st.textContent = s.title;
-      const sd = document.createElement('div');
-      sd.className = 'sig-desc';
-      sd.textContent = s.desc;
-      card.append(st, sd);
-      sGrid.appendChild(card);
-    });
-
-    // Metadata grid
-    const mGrid = $('meta-grid');
-    mGrid.textContent = '';
-    const maskName = val => !val ? '—' : (revealNames ? val : t('hiddenVal'));
-    const entries = [
-      ['Created', doc.meta.created || '—'],
-      ['Modified', doc.meta.modified || '—'],
-      ['Creator', maskName(doc.meta.creator)],
-      ['Last Modified By', maskName(doc.meta.lastModifiedBy)],
-      ['Revision', doc.meta.revision || '—'],
-      ['TotalTime (min)', doc.meta.totalTime || '—'],
-      ['Application', [doc.meta.application, doc.meta.appVersion].filter(Boolean).join(' ') || '—'],
-      ['Template', doc.meta.template || '—'],
-      ['Pages / Words / Chars', `${doc.meta.pages || '—'} / ${doc.meta.wordsApp || doc.totalWords} / ${doc.meta.charsApp || '—'}`],
-      ['rsidRoot', doc.rsidRoot || '—'],
-      ['Session Count', String(doc.allSessions.length)]
-    ];
-    entries.forEach(([k, v]) => {
-      const kv = document.createElement('div');
-      kv.className = 'kv';
-      const ke = document.createElement('div');
-      ke.className = 'k';
-      ke.textContent = k;
-      const ve = document.createElement('div');
-      ve.className = 'v';
-      ve.textContent = v;
-      kv.append(ke, ve);
-      mGrid.appendChild(kv);
-    });
-
-    // Sessions strip
-    const colorMap = new Map();
-    doc.allSessions.forEach(s => colorMap.set(s.id, s.color));
-
-    if (!doc.allSessions.length) {
-      $('no-rsid-box').textContent = t('noRsidExplain');
-      $('no-rsid-box').classList.remove('hidden');
-      $('session-visuals').classList.add('hidden');
-    } else {
-      $('no-rsid-box').classList.add('hidden');
-      $('session-visuals').classList.remove('hidden');
-      const strip = $('session-strip');
-      const leg = $('session-legend');
-      strip.textContent = '';
-      leg.textContent = '';
-      const totalAssigned = doc.allSessions.reduce((acc, s) => acc + s.words, 0) || 1;
-
-      doc.allSessions.forEach((s, idx) => {
-        const seg = document.createElement('div');
-        seg.className = 'strip-seg';
-        seg.style.background = s.color;
-        seg.style.flex = `${Math.max(1, s.words)} 1 0%`;
-        seg.title = `S${idx + 1} (${s.id}): ${s.words} words`;
-        strip.appendChild(seg);
-
-        const item = document.createElement('span');
-        item.className = 'leg-item';
-        const dot = document.createElement('span');
-        dot.className = 'leg-dot';
-        dot.style.background = s.color;
-        const lbl = document.createElement('span');
-        const pct = Math.round((s.words / totalAssigned) * 100);
-        lbl.textContent = `S${idx + 1} ${s.id}: ${s.words}w (${pct}%)`;
-        item.append(dot, lbl);
-        leg.appendChild(item);
-      });
-    }
-
-    // Paragraph map
-    const pMap = $('para-map');
-    pMap.textContent = '';
-    doc.paragraphs.forEach((p, idx) => {
-      const bar = document.createElement('div');
-      bar.className = 'p-bar' + (idx === selectedParaIdx ? ' active' : '');
-      bar.tabIndex = 0;
-      bar.setAttribute('role', 'listitem');
-      const bgCol = colorMap.get(p.primarySession) || 'var(--bg-3)';
-      bar.style.background = p.primarySession === 'none'
-        ? 'var(--bg-2)'
-        : `linear-gradient(90deg, ${bgCol}38 0%, ${bgCol}18 100%)`;
-
-      const left = document.createElement('span');
-      left.className = 'mono';
-      left.textContent = `¶${p.index} · ${p.words}w · ${p.primarySession}`;
-
-      const right = document.createElement('span');
-      if (p.singleSessionBulk) {
-        const tag = document.createElement('span');
-        tag.className = 'p-tag';
-        tag.textContent = t('addedOneSess');
-        right.appendChild(tag);
-      }
-      bar.append(left, right);
-      const select = () => {
-        selectedParaIdx = idx;
-        pMap.querySelectorAll('.p-bar').forEach((el, j) => el.classList.toggle('active', j === idx));
-        renderInspector();
-      };
-      bar.addEventListener('click', select);
-      bar.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(); } });
-      pMap.appendChild(bar);
-    });
-    renderInspector();
-
-    // Tracked changes & comments
-    const tcItems = [
-      ...doc.trackedChanges.map(x => ({ ...x, label: x.kind === 'ins' ? t('insLabel') : t('delLabel') })),
-      ...doc.comments.map(x => ({ ...x, label: t('comLabel') }))
-    ].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-
-    const tcPanel = $('tc-panel');
-    if (!tcItems.length) {
-      tcPanel.classList.add('hidden');
-    } else {
-      tcPanel.classList.remove('hidden');
-      const sum = $('tc-summary');
-      sum.textContent = '';
-      const insCnt = doc.trackedChanges.filter(x => x.kind === 'ins').length;
-      const delCnt = doc.trackedChanges.filter(x => x.kind === 'del').length;
-      [
-        ['Insertions (w:ins)', String(insCnt)],
-        ['Deletions (w:del)', String(delCnt)],
-        ['Comments', String(doc.comments.length)]
-      ].forEach(([k, v]) => {
-        const kv = document.createElement('div');
-        kv.className = 'kv';
-        const ke = document.createElement('div'); ke.className = 'k'; ke.textContent = k;
-        const ve = document.createElement('div'); ve.className = 'v'; ve.textContent = v;
-        kv.append(ke, ve);
-        sum.appendChild(kv);
-      });
-
-      const tl = $('tc-timeline');
-      tl.textContent = '';
-      tcItems.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'tl-item';
-        const head = document.createElement('div');
-        head.className = 'tl-head';
-        const author = item.author ? (revealNames ? item.author : t('hiddenVal')) : '—';
-        head.textContent = `${item.label} · ${item.date || 'undated'} · ${author}`;
-        card.appendChild(head);
-        if (item.preview && showParaText) {
-          const body = document.createElement('div');
-          body.style.marginTop = '4px';
-          body.style.color = 'var(--fg-2)';
-          body.textContent = item.preview;
-          card.appendChild(body);
-        }
-        tl.appendChild(card);
-      });
-    }
+    return { words, sess, mins, bulk, need, timeShort, level };
   }
 
   function renderAll() {
-    $('main-results').classList.remove('hidden');
-    const tabsEl = $('file-tabs');
-    tabsEl.textContent = '';
-    filesData.forEach((doc, idx) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'file-tab';
-      btn.setAttribute('role', 'tab');
-      btn.setAttribute('aria-selected', String(idx === activeIdx));
-      btn.textContent = `${doc.fileName} (${doc.totalWords}w)`;
-      btn.addEventListener('click', () => {
-        activeIdx = idx;
-        selectedParaIdx = -1;
-        renderAll();
-      });
-      tabsEl.appendChild(btn);
+    $('main-results').classList.remove('hidden'); $('file-row').classList.remove('hidden');
+    const chips = $('file-chips'); chips.textContent = '';
+    filesData.forEach((doc, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'fchip' + (i === activeIdx ? ' on' : ''); b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', i === activeIdx ? 'true' : 'false');
+      const n = document.createElement('span'); n.className = 'n'; n.textContent = String(i + 1).padStart(2, '0');
+      const l = document.createElement('span'); l.textContent = fileLabel(doc, i);
+      b.append(n, l); b.addEventListener('click', () => { activeIdx = i; selectedPara = -1; renderAll(); });
+      chips.appendChild(b);
     });
-    renderDraftComparison();
-    renderActiveFile();
+    const doc = filesData[activeIdx], A = assess(doc);
+    renderSummary(doc, A); renderTimeline(doc); renderFindings(doc, A); renderDrafts(); renderTech(doc); renderParaInfo();
   }
 
-  function buildExportSummary() {
-    return filesData.map(doc => ({
-      fileName: doc.fileName,
-      meta: {
-        created: doc.meta.created,
-        modified: doc.meta.modified,
-        creator: revealNames ? doc.meta.creator : '[hidden]',
-        lastModifiedBy: revealNames ? doc.meta.lastModifiedBy : '[hidden]',
-        revision: doc.meta.revision,
-        totalTimeMinutes: doc.meta.totalTime,
-        application: doc.meta.application,
-        appVersion: doc.meta.appVersion,
-        template: doc.meta.template
-      },
-      rsidRoot: doc.rsidRoot,
-      sessionCount: doc.allSessions.length,
-      sessions: doc.allSessions.map(s => ({ id: s.id, words: s.words })),
-      totalWords: doc.totalWords,
-      oneSessionBulkWords: doc.oneSessionBlockWords,
-      trackedChangesCount: doc.trackedChanges.length,
-      commentsCount: doc.comments.length,
-      observations: buildSignals(doc).map(s => s.title)
-    }));
+  function renderSummary(doc, A) {
+    const m = $('meter'); m.className = 'meter ' + A.level;
+    $('v-label').className = 'vlabel ' + A.level; $('v-label').textContent = t('L_' + A.level);
+    const tm = A.mins !== null && A.mins > 0 ? t('tmPart', { m: num(A.mins) }) : '';
+    $('v-text').textContent = t('T_' + A.level, { s: num(A.sess), pl: A.sess === 1 ? '' : 's', tm });
+    $('v-caution').innerHTML = t('caution');
+    const facts = [
+      [t('fSessions'), A.sess ? num(A.sess) : t('none'), t('fSessionsS')],
+      [t('fTime'), A.mins !== null && A.mins > 0 ? num(A.mins) + (lang === 'zh' ? ' 分钟' : ' min') : t('fTimeNA'), t('fTimeS')],
+      [t('fWords'), num(A.words), t('fWordsS')],
+      [t('fBulk'), A.words ? Math.round(A.bulk * 100) + '%' : t('none'), t('fBulkS')]
+    ];
+    $('facts').innerHTML = facts.map(([k, v, s]) => `<div class="fact"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div><div class="s">${esc(s)}</div></div>`).join('');
   }
 
-  function downloadFile(name, content, mime) {
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([content], { type: mime }));
-    a.download = name;
-    a.click();
+  function sessIndex(doc) { const m = new Map(); doc.allSessions.forEach((s, i) => m.set(s.id, i)); return m; }
+
+  function renderTimeline(doc) {
+    const tl = $('timeline'); tl.textContent = '';
+    $('tl-intro').textContent = t('tlIntro');
+    const S = doc.allSessions, total = S.reduce((a, s) => a + s.words, 0);
+    if (!S.length || !total) { $('tl-cap').textContent = S.length ? t('tlCapNoWords', { s: num(S.length) }) : t('tlCapNone'); tl.style.display = 'none'; }
+    else {
+      tl.style.display = '';
+      S.forEach((s, i) => {
+        if (!s.words) return;
+        const el = document.createElement('span'); el.style.flex = String(s.words); el.style.background = COLORS[i % COLORS.length];
+        el.title = `${t('pSessN', { n: i + 1 })} · ${num(s.words)} ${lang === 'zh' ? '词' : 'words'}`;
+        tl.appendChild(el);
+      });
+      const active = S.filter(s => s.words > 0).length, maxW = Math.max(...S.map(s => s.words));
+      tl.setAttribute('aria-label', t('tlCap', { a: num(active), s: num(S.length), p: Math.round(100 * maxW / total) }));
+      $('tl-cap').textContent = t('tlCap', { a: num(active), s: num(S.length), p: Math.round(100 * maxW / total) });
+    }
+    const pm = $('pmap'); pm.textContent = '';
+    const idx = sessIndex(doc), maxP = Math.max(1, ...doc.paragraphs.map(p => p.words));
+    doc.paragraphs.forEach((p, i) => {
+      if (!p.words) return;
+      const b = document.createElement('button'); b.type = 'button';
+      const si = idx.has(p.primarySession) ? idx.get(p.primarySession) : -1;
+      b.style.background = si >= 0 ? COLORS[si % COLORS.length] : 'var(--fg-3)';
+      b.style.width = Math.max(10, Math.round(14 + 110 * Math.sqrt(p.words / maxP))) + 'px';
+      if (p.runRsids.length > 1) b.classList.add('mixed');
+      if (i === selectedPara) b.classList.add('sel');
+      b.setAttribute('aria-label', t('pInfo', { i: p.index, w: p.words, s: p.runRsids.length > 1 ? t('pMany', { n: p.runRsids.length }) : t('pOne') }));
+      b.addEventListener('click', () => { selectedPara = i; renderTimeline(doc); renderParaInfo(); });
+      pm.appendChild(b);
+    });
   }
 
+  function renderParaInfo() {
+    const box = $('pinfo'), doc = filesData[activeIdx];
+    if (!doc || selectedPara < 0 || !doc.paragraphs[selectedPara]) { box.classList.add('hidden'); return; }
+    const p = doc.paragraphs[selectedPara], idx = sessIndex(doc);
+    const sess = p.runRsids.map(r => idx.has(r) ? t('pSessN', { n: idx.get(r) + 1 }) : r).join(', ');
+    box.classList.remove('hidden');
+    $('pinfo-meta').textContent = t('pInfo', { i: p.index, w: p.words, s: p.runRsids.length > 1 ? t('pMany', { n: p.runRsids.length }) + ' (' + sess + ')' : t('pOne') + (sess ? ' (' + sess + ')' : '') });
+    const tx = $('pinfo-text'); tx.classList.toggle('hidden', !showParaText); tx.textContent = showParaText ? p.text : '';
+  }
+
+  function renderFindings(doc, A) {
+    const F = [], pl = n => (n === 1 ? '' : 's');
+    if (A.level === 'none') F.push({ k: 'note', h: t('oNone'), p: t('oNoneP'), w: t('oNoneW') });
+    else if (A.sess >= 3) F.push({ k: 'ok', h: t('oSessOk', { s: num(A.sess) }), p: t('oSessOkP') });
+    else if (A.words >= 300) F.push({ k: 'note', h: t('oSessFew', { s: num(A.sess), w: num(A.words), pl: pl(A.sess) }), p: t('oSessFewP'), w: t('oSessFewW') });
+    if (A.level !== 'none' && A.bulk >= 0.4) F.push({ k: 'note', h: t('oBulk', { p: Math.round(A.bulk * 100) }), p: t('oBulkP'), w: t('oBulkW') });
+    if (A.mins === null || A.mins === 0) F.push({ k: 'info', h: t('oTimeNA'), p: t('oTimeNAP') });
+    else if (A.timeShort) F.push({ k: 'note', h: t('oTimeShort', { m: num(A.mins), w: num(A.words) }), p: t('oTimeShortP', { w: num(A.words), need: num(A.need) }), w: t('oTimeShortW') });
+    else if (A.words >= 300) F.push({ k: 'ok', h: t('oTimeOk', { m: num(A.mins) }), p: t('oTimeOkP') });
+    const tc = doc.trackedChanges.length + doc.comments.length;
+    if (tc) F.push({ k: 'ok', h: t('oTracked', { n: num(tc), pl: pl(tc) }), p: t('oTrackedP') });
+    if (doc.meta.application) F.push({ k: 'info', h: t('oApp', { app: doc.meta.application }), p: t('oAppP') });
+    const c = Date.parse(doc.meta.created || ''), m = Date.parse(doc.meta.modified || '');
+    if (!isNaN(c) && !isNaN(m)) F.push({ k: m < c ? 'note' : 'info', h: t('oDates', { c: fmtDate(doc.meta.created), m: fmtDate(doc.meta.modified) }), p: m < c ? t('oDatesOdd') : t('oDatesP', { d: fmtSpan(m - c) }) });
+    if (A.words < 300 && A.level !== 'short') F.push({ k: 'info', h: t('oShort'), p: t('oShortP') });
+    const icon = { ok: '✓', note: '!', info: 'i' };
+    $('finds').innerHTML = F.map(f => `<div class="find ${f.k}"><span class="dot" aria-hidden="true">${icon[f.k]}</span><div><h3>${esc(f.h)}</h3><p>${esc(f.p)}</p>${f.w ? `<p class="why"><b>${esc(t('whyK'))}</b> ${esc(f.w)}</p>` : ''}</div></div>`).join('');
+  }
+
+  function renderDrafts() {
+    const panel = $('p-drafts');
+    if (filesData.length < 2) { panel.classList.add('hidden'); return; }
+    panel.classList.remove('hidden');
+    const tb = $('drafts-tbody'); tb.textContent = '';
+    const steps = [];
+    filesData.forEach((doc, i) => {
+      const prev = i ? filesData[i - 1] : null, cur = new Set(doc.allSessions.map(s => s.id));
+      let sessTxt = num(cur.size), parTxt = t('none'), wTxt = num(doc.totalWords);
+      if (prev) {
+        const ps = new Set(prev.allSessions.map(s => s.id)); let carried = 0, added = 0; cur.forEach(id => ps.has(id) ? carried++ : added++);
+        sessTxt = `${num(cur.size)} (+${num(added)})`;
+        const count = arr => { const m = new Map(); arr.forEach(p => m.set(p.hash, (m.get(p.hash) || 0) + 1)); return m; };
+        const pm = count(prev.paragraphs), cm = count(doc.paragraphs); let same = 0, np = 0, rp = 0;
+        cm.forEach((n, h) => { const k = pm.get(h) || 0; same += Math.min(n, k); if (n > k) np += n - k; });
+        pm.forEach((n, h) => { const k = cm.get(h) || 0; if (n > k) rp += n - k; });
+        parTxt = `${num(same)} / ${num(np)} / ${num(rp)}`;
+        const dw = doc.totalWords - prev.totalWords; wTxt = `${num(doc.totalWords)} (${dw >= 0 ? '+' : ''}${num(dw)})`;
+        const a = fileLabel(prev, i - 1), b = fileLabel(doc, i);
+        steps.push(t('dStep', { a, b, w: (dw >= 0 ? '+' : '') + num(dw), np: num(np), rp: num(rp), kp: num(same), ns: num(added), pl1: np === 1 ? '' : 's', pl2: added === 1 ? '' : 's' }));
+        if (ps.size && carried === 0) steps.push(t('dSame', { a, b }));
+      }
+      const tr = document.createElement('tr');
+      [fileLabel(doc, i), fmtDate(doc.meta.created), wTxt, sessTxt, parTxt].forEach(v => { const td = document.createElement('td'); td.textContent = v; tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+    $('dsum').innerHTML = steps.map(s => `<li>${esc(s)}</li>`).join('');
+  }
+
+  function renderTech(doc) {
+    const M = doc.meta, hide = v => (revealNames ? (v || t('none')) : (v ? t('hidden') : t('none')));
+    const rows = [[t('kCreated'), M.created], [t('kModified'), M.modified], [t('kCreator'), hide(M.creator)], [t('kLastBy'), hide(M.lastModifiedBy)], [t('kRevision'), M.revision], [t('kTime'), M.totalTime],
+      [t('kApp'), M.application], [t('kAppVer'), M.appVersion], [t('kTemplate'), M.template], [t('kPages'), M.pages], [t('kWordsApp'), M.wordsApp], [t('kRoot'), doc.rsidRoot],
+      [t('kSess'), doc.allSessions.map((s, i) => `${i + 1}:${s.id} (${s.words})`).join('  ')]];
+    $('kv').innerHTML = rows.map(([k, v]) => `<div>${esc(k)}</div><div>${esc(v || t('none'))}</div>`).join('');
+    const items = doc.trackedChanges.map(c => ({ k: c.kind === 'ins' ? t('insLabel') : t('delLabel'), d: c.date, a: c.author })).concat(doc.comments.map(c => ({ k: t('comLabel'), d: c.date, a: c.author })));
+    $('tc-box').innerHTML = items.length ? `<h3 style="font:600 14px var(--sans);margin:18px 0 6px">${esc(t('tcH'))} (${items.length})</h3><div class="tablewrap"><table><tbody>${items.slice(0, 200).map(x => `<tr><td>${esc(x.k)}</td><td class="mono">${esc((x.d || '').slice(0, 19))}</td><td>${esc(revealNames ? (x.a || '') : (x.a ? t('hidden') : ''))}</td></tr>`).join('')}</tbody></table></div>` : '';
+  }
+
+  function buildExport() {
+    return filesData.map((doc, i) => { const A = assess(doc); return {
+      file: revealNames ? doc.fileName : t('fileN', { n: i + 1 }), level: A.level, sessions: A.sess, editingMinutes: A.mins, words: A.words, writtenInOneGoPct: Math.round(A.bulk * 100),
+      created: doc.meta.created, modified: doc.meta.modified, revision: doc.meta.revision, application: doc.meta.application,
+      trackedChanges: doc.trackedChanges.length, comments: doc.comments.length,
+      note: 'Editing traces only. Not an AI detector and not proof of authorship.' }; });
+  }
   $('btn-dl-json').addEventListener('click', () => {
     if (!filesData.length) return;
-    downloadFile('aletheia-process-summary.json', JSON.stringify(buildExportSummary(), null, 2), 'application/json');
-  });
-
-  function escHtml(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
-
-  $('btn-dl-html').addEventListener('click', () => {
-    if (!filesData.length) return;
-    const summary = buildExportSummary();
-    const sections = summary.map(d => `
-      <h2>${escHtml(d.fileName)}</h2>
-      <p>Created: ${escHtml(d.meta.created || '—')} | Modified: ${escHtml(d.meta.modified || '—')} | Rev: ${escHtml(d.meta.revision || '—')} | TotalTime: ${escHtml(d.meta.totalTimeMinutes || '—')} min</p>
-      <p>Application: ${escHtml(d.meta.application || '—')} | Template: ${escHtml(d.meta.template || '—')} | rsidRoot: ${escHtml(d.rsidRoot || '—')}</p>
-      <ul>${d.observations.map(o => `<li>${escHtml(o)}</li>`).join('')}</ul>
-      <table><tr><th>Session (rsid)</th><th>Words</th></tr>${d.sessions.map(s => `<tr><td>${escHtml(s.id)}</td><td>${s.words}</td></tr>`).join('')}</table>
-    `).join('');
-    const htmlDoc = `<!doctype html><html><head><meta charset="utf-8"><title>ALETHEIA Process Report</title>
-<style>body{font-family:system-ui,sans-serif;background:#101114;color:#F2F0E9;max-width:960px;margin:24px auto;padding:0 16px;line-height:1.55}
-h1,h2{color:#C9B98D}table{width:100%;border-collapse:collapse;margin:12px 0}th,td{border:1px solid #333;padding:7px;text-align:left}
-.note{border-left:3px solid #B99A5B;padding:8px 12px;background:#181A20;color:#B9B6AC}</style></head><body>
-<h1>ALETHEIA — ${escHtml(t('pageTitle'))}</h1><p class="note">${escHtml(t('caution'))}</p>${sections}</body></html>`;
-    downloadFile('aletheia-process-report.html', htmlDoc, 'text/html');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(buildExport(), null, 2)], { type: 'application/json' }));
+    a.download = 'aletheia-writing-process.json'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   });
 
   applyI18n();

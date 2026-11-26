@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -98,20 +98,22 @@ mark.m{border-radius:3px;padding:1px 2px;color:inherit;cursor:pointer}
 </style>
 <script>try{var t=localStorage.getItem("aletheia.theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>.zh-i{display:none}html[lang="zh-CN"] .zh-i{display:inline}html[lang="zh-CN"] .en-i{display:none}</style>
+<link rel="stylesheet" href="tools.css?v=1.9.7">
 </head>
 <body>
+<header class="top"><div class="bar">
+  <a class="brand" href="index.html#home" aria-label="ALETHEIA home"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22.0 4.5 L10.152 30.5 L22.0 30.5 Z" fill="currentColor"/><path d="M9.423 32.1 L4 44 L22.0 44 L22.0 32.1 Z" fill="currentColor"/><path d="M26.000 4.5 L37.848 30.5 L26.000 30.5 Z" fill="currentColor"/><path d="M38.577 32.1 L44.000 44 L26.000 44 L26.000 32.1 Z" fill="currentColor"/><rect x="23.1" y="11" width="1.8" height="33" style="fill:var(--beam)"/></svg><span>ALETHEIA</span><small class="vbadge">V1.9.7</small></a>
+  <nav aria-label="Main"><a href="index.html#detect"><span class="en-i">Detect</span><span class="zh-i">检测</span></a><a href="index.html#tools" class="on"><span class="en-i">Tools</span><span class="zh-i">工具</span></a><a href="index.html#technology"><span class="en-i">Technology</span><span class="zh-i">技术</span></a><a href="index.html#research"><span class="en-i">Research</span><span class="zh-i">研究</span></a><a href="index.html#changelog"><span class="en-i">Changelog</span><span class="zh-i">更新日志</span></a><a href="index.html#history"><span class="en-i">History</span><span class="zh-i">历史</span></a></nav>
+  <div class="hdr-actions"><button class="iconbtn" id="btn-lang" type="button" aria-label="Switch language / 切换语言">中文</button><button class="iconbtn" id="btn-theme" type="button" aria-label="Switch light or dark theme"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg></button></div>
+</div></header>
 <div class="wrap">
-  <header>
-    <div class="brand">
-      <a class="wordmark" href="index.html#tools">ALETHEIA</a>
-      <span class="page-title" data-i18n="pageTitle">Similarity Check</span>
-      <span class="badge-local" data-i18n="localBadge">100% LOCAL · NO UPLOAD</span>
-    </div>
-    <div class="hdr-actions">
-      <button class="btn" id="btn-theme" type="button" aria-label="Toggle color theme">☀ / ☾</button>
-      <button class="btn" id="btn-lang" type="button" aria-label="Switch language">中文</button>
-    </div>
-  </header>
+  <section class="page-head">
+    <p class="eyebrow"><span class="en-i">ALETHEIA Tools · Similarity Check</span><span class="zh-i">ALETHEIA 工具 · 相似度检查</span></p>
+    <h1><span class="en-i">Find shared passages between documents.</span><span class="zh-i">找出文档之间相同的段落。</span></h1>
+    <p class="lede"><span class="en-i">Compare a whole class set against itself, or check one document against sources you provide. Every pair is compared word for word in your browser. It only sees the documents you load: it does not search the web or any database.</span><span class="zh-i">可以把一整个班的作业互相比对，也可以把一篇文档和你提供的来源比对。每一对文档都在你的浏览器里逐词比较。它只看你放进来的文档，不会去搜索网络或任何数据库。</span></p>
+    <div class="chips"><span class="hchip"><i></i><span class="en-i">Runs in your browser · nothing is uploaded</span><span class="zh-i">在浏览器里运行 · 不上传任何内容</span></span><span class="hchip"><i></i><span class="en-i">Up to hundreds of documents</span><span class="zh-i">可以一次比对几百篇</span></span></div>
+  </section>
 
   <div class="tabs" role="tablist" aria-label="Similarity modes">
     <button class="tab" id="tab-set" role="tab" aria-selected="true" aria-controls="panel-set" tabindex="0" data-i18n="tabSet">Compare a set</button>
@@ -1117,5 +1119,6 @@ h1,h2{color:#C9B98D}table{width:100%;border-collapse:collapse;margin:14px 0}th,t
   applyI18n();
 })();
 </script>
+<footer class="tool-foot"><span>ALETHEIA V1.9.7 · <span class="en-i">Evidence, never a verdict.</span><span class="zh-i">只给证据，不下结论。</span></span><span><a href="index.html#tools"><span class="en-i">All tools</span><span class="zh-i">全部工具</span></a> · <a href="similarity.html"><span class="en-i">Similarity Check</span><span class="zh-i">相似度检查</span></a> · <a href="process.html"><span class="en-i">Writing Process</span><span class="zh-i">写作过程</span></a> · <a href="references.html"><span class="en-i">Reference Check</span><span class="zh-i">参考文献核查</span></a></span></footer>
 </body>
 </html>
