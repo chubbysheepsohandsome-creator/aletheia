@@ -1,0 +1,7 @@
+Composing with Matrices
+
+This report investigates whether mathematics can help a person generate a simple piece of music. A Markov chain or Markov process is a stochastic process describing a sequence of possible events in which the probability of each event depends only on the state attained in the previous event (Wikipedia, 2024). The chords of the song are modelled as a chain and every count can be checked by hand by the student.
+In this model the transition matrix has five rows and five columns, and each column sums to one because the chord must move somewhere next. Python turns the chords into counts and Excel uses matrix powers and random numbers to generate twelve chord sections of a new piece of music for the listener.
+
+References
+Wikipedia. (2024). Markov chain.
