@@ -1,4 +1,4 @@
-/* ALETHEIA Similarity (V1.9.8): checks one document against open web and publication sources and the user's own saved documents.
+/* ALETHEIA Similarity (V1.9.9): checks one document against open web and publication sources and the user's own saved documents.
  * Sources: Wikipedia (MediaWiki API, exact-phrase search + plain-text extracts), OpenAlex (full-text n-gram search + abstracts),
  * documents saved in this browser (IndexedDB), and documents the user adds for this check. Optional general web search endpoint
  * (window.ALETHEIA_WEB_SEARCH, off by default). Only short phrases (8 words each, at most 40) leave the browser, and only after consent.
@@ -178,7 +178,7 @@
     const addSource = (key, o) => { if (byKey.has(key)) return byKey.get(key); const s = Object.assign({ id: key, phraseQ: new Set() }, o); byKey.set(key, s); sources.push(s); return s; };
     // OpenAlex gives each address a small free daily budget, so only every other phrase (at most 15) is searched there
     const QO = Q.map((q, qi) => qi).filter((qi, k) => k % 2 === 0).slice(0, 15);
-    let done = 0, total = Q.length + QO.length + 1, failed = { wiki: 0, openalex: 0, web: 0, pages: 0 }, searches = { wiki: Q.length, openalex: QO.length, pages: 0 };
+    let done = 0, total = Q.length + QO.length + 1, failed = { wiki: 0, openalex: 0, web: 0, pages: 0 }, searches = { wiki: Q.length, openalex: QO.length, pages: 0, web: 0, webPages: 0 };
     const ab = (e) => { if ((signal && signal.aborted) || (e && e.message === "cancelled")) throw new Error("cancelled"); };
     const tick = (stage) => { done++; prog({ stage, frac: Math.min(0.95, done / Math.max(1, total)) }); };
 
@@ -197,10 +197,18 @@
           .then((j) => { for (const w of (j.results || [])) { const s = addSource("oa:" + w.id, { type: "publication", title: w.title || "Untitled work", url: w.doi || w.id, year: w.publication_year, venue: w.primary_location && w.primary_location.source ? w.primary_location.source.display_name : "", toks: tokenize(absText(w.abstract_inverted_index)) }); s.phraseQ.add(qi); } })
           .catch((e) => { ab(e); failed.openalex++; }).finally(() => tick("Searching Wikipedia and OpenAlex")));
       }
-      if (opts.webSearch) {
-        jobs.push(fetch(opts.webSearch, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ queries: Q.map((q) => q.q) }), signal })
-          .then((r) => r.json()).then((j) => { for (const h of (j.results || [])) { const s = addSource("web:" + h.url, { type: "internet", title: h.title || h.url, url: h.url, toks: tokenize(h.text || h.snippet || "") }); (h.queries || []).forEach((qi) => s.phraseQ.add(qi)); } })
-          .catch((e) => { ab(e); failed.web++; }));
+      // general web search through ALETHEIA's relay (keeps the search key off the site); opts.webSearch is the relay's base URL
+      const webBase = opts.webSearch ? String(opts.webSearch).replace(/\/+$/, "") : "";
+      let webHits = [];
+      const post = (path, body) => fetch(webBase + path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), signal })
+        .then((r) => { if (!r.ok) { const e = new Error("HTTP " + r.status); e.limited = r.status === 429; throw e; } return r.json(); });
+      if (webBase) {
+        total += 1;
+        // at most 20 phrases, spread evenly through the text, go to the relay (one search credit each)
+        const QW = Q.length <= 20 ? Q.map((q, qi) => qi) : Array.from({ length: 20 }, (_, k) => Math.floor((k * Q.length) / 20));
+        jobs.push(post("/search", { queries: QW.map((qi) => Q[qi].q) })
+          .then((j) => { webHits = (Array.isArray(j.results) ? j.results : []).map((h) => Object.assign({}, h, { queries: (h.queries || []).map((k) => QW[k]).filter((qi) => qi != null) })); searches.web = j.searched || 0; failed.web += j.failed || 0; })
+          .catch((e) => { ab(e); searches.web = searches.web || 1; failed.web += searches.web; }).finally(() => tick("Searching the web")));
       }
       await Promise.all(jobs); ab();
       // Wikipedia page texts (at most 12 pages, the ones hit by the most phrases first)
@@ -210,6 +218,33 @@
         .then((j) => { const p = Object.values((j.query || {}).pages || {})[0] || {}; const s = addSource("wiki:" + t, { type: "internet", title: t + " (Wikipedia)", url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(t.replace(/ /g, "_"))}`, toks: tokenize(p.extract || "") }); if (s.toks.length < N) qs.forEach((q) => s.phraseQ.add(q)); })
         .catch((e) => { ab(e); failed.pages++; }).finally(() => tick("Reading matched pages"))));
       ab();
+      // read the top web results (the pages hit by the most phrases first) so they can be compared word for word
+      if (webHits.length) {
+        const top = webHits.filter((h) => /^https?:\/\//i.test(h.url || "")).slice(0, 10);
+        total += top.length; searches.webPages = top.length;
+        const phraseIn = (toks, q) => { const want = q.split(" "); const ws = toks.map((t) => t.w); outer: for (let i = 0; i + want.length <= ws.length; i++) { for (let k = 0; k < want.length; k++) if (ws[i + k] !== want[k]) continue outer; return true; } return false; };
+        await Promise.all(top.map((h) => new Promise((res) => {
+          post("/page", { url: h.url, sig: h.sig })
+            .then((j) => ({ text: (j && typeof j.text === "string") ? j.text : "" }))
+            .catch((e) => { if ((signal && signal.aborted)) throw new Error("cancelled"); failed.webPages = (failed.webPages || 0) + 1; return { text: "" }; })
+            .then(({ text }) => {
+              const toks = tokenize(text);
+              const s = addSource("web:" + h.url, { type: "internet", title: (h.title || h.url).slice(0, 300), url: h.url, toks: toks.length >= N ? toks : tokenize(h.snippet || "") });
+              // a phrase the search snippet really contains always counts (the page text we got may be cut short or a cookie page);
+              // without a snippet match, only the word-for-word comparison with the page text decides
+              const st = tokenize(h.snippet || "");
+              (h.queries || []).forEach((qi) => { if (Q[qi] && phraseIn(st, Q[qi].q)) s.phraseQ.add(qi); });
+              s.phraseOnly = toks.length < N;
+            }).then(res, () => res())
+            .finally(() => tick("Reading web pages"));
+        })));
+        ab();
+        // web results not read (beyond the top 10): only snippets that contain the phrase count
+        for (const h of webHits.slice(10)) {
+          const st = tokenize(h.snippet || ""); const qs = (h.queries || []).filter((qi) => Q[qi] && phraseIn(st, Q[qi].q));
+          if (qs.length) { const s = addSource("web:" + h.url, { type: "internet", title: (h.title || h.url).slice(0, 300), url: h.url, toks: st }); qs.forEach((qi) => s.phraseQ.add(qi)); s.phraseOnly = true; }
+        }
+      }
     }
     // local library + documents provided for this check
     const docHash = hash(text);
@@ -309,11 +344,11 @@
     // page 1: cover
     y = 150; setF("normal", 9, C.mute); doc.text("SIMILARITY REPORT", MX, y); y += 26;
     setF("bold", 24); doc.splitTextToSize(clean(title), W - 2 * MX).slice(0, 3).forEach((l) => { doc.text(l, MX, y); y += 28; });
-    y += 4; setF("normal", 10, C.mute); doc.text(clean(`ALETHEIA V${meta.version || "1.9.8"} · Similarity Check`), MX, y); y += 40;
+    y += 4; setF("normal", 10, C.mute); doc.text(clean(`ALETHEIA V${meta.version || "1.9.9"} · Similarity Check`), MX, y); y += 40;
     head("Document details");
     kv([["Scan ID", scanId], ["Checked", meta.date || new Date(R.at).toLocaleString()], ["File name", meta.file || "Pasted text"], ["Words", R.nT.toLocaleString("en-US")], ["Characters", R.P.text.length.toLocaleString("en-US")],
-        ["Sources searched", [R.online ? "Wikipedia, OpenAlex full text" + (meta.webSearch ? ", general web" : "") : "", R.usedLibrary ? "documents saved on this device" : ""].filter(Boolean).join(", ").replace(/^d/, "D") || "None"],
-        ["Phrases searched", R.online ? `${R.queries} on Wikipedia, ${R.searches ? R.searches.openalex : R.queries} on OpenAlex` : "0"]]);
+        ["Sources searched", [R.online ? "Wikipedia, OpenAlex full text" + (R.searches && R.searches.web ? ", web search (Serper, Google results)" : "") : "", R.usedLibrary ? "documents saved on this device" : ""].filter(Boolean).join(", ").replace(/^d/, "D") || "None"],
+        ["Phrases searched", R.online ? `${R.queries} on Wikipedia, ${R.searches ? R.searches.openalex : R.queries} on OpenAlex${R.searches && R.searches.web ? `, ${R.searches.web} on the web (${R.searches.webPages || 0} page${R.searches.webPages === 1 ? "" : "s"} read)` : ""}` : "0"]]);
     y += 10; setF("normal", 8.5, C.mute);
     const intro = doc.splitTextToSize(clean("This report has two parts. Part A gives the overall similarity, how the matches were used, the top sources and integrity flags. Part B shows the document with each match highlighted and numbered by source. A match shows shared wording, not misconduct: quotations, common phrases and shared task wording also match. ALETHEIA searches open sources only, so it can miss copied text that Turnitin's private database would find."), W - 2 * MX - 24);
     doc.setFillColor(...C.soft); doc.rect(MX, y, W - 2 * MX, intro.length * 12 + 20, "F"); setF("normal", 8.5, C.mute); intro.forEach((l, i) => doc.text(l, MX + 12, y + 18 + i * 12));
@@ -326,7 +361,8 @@
     const fails = R.failed ? R.failed.wiki + R.failed.openalex : 0, tried = R.searches ? R.searches.wiki + R.searches.openalex : 0;
     const warn = R.searchFailed ? `INCOMPLETE: ${fails} of ${tried} online searches failed (network or rate limit). This percentage is not a reliable result; run the check again later.`
       : R.noQueries ? "No phrases could be searched online (the text has no sentences of 10 or more words in a supported script), so only saved documents were compared."
-      : fails ? `${fails} of ${tried} online searches failed, so some matches may be missing.` : "";
+      : fails ? `${fails} of ${tried} online searches failed, so some matches may be missing.`
+      : (R.failed && R.failed.web) ? "The web search did not answer, so web pages other than Wikipedia may be missing." : "";
     if (warn) { const wl = doc.splitTextToSize(clean(warn), W - 2 * MX - 24); doc.setFillColor(...C.warnBg); doc.rect(MX, y - 6, W - 2 * MX, wl.length * 12 + 14, "F"); setF(R.searchFailed ? "bold" : "normal", 9, C.warn); wl.forEach((l, i) => doc.text(l, MX + 12, y + 8 + i * 12)); y += wl.length * 12 + 22; }
     const filt = [S.filters.excludeBibliography ? (S.bibliographyFound ? "Bibliography" : "Bibliography (none found)") : null, S.filters.excludeQuotes ? "Quoted text" : null, `Matches under ${S.filters.minWords} words`].filter(Boolean);
     setF("normal", 9, C.mute); doc.text(clean("Filtered from the report: " + filt.join(" · ")), MX, y); y += 26;
